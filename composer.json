@@ -4,6 +4,7 @@
   "keywords": ["framework", "yuncms"],
   "license": "MIT",
   "homepage": "https://www.yuncms.net",
+  "type": "yii2-extension",
   "support": {
     "issues": "https://github.com/yuncms/framework/issues",
     "source": "https://github.com/yuncms/framework"
