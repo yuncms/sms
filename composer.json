@@ -45,6 +45,9 @@
     "bower-asset/yii2-pjax": "~2.0.1"
   },
   "autoload": {
+    "classmap": [
+      "database/migrations"
+    ],
     "psr-4": {
       "yuncms\\": "src/"
     }
