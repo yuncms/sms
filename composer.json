@@ -50,7 +50,12 @@
   },
   "autoload": {
     "psr-4": {
-      "yuncms\\": ""
+      "yuncms\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "yuncms\\tests\\": "tests/"
     }
   },
   "extra": {
