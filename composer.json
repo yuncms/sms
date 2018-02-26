@@ -1,0 +1,62 @@
+{
+  "name": "yuncms/framework",
+  "description": "The Yuncms Framework.",
+  "keywords": ["framework", "yuncms"],
+  "license": "MIT",
+  "homepage": "https://www.yuncms.net",
+  "support": {
+    "issues": "https://github.com/yuncms/framework/issues",
+    "source": "https://github.com/yuncms/framework"
+  },
+  "authors": [
+    {
+      "name": "XuTongle",
+      "email": "xutongle@yuncms.net"
+    }
+  ],
+  "require": {
+    "php": "^7.1.3",
+    "ext-curl": "*",
+    "ext-dom": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "ext-openssl": "*",
+    "ext-pcre": "*",
+    "ext-pdo": "*",
+    "ext-zip": "*",
+    "composer/composer": "~1.5.2",
+    "guzzlehttp/guzzle": "~6.3.0",
+    "league/flysystem": "~1.0.0",
+    "yiisoft/yii2": "~2.0.0",
+    "yiisoft/yii2-swiftmailer": "~2.1.0",
+    "yiisoft/yii2-queue": "~2.0.0",
+    "yiisoft/yii2-authclient": "~2.1.0",
+    "yiilab/yii2-fontawesome-asset": "~1.0"
+  },
+  "require-dev": {
+    "codeception/codeception": "~2.3.3",
+    "codeception/mockery-module": "~0.2.2",
+    "codeception/specify": "~0.4.6",
+    "codeception/verify": "~0.3.3"
+  },
+  "suggest": {
+    "ext-imagick": "Adds support for more image processing formats and options.",
+    "ext-intl": "Adds rich internationalization support."
+  },
+  "provide": {
+    "bower-asset/jquery": "3.2.*@stable | 3.1.*@stable | 2.2.*@stable | 2.1.*@stable | 1.11.*@stable | 1.12.*@stable",
+    "bower-asset/inputmask": "~3.2.2 | ~3.3.5",
+    "bower-asset/punycode": "1.3.*",
+    "bower-asset/yii2-pjax": "~2.0.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "yuncms\\": ""
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
+}
