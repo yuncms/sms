@@ -33,10 +33,7 @@
     "yiilab/yii2-fontawesome-asset": "~1.0"
   },
   "require-dev": {
-    "codeception/codeception": "~2.3.3",
-    "codeception/mockery-module": "~0.2.2",
-    "codeception/specify": "~0.4.6",
-    "codeception/verify": "~0.3.3"
+    "phpunit/phpunit": "~7.0"
   },
   "suggest": {
     "ext-imagick": "Adds support for more image processing formats and options.",
