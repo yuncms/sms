@@ -6,6 +6,7 @@
  */
 
 namespace yuncms\rest;
+use yuncms\base\Model;
 
 /**
  * Class ActiveController
