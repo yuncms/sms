@@ -10,7 +10,8 @@ use yii\helpers\Inflector;
 use yii\helpers\Url;
 use yii\web\IdentityInterface;
 use yii\filters\RateLimitInterface;
-use yuncms\web\Application as WebApplication;
+use yii\behaviors\TimestampBehavior;
+use creocoder\taggable\TaggableBehavior;
 use yuncms\helpers\PasswordHelper;
 
 
@@ -59,10 +60,8 @@ use yuncms\helpers\PasswordHelper;
  * @property UserToken[] $userTokens
  *
  */
-class User extends ActiveRecord implements IdentityInterface, OAuth2IdentityInterface, RateLimitInterface
+class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
 {
-    use UserTrait;
-
     //事件定义
     const BEFORE_CREATE = 'beforeCreate';
     const AFTER_CREATE = 'afterCreate';
@@ -131,9 +130,9 @@ class User extends ActiveRecord implements IdentityInterface, OAuth2IdentityInte
     public function behaviors()
     {
         return [
-            'timestamp' => \yii\behaviors\TimestampBehavior::class,
+            'timestamp' => TimestampBehavior::class,
             'taggable' => [
-                'class' => \creocoder\taggable\TaggableBehavior::class,
+                'class' => TaggableBehavior::class,
                 'tagValuesAsArray' => true,
                 'tagRelation' => 'tags',
                 'tagValueAttribute' => 'id',
@@ -159,7 +158,6 @@ class User extends ActiveRecord implements IdentityInterface, OAuth2IdentityInte
             static::SCENARIO_PASSWORD => ['password'],//只修改密码
         ]);
     }
-
 
     /**
      * @inheritdoc
@@ -576,86 +574,6 @@ class User extends ActiveRecord implements IdentityInterface, OAuth2IdentityInte
     }
 
     /**
-     * 电子邮件激活
-     *
-     * @param string $code Confirmation code.
-     *
-     * @return boolean
-     * @throws \Exception
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     */
-    public function attemptConfirmation($code)
-    {
-        /** @var UserToken $token */
-        $token = UserToken::findOne(['user_id' => $this->id, 'code' => $code, 'type' => UserToken::TYPE_CONFIRMATION]);
-        if ($token instanceof UserToken && !$token->isExpired) {
-            $token->delete();
-            if (($success = $this->setEmailConfirm())) {
-                Yii::$app->user->login($this, $this->getSetting('rememberFor'));
-                $message = Yii::t('user', 'Thank you, registration is now complete.');
-            } else {
-                $message = Yii::t('user', 'Something went wrong and your account has not been confirmed.');
-            }
-        } else {
-            $success = false;
-            $message = Yii::t('user', 'The confirmation link is invalid or expired. Please try requesting a new one.');
-        }
-        Yii::$app->session->setFlash($success ? 'success' : 'danger', $message);
-        return $success;
-    }
-
-    /**
-     * 该方法将更新用户的电子邮件，如果`unconfirmed_email`字段为空将返回false,如果该邮件已经有人使用了将返回false; 否则返回true
-     *
-     * @param string $code
-     *
-     * @return boolean
-     * @throws \Exception
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     */
-    public function attemptEmailChange($code)
-    {
-        /** @var UserToken $token */
-        $token = UserToken::find()->where(['user_id' => $this->id, 'code' => $code])->andWhere(['in', 'type', [
-            UserToken::TYPE_CONFIRM_NEW_EMAIL,
-            UserToken::TYPE_CONFIRM_OLD_EMAIL
-        ]])->one();
-        if (empty($this->unconfirmed_email) || $token === null || $token->isExpired) {
-            Yii::$app->session->setFlash('danger', Yii::t('user', 'Your confirmation token is invalid or expired'));
-            return false;
-        } else {
-            $token->delete();
-            if (empty($this->unconfirmed_email)) {
-                Yii::$app->session->setFlash('danger', Yii::t('user', 'An error occurred processing your request'));
-                return false;
-            } elseif (static::find()->where(['email' => $this->unconfirmed_email])->exists() == false) {
-                if ($this->getSetting('emailChangeStrategy') == Settings::STRATEGY_SECURE) {
-                    switch ($token->type) {
-                        case UserToken::TYPE_CONFIRM_NEW_EMAIL:
-                            $this->flags |= self::NEW_EMAIL_CONFIRMED;
-                            Yii::$app->session->setFlash('success', Yii::t('user', 'Awesome, almost there. Now you need to click the confirmation link sent to your old email address'));
-                            break;
-                        case UserToken::TYPE_CONFIRM_OLD_EMAIL:
-                            $this->flags |= self::OLD_EMAIL_CONFIRMED;
-                            Yii::$app->session->setFlash('success', Yii::t('user', 'Awesome, almost there. Now you need to click the confirmation link sent to your new email address'));
-                            break;
-                    }
-                }
-                if ($this->getSetting('emailChangeStrategy') == Settings::STRATEGY_DEFAULT || ($this->flags & self::NEW_EMAIL_CONFIRMED && $this->flags & self::OLD_EMAIL_CONFIRMED)) {
-                    $this->email = $this->unconfirmed_email;
-                    $this->unconfirmed_email = null;
-                    Yii::$app->session->setFlash('success', Yii::t('user', 'Your email address has been changed'));
-                }
-                $this->save(false);
-                return true;
-            }
-            return false;
-        }
-    }
-
-    /**
      * 此方法用于注册新用户帐户。 如果 enableConfirmation 设置为true，则此方法
      * 将生成新的确认令牌，并使用邮件发送给用户。
      *
@@ -666,21 +584,21 @@ class User extends ActiveRecord implements IdentityInterface, OAuth2IdentityInte
         if ($this->getIsNewRecord() == false) {
             throw new \RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
         }
-        $this->password = $this->getSetting('enableGeneratingPassword') ? PasswordHelper::generate(8) : $this->password;
+        $this->password = Yii::$app->settings->get('user.enableGeneratingPassword') ? PasswordHelper::generate(8) : $this->password;
         if ($this->scenario == self::SCENARIO_EMAIL_REGISTER) {
-            $this->email_confirmed_at = $this->getSetting('enableConfirmation') ? null : time();
+            $this->email_confirmed_at = Yii::$app->settings->get('user.enableConfirmation') ? null : time();
         }
         $this->trigger(self::BEFORE_REGISTER);
         if (!$this->save()) {
             return false;
         }
-        if ($this->getSetting('enableConfirmation') && !empty($this->email)) {
+        if (Yii::$app->settings->get('user.enableConfirmation') && !empty($this->email)) {
             /** @var UserToken $token */
             $token = new UserToken(['type' => UserToken::TYPE_CONFIRMATION]);
             $token->link('user', $this);
             $this->sendMessage($this->email, Yii::t('user', 'Welcome to {0}', Yii::$app->name), 'welcome', ['user' => $this, 'token' => isset($token) ? $token : null, 'module' => $this->module, 'showPassword' => false]);
         } else {
-            Yii::$app->user->login($this, $this->getSetting('rememberFor'));
+            Yii::$app->user->login($this, Yii::$app->settings->get('user.rememberFor'));
         }
         $this->trigger(self::AFTER_REGISTER);
         return true;
@@ -701,7 +619,6 @@ class User extends ActiveRecord implements IdentityInterface, OAuth2IdentityInte
         if (!$this->save()) {
             return false;
         }
-        $this->sendMessage($this->email, Yii::t('user', 'Welcome to {0}', Yii::$app->name), 'welcome', ['user' => $this, 'token' => null, 'module' => $this->module, 'showPassword' => true]);
         $this->trigger(self::AFTER_CREATE);
         return true;
     }
@@ -723,12 +640,9 @@ class User extends ActiveRecord implements IdentityInterface, OAuth2IdentityInte
         if ($insert) {
             $this->generateAccessToken();
             $this->generateAuthKey();
-            if (Yii::$app instanceof WebApplication) {
-                $this->registration_ip = Yii::$app->request->getUserIP();
-            }
-            if ($this->username == null) {
-                $this->username = $this->generateUsername();
-            }
+        }
+        if(!empty($this->username)){
+            $this->username = $this->generateUsername();
         }
         if (!empty($this->password)) {
             $this->password_hash = PasswordHelper::hash($this->password);
@@ -786,7 +700,7 @@ class User extends ActiveRecord implements IdentityInterface, OAuth2IdentityInte
      */
     public function getRateLimit($request, $action)
     {
-        $rateLimit = $this->getSetting('requestRateLimit', 60);
+        $rateLimit = Yii::$app->settings->get('user.requestRateLimit', 60);
         return [$rateLimit, 60];
     }
 
@@ -804,7 +718,7 @@ class User extends ActiveRecord implements IdentityInterface, OAuth2IdentityInte
         if ($allowance && $allowanceUpdatedAt) {
             return [$allowance, $allowanceUpdatedAt];
         } else {
-            return [$this->getSetting('requestRateLimit', 60), time()];
+            return [Yii::$app->settings->get('user.requestRateLimit', 60), time()];
         }
     }
 

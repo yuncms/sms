@@ -2,6 +2,12 @@
 
 return [
     'components' => [
+        'formatter' => [
+            'class' => yii\i18n\Formatter::class,
+            'dateFormat' => 'yyyy-MM-dd',
+            'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
+            'timeFormat' => 'HH:mm:ss',
+        ],
         'db' => [
             'class' => yii\db\Connection::class,
             'charset' => 'utf8',
