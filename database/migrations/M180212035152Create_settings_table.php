@@ -10,6 +10,7 @@ use yii\db\Migration;
  */
 class M180212035152Create_settings_table extends Migration
 {
+    public $tableName = '{{%settings}}';
 
     public function safeUp()
     {
@@ -19,7 +20,7 @@ class M180212035152Create_settings_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%settings}}', [
+        $this->createTable($this->tableName, [
             'id' => $this->primaryKey(),
             'type' => $this->string(255)->notNull(),
             'section' => $this->string(255)->notNull(),
@@ -30,12 +31,12 @@ class M180212035152Create_settings_table extends Migration
             'modified' => $this->dateTime(),
         ], $tableOptions);
 
-        $this->createIndex('{{%settings_unique_key_section}}', '{{%settings}}', ['section', 'key'], true);
+        $this->createIndex('{{%settings_unique_key_section}}', $this->tableName, ['section', 'key'], true);
     }
 
     public function safeDown()
     {
-        $this->dropTable('{{%settings}}');
+        $this->dropTable($this->tableName);
     }
 
 

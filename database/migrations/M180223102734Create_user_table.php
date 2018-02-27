@@ -7,6 +7,8 @@ use yii\db\Migration;
  */
 class M180223102734Create_user_table extends Migration
 {
+    public $tableName = '{{%user}}';
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +20,7 @@ class M180223102734Create_user_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB AUTO_INCREMENT=10000000';
         }
 
-        $this->createTable('{{%user}}', [
+        $this->createTable($this->tableName, [
             'id' => $this->primaryKey(11)->unsigned()->comment('ID'),
             'username' => $this->string(50)->notNull()->unique()->comment('Username'),
             'email' => $this->string()->unique()->comment('Email'),
@@ -45,7 +47,7 @@ class M180223102734Create_user_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%user}}');
+        $this->dropTable($this->tableName);
     }
 
     /*

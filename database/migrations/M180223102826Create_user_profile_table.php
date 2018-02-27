@@ -7,6 +7,8 @@ use yii\db\Migration;
  */
 class M180223102826Create_user_profile_table extends Migration
 {
+    public $tableName = '{{%user_profile}}';
+
     /**
      * {@inheritdoc}
      */
@@ -20,7 +22,7 @@ class M180223102826Create_user_profile_table extends Migration
         /**
          * 创建用户资料表
          */
-        $this->createTable('{{%user_profile}}', [
+        $this->createTable($this->tableName, [
             'user_id' => $this->integer()->unsigned()->notNull()->comment('User ID'),
             'gender' => $this->smallInteger(1)->notNull()->defaultValue(0)->comment('Gender'),
             'mobile' => $this->string()->comment('Mobile'),
@@ -45,8 +47,8 @@ class M180223102826Create_user_profile_table extends Migration
             'introduction' => $this->string()->comment('Introduction'),
             'bio' => $this->text()->comment('Bio'),
         ], $tableOptions);
-        $this->addPrimaryKey('{{%user_profile}}', '{{%user_profile}}', 'user_id');
-        $this->addForeignKey('{{%user_profile_fk_1}}', '{{%user_profile}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->addPrimaryKey('{{%user_profile_pk}}', $this->tableName, 'user_id');
+        $this->addForeignKey('{{%user_profile_fk_1}}', $this->tableName, 'user_id', '{{%user}}', 'id', 'CASCADE', 'RESTRICT');
 
     }
 
@@ -55,7 +57,7 @@ class M180223102826Create_user_profile_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%user_profile}}');
+        $this->dropTable($this->tableName);
     }
 
     /*

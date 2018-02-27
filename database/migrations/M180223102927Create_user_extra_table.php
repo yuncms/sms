@@ -7,6 +7,8 @@ use yii\db\Migration;
  */
 class M180223102927Create_user_extra_table extends Migration
 {
+    public $tableName = '{{%user_extra}}';
+
     /**
      * {@inheritdoc}
      */
@@ -20,7 +22,7 @@ class M180223102927Create_user_extra_table extends Migration
         /**
          * 创建用户附表
          */
-        $this->createTable('{{%user_extra}}', [
+        $this->createTable($this->tableName, [
             'user_id' => $this->integer()->unsigned()->notNull()->comment('User ID'),
             'login_ip' => $this->string()->comment('Login Ip'),
             'login_at' => $this->integer()->unsigned()->comment('Login At'),
@@ -30,8 +32,8 @@ class M180223102927Create_user_extra_table extends Migration
             'supports' => $this->integer()->unsigned()->defaultValue(0)->comment('Supports'),
             'followers' => $this->integer()->unsigned()->defaultValue(0)->comment('Followers'),
         ], $tableOptions);
-        $this->addPrimaryKey('{{%user_extra}}', '{{%user_extra}}', 'user_id');
-        $this->addForeignKey('{{%user_extra_fk_1}}', '{{%user_extra}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->addPrimaryKey('{{%user_extra_pk}}', $this->tableName, 'user_id');
+        $this->addForeignKey('{{%user_extra_fk_1}}', $this->tableName, 'user_id', '{{%user}}', 'id', 'CASCADE', 'RESTRICT');
 
     }
 
@@ -40,7 +42,7 @@ class M180223102927Create_user_extra_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%user_extra}}');
+        $this->dropTable($this->tableName);
     }
 
     /*
