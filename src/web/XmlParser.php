@@ -7,7 +7,7 @@
 
 namespace yuncms\web;
 
-use yii\base\InvalidParamException;
+use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
 use yii\web\RequestParserInterface;
 
@@ -51,7 +51,7 @@ class XmlParser implements RequestParserInterface
             $parameters = simplexml_load_string($rawBody, 'SimpleXMLElement', LIBXML_NOCDATA);
             $parameters = $this->asArray ? (array)$parameters : $parameters;
             return $parameters === null ? [] : $parameters;
-        } catch (InvalidParamException $e) {
+        } catch (InvalidArgumentException $e) {
             if ($this->throwException) {
                 throw new BadRequestHttpException('Invalid XML data in request body: ' . $e->getMessage());
             }
