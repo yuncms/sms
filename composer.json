@@ -48,7 +48,7 @@
   },
   "autoload": {
     "classmap": [
-      "database/migrations"
+      "migrations"
     ],
     "psr-4": {
       "yuncms\\": "src/"
