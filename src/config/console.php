@@ -8,6 +8,9 @@ return [
         'request' => yuncms\console\Request::class,
     ],
     'controllerMap' => [
+        'cron' => [
+            'class' => yuncms\console\controllers\CronController::class,
+        ],
         'migrate' => [
             'class' => yuncms\console\controllers\MigrateController::class,
             'templateFile' => '@yuncms/console/views/migrate/migration.php',

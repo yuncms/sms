@@ -27,11 +27,11 @@ return [
         'response' => [
             'class' => yuncms\web\Response::class,
         ],
-        'user' => [
-            'class' => yuncms\web\User::class,
-            'enableAutoLogin' => true,
-            'loginUrl' => ['/user/security/login'],
-            'identityClass' => 'yuncms\models\User',
-        ],
+//        'user' => [
+//            'class' => yuncms\web\User::class,
+//            'enableAutoLogin' => true,
+//            'loginUrl' => ['/user/security/login'],
+//            'identityClass' => 'yuncms\models\User',
+//        ],
     ]
 ];
