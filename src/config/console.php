@@ -10,16 +10,15 @@ return [
     'controllerMap' => [
         'migrate' => [
             'class' => yuncms\console\controllers\MigrateController::class,
-            'migrationPath'=>[
-                '@app/migrations',
+            'templateFile' => '@yuncms/console/views/migrate/migration.php',
+            'migrationPath' => [
+                '@vendor/yuncms/framework/migrations',
                 //'@yii/caching/migrations',
                 //'@yii/log/migrations',
                 '@yii/web/migrations',
                 //'@yii/rbac/migrations',
                 '@yii/i18n/migrations',
-            ],
-            'migrationNamespaces' => [
-                'yuncms\migrations',
+                '@app/migrations',
             ],
         ],
     ],
