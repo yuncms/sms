@@ -8,8 +8,8 @@ return [
         'request' => yuncms\console\Request::class,
     ],
     'controllerMap' => [
-        'cron' => [
-            'class' => yuncms\console\controllers\CronController::class,
+        'task' => [
+            'class' => yuncms\console\controllers\TaskController::class,
         ],
         'migrate' => [
             'class' => yuncms\console\controllers\MigrateController::class,

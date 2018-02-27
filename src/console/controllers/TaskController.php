@@ -23,7 +23,7 @@ use yii\helpers\Console;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class CronController extends Controller
+class TaskController extends Controller
 {
     /**
      * @event Event 每分钟触发事件
@@ -46,12 +46,26 @@ class CronController extends Controller
     const EVENT_ON_MONTH_RUN = "month";
 
     /**
+     * @var string
+     */
+    protected $dateTime;
+
+    /**
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function init()
+    {
+        parent::init();
+        $this->dateTime = Yii::$app->formatter->asDatetime(time());
+    }
+
+    /**
      * Executes minute cron tasks.
      * @return int
      */
     public function actionMinute()
     {
-        $this->stdout("Executing minute tasks:" . PHP_EOL, Console::FG_YELLOW);
+        $this->stdout($this->dateTime . " Executing minute tasks." . PHP_EOL, Console::FG_YELLOW);
         $this->trigger(self::EVENT_ON_MINUTE_RUN);
         return ExitCode::OK;
     }
@@ -62,7 +76,7 @@ class CronController extends Controller
      */
     public function actionHourly()
     {
-        $this->stdout("Executing hourly tasks:" . PHP_EOL, Console::FG_YELLOW);
+        $this->stdout($this->dateTime . " Executing hourly tasks." . PHP_EOL, Console::FG_YELLOW);
         $this->trigger(self::EVENT_ON_HOURLY_RUN);
         return ExitCode::OK;
     }
@@ -73,7 +87,7 @@ class CronController extends Controller
      */
     public function actionDaily()
     {
-        $this->stdout("Executing daily tasks:" . PHP_EOL, Console::FG_YELLOW);
+        $this->stdout($this->dateTime. " Executing daily tasks." . PHP_EOL, Console::FG_YELLOW);
         $this->trigger(self::EVENT_ON_DAILY_RUN);
         return ExitCode::OK;
     }
@@ -84,7 +98,7 @@ class CronController extends Controller
      */
     public function actionMonth()
     {
-        $this->stdout("Executing month tasks:" . PHP_EOL, Console::FG_YELLOW);
+        $this->stdout($this->dateTime . " Executing month tasks." . PHP_EOL, Console::FG_YELLOW);
         $this->trigger(self::EVENT_ON_MONTH_RUN);
         return ExitCode::OK;
     }
