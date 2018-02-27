@@ -28,9 +28,6 @@ phpunit.phar
 composer.phar
 composer.lock
 
-# doc generated documentation
-docs
-
 # Node.js modules
 node_modules/
 
