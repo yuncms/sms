@@ -21,6 +21,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
 
     /**
+     * Clean up after test case.
+     */
+    public static function tearDownAfterClass()
+    {
+        parent::tearDownAfterClass();
+        $logger = Yii::getLogger();
+        $logger->flush();
+    }
+
+    /**
      * Clean up after test.
      * By default the application created with [[mockApplication]] will be destroyed.
      */
@@ -41,17 +51,31 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
-            'vendorPath' => dirname(__DIR__) . '/vendor',
+            'vendorPath' => $this->getVendorPath(),
         ], $config));
     }
 
-    protected function mockWebApplication($config = [], $appClass = '\yii\web\Application')
+    protected function mockWebApplication($config = [], $appClass = '\yuncms\web\Application')
     {
         new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
-            'vendorPath' => dirname(__DIR__) . '/vendor',
+            'vendorPath' => $this->getVendorPath(),
+            'request' => [
+                'cookieValidationKey' => 'wefJDF8sfdsfSDefwqdxj9oq',
+                'scriptFile' => __DIR__ . '/index.php',
+                'scriptUrl' => '/index.php',
+            ],
         ], $config));
+    }
+
+    protected function getVendorPath()
+    {
+        $vendor = dirname(dirname(__DIR__)) . '/vendor';
+        if (!is_dir($vendor)) {
+            $vendor = dirname(dirname(dirname(dirname(__DIR__))));
+        }
+        return $vendor;
     }
 
     /**
@@ -59,6 +83,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function destroyApplication()
     {
+        if (Yii::$app && Yii::$app->has('session', true)) {
+            Yii::$app->session->close();
+        }
         Yii::$app = null;
         Yii::$container = new Container();
     }
