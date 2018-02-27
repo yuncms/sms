@@ -15,6 +15,10 @@ use yuncms\tests\TestCase;
  */
 class ISO3166HelperTest extends TestCase
 {
+    protected function setUp()
+    {
+        $this->mockApplication();
+    }
 
     public function testPhoneCode()
     {
