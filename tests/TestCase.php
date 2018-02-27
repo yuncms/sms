@@ -12,7 +12,7 @@ use yii\di\Container;
 use yii\helpers\ArrayHelper;
 
 /**
- * Class TestCase
+ * 单元测试基类
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
