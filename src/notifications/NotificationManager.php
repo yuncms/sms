@@ -5,12 +5,11 @@
  * @license http://www.tintsoft.com/license/
  */
 
+namespace yuncms\notifications;
 
-namespace yuncms\web;
+use yii\base\Component;
 
-use yuncms\base\RequestTrait;
-
-class Request extends \yii\web\Request
+class NotificationManager extends Component
 {
-    use RequestTrait;
+
 }

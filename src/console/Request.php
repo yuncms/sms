@@ -5,12 +5,9 @@
  * @license http://www.tintsoft.com/license/
  */
 
+namespace yuncms\console;
 
-namespace yuncms\web;
-
-use yuncms\base\RequestTrait;
-
-class Request extends \yii\web\Request
+class Request extends \yii\console\Request
 {
-    use RequestTrait;
+
 }
