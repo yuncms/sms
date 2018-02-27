@@ -20,6 +20,6 @@ before_install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 install:
-  - travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest;
+  - travis_retry composer install --prefer-dist --no-interaction --prefer-stable --no-suggest
 
 script: vendor/bin/phpunit
