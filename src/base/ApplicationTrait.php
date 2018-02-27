@@ -7,6 +7,9 @@
 
 namespace yuncms\base;
 
+use yii\authclient\Collection;
+use yuncms\components\Settings;
+
 /**
  * Trait ApplicationTrait
  * @property \yuncms\components\Settings $settings The settings manager component
@@ -21,7 +24,7 @@ trait ApplicationTrait
      * Returns the settings component.
      * @return \yuncms\components\Settings the settings connection.
      */
-    public function getSettings()
+    public function getSettings(): Settings
     {
         return $this->get('settings');
     }
@@ -48,7 +51,7 @@ trait ApplicationTrait
      * Returns the authClientCollection component.
      * @return \yii\authclient\Collection the authClientCollection connection.
      */
-    public function getAuthClientCollection()
+    public function getAuthClientCollection(): Collection
     {
         return $this->get('authClientCollection');
     }
