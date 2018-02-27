@@ -13,11 +13,11 @@ return [
     'color' => null,
     'interactive' => true,
     // string, required, root directory of all source files
-    'sourcePath' => __DIR__ . '/src',
+    'sourcePath' => dirname(__DIR__) . '/src',
     // string, required, root directory containing message translations.
     'messagePath' => __DIR__,
     'languages' => ['zh-CN'],
-    'translator' => 'Yun::t',
+    'translator' => 'Yii::t',
     'sort' => false,
     'overwrite' => true,
     'removeUnused' => false,
