@@ -7,7 +7,7 @@
 
 namespace yuncms\tests\helpers;
 
-use yuncms\core\helpers\ISO3166Helper;
+use yuncms\helpers\ISO3166Helper;
 use yuncms\tests\TestCase;
 
 /**
