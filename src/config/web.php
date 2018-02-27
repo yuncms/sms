@@ -27,6 +27,9 @@ return [
         'response' => [
             'class' => yuncms\web\Response::class,
         ],
+        'urlManager' => [
+            'class' => yii\web\UrlManager::class,
+        ],
 //        'user' => [
 //            'class' => yuncms\web\User::class,
 //            'enableAutoLogin' => true,
