@@ -22,7 +22,11 @@ class StringHelperTest extends TestCase
 
     public function testUUID()
     {
-        $uuid = StringHelper::UUID();
+        try {
+            $uuid = StringHelper::UUID();
+        } catch (\Exception $e) {
+            $uuid = 'test';
+        }
         $this->assertTrue(StringHelper::isUUID($uuid));
     }
 
