@@ -22,7 +22,7 @@ class m180228_112500_create_login_attempt_table extends Migration
 
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey(),
-            'key' => $this->string(64)->notNull(),
+            'key' => $this->string()->notNull(),
             'amount' => $this->integer(2)->defaultValue(1),
             'reset_at' => $this->integer()->unsigned(),
             'created_at' => $this->integer()->unsigned(),

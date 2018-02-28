@@ -19,20 +19,45 @@ use yuncms\models\UserLoginAttempt;
 /**
  * Class LoginAttemptBehavior
  *
+ * @property Model $owner
+ *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
 class LoginAttemptBehavior extends Behavior
 {
+    const UNIT_SECOND = 'second';
+    const UNIT_MINUTE = 'minute';
+    const UNIT_HOUR = 'hour';
+    const UNIT_DAY = 'day';
+    const UNIT_WEEK = 'week';
+    const UNIT_MONTH = 'month';
+    const UNIT_YEAR = 'year';
+
+    /**
+     * @var int 尝试次数
+     */
     public $attempts = 3;
 
-    public $duration = 300;
+    /**
+     * @var int 拦截时间
+     */
+    public $duration = 5;
 
-    public $durationUnit = 'second';
+    /**
+     * @var string 拦截单位
+     */
+    public $durationUnit = self::UNIT_MINUTE;
 
-    public $disableDuration = 900;
+    /**
+     * @var int 禁用时间
+     */
+    public $disableDuration = 15;
 
-    public $disableDurationUnit = 'second';
+    /**
+     * @var string 禁用时间单位
+     */
+    public $disableDurationUnit = self::UNIT_MINUTE;
 
     public $usernameAttribute = 'email';
 
@@ -40,9 +65,27 @@ class LoginAttemptBehavior extends Behavior
 
     public $message = 'You have exceeded the password attempts.';
 
+    /**
+     * @var UserLoginAttempt
+     */
     private $_attempt;
-    private $_safeUnits = ['second', 'minute', 'day', 'week', 'month', 'year',];
 
+    /**
+     * @var array 安全单位
+     */
+    private $_safeUnits = [
+        self::UNIT_SECOND => 1,
+        self::UNIT_MINUTE => 60,
+        self::UNIT_HOUR => 3600,
+        self::UNIT_DAY => 86400,
+        self::UNIT_WEEK => 604800,
+        self::UNIT_MONTH => 2592000,
+        self::UNIT_YEAR => 31536000
+    ];
+
+    /**
+     * @return array
+     */
     public function events()
     {
         return [
@@ -52,11 +95,11 @@ class LoginAttemptBehavior extends Behavior
     }
 
     /**
-     *
+     * 验证前检查拦截
      */
     public function beforeValidate()
     {
-        if ($this->_attempt = UserLoginAttempt::find()->where(['username' => $this->key])->andWhere(['>', 'reset_at', date('r')])->one()) {
+        if ($this->_attempt = UserLoginAttempt::find()->where(['key' => $this->getKey()])->andWhere(['>', 'reset_at', time()])->one()) {
             if ($this->_attempt->amount >= $this->attempts) {
                 $this->owner->addError($this->usernameAttribute, $this->message);
             }
@@ -71,7 +114,7 @@ class LoginAttemptBehavior extends Behavior
         if ($this->owner->hasErrors($this->passwordAttribute)) {
             if (!$this->_attempt) {
                 $this->_attempt = new UserLoginAttempt;
-                $this->_attempt->username = $this->getUsername();
+                $this->_attempt->username = $this->getKey();
             }
             $this->_attempt->amount += 1;
             if ($this->_attempt->amount >= $this->attempts)
@@ -83,9 +126,10 @@ class LoginAttemptBehavior extends Behavior
     }
 
     /**
+     * 获取Key用作索引
      * @return string
      */
-    public function getUsername()
+    public function getKey()
     {
         return sha1($this->owner->{$this->usernameAttribute});
     }
@@ -96,17 +140,11 @@ class LoginAttemptBehavior extends Behavior
      * @return Expression
      * @throws \Exception
      */
-    private function intervalExpression(int $length, $unit = 'second')
+    private function intervalExpression(int $length, $unit = self::UNIT_SECOND)
     {
-        $unit = Inflector::singularize(strtolower($unit));
         if (!in_array($unit, $this->_safeUnits)) {
-            $safe = join(', ', $this->_safeUnits);
-            throw new \Exception("$unit is not an allowed unit. Safe units are: [$safe]");
+            throw new \Exception("$unit is not an allowed unit.");
         }
-        if (Yii::$app->db->driverName === 'pgsql')
-            $interval = "'$length $unit'";
-        else
-            $interval = "$length $unit";
-        return new Expression("NOW() + INTERVAL $interval");
+        return time() + ($length * $this->_safeUnits[$unit]);
     }
 }
