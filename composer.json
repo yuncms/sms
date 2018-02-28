@@ -28,6 +28,7 @@
     "guzzlehttp/guzzle": "~6.3",
     "league/flysystem": "~1.0",
     "danielstjules/stringy": "~3.1.0",
+    "jakeasmith/http_build_url": "~1.0",
     "yiisoft/yii2": "~2.0.0",
     "yiisoft/yii2-swiftmailer": "~2.1.0",
     "yiisoft/yii2-queue": "~2.0.0",

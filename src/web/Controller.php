@@ -9,7 +9,47 @@
 namespace yuncms\web;
 
 
+use Yii;
+use yii\web\Response as YiiResponse;
+
+/**
+ * Class Controller
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class Controller extends \yii\web\Controller
 {
+    /**
+     * Sets the response format of the given data as JSONP.
+     *
+     * @param mixed $data The data that should be formatted.
+     * @return Response A response that is configured to send `$data` formatted as JSON.
+     * @see YiiResponse::$format
+     * @see YiiResponse::FORMAT_JSONP
+     * @see JsonResponseFormatter
+     */
+    public function asJsonP($data): YiiResponse
+    {
+        $response = Yii::$app->getResponse();
+        $response->data = $data;
+        $response->format = YiiResponse::FORMAT_JSONP;
+        return $response;
+    }
 
+    /**
+     * Sets the response format of the given data as RAW.
+     *
+     * @param mixed $data The data that should *not* be formatted.
+     * @return YiiResponse A response that is configured to send `$data` without formatting.
+     * @see YiiResponse::$format
+     * @see YiiResponse::FORMAT_RAW
+     */
+    public function asRaw($data): YiiResponse
+    {
+        $response = Yii::$app->getResponse();
+        $response->data = $data;
+        $response->format = YiiResponse::FORMAT_RAW;
+        return $response;
+    }
 }
