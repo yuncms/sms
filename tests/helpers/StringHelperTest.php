@@ -13,10 +13,10 @@ use yuncms\helpers\StringHelper;
 
 class StringHelperTest extends TestCase
 {
-    public function testBetweenStr()
+    public function testByteStrBetween()
     {
         $text = '123bbb321';
-        $str = StringHelper::betweenStr($text, '123', '321');
+        $str = StringHelper::byteStrBetween($text, '123', '321');
         $this->assertEquals('bbb', $str);
     }
 

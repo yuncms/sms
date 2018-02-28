@@ -42,6 +42,18 @@ class StringHelper extends \yii\helpers\StringHelper
     }
 
     /**
+     * 查找 指定字符串出现的位置
+     * @param string $string
+     * @param string $needle
+     * @param int $offset
+     * @return bool|false|int
+     */
+    public static function byteStrPos($string, $needle, $offset = 0)
+    {
+        return mb_strpos($string, $needle, $offset, '8bit');
+    }
+
+    /**
      * 提取两个字符串之间的值，不包括分隔符
      *
      * @param string $string 待提取的只付出
@@ -49,15 +61,15 @@ class StringHelper extends \yii\helpers\StringHelper
      * @param string|null $end 结束字符串，省略将返回所有的。
      * @return bool|string substring between $start and $end or false if either string is not found
      */
-    public static function betweenStr($string, $start, $end = null)
+    public static function byteStrBetween($string, $start, $end = null)
     {
-        if (($start_pos = strpos($string, $start)) !== false) {
+        if (($startPos = static::byteStrPos($string, $start)) !== false) {
             if ($end) {
-                if (($end_pos = strpos($string, $end, $start_pos + strlen($start))) !== false) {
-                    return substr($string, $start_pos + strlen($start), $end_pos - ($start_pos + strlen($start)));
+                if (($end_pos = static::byteStrPos($string, $end, $startPos + static::byteLength($start))) !== false) {
+                    return static::byteSubstr($string, $startPos + static::byteLength($start), $end_pos - ($startPos + static::byteLength($start)));
                 }
             } else {
-                return substr($string, $start_pos);
+                return static::byteSubstr($string, $startPos);
             }
         }
         return false;
@@ -117,8 +129,8 @@ class StringHelper extends \yii\helpers\StringHelper
      * Converts an object to its string representation. If the object is an array, will glue the array elements togeter
      * with the $glue param. Otherwise will cast the object to a string.
      *
-     * @param mixed  $object The object to convert to a string.
-     * @param string $glue   The glue to use if the object is an array.
+     * @param mixed $object The object to convert to a string.
+     * @param string $glue The glue to use if the object is an array.
      * @return string The string representation of the object.
      */
     public static function toString($object, string $glue = ','): string
