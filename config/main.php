@@ -22,6 +22,10 @@ return [
         'authClientCollection' => [
             'class' => yii\authclient\Collection::class,
         ],
+        'authManager' => [
+            'class' => yii\rbac\DbManager::class,
+            'cache' => 'cache',
+        ],
         'settings' => [
             'class' => yuncms\components\Settings::class,
             'frontCache' => 'cache'

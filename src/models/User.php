@@ -14,7 +14,6 @@ use yii\behaviors\TimestampBehavior;
 use creocoder\taggable\TaggableBehavior;
 use yuncms\helpers\PasswordHelper;
 
-
 /**
  * This is the model class for table "{{%user}}".
  *

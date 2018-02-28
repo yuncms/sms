@@ -5,7 +5,18 @@ return [
         'log', 'queue',
     ],
     'components' => [
-        'request' => yuncms\console\Request::class,
+        'request' => [
+            'class' => yuncms\console\Request::class,
+        ],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                'default' => [
+                    'class' => yii\log\DbTarget::class,
+                    'levels' => ['error', 'warning'],
+                ],
+            ],
+        ],
     ],
     'controllerMap' => [
         'task' => [
@@ -19,7 +30,7 @@ return [
                 //'@yii/caching/migrations',
                 //'@yii/log/migrations',
                 '@yii/web/migrations',
-                //'@yii/rbac/migrations',
+                '@yii/rbac/migrations',
                 '@yii/i18n/migrations',
                 '@app/migrations',
             ],
