@@ -29,11 +29,11 @@ return [
                 'X-Client-Proto' => ['https'],
             ],
             'parsers' => [
-                'multipart/form-data' => 'yii\web\MultipartFormDataParser',
-                'application/json' => 'yii\web\JsonParser',
-                'text/json' => 'yii\web\JsonParser',
-                'application/xml' => 'yuncms\web\XmlParser',
-                'text/xml' => 'yuncms\web\XmlParser'
+                'multipart/form-data' => yii\web\MultipartFormDataParser::class,
+                'application/json' => yii\web\JsonParser::class,
+                'text/json' => yii\web\JsonParser::class,
+                'application/xml' => yuncms\web\XmlParser::class,
+                'text/xml' => yuncms\web\XmlParser::class
             ]
         ],
         'response' => [
@@ -41,10 +41,12 @@ return [
         ],
         'user' => [
             'class' => yuncms\web\User::class,
+            'identityClass' => yuncms\models\User::class,
             'enableSession' => false,
-            'loginUrl' => null,
             'enableAutoLogin' => false,
-            'identityClass' => 'yuncms\models\User',
+            'loginUrl' => null,
+
+
         ],
     ]
 ];

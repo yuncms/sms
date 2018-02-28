@@ -30,11 +30,11 @@ return [
         'urlManager' => [
             'class' => yii\web\UrlManager::class,
         ],
-//        'user' => [
-//            'class' => yuncms\web\User::class,
-//            'enableAutoLogin' => true,
-//            'loginUrl' => ['/user/security/login'],
-//            'identityClass' => 'yuncms\models\User',
-//        ],
+        'user' => [
+            'class' => yuncms\web\User::class,
+            'identityClass' => yuncms\models\User::class,
+            'enableAutoLogin' => true,
+            'loginUrl' => ['/user/security/login'],
+        ],
     ]
 ];
