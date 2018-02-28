@@ -2,13 +2,7 @@
 
 use yii\db\Migration;
 
-/**
- * Class M180212035152Create_settings_table
- *
- * @author Tongle Xu <xutongle@gmail.com>
- * @since 3.0
- */
-class M180212035152Create_settings_table extends Migration
+class m180212_035152Create_settings_table extends Migration
 {
     public $tableName = '{{%settings}}';
 

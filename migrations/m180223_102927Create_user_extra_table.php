@@ -2,10 +2,7 @@
 
 use yii\db\Migration;
 
-/**
- * Class M180223102927Create_user_extra_table
- */
-class M180223102927Create_user_extra_table extends Migration
+class m180223_102927Create_user_extra_table extends Migration
 {
     public $tableName = '{{%user_extra}}';
 

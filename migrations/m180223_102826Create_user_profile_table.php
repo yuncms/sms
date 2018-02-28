@@ -2,10 +2,7 @@
 
 use yii\db\Migration;
 
-/**
- * Class M180223102826Create_user_profile_table
- */
-class M180223102826Create_user_profile_table extends Migration
+class m180223_102826Create_user_profile_table extends Migration
 {
     public $tableName = '{{%user_profile}}';
 
