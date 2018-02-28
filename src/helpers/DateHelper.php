@@ -85,6 +85,7 @@ class DateHelper
                 return Yii::t('yuncms', 'Saturday');
                 break;
         }
+        return 'N/A';
     }
 
     /**
