@@ -13,10 +13,11 @@ use yuncms\helpers\StringHelper;
 
 class StringHelperTest extends TestCase
 {
-    public function testBetweenStr(){
+    public function testBetweenStr()
+    {
         $text = '123bbb321';
-        $str = StringHelper::betweenStr($text,'123','321');
-        $this->assertEquals('bbb',$str);
+        $str = StringHelper::betweenStr($text, '123', '321');
+        $this->assertEquals('bbb', $str);
     }
 
     public function testUUID()
@@ -32,5 +33,14 @@ class StringHelperTest extends TestCase
 
         $uuid1 = '132456798';
         $this->assertFalse(StringHelper::isUUID($uuid1));
+    }
+
+    public function testToLowerCase()
+    {
+        $str = 'ABC';
+        $this->assertEquals('abc',StringHelper::toLowerCase($str));
+
+        $str1 = 'ABc';
+        $this->assertEquals('abc',StringHelper::toLowerCase($str1));
     }
 }

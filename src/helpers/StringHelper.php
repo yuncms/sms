@@ -95,7 +95,6 @@ class StringHelper extends \yii\helpers\StringHelper
      * Returns is the given string matches a v4 UUID pattern.
      *
      * @param string $uuid The string to check.
-     *
      * @return bool Whether the string matches a v4 UUID pattern.
      */
     public static function isUUID(string $uuid): bool
@@ -107,7 +106,6 @@ class StringHelper extends \yii\helpers\StringHelper
      * Converts all characters in the string to lowercase. An alias for PHP's mb_strtolower().
      *
      * @param string $str The string to convert to lowercase.
-     *
      * @return string The lowercase string.
      */
     public static function toLowerCase(string $str): string
@@ -121,7 +119,6 @@ class StringHelper extends \yii\helpers\StringHelper
      *
      * @param mixed  $object The object to convert to a string.
      * @param string $glue   The glue to use if the object is an array.
-     *
      * @return string The string representation of the object.
      */
     public static function toString($object, string $glue = ','): string
