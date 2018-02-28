@@ -14,7 +14,7 @@ return [
             'tablePrefix' => 'yun_',
         ],
         'cache' => [
-            'class' => yii\caching\FileCache::class,
+            'class' => yii\caching\DummyCache::class,
         ],
         'queue' => [
             'class' => yii\queue\sync\Queue::class,

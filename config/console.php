@@ -8,15 +8,6 @@ return [
         'request' => [
             'class' => yuncms\console\Request::class,
         ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                'default' => [
-                    'class' => yii\log\DbTarget::class,
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
-        ],
     ],
     'controllerMap' => [
         'task' => [
