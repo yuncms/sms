@@ -115,6 +115,18 @@ class StringHelper extends \yii\helpers\StringHelper
     }
 
     /**
+     * Returns an ASCII version of the string. A set of non-ASCII characters are replaced with their closest ASCII
+     * counterparts, and the rest are removed.
+     *
+     * @param string $str The string to convert.
+     * @return string The string that contains only ASCII characters.
+     */
+    public static function toAscii(string $str): string
+    {
+        return (string)BaseStringy::create($str)->toAscii();
+    }
+
+    /**
      * Converts all characters in the string to lowercase. An alias for PHP's mb_strtolower().
      *
      * @param string $str The string to convert to lowercase.
@@ -148,5 +160,59 @@ class StringHelper extends \yii\helpers\StringHelper
             return implode($glue, $stringValues);
         }
         return '';
+    }
+
+    /**
+     * Attempts to convert a string to UTF-8 and clean any non-valid UTF-8 characters.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    public static function convertToUtf8(string $string): string
+    {
+        // If it's already a UTF8 string, just clean and return it
+        if (static::isUtf8($string)) {
+            return HtmlPurifier::cleanUtf8($string);
+        }
+
+        // Otherwise set HTMLPurifier to the actual string encoding
+        $config = \HTMLPurifier_Config::createDefault();
+        $config->set('Core.Encoding', static::encoding($string));
+
+        // Clean it
+        $string = HtmlPurifier::cleanUtf8($string);
+
+        // Convert it to UTF8 if possible
+        if (App::checkForValidIconv()) {
+            $string = HtmlPurifier::convertToUtf8($string, $config);
+        } else {
+            $encoding = static::encoding($string);
+            $string = mb_convert_encoding($string, 'utf-8', $encoding);
+        }
+
+        return $string;
+    }
+
+    /**
+     * Checks if the given string is UTF-8 encoded.
+     *
+     * @param string $string The string to check.
+     * @return bool
+     */
+    public static function isUtf8(string $string): bool
+    {
+        return static::encoding($string) === 'utf-8';
+    }
+
+    /**
+     * Gets the current encoding of the given string.
+     *
+     * @param string $string
+     * @return string
+     */
+    public static function encoding(string $string): string
+    {
+        return static::toLowerCase(mb_detect_encoding($string, mb_detect_order(), true));
     }
 }
