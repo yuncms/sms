@@ -184,7 +184,7 @@ class StringHelper extends \yii\helpers\StringHelper
         $string = HtmlPurifier::cleanUtf8($string);
 
         // Convert it to UTF8 if possible
-        if (App::checkForValidIconv()) {
+        if (function_exists('iconv') && \HTMLPurifier_Encoder::testIconvTruncateBug() === \HTMLPurifier_Encoder::ICONV_OK) {
             $string = HtmlPurifier::convertToUtf8($string, $config);
         } else {
             $encoding = static::encoding($string);
