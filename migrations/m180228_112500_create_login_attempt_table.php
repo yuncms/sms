@@ -22,15 +22,15 @@ class m180228_112500_create_login_attempt_table extends Migration
 
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey(),
-            'key' => $this->string()->notNull(),
+            'key' => $this->string(64)->notNull(),
             'amount' => $this->integer(2)->defaultValue(1),
-            'reset_at' => $this->timestamp(),
-            'created_at' => $this->timestamp(),
-            'updated_at' => $this->timestamp(),
+            'reset_at' => $this->integer()->unsigned(),
+            'created_at' => $this->integer()->unsigned(),
+            'updated_at' => $this->integer()->unsigned(),
         ], $tableOptions);
-        $this->createIndex('user_login_attempt_key_index', 'login_attempt', 'key');
-        $this->createIndex('user_login_attempt_amount_index', 'login_attempt', 'amount');
-        $this->createIndex('user_login_attempt_reset_at_index', 'login_attempt', 'reset_at');
+        $this->createIndex('user_login_attempt_key_index', $this->tableName, 'key');
+        $this->createIndex('user_login_attempt_amount_index', $this->tableName, 'amount');
+        $this->createIndex('user_login_attempt_reset_at_index', $this->tableName, 'reset_at');
     }
 
     /**

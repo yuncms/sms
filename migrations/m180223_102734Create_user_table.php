@@ -20,7 +20,7 @@ class m180223_102734Create_user_table extends Migration
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey(11)->unsigned()->comment('ID'),
             'username' => $this->string(50)->notNull()->unique()->comment('Username'),
-            'email' => $this->string()->unique()->comment('Email'),
+            'email' => $this->string(64)->unique()->comment('Email'),
             'mobile' => $this->string(11)->unique()->comment('Mobile'),
             'nickname' => $this->string()->notNull()->comment('Nickname'),
             'auth_key' => $this->string(100)->notNull()->comment('Auth Key'),
