@@ -64,17 +64,9 @@ class UUIDBehavior extends AttributeBehavior
     public $attribute = 'uuid';
 
     /**
-     * @var bool whether to generate a new uuid if it has already been generated before.
-     * If true, the behavior will not generate a new slug even if [[attribute]] is changed.
+     * @var bool 是否确保生成的uuid值在所有者类记录中是唯一的。
      */
-    public $immutable = false;
-
-    /**
-     * @var bool whether to ensure generated uuid value to be unique among owner class records.
-     * If enabled behavior will validate slug uniqueness automatically. If validation fails it will attempt
-     * generating unique uuid value from based one until success.
-     */
-    public $ensureUnique = false;
+    public $ensureUnique = true;
 
     /**
      * @var array configuration for uuid uniqueness validator. Parameter 'class' may be omitted - by default
@@ -89,9 +81,6 @@ class UUIDBehavior extends AttributeBehavior
     public function init()
     {
         parent::init();
-        if ($this->attribute === null) {
-            throw new InvalidConfigException('Either "attribute" property must be specified.');
-        }
         if (empty($this->attributes)) {
             $this->attributes = [BaseActiveRecord::EVENT_BEFORE_VALIDATE => $this->attribute];
         }
@@ -102,30 +91,26 @@ class UUIDBehavior extends AttributeBehavior
      */
     protected function getValue($event)
     {
-        if (!$this->isNewUUIDNeeded()) {
+        if (!empty($this->owner->{$this->attribute})) {
             return $this->owner->{$this->attribute};
         }
-        $uuid = parent::getValue($event);
+        if ($this->value === null) {
+            $uuid = $this->generateUUID();
+        } else {
+            $uuid = parent::getValue($event);
+        }
         return $this->ensureUnique ? $this->makeUnique($uuid) : $uuid;
     }
 
     /**
-     * Checks whether the new uuid generation is needed
-     * This method is called by [[getValue]] to check whether the new uuid generation is needed.
-     * You may override it to customize checking.
-     * @return bool
+     * This method is called by [[getValue]] to generate the uuid.
+     * You may override it to customize uuid generation.
+     * @return string the result.
+     * @throws \Exception
      */
-    protected function isNewUUIDNeeded()
+    protected function generateUUID(): string
     {
-        if (empty($this->owner->{$this->attribute})) {
-            return true;
-        }
-
-        if ($this->immutable) {
-            return false;
-        }
-
-        return false;
+        return StringHelper::UUID();
     }
 
     /**
@@ -136,13 +121,13 @@ class UUIDBehavior extends AttributeBehavior
      * @throws \Exception
      * @see getValue
      */
-    protected function makeUnique($uuid)
+    protected function makeUnique($uuid): string
     {
         $uniqueUUID = $uuid;
         $iteration = 0;
         while (!$this->validateUUID($uniqueUUID)) {
             $iteration++;
-            $uniqueUUID = StringHelper::UUID();
+            $uniqueUUID = $this->generateUUID();
         }
         return $uniqueUUID;
     }
