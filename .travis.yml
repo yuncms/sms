@@ -21,8 +21,6 @@ before_install:
 
 install:
   - travis_retry composer install --prefer-dist --no-interaction --prefer-stable --no-suggest
-  - travis_retry wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 
 script: vendor/bin/phpunit
 
