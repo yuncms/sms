@@ -46,4 +46,14 @@ class UserLoginAttempt extends ActiveRecord
             [['username'], 'required'],
         ];
     }
+
+    /**
+     * 获取
+     * @param string $key
+     * @return array|null|ActiveRecord|UserLoginAttempt
+     */
+    public static function findByKey($key)
+    {
+        return static::find()->where(['key' => $key])->andWhere(['>', 'reset_at', time()])->one();
+    }
 }

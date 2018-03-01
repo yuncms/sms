@@ -5,15 +5,12 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\behaviors;
-
 
 use Yii;
 use yii\base\Model;
 use yii\base\Behavior;
 use yii\db\Expression;
-use yii\helpers\Inflector;
 use yuncms\models\UserLoginAttempt;
 
 /**
@@ -63,7 +60,10 @@ class LoginAttemptBehavior extends Behavior
 
     public $passwordAttribute = 'password';
 
-    public $message = 'You have exceeded the password attempts.';
+    /**
+     * @var string 拦截后的提示信息
+     */
+    public $message;
 
     /**
      * @var UserLoginAttempt
@@ -84,6 +84,23 @@ class LoginAttemptBehavior extends Behavior
     ];
 
     /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+        if ($this->message === null) {
+            $this->message = Yii::t('yuncms', 'You have exceeded the password attempts.');
+        }
+        if (!in_array($this->durationUnit, $this->_safeUnits)) {
+            throw new \Exception($this->durationUnit . " is not an allowed unit.");
+        }
+        if (!in_array($this->disableDurationUnit, $this->_safeUnits)) {
+            throw new \Exception($this->disableDurationUnit . " is not an allowed unit.");
+        }
+    }
+
+    /**
      * @return array
      */
     public function events()
@@ -99,7 +116,7 @@ class LoginAttemptBehavior extends Behavior
      */
     public function beforeValidate()
     {
-        if ($this->_attempt = UserLoginAttempt::find()->where(['key' => $this->getKey()])->andWhere(['>', 'reset_at', time()])->one()) {
+        if ($this->_attempt = UserLoginAttempt::findByKey($this->getKey())) {
             if ($this->_attempt->amount >= $this->attempts) {
                 $this->owner->addError($this->usernameAttribute, $this->message);
             }
@@ -111,17 +128,15 @@ class LoginAttemptBehavior extends Behavior
      */
     public function afterValidate()
     {
+        //判断是否存在密码字段的验证错误信息，如果存在进入断言
         if ($this->owner->hasErrors($this->passwordAttribute)) {
-            if (!$this->_attempt) {
-                $this->_attempt = new UserLoginAttempt;
-                $this->_attempt->username = $this->getKey();
+            $attempt = $this->getUserLoginAttempt();
+            if ($attempt->amount >= $this->attempts) {//超过最大尝试次数
+                $reset_at = time() + ($this->disableDuration * $this->_safeUnits[$this->disableDurationUnit]);
+            } else {
+                $reset_at = time() + ($this->duration * $this->_safeUnits[$this->durationUnit]);
             }
-            $this->_attempt->amount += 1;
-            if ($this->_attempt->amount >= $this->attempts)
-                $this->_attempt->reset_at = $this->intervalExpression($this->disableDuration, $this->disableDurationUnit);
-            else
-                $this->_attempt->reset_at = $this->intervalExpression($this->duration, $this->durationUnit);
-            $this->_attempt->save();
+            $attempt->updateAttributes(['amount' => $attempt->amount += 1, 'reset_at' => $reset_at]);
         }
     }
 
@@ -135,16 +150,15 @@ class LoginAttemptBehavior extends Behavior
     }
 
     /**
-     * @param int $length
-     * @param string $unit
-     * @return Expression
-     * @throws \Exception
+     * 获取拦截历史
+     * @return UserLoginAttempt
      */
-    private function intervalExpression(int $length, $unit = self::UNIT_SECOND)
+    public function getUserLoginAttempt()
     {
-        if (!in_array($unit, $this->_safeUnits)) {
-            throw new \Exception("$unit is not an allowed unit.");
+        if (!$this->_attempt) {
+            $this->_attempt = new UserLoginAttempt;
+            $this->_attempt->username = $this->getKey();
         }
-        return time() + ($length * $this->_safeUnits[$unit]);
+        return $this->_attempt;
     }
 }
