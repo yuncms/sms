@@ -52,8 +52,6 @@ matrix:
     - php: 7.1
       env: TASK_TESTS_COVERAGE=1
 
-    - php: 7.0
-
     - php: nightly
 
   allow_failures:
