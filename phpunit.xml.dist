@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <phpunit bootstrap="./tests/bootstrap.php"
-		 backupGlobals="true"
+         backupGlobals="true"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          stopOnFailure="false"
-		 printerClass="yuncms\tests\ResultPrinter">
+         printerClass="yuncms\tests\ResultPrinter">
     <testsuites>
-        <testsuite name="Test Suite">
+        <testsuite name="YUNCMS Test Suite">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>

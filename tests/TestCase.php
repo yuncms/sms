@@ -61,10 +61,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'id' => 'testapp',
             'basePath' => __DIR__,
             'vendorPath' => $this->getVendorPath(),
-            'request' => [
-                'cookieValidationKey' => 'wefJDF8sfdsfSDefwqdxj9oq',
-                'scriptFile' => __DIR__ . '/index.php',
-                'scriptUrl' => '/index.php',
+            'components' => [
+                'request' => [
+                    'class' => \yuncms\web\Request::class,
+                    'cookieValidationKey' => 'wefJDF8sfdsfSDefwqdxj9oq',
+                    'scriptFile' => __DIR__ . '/index.php',
+                    'scriptUrl' => '/index.php',
+                ],
+                'response' => [
+                    'class' => \yuncms\web\Response::class,
+                ],
             ],
         ], $config));
     }
