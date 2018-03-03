@@ -306,4 +306,12 @@ class RequestTest extends TestCase
         $this->assertEquals($expected, $request->getMethod());
         $_SERVER = $original;
     }
+
+
+    public function testGetScriptFilename()
+    {
+        $request = new Request();
+        $_SERVER['SCRIPT_FILENAME'] = '/app/web/index.php';
+        $this->assertEquals('index.php', $request->getScriptFilename());
+    }
 }
