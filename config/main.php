@@ -18,6 +18,7 @@ return [
         ],
         'queue' => [
             'class' => yii\queue\sync\Queue::class,
+            'serializer' => yii\queue\serializers\IgbinarySerializer::class,
         ],
         'authClientCollection' => [
             'class' => yii\authclient\Collection::class,
