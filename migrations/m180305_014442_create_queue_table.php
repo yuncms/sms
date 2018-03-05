@@ -21,18 +21,17 @@ class m180305_014442_create_queue_table extends Migration
         }
 
         $this->createTable($this->tableName, [
-            'id' => $this->bigPrimaryKey(),
+            'id' => $this->string(64)->unique()->notNull(),
             'channel' => $this->string()->notNull(),
             'job' => $this->binary()->notNull(),
             'pushed_at' => $this->integer()->unsigned()->notNull(),
-            'ttr'=>$this->integer()->notNull()->unsigned(),
+            'ttr' => $this->integer()->notNull()->unsigned(),
             'delay' => $this->integer()->unsigned()->defaultValue(0)->notNull(),
-            'priority'=>$this->integer()->unsigned()->notNull()->defaultValue(1024),
+            'priority' => $this->integer()->unsigned()->notNull()->defaultValue(1024),
             'reserved_at' => $this->integer()->unsigned(),
-            'attempt'=>$this->integer()->unsigned(),
+            'attempt' => $this->integer()->unsigned(),
             'done_at' => $this->integer()->unsigned(),
         ], $tableOptions);
-
         $this->createIndex('channel', $this->tableName, 'channel');
         $this->createIndex('reserved_at', $this->tableName, 'reserved_at');
         $this->createIndex('priority', $this->tableName, 'priority');
