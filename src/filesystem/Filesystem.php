@@ -45,6 +45,15 @@ class Filesystem extends Component
     private $_definitions = [];
 
     /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+        $this->mountManager = new MountManager();
+    }
+
+    /**
      * Getter magic method.
      * This method is overridden to support accessing filesystems like reading properties.
      * @param string $name filesystem or property name
@@ -205,7 +214,10 @@ class Filesystem extends Component
     public function mountManager()
     {
         $filesystems = $this->getFilesystems();
-        $this->mountManager = new MountManager();
+        foreach ($filesystems as $id => $filesystem) {
+            $this->mountManager->mountFilesystem($id, $filesystem);
+        }
+        return $this->mountManager;
     }
 
     /**
