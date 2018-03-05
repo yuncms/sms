@@ -52,7 +52,9 @@
     "league/flysystem-sftp": "~1.0",
     "league/flysystem-webdav": "~1.0",
     "league/flysystem-ziparchive": "~1.0",
-    "xxtime/flysystem-aliyun-oss": "~1.2"
+    "xxtime/flysystem-aliyun-oss": "~1.2",
+    "overtrue/flysystem-qiniu":"~1.0",
+    "jellybool/flysystem-upyun":"~1.0"
   },
   "suggest": {
     "ext-imagick": "Adds support for more image processing formats and options.",
