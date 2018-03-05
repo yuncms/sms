@@ -22,15 +22,7 @@ use League\Flysystem\MountManager;
  */
 class Filesystem extends Component
 {
-    /**
-     * @var array shared disk instances indexed by their IDs
-     */
-    private $_filesystems = [];
-
-    /**
-     * @var array filesystem definitions indexed by their IDs
-     */
-    private $_definitions = [];
+    public $default = 'local';
 
     /**
      * @var array filesystem parameters (name => value).
@@ -40,7 +32,17 @@ class Filesystem extends Component
     /**
      * @var MountManager
      */
-    public $mountManager;
+    protected $mountManager;
+
+    /**
+     * @var array shared disk instances indexed by their IDs
+     */
+    private $_filesystems = [];
+
+    /**
+     * @var array filesystem definitions indexed by their IDs
+     */
+    private $_definitions = [];
 
     /**
      * Getter magic method.
@@ -208,14 +210,14 @@ class Filesystem extends Component
 
     /**
      * 获取磁盘
-     * @param string $disk
+     * @param string $filesystem
      * @return object
      * @throws InvalidConfigException
      */
-    public function disk($disk = null)
+    public function filesystem($filesystem = null)
     {
-        $disk = !is_null($disk) ? $disk : $this->default;
-        return $this->get($disk);
+        $filesystem = !is_null($filesystem) ? $filesystem : $this->default;
+        return $this->get($filesystem);
     }
 
     /**
