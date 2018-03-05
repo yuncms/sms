@@ -11,6 +11,7 @@ namespace yuncms\tests\behaviors;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\db\Connection;
+use yii\db\Exception;
 use yuncms\behaviors\UUIDBehavior;
 use yuncms\tests\TestCase;
 use yuncms\helpers\StringHelper;
@@ -46,13 +47,18 @@ class UUIDBehaviorTest extends TestCase
             ],
         ]);
 
+
+
         $columns = [
             'id' => 'pk',
             'name' => 'string',
             'uuid' => 'string',
             'category_id' => 'integer',
         ];
-        Yii::$app->getDb()->createCommand()->createTable('test_uuid', $columns)->execute();
+        try {
+            Yii::$app->getDb()->createCommand()->createTable('test_uuid', $columns)->execute();
+        } catch (Exception $e) {
+        }
     }
 
     public function tearDown()
