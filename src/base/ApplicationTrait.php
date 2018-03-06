@@ -9,6 +9,7 @@ namespace yuncms\base;
 
 use yii\authclient\Collection;
 use yuncms\components\Settings;
+use yuncms\filesystem\Filesystem;
 
 /**
  * Trait ApplicationTrait
@@ -17,9 +18,19 @@ use yuncms\components\Settings;
  * @property \yii\queue\Queue $queue The queue component
  * @property \yuncms\notifications\NotificationManager $notifications The notifications component
  * @property \yii\redis\Connection $redis The redis component
+ * @property \yuncms\filesystem\Filesystem $filesystem The filesystem component
  */
 trait ApplicationTrait
 {
+    /**
+     * Returns the settings component.
+     * @return \yuncms\filesystem\Filesystem the filesystem connection.
+     */
+    public function getFilesystem(): Filesystem
+    {
+        return $this->get('filesystem');
+    }
+
     /**
      * Returns the settings component.
      * @return \yuncms\components\Settings the settings connection.

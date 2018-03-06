@@ -31,5 +31,8 @@ return [
             'class' => yuncms\components\Settings::class,
             'frontCache' => 'cache'
         ],
+        'filesystem' => [
+            'class' => yuncms\filesystem\Filesystem::class,
+        ],
     ]
 ];

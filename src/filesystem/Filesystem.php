@@ -5,15 +5,12 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\filesystem;
 
 use Closure;
 use Yii;
 use yii\base\Component;
-use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
-use League\Flysystem\MountManager;
 
 /**
  * Class Storage
@@ -31,11 +28,6 @@ class Filesystem extends Component
     public $params = [];
 
     /**
-     * @var MountManager
-     */
-    protected $mountManager;
-
-    /**
      * @var array shared disk instances indexed by their IDs
      */
     private $_filesystems = [];
@@ -44,15 +36,6 @@ class Filesystem extends Component
      * @var array filesystem definitions indexed by their IDs
      */
     private $_definitions = [];
-
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        parent::init();
-        $this->mountManager = new MountManager();
-    }
 
     /**
      * Getter magic method.
@@ -110,7 +93,7 @@ class Filesystem extends Component
      *
      * @param string $id filesystem ID (e.g. `db`).
      * @param bool $throwException whether to throw an exception if `$id` is not registered with the locator before.
-     * @return object|null the filesystem of the specified ID. If `$throwException` is false and `$id`
+     * @return \League\Flysystem\Filesystem|object|null the filesystem of the specified ID. If `$throwException` is false and `$id`
      * is not registered before, null will be returned.
      * @throws InvalidConfigException if `$id` refers to a nonexistent filesystem ID
      * @see has()
@@ -212,22 +195,13 @@ class Filesystem extends Component
         unset($this->_definitions[$id], $this->_filesystems[$id]);
     }
 
-    public function mountManager()
-    {
-        $filesystems = $this->getFilesystems();
-        foreach ($filesystems as $id => $filesystem) {
-            $this->mountManager->mountFilesystem($id, $filesystem);
-        }
-        return $this->mountManager;
-    }
-
     /**
      * 获取磁盘
-     * @param string $filesystem
-     * @return object
+     * @param string|null $filesystem
+     * @return \League\Flysystem\Filesystem
      * @throws InvalidConfigException
      */
-    public function filesystem($filesystem = null)
+    public function disk($filesystem = null)
     {
         $filesystem = !is_null($filesystem) ? $filesystem : $this->default;
         return $this->get($filesystem);
