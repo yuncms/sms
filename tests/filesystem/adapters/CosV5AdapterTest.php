@@ -7,9 +7,7 @@
 
 namespace yuncms\tests\filesystem\adapters;
 
-use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
-use League\Flysystem\FilesystemInterface;
 use yuncms\filesystem\Adapter;
 use yuncms\filesystem\adapters\CosV5Adapter;
 use yuncms\tests\TestCase;
