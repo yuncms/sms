@@ -66,7 +66,10 @@ class MobileValidator extends Validator
     }
 
     /**
-     * @inheritdoc
+     * @param \yii\base\Model $model
+     * @param string $attribute
+     * @param \yii\web\View $view
+     * @return null|string
      */
     public function clientValidateAttribute($model, $attribute, $view)
     {

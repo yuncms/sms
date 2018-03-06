@@ -5,7 +5,6 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\filters;
 
 use yii\base\ActionFilter;

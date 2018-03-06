@@ -7,6 +7,11 @@
 
 namespace yuncms\base;
 
+/**
+ * Class Model
+ * @package yuncms\base
+ * @author Tongle Xu <xutongle@gmail.com>
+ */
 class Model extends \yii\base\Model
 {
     /**

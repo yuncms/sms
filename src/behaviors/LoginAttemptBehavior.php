@@ -10,7 +10,6 @@ namespace yuncms\behaviors;
 use Yii;
 use yii\base\Model;
 use yii\base\Behavior;
-use yii\db\Expression;
 use yuncms\models\UserLoginAttempt;
 
 /**

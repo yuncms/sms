@@ -5,10 +5,13 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\filters;
 
-
+/**
+ * Class AccessRuleFilter
+ * @package yuncms\filters
+ * @author Tongle Xu <xutongle@gmail.com>
+ */
 class AccessRuleFilter
 {
 

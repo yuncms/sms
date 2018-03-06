@@ -11,6 +11,11 @@ use Yii;
 use yii\caching\Cache;
 use yii\caching\Dependency;
 
+/**
+ * Class AppPathDependency
+ * @package yuncms\caching
+ * @author Tongle Xu <xutongle@gmail.com>
+ */
 class AppPathDependency extends Dependency
 {
     /**

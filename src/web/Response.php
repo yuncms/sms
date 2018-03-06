@@ -5,10 +5,13 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\web;
 
-
+/**
+ * Class Response
+ * @package yuncms\web
+ * @author Tongle Xu <xutongle@gmail.com>
+ */
 class Response extends \yii\web\Response
 {
 

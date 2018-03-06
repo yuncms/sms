@@ -5,7 +5,6 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\behaviors;
 
 use Yii;

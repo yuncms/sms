@@ -5,9 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\web;
-
 
 use Yii;
 use yii\web\Response as YiiResponse;

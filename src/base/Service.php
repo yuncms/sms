@@ -5,7 +5,6 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\base;
 
 use Closure;
@@ -13,17 +12,22 @@ use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 
+/**
+ * 服务层
+ * @package yuncms\base
+ * @author Tongle Xu <xutongle@gmail.com>
+ */
 class Service extends Component
 {
     /**
      * @var array shared service instances indexed by their IDs
      */
     private $_services = [];
+
     /**
      * @var array service definitions indexed by their IDs
      */
     private $_definitions = [];
-
 
     /**
      * Getter magic method.
