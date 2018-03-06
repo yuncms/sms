@@ -9,6 +9,7 @@
 namespace yuncms\filesystem\adapters;
 
 
+use Qcloud\Cos\Client;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 
@@ -72,6 +73,8 @@ class CosV5Adapter extends Adapter
             'cdn' => $this->cdn,
         ];
 
-        return new \Freyo\Flysystem\QcloudCOSv5\Adapter($config);
+        $client = new Client($config);
+
+        return new \Freyo\Flysystem\QcloudCOSv5\Adapter($client, $config);
     }
 }

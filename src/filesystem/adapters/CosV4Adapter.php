@@ -7,6 +7,7 @@
 
 namespace yuncms\filesystem\adapters;
 
+use QCloud\Cos\Api;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 
@@ -57,10 +58,11 @@ class CosV4Adapter extends Adapter
     /**
      * 准备适配器
      * @return \Freyo\Flysystem\QcloudCOSv4\Adapter
+     * @throws \Exception
      */
     protected function prepareAdapter()
     {
-        return new \Freyo\Flysystem\QcloudCOSv4\Adapter([
+        $config = [
             'protocol' => $this->protocol,
             'domain' => $this->domain,
             'app_id' => $this->appId,
@@ -70,6 +72,9 @@ class CosV4Adapter extends Adapter
             'bucket' => $this->bucket,
             'region' => $this->region,
             'debug' => $this->debug,
-        ]);
+        ];
+        $cosApi = new Api($config);
+
+        return new \Freyo\Flysystem\QcloudCOSv4\Adapter($cosApi,$config);
     }
 }
