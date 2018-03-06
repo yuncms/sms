@@ -55,7 +55,7 @@ class CosV5Adapter extends Adapter
 
     /**
      * 准备适配器
-     * @return \Freyo\Flysystem\QcloudCOSv4\Adapter
+     * @return \Freyo\Flysystem\QcloudCOSv5\Adapter
      */
     protected function prepareAdapter()
     {
