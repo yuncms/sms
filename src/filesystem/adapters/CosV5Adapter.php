@@ -5,9 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\filesystem\adapters;
-
 
 use Qcloud\Cos\Client;
 use yii\base\InvalidConfigException;
@@ -22,7 +20,7 @@ class CosV5Adapter extends Adapter
     public $domain;
     public $region;
     public $timeout = 60;
-    public $debug = false;
+    public $connectTimeout = 10;
     /**
      * @var string https://{your-bucket}-{your-app-id}.file.myqcloud.com
      */
