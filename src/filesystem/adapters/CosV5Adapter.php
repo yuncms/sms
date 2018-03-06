@@ -12,9 +12,8 @@ namespace yuncms\filesystem\adapters;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 
-class CosAdapter extends Adapter
+class CosV5Adapter extends Adapter
 {
-    public $protocol = 'http';
     public $appId;
     public $accessId;
     public $accessSecret;
@@ -23,6 +22,10 @@ class CosAdapter extends Adapter
     public $region;
     public $timeout = 60;
     public $debug = false;
+    /**
+     * @var string https://{your-bucket}-{your-app-id}.file.myqcloud.com
+     */
+    public $cdn = '';
 
     /**
      * @inheritdoc
@@ -56,16 +59,19 @@ class CosAdapter extends Adapter
      */
     protected function prepareAdapter()
     {
-        return new \Freyo\Flysystem\QcloudCOSv4\Adapter([
-            'protocol' => $this->protocol,
-            'domain' => $this->domain,
-            'app_id' => $this->appId,
-            'secret_id' => $this->accessId,
-            'secret_key' => $this->accessSecret,
-            'timeout' => $this->timeout,
-            'bucket' => $this->bucket,
+        $config = [
             'region' => $this->region,
-            'debug' => $this->debug,
-        ]);
+            'credentials' => [
+                'appId' => $this->appId,
+                'secretId' => $this->accessId,
+                'secretKey' => $this->accessSecret,
+            ],
+            'timeout' => $this->timeout,
+            'connect_timeout' => $this->timeout,
+            'bucket' => $this->bucket,
+            'cdn' => $this->cdn,
+        ];
+
+        return new Freyo\Flysystem\QcloudCOSv5\Adapter($config);
     }
 }
