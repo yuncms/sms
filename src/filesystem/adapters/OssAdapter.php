@@ -50,6 +50,7 @@ class OssAdapter extends Adapter
 
     /**
      * @return \Xxtime\Flysystem\Aliyun\OssAdapter
+     * @throws \Exception
      */
     protected function prepareAdapter()
     {

@@ -5,13 +5,18 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\filesystem\adapters;
 
 use Sabre\DAV\Client;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 
+/**
+ * Class WebDAVAdapter
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class WebDAVAdapter extends Adapter
 {
     /**

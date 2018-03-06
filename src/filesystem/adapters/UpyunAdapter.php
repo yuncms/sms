@@ -5,11 +5,8 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\filesystem\adapters;
 
-
-use League\Flysystem\AdapterInterface;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 

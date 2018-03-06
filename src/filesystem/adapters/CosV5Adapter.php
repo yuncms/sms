@@ -72,6 +72,6 @@ class CosV5Adapter extends Adapter
             'cdn' => $this->cdn,
         ];
 
-        return new Freyo\Flysystem\QcloudCOSv5\Adapter($config);
+        return new \Freyo\Flysystem\QcloudCOSv5\Adapter($config);
     }
 }

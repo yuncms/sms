@@ -5,16 +5,14 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\filesystem;
 
-
+use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yii\caching\Cache;
-use yii\base\Component;
+use yii\di\Instance;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\Cached\CachedAdapter;
-use yii\di\Instance;
 
 /**
  * Class Filesystem
@@ -45,7 +43,8 @@ abstract class Adapter extends Component
     public $cacheDuration = 3600;
 
     /**
-     * @inheritdoc
+     * 初始化适配器
+     * @throws InvalidConfigException
      */
     public function init()
     {
@@ -69,6 +68,7 @@ abstract class Adapter extends Component
     abstract protected function prepareAdapter();
 
     /**
+     * 魔术方法，执行适配器方法
      * @param string $method
      * @param array $parameters
      * @return mixed
