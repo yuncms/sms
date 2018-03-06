@@ -9,6 +9,7 @@ namespace yuncms\filesystem;
 
 use yii\base\Component;
 use yii\base\InvalidConfigException;
+use yii\base\NotSupportedException;
 use yii\caching\Cache;
 use yii\di\Instance;
 use League\Flysystem\AdapterInterface;
@@ -66,6 +67,16 @@ abstract class Adapter extends Component
      * @return AdapterInterface
      */
     abstract protected function prepareAdapter();
+
+    /**
+     * 获取文件的Url访问路径
+     * @param string $path
+     * @throws NotSupportedException
+     */
+    public function getUrl($path)
+    {
+        throw new NotSupportedException('"getUrl" is not implemented.');
+    }
 
     /**
      * 魔术方法，执行适配器方法
