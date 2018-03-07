@@ -20,7 +20,10 @@ class UrlRule extends \yii\rest\UrlRule
      * The keys are the tokens and the values are the corresponding action IDs.
      * These extra patterns will take precedence over [[tokens]].
      */
-    public $extraTokens = [];
+    public $extraTokens = [
+        //'{year}' => '<year:\\d{4}>',
+        //'{language}' => '<language:\\w+>'
+    ];
 
     /**
      * {@inheritdoc}
