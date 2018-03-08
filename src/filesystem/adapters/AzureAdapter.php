@@ -7,9 +7,9 @@
 
 namespace yuncms\filesystem\adapters;
 
-use WindowsAzure\Common\ServicesBuilder;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
+use MicrosoftAzure\Storage\Common\ServicesBuilder;
 
 /**
  * Class AzureAdapter
