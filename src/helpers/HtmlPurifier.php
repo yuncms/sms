@@ -39,7 +39,10 @@ class HtmlPurifier extends \yii\helpers\HtmlPurifier
     }
 
     /**
-     * @inheritdoc
+     * configure
+     *
+     * @param HTMLPurifier_Config $config The config to use for HtmlPurifier.
+     * @return void
      */
     public static function configure($config)
     {

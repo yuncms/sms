@@ -7,6 +7,11 @@
 
 namespace yuncms\helpers;
 
+/**
+ * Class SearchHelper
+ * @package yuncms\helpers
+ * @author Tongle Xu <xutongle@gmail.com>
+ */
 class SearchHelper
 {
     /**

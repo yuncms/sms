@@ -10,42 +10,6 @@ namespace yuncms\helpers;
 class ArrayHelper extends \yii\helpers\ArrayHelper
 {
     /**
-     * @inheritdoc
-     */
-    public static function toArray($object, $properties = [], $recursive = true): array
-    {
-        if ($object === null) {
-            return [];
-        }
-
-        if (is_string($object)) {
-
-            // Split it on the non-escaped commas
-            $object = preg_split('/(?<!\\\),/', $object);
-
-            // Remove any of the backslashes used to escape the commas
-            foreach ($object as $key => $val) {
-                // Remove leading/trailing whitespace
-                $val = trim($val);
-
-                // Remove any backslashes used to escape commas
-                $val = str_replace('\,', ',', $val);
-
-                $object[$key] = $val;
-            }
-
-            // Remove any empty elements and reset the keys
-            $object = array_merge(array_filter($object, function ($value) {
-                return $value !== '';
-            }));
-
-            return $object;
-        }
-
-        return parent::toArray($object, $properties, $recursive);
-    }
-
-    /**
      * Prepends or appends a value to an array.
      *
      * @param array &$array the array to be prepended/appended to

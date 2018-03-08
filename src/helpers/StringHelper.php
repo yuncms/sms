@@ -7,7 +7,6 @@
 
 namespace yuncms\helpers;
 
-use Yii;
 use Stringy\Stringy as BaseStringy;
 
 /**

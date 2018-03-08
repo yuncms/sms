@@ -13,11 +13,6 @@ use yuncms\tests\TestCase;
 
 class ArrayHelperTest extends TestCase
 {
-    public function testToArray()
-    {
-        $this->assertEquals([], ArrayHelper::toArray(null));
-        $this->assertEquals([1, 2, 3], ArrayHelper::toArray([1, 2, 3]));
-    }
 
     public function testPrependOrAppend()
     {
