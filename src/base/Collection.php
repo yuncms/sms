@@ -14,6 +14,7 @@ use JsonSerializable;
 use IteratorAggregate;
 use Serializable;
 use Traversable;
+use yii\base\Arrayable;
 use yuncms\helpers\ArrayHelper;
 use yuncms\helpers\Json;
 
@@ -44,15 +45,26 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     }
 
     /**
+     * Wrap the given value in a collection if applicable.
+     *
+     * @param  mixed  $value
+     * @return static
+     */
+    public static function wrap($value)
+    {
+        return $value instanceof self
+            ? new static($value)
+            : new static(ArrayHelper::wrap($value));
+    }
+
+    /**
      * set data.
      *
      * @param mixed $items
      */
-    public function __construct(array $items = [])
+    public function __construct($items = [])
     {
-        foreach ($items as $key => $value) {
-            $this->set($key, $value);
-        }
+        $this->items = $this->getArrayableItems($items);
     }
 
     /**
@@ -162,7 +174,11 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      */
     public function set($key, $value)
     {
-        ArrayHelper::set($this->items, $key, $value);
+        if (is_null($key)) {
+            $this->items[] = $value;
+        } else {
+            $this->items[$key] = $value;
+        }
     }
 
     /**
@@ -368,5 +384,27 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     public function offsetSet($offset, $value)
     {
         $this->set($offset, $value);
+    }
+
+    /**
+     * Results array of items from Collection or Arrayable.
+     *
+     * @param  mixed  $items
+     * @return array
+     */
+    protected function getArrayableItems($items)
+    {
+        if (is_array($items)) {
+            return $items;
+        } elseif ($items instanceof self) {
+            return $items->all();
+        } elseif ($items instanceof Arrayable) {
+            return $items->toArray();
+        }  elseif ($items instanceof JsonSerializable) {
+            return $items->jsonSerialize();
+        } elseif ($items instanceof Traversable) {
+            return iterator_to_array($items);
+        }
+        return (array) $items;
     }
 }
