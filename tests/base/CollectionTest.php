@@ -8,9 +8,19 @@
 namespace yuncms\tests\base;
 
 use yuncms\base\Collection;
-use PHPUnit\Framework\TestCase;
+use yuncms\tests\TestCase;
 
+/**
+ * Class CollectionTest
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class CollectionTest extends TestCase
 {
-
+    public function testFirstReturnsFirstItemInCollection()
+    {
+        $c = new Collection(['foo', 'bar']);
+        $this->assertEquals('foo', $c->first());
+    }
 }
