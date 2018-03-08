@@ -145,7 +145,7 @@ class LoginAttemptBehavior extends Behavior
      */
     public function getKey()
     {
-        return sha1($this->owner->{$this->usernameAttribute});
+        return 'user.' . $this->owner->{$this->usernameAttribute};
     }
 
     /**

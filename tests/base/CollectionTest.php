@@ -164,5 +164,5 @@ class CollectionTest extends TestCase
         $this->assertEquals(['foo' => 'bar'], $collection->all());
     }
 
-    
+
 }
