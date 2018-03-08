@@ -22,4 +22,11 @@ class FileHelperTest extends TestCase
         $this->assertFalse(FileHelper::hasExtension('filename'));
     }
 
+    public function testIsAbsolutePath(){
+        $this->assertTrue(FileHelper::isAbsolutePath('/tmp'));
+        $this->assertTrue(FileHelper::isAbsolutePath('c:\\Windows'));
+        $this->assertFalse(FileHelper::isAbsolutePath('tmp'));
+        $this->assertFalse(FileHelper::isAbsolutePath('../dir'));
+    }
+
 }

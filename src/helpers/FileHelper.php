@@ -193,4 +193,21 @@ class FileHelper extends \yii\helpers\FileHelper
         self::removeDirectory($directory);
         return self::createDirectory($directory);
     }
+
+    /**
+     * Returns whether the file path is an absolute path.
+     *
+     * @param string $path A file path
+     * @return bool
+     */
+    public static function isAbsolutePath($path): bool
+    {
+        return strspn($path, '/\\', 0, 1)
+            || (strlen($path) > 3 && ctype_alpha($path[0])
+                && ':' === $path[1]
+                && strspn($path, '/\\', 2, 1)
+            )
+            || null !== parse_url($path, PHP_URL_SCHEME)
+            ;
+    }
 }
