@@ -7,6 +7,7 @@
 
 namespace yuncms\payment;
 
+use yii\base\Component;
 use yuncms\payment\contracts\GatewayInterface;
 use yuncms\payment\traits\GatewayTrait;
 
@@ -16,7 +17,7 @@ use yuncms\payment\traits\GatewayTrait;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Gateway implements GatewayInterface
+class Gateway extends Component implements GatewayInterface
 {
     use GatewayTrait;
 
