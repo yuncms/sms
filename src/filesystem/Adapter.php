@@ -7,9 +7,9 @@
 
 namespace yuncms\filesystem;
 
+use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
-use yii\base\NotSupportedException;
 use yii\caching\Cache;
 use yii\di\Instance;
 use League\Flysystem\AdapterInterface;
@@ -49,16 +49,12 @@ abstract class Adapter extends Component
     public $url;
 
     /**
-     * @var bool|null Whether the volume has a public URL
-     */
-    public $hasUrls;
-
-    /**
      * 初始化适配器
      * @throws InvalidConfigException
      */
     public function init()
     {
+        parent::init();
         $adapter = $this->prepareAdapter();
         if ($this->cache !== null) {
             /* @var Cache $cache */
@@ -73,6 +69,11 @@ abstract class Adapter extends Component
     }
 
     /**
+     * @inheritdoc
+     */
+    abstract public static function displayName();
+
+    /**
      * 准备适配器
      * @return AdapterInterface
      */
@@ -85,22 +86,10 @@ abstract class Adapter extends Component
      */
     public function getRootUrl()
     {
-        return false;
-    }
-
-    /**
-     * 获取文件的Url访问路径
-     * @param string $path
-     * @return string
-     * @throws NotSupportedException
-     */
-    public function getUrl($path)
-    {
-        if (is_null($this->url)) {
-            throw new NotSupportedException('"getUrl" is not implemented.');
-        } else {
-            return $this->url . '/' . $path;
+        if ($this->url !== null) {
+            return rtrim(Yii::getAlias($this->url), '/') . '/';
         }
+        return false;
     }
 
     /**
