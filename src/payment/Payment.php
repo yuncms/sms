@@ -13,7 +13,7 @@ use yii\base\Component;
 use yii\base\InvalidConfigException;
 
 /**
- * Class Payment
+ * 网关服务类
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
@@ -37,8 +37,8 @@ class Payment extends Component
 
     /**
      * Getter magic method.
-     * This method is overridden to support accessing filesystems like reading properties.
-     * @param string $name filesystem or property name
+     * This method is overridden to support accessing gateways like reading properties.
+     * @param string $name gateway or property name
      * @return mixed the named property value
      * @throws InvalidConfigException
      * @throws \yii\base\UnknownPropertyException
@@ -87,13 +87,13 @@ class Payment extends Component
     }
 
     /**
-     * Returns the filesystem instance with the specified ID.
+     * Returns the gateway instance with the specified ID.
      *
-     * @param string $id filesystem ID (e.g. `db`).
+     * @param string $id gateway ID (e.g. `db`).
      * @param bool $throwException whether to throw an exception if `$id` is not registered with the locator before.
-     * @return \League\Flysystem\Filesystem|object|null the filesystem of the specified ID. If `$throwException` is false and `$id`
+     * @return object|null the gateway of the specified ID. If `$throwException` is false and `$id`
      * is not registered before, null will be returned.
-     * @throws InvalidConfigException if `$id` refers to a nonexistent filesystem ID
+     * @throws InvalidConfigException if `$id` refers to a nonexistent gateway ID
      * @see has()
      * @see set()
      */
@@ -118,7 +118,7 @@ class Payment extends Component
     }
 
     /**
-     * Registers a filesystem definition with this locator.
+     * Registers a gateway definition with this locator.
      *
      * For example,
      *
