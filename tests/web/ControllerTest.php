@@ -67,4 +67,14 @@ class ControllerTest extends TestCase
         $this->assertEquals(Response::FORMAT_JSONP, $result->format);
         $this->assertEquals($data, $result->data);
     }
+
+    public function testAsRaw()
+    {
+        $data = 'clallback';
+        $result = $this->controller->asRaw($data);
+        $this->assertInstanceOf('yii\web\Response', $result);
+        $this->assertSame(Yii::$app->response, $result, 'response should be the same as Yii::$app->response');
+        $this->assertEquals(Response::FORMAT_RAW, $result->format);
+        $this->assertEquals($data, $result->data);
+    }
 }
