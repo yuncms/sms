@@ -19,7 +19,7 @@ use yuncms\helpers\Json;
 
 /**
  * Collection
- * 
+ *
  * @package yuncms\base
  * @author Tongle Xu <xutongle@gmail.com>
  */
@@ -124,9 +124,9 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Retrieve the last item.
      *
-     * @return bool
+     * @return mixed
      */
-    public function last():bool
+    public function last()
     {
         $end = end($this->items);
         reset($this->items);
