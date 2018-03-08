@@ -7,6 +7,7 @@
 
 namespace yuncms\filesystem\adapters;
 
+use Yii;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 
@@ -43,6 +44,14 @@ class QiniuAdapter extends Adapter
             throw new InvalidConfigException('The "domain" property must be set.');
         }
         parent::init();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Yii::t('yuncms', 'Qiniu');
     }
 
     /**

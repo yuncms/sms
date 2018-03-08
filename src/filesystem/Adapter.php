@@ -44,6 +44,16 @@ abstract class Adapter extends Component
     public $cacheDuration = 3600;
 
     /**
+     * @var string|null The adapter URL
+     */
+    public $url;
+
+    /**
+     * @var bool|null Whether the volume has a public URL
+     */
+    public $hasUrls;
+
+    /**
      * 初始化适配器
      * @throws InvalidConfigException
      */
@@ -69,13 +79,28 @@ abstract class Adapter extends Component
     abstract protected function prepareAdapter();
 
     /**
+     * Returns the URL to the source, if it’s accessible via HTTP traffic.
+     *
+     * @return string|false The root URL, or `false` if there isn’t one
+     */
+    public function getRootUrl()
+    {
+        return false;
+    }
+
+    /**
      * 获取文件的Url访问路径
      * @param string $path
+     * @return string
      * @throws NotSupportedException
      */
     public function getUrl($path)
     {
-        throw new NotSupportedException('"getUrl" is not implemented.');
+        if (is_null($this->url)) {
+            throw new NotSupportedException('"getUrl" is not implemented.');
+        } else {
+            return $this->url . '/' . $path;
+        }
     }
 
     /**

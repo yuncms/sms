@@ -8,6 +8,7 @@
 namespace yuncms\filesystem\adapters;
 
 use OpenCloud\Rackspace;
+use Yii;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 
@@ -70,6 +71,14 @@ class RackspaceAdapter extends Adapter
         }
 
         parent::init();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Yii::t('yuncms', 'Rackspace');
     }
 
     /**

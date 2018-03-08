@@ -8,6 +8,7 @@
 namespace yuncms\filesystem\adapters;
 
 use Qcloud\Cos\Client;
+use Yii;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 
@@ -50,6 +51,14 @@ class CosV5Adapter extends Adapter
             throw new InvalidConfigException('The "region" property must be set.');
         }
         parent::init();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Yii::t('yuncms', 'QCloud COS');
     }
 
     /**

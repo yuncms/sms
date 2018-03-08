@@ -43,6 +43,14 @@ class ZipArchiveAdapter extends Adapter
     }
 
     /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Yii::t('yuncms', 'Zip Archive');
+    }
+
+    /**
      * @return \League\Flysystem\ZipArchive\ZipArchiveAdapter
      */
     protected function prepareAdapter()

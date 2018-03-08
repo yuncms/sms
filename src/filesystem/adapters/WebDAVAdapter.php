@@ -8,6 +8,7 @@
 namespace yuncms\filesystem\adapters;
 
 use Sabre\DAV\Client;
+use Yii;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 
@@ -58,6 +59,14 @@ class WebDAVAdapter extends Adapter
         }
 
         parent::init();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Yii::t('yuncms', 'WebDAV');
     }
 
     /**

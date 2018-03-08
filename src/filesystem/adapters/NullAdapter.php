@@ -8,6 +8,7 @@
 
 namespace yuncms\filesystem\adapters;
 
+use Yii;
 use yuncms\filesystem\Adapter;
 
 /**
@@ -18,6 +19,14 @@ use yuncms\filesystem\Adapter;
  */
 class NullAdapter extends Adapter
 {
+    /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Yii::t('yuncms', 'Null');
+    }
+
     /**
      * @return \League\Flysystem\Adapter\NullAdapter
      */

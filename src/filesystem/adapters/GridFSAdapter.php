@@ -8,6 +8,7 @@
 namespace yuncms\filesystem\adapters;
 
 use MongoClient;
+use Yii;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 
@@ -42,6 +43,14 @@ class GridFSAdapter extends Adapter
         }
 
         parent::init();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Yii::t('yuncms', 'Mongo GridFs');
     }
 
     /**

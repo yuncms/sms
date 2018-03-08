@@ -82,6 +82,14 @@ class FtpAdapter extends Adapter
     }
 
     /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Yii::t('yuncms', 'FTP');
+    }
+
+    /**
      * @return  Ftp
      */
     protected function prepareAdapter()

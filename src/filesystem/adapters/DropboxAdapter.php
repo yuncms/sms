@@ -7,6 +7,7 @@
 
 namespace yuncms\filesystem\adapters;
 
+use Yii;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 use Dropbox\Client;
@@ -46,6 +47,14 @@ class DropboxAdapter extends Adapter
         }
 
         parent::init();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Yii::t('yuncms', 'Dropbox');
     }
 
     /**

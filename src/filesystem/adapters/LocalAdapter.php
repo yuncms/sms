@@ -11,6 +11,7 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\Adapter;
 use League\Flysystem\Adapter\Local;
+use yuncms\helpers\FileHelper;
 
 /**
  * Class Local
@@ -24,6 +25,14 @@ class LocalAdapter extends Adapter
      * @var string
      */
     public $path;
+
+    /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Yii::t('yuncms', 'Local Folder');
+    }
 
     /**
      * @inheritdoc
@@ -43,5 +52,13 @@ class LocalAdapter extends Adapter
     protected function prepareAdapter()
     {
         return new Local($this->path);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRootPath(): string
+    {
+        return FileHelper::normalizePath($this->path);
     }
 }

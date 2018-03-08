@@ -81,6 +81,14 @@ class SftpAdapter extends Adapter
     }
 
     /**
+     * @inheritdoc
+     */
+    public static function displayName(): string
+    {
+        return Yii::t('yuncms', 'SFTP');
+    }
+
+    /**
      * @return \League\Flysystem\Sftp\SftpAdapter
      */
     protected function prepareAdapter()
