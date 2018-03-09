@@ -7,8 +7,9 @@
 
 namespace yuncms\notifications;
 
+use yuncms\notifications\contracts\NotificationInterface;
 
-class Message
+class Notification implements NotificationInterface
 {
 
 }

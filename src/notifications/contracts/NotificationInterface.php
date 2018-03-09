@@ -7,7 +7,6 @@
 
 namespace yuncms\notifications\contracts;
 
-
 interface NotificationInterface
 {
 

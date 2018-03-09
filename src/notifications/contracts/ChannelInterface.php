@@ -5,18 +5,20 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\notifications\channels;
+namespace yuncms\notifications\contracts;
 
-use yii\base\BaseObject;
-use yuncms\notifications\contracts\ChannelInterface;
 use yuncms\notifications\Notification;
 
-abstract class Channel  extends BaseObject implements ChannelInterface
+/**
+ * Interface ChannelInterface
+ * @package yuncms\notifications\contracts
+ */
+interface ChannelInterface
 {
     /**
      * 开始推送
      * @param Notification $notification
      * @return mixed
      */
-    abstract public function send(Notification $notification);
+    public function send(Notification $notification);
 }
