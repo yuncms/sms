@@ -28,6 +28,11 @@ abstract class BaseMessage extends BaseObject implements MessageInterface
     public $broadcast;
 
     /**
+     * @var string message tag.
+     */
+    public $tag;
+
+    /**
      * @var array
      */
     public $body;

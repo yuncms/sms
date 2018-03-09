@@ -63,15 +63,17 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
      * Creates a new message instance and optionally composes its body content via view rendering.
      *
      * @param array $message message payload.
+     * @param string|null $tag message tag
      * @return MessageInterface|object message instance.
      * @throws \yii\base\InvalidConfigException
      */
-    public function createMessage($message): MessageInterface
+    public function createMessage($message, $tag = null): MessageInterface
     {
         $config = [
             'class' => $this->messageClass,
             'broadcast' => $this,
             'body' => $message,
+            'tag' => $tag
         ];
         return Yii::createObject($config);
     }
