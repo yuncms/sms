@@ -33,5 +33,8 @@ return [
         'filesystem' => [
             'class' => yuncms\filesystem\FilesystemManager::class,
         ],
+        'notification' => [
+            'class' => yuncms\notifications\NotificationManager::class,
+        ],
     ]
 ];
