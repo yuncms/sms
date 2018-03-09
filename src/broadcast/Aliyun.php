@@ -56,6 +56,7 @@ class Aliyun extends Broadcast
      * @var HttpClient
      */
     protected $client;
+
     /**
      * 初始化组件
      * @throws InvalidConfigException
@@ -77,6 +78,7 @@ class Aliyun extends Broadcast
         }
         $this->client = new HttpClient($this->endPoint, $this->accessId, $this->accessKey, $this->securityToken, $this->config);
     }
+
     /**
      * 获取主题(广播)
      * @param string $topicName
@@ -89,6 +91,7 @@ class Aliyun extends Broadcast
             'topicName' => !is_null($topicName) ? $topicName : $this->topicName
         ]);
     }
+
     /**
      * 向主题推送消息
      * @param string|array $messageBody
@@ -102,6 +105,7 @@ class Aliyun extends Broadcast
         $topic = $this->getTopicRef($topicName);
         return $topic->publishMessage($messageBody, $messageTag, $messageAttributes);
     }
+
     /**
      * 创建主题
      * @param string $topicName
