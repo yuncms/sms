@@ -7,15 +7,8 @@
 
 namespace yuncms\broadcast;
 
-use yii\base\Component;
 
-/**
- * 广播组件
- *
- * @author Tongle Xu <xutongle@gmail.com>
- * @since 3.0
- */
-class Broadcast extends Component
+interface BroadcastInterface
 {
 
 }

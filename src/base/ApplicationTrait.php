@@ -10,6 +10,7 @@ namespace yuncms\base;
 use yii\authclient\Collection;
 use yuncms\components\Settings;
 use yuncms\filesystem\Filesystem;
+use yuncms\filesystem\FilesystemManager;
 
 /**
  * Trait ApplicationTrait
@@ -24,9 +25,9 @@ trait ApplicationTrait
 {
     /**
      * Returns the settings component.
-     * @return \yuncms\filesystem\Filesystem the filesystem connection.
+     * @return \yuncms\filesystem\FilesystemManager the filesystem connection.
      */
-    public function getFilesystem(): Filesystem
+    public function getFilesystem(): FilesystemManager
     {
         return $this->get('filesystem');
     }
