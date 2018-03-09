@@ -13,10 +13,5 @@ use yuncms\notifications\Notification;
 
 abstract class Channel  extends BaseObject implements ChannelInterface
 {
-    /**
-     * 开始推送
-     * @param Notification $notification
-     * @return mixed
-     */
-    abstract public function send(Notification $notification);
+
 }

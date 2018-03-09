@@ -17,8 +17,8 @@ interface ChannelInterface
 {
     /**
      * 开始推送
-     * @param Notification $notification
+     * @param NotificationInterface $notification
      * @return mixed
      */
-    public function send(Notification $notification);
+    public function send(NotificationInterface $notification);
 }
