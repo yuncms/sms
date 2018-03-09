@@ -712,8 +712,8 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
      */
     public function loadAllowance($request, $action)
     {
-        $allowance = Yii::$app->cache->GET($action->controller->id . ':' . $action->id . ':' . $this->id . '_allowance');
-        $allowanceUpdatedAt = Yii::$app->cache->GET($action->controller->id . ':' . $action->id . ':' . $this->id . '_allowance_update_at');
+        $allowance = Yii::$app->cache->get($action->controller->id . ':' . $action->id . ':' . $this->id . '_allowance');
+        $allowanceUpdatedAt = Yii::$app->cache->get($action->controller->id . ':' . $action->id . ':' . $this->id . '_allowance_update_at');
         if ($allowance && $allowanceUpdatedAt) {
             return [$allowance, $allowanceUpdatedAt];
         } else {
