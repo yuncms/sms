@@ -36,5 +36,10 @@ return [
         'notification' => [
             'class' => yuncms\notifications\NotificationManager::class,
         ],
+        'snowflake' => [
+            'class' => yuncms\base\Snowflake::class,
+            'workerId' => 0,
+            'dataCenterId' => 0,
+        ],
     ]
 ];
