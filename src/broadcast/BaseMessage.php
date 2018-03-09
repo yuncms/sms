@@ -28,14 +28,58 @@ abstract class BaseMessage extends BaseObject implements MessageInterface
     public $broadcast;
 
     /**
-     * @var string message tag.
-     */
-    public $tag;
-
-    /**
      * @var array
      */
-    public $body;
+    protected $body;
+
+    /**
+     * @var string message tag.
+     */
+    protected $tag;
+
+    /**
+     * @var null|array message attributes.
+     */
+    protected $attributes;
+
+    /**
+     * get the message tag
+     * @return string
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * set the message tag
+     * @param string $tag
+     * @return BaseMessage
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
+        return $this;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * set message attributes
+     * @param array $attributes
+     * @return BaseMessage
+     */
+    public function setAttributes(array $attributes)
+    {
+        $this->attributes = $attributes;
+        return $this;
+    }
 
     /**
      * Sends this broadcast message.
