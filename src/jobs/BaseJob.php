@@ -18,25 +18,57 @@ use yii\queue\RetryableJobInterface;
  */
 abstract class BaseJob extends BaseObject implements RetryableJobInterface
 {
-    /** @var int  */
-    public $ttr = 60;
+    /**
+     * @var string|null The configured job description
+     */
+    public $description;
 
-    /** @var int  */
-    public $attempt = 3;
+    /**
+     * @var int The current progress
+     */
+    private $_progress;
 
     /**
      * @inheritdoc
      */
-    public function getTtr()
+    public function init()
     {
-        return $this->ttr;
+        parent::init();
+        // Set the default progress
+        $this->_progress = 0;
     }
 
     /**
      * @inheritdoc
      */
-    public function canRetry($attempt, $error)
+    public function getDescription()
     {
-        return $attempt < $this->attempt;
+        return $this->description ?? $this->defaultDescription();
+    }
+
+    // Protected Methods
+    // =========================================================================
+
+    /**
+     * Returns a default description for [[getDescription()]].
+     *
+     * @return string|null
+     */
+    protected function defaultDescription()
+    {
+        return null;
+    }
+
+    /**
+     * Sets the job progress on the queue.
+     *
+     * @param \yii\queue\Queue|QueueInterface $queue
+     * @param float                           $progress A number between 0 and 1
+     */
+    protected function setProgress($queue, float $progress)
+    {
+        if ($progress !== $this->_progress && $queue instanceof QueueInterface) {
+            $queue->setProgress(round(100 * $progress));
+        }
     }
 }

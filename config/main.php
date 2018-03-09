@@ -31,7 +31,7 @@ return [
             'frontCache' => 'cache'
         ],
         'filesystem' => [
-            'class' => yuncms\filesystem\Filesystem::class,
+            'class' => yuncms\filesystem\FilesystemManager::class,
         ],
     ]
 ];

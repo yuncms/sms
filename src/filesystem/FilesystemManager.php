@@ -20,7 +20,7 @@ use League\Flysystem\FilesystemNotFoundException;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Filesystem extends Component
+class FilesystemManager extends Component
 {
 
     public $default = 'local';
