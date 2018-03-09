@@ -12,6 +12,7 @@ use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yuncms\notifications\channels\Channel;
+use yuncms\notifications\contracts\NotificationInterface;
 
 /**
  * 通知管理
@@ -106,7 +107,7 @@ class NotificationManager extends Component
      *
      * @param string $id channel ID (e.g. `db`).
      * @param bool $throwException whether to throw an exception if `$id` is not registered with the locator before.
-     * @return object|null the channel of the specified ID. If `$throwException` is false and `$id`
+     * @return Channel|object|null the channel of the specified ID. If `$throwException` is false and `$id`
      * is not registered before, null will be returned.
      * @throws InvalidConfigException if `$id` refers to a nonexistent channel ID
      * @see has()
@@ -255,7 +256,7 @@ class NotificationManager extends Component
      * @return void return the channel
      * @throws \yii\base\InvalidConfigException
      */
-    public function send($notification, array $channels = null)
+    public function send(Notification $notification, array $channels = null)
     {
         if ($channels === null) {
             $channels = array_keys($this->getChannels(true));

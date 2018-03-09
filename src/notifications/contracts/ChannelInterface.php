@@ -16,6 +16,13 @@ use yuncms\notifications\Notification;
 interface ChannelInterface
 {
     /**
+     * Get channel name.
+     *
+     * @return string
+     */
+    public function getName();
+
+    /**
      * 开始推送
      * @param NotificationInterface $notification
      * @return mixed
