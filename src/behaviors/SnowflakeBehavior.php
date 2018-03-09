@@ -16,6 +16,15 @@ use yuncms\base\Snowflake;
 /**
  * Class SnowflakeBehavior
  *
+ * ```
+ * return [
+ *      'snowflake'=>[
+ *          'class' => 'xutl\snowflake\SnowflakeBehavior',
+ *          'attribute' => 'id',
+ *      ],
+ * ];
+ * ```
+ *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
