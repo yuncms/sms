@@ -43,6 +43,26 @@ class BaseMessage extends BaseObject implements MessageInterface
     protected $attributes;
 
     /**
+     * set the message body
+     * @param array $body
+     * @return $this
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
+
+    /**
+     * get the message body
+     * @return array
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
      * get the message tag
      * @return string
      */
