@@ -19,7 +19,7 @@ use yuncms\helpers\Json;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-abstract class BaseMessage extends BaseObject implements MessageInterface
+class BaseMessage extends BaseObject implements MessageInterface
 {
     /**
      * @var BroadcastInterface the broadcast instance that created this message.
