@@ -57,7 +57,18 @@ class SnowflakeBehavior extends AttributeBehavior
         if ($this->attribute === null) {
             throw new InvalidConfigException('Either "attribute" property must be specified.');
         }
-        $this->snowflake = Instance::ensure($this->snowflake, 'yuncms\base\Snowflake');
+    }
+
+    /**
+     * @return object|string|Snowflake
+     * @throws InvalidConfigException
+     */
+    public function getSnowflake()
+    {
+        if (is_string($this->snowflake)) {
+            $this->snowflake = Instance::ensure($this->snowflake, 'yuncms\base\Snowflake');
+        }
+        return $this->snowflake;
     }
 
     /**
