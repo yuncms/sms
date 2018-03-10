@@ -38,9 +38,10 @@ interface MessageInterface
     public function getAttributes();
 
     public function getBody();
+
     /**
      * Returns string representation of this message.
      * @return string the string representation of this message.
      */
-    public function toString();
+    public function toJson();
 }

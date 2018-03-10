@@ -123,7 +123,7 @@ class BaseMessage extends BaseObject implements MessageInterface
      * Returns string representation of this message.
      * @return string the string representation of this message.
      */
-    public function toString()
+    public function toJson()
     {
         return Json::encode($this->body);
     }
@@ -137,7 +137,7 @@ class BaseMessage extends BaseObject implements MessageInterface
         // __toString cannot throw exception
         // use trigger_error to bypass this limitation
         try {
-            return $this->toString();
+            return $this->toJson();
         } catch (\Exception $e) {
             ErrorHandler::convertExceptionToError($e);
             return '';
