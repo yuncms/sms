@@ -7,8 +7,7 @@
 
 namespace yuncms\base;
 
-use yuncms\components\Settings;
-use yuncms\filesystem\FilesystemManager;
+use yuncms\notifications\NotificationManager;
 
 /**
  * Trait ApplicationTrait
@@ -17,26 +16,20 @@ use yuncms\filesystem\FilesystemManager;
  * @property \yii\queue\Queue $queue The queue component
  * @property \yuncms\notifications\NotificationManager $notifications The notifications component
  * @property \yii\redis\Connection $redis The redis component
- * @property \yuncms\filesystem\Filesystem $filesystem The filesystem component
+ * @property \yuncms\filesystem\FilesystemManager $filesystem The filesystem component
+ * @property \yuncms\broadcast\BaseBroadcast $broadcast The broadcast component
+ * @property \yuncms\notifications\NotificationManager $notification the notifications connection.
  */
 trait ApplicationTrait
 {
-    /**
-     * Returns the settings component.
-     * @return \yuncms\filesystem\FilesystemManager the filesystem connection.
-     */
-    public function getFilesystem(): FilesystemManager
-    {
-        return $this->get('filesystem');
-    }
 
     /**
-     * Returns the settings component.
-     * @return \yuncms\components\Settings the settings connection.
+     * Returns the broadcast component.
+     * @return \yuncms\broadcast\BaseBroadcast the broadcast connection.
      */
-    public function getSettings(): Settings
+    public function getBroadcast()
     {
-        return $this->get('settings');
+        return $this->get('broadcast');
     }
 
     /**
@@ -49,12 +42,21 @@ trait ApplicationTrait
     }
 
     /**
+     * Return The redis component
+     * @return \yii\redis\Connection
+     */
+    public function getRedis()
+    {
+        return $this->get('redis');
+    }
+
+    /**
      * Returns the notifications component.
      * @return \yuncms\notifications\NotificationManager the notifications connection.
      */
-    public function getNotifications()
+    public function getNotifications(): NotificationManager
     {
-        return $this->get('notifications');
+        return $this->get('notification');
     }
 
     /**
@@ -64,5 +66,23 @@ trait ApplicationTrait
     public function getAuthClientCollection(): \yii\authclient\Collection
     {
         return $this->get('authClientCollection');
+    }
+
+    /**
+     * Returns the settings component.
+     * @return \yuncms\filesystem\FilesystemManager the filesystem connection.
+     */
+    public function getFilesystem(): \yuncms\filesystem\FilesystemManager
+    {
+        return $this->get('filesystem');
+    }
+
+    /**
+     * Returns the settings component.
+     * @return \yuncms\components\Settings the settings connection.
+     */
+    public function getSettings(): \yuncms\components\Settings
+    {
+        return $this->get('settings');
     }
 }
