@@ -7,9 +7,7 @@
 
 namespace yuncms\base;
 
-use yii\authclient\Collection;
 use yuncms\components\Settings;
-use yuncms\filesystem\Filesystem;
 use yuncms\filesystem\FilesystemManager;
 
 /**
@@ -63,7 +61,7 @@ trait ApplicationTrait
      * Returns the authClientCollection component.
      * @return \yii\authclient\Collection the authClientCollection connection.
      */
-    public function getAuthClientCollection(): Collection
+    public function getAuthClientCollection(): \yii\authclient\Collection
     {
         return $this->get('authClientCollection');
     }

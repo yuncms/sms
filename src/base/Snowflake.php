@@ -61,10 +61,10 @@ class Snowflake extends Component
     {
         parent::init();
         if ($this->workerId > self::MAX_WORKER_ID || $this->workerId < 0) {
-            throw new Exception(sprintf("worker Id can't be greater than %d or less than 0",self::MAX_WORKER_ID));
+            throw new Exception(sprintf("worker Id can't be greater than %d or less than 0", self::MAX_WORKER_ID));
         }
         if ($this->dataCenterId > self::MAX_DATA_CENTER_ID || $this->dataCenterId < 0) {
-            throw new Exception(sprintf("dataCenterId can't be greater than %d or less than 0",self::MAX_DATA_CENTER_ID));
+            throw new Exception(sprintf("dataCenterId can't be greater than %d or less than 0", self::MAX_DATA_CENTER_ID));
         }
     }
 
@@ -73,7 +73,7 @@ class Snowflake extends Component
      * @return int
      * @throws Exception
      */
-    public function next()
+    public function next():int
     {
         $timestamp = $this->milliTime();
         if ($timestamp < $this->_lastTimestamp) {
@@ -99,7 +99,7 @@ class Snowflake extends Component
      * @param int $lastTimestamp 上次生成ID的时间截
      * @return int 当前时间戳
      */
-    protected function waitNextMilli($lastTimestamp)
+    protected function waitNextMilli($lastTimestamp):int
     {
         $timestamp = $this->milliTime();
         while ($timestamp <= $lastTimestamp) {
@@ -112,12 +112,12 @@ class Snowflake extends Component
      * 返回以毫秒为单位的当前时间
      * @return int 当前时间(毫秒)
      */
-    protected function milliTime()
+    protected function milliTime(): int
     {
         $microTime = microtime();
         $comps = explode(' ', $microTime);
         // Note: Using a string here to prevent loss of precision
         // in case of "overflow" (PHP converts it to a double)
-        return sprintf('%d%03d', $comps[1], $comps[0] * 1000);
+        return (int)sprintf('%d%03d', $comps[1], $comps[0] * 1000);
     }
 }
