@@ -18,7 +18,7 @@ use yii\base\InvalidConfigException;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Payment extends Component
+class PaymentManager extends Component
 {
     /**
      * @var array gateway parameters (name => value).

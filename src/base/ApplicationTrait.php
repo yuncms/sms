@@ -8,6 +8,7 @@
 namespace yuncms\base;
 
 use yuncms\notifications\NotificationManager;
+use yuncms\payment\PaymentManager;
 
 /**
  * Trait ApplicationTrait
@@ -18,10 +19,18 @@ use yuncms\notifications\NotificationManager;
  * @property \yii\redis\Connection $redis The redis component
  * @property \yuncms\filesystem\FilesystemManager $filesystem The filesystem component
  * @property \yuncms\broadcast\BaseBroadcast $broadcast The broadcast component
- * @property \yuncms\notifications\NotificationManager $notification the notifications connection.
+ * @property \yuncms\notifications\NotificationManager $notification the notification connection.
+ * @property \yuncms\payment\PaymentManager $payment the payment connection.
  */
 trait ApplicationTrait
 {
+    /**
+     * @return \yuncms\payment\PaymentManager
+     */
+    public function getPayment(): PaymentManager
+    {
+        return $this->get('payment');
+    }
 
     /**
      * Returns the broadcast component.

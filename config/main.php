@@ -34,7 +34,7 @@ return [
             'class' => yuncms\filesystem\FilesystemManager::class,
         ],
         'payment' => [
-            'class' => yuncms\payment\Payment::class,
+            'class' => yuncms\payment\PaymentManager::class,
         ],
         'notification' => [
             'class' => yuncms\notifications\NotificationManager::class,

@@ -8,7 +8,7 @@
 namespace yuncms\tests\payment;
 
 use yii\base\BaseObject;
-use yuncms\payment\Payment;
+use yuncms\payment\PaymentManager;
 use yuncms\tests\TestCase;
 
 class PaymentTest extends TestCase
@@ -16,7 +16,7 @@ class PaymentTest extends TestCase
     public function testCallable()
     {
         // anonymous function
-        $container = new Payment();
+        $container = new PaymentManager();
         $className = TestClass::class;
         $container->set($className, function () {
             return new TestClass([
@@ -29,7 +29,7 @@ class PaymentTest extends TestCase
         $this->assertEquals(100, $object->prop1);
         $this->assertEquals(200, $object->prop2);
         // static method
-        $container = new Payment();
+        $container = new PaymentManager();
         $className = TestClass::class;
         $container->set($className, [__NAMESPACE__ . '\\Creator', 'create']);
         $object = $container->get($className);
@@ -41,14 +41,14 @@ class PaymentTest extends TestCase
     {
         $object = new TestClass();
         $className = TestClass::class;
-        $container = new Payment();
+        $container = new PaymentManager();
         $container->set($className, $object);
         $this->assertSame($container->get($className), $object);
     }
     public function testShared()
     {
         // with configuration: shared
-        $container = new Payment();
+        $container = new PaymentManager();
         $className = TestClass::class;
         $container->set($className, [
             'class' => $className,
@@ -77,7 +77,7 @@ class PaymentTest extends TestCase
                 ],
             ],
         ];
-        $app = new Payment($config);
+        $app = new PaymentManager($config);
         $this->assertTrue(isset($app->captcha->name));
         $this->assertNotEmpty($app->captcha->name);
         $this->assertEquals('foo bar', $app->captcha->name);
