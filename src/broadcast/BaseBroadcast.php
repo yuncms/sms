@@ -106,7 +106,7 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
         if (!$this->beforeSend($message)) {
             return false;
         }
-        Yii::info('Sending broadcast :' . $message->toString(), __METHOD__);
+        Yii::info('Sending broadcast :' . $message->toJson(), __METHOD__);
 
         if ($this->useFileTransport) {
             $isSuccessful = $this->saveMessage($message);
@@ -164,7 +164,7 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
         } else {
             $file = $path . '/' . $this->generateMessageFileName();
         }
-        file_put_contents($file, $message->toString());
+        file_put_contents($file, $message->toJson());
         return true;
     }
 
