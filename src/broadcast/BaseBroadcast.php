@@ -63,7 +63,7 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
      * Creates a new message instance and optionally composes its body content via view rendering.
      *
      * @param array $message message payload.
-     * @param string|null $tag message tag
+     * @param string|array|null $tag message tag
      * @return MessageInterface|object message instance.
      * @throws \yii\base\InvalidConfigException
      */

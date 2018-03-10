@@ -33,7 +33,7 @@ class BaseMessage extends BaseObject implements MessageInterface
     protected $body;
 
     /**
-     * @var string message tag.
+     * @var string|array message tag.
      */
     protected $tag;
 
