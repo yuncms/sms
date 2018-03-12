@@ -10,10 +10,11 @@ namespace yuncms\notifications\channels;
 use Yii;
 use yii\base\Component;
 use yii\di\Instance;
+use yuncms\helpers\Json;
 use yuncms\notifications\contracts\ChannelInterface;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\contracts\NotificationInterface;
-use yuncms\notifications\messages\AppMessage;
+use yuncms\notifications\messages\AliyunCloudPushMessage;
 
 /**
  * App 推送渠道
@@ -45,25 +46,35 @@ class AliyunCloudPushChannel extends Component implements ChannelInterface
     /**
      * @param NotifiableInterface $recipient
      * @param NotificationInterface $notification
+     * @throws \yii\base\InvalidConfigException
      */
     public function send(NotifiableInterface $recipient, NotificationInterface $notification)
     {
         /**
-         * @var $message AppMessage
+         * @var $message AliyunCloudPushMessage
          */
-        $message = $notification->exportFor('app');
-        $appRecipient = $recipient->routeNotificationFor('app');
+        $message = $notification->exportFor('aliyunCloudPush');
+        $appRecipient = $recipient->routeNotificationFor('aliyunCloudPush');
+        $this->aliyun->getCloudPush()->pushNoticeToAndroid([
+            'AppKey' => $this->appKey,
+            'Target' => $appRecipient['target'],
+            'TargetValue' => 'ALL',
+            'Title' => $message->title,
+            'Body' => $message->body,
+            'ExtParameters' => Json::encode($message->extParameters),//JSON
+        ]);
+
         $this->aliyun->getCloudPush()->push([
             'AppKey' => $this->appKey,
-            'Target' => $appRecipient->target,
-            'TargetValue' => $appRecipient->targetValue,
+            'Target' => $appRecipient['target'],
+            'TargetValue' => $appRecipient['targetValue'],
             'DeviceType' => 'ALL',
             'Title' => $message->title,
             'PushType' => 'NOTICE',//表示通知
             'Body' => $message->body,
             'StoreOffline' => 'true',
-            'ExpireTime' => '',
-            'ExtParameters' => $message->extParameters,//JSON
+            //'ExpireTime' => 'YYYY-MM-DDThh:mm:ssZ',
+            'ExtParameters' => Json::encode($message->extParameters),//JSON
         ]);
     }
 }

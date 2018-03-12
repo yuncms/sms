@@ -18,12 +18,6 @@ use yii\base\BaseObject;
 class BaseMessage extends BaseObject
 {
     /**
-     * The "level" of the notification (info, success, error).
-     * @var string
-     */
-    public $level = 'info';
-
-    /**
      * The title of the notification.
      * @var string
      */

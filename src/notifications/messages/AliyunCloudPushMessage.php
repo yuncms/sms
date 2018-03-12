@@ -13,7 +13,7 @@ namespace yuncms\notifications\messages;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class AppMessage extends BaseMessage
+class AliyunCloudPushMessage extends BaseMessage
 {
     /**
      * @var string 推送目标
