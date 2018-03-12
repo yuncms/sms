@@ -9,7 +9,7 @@ namespace yuncms\notifications\channels;
 
 use yii\base\BaseObject;
 use yuncms\notifications\contracts\ChannelInterface;
-use yuncms\notifications\Notification;
+use yuncms\notifications\Notifiable;
 
 /**
  * Class Channel

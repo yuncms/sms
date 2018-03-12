@@ -21,6 +21,7 @@ use yuncms\payment\PaymentManager;
  * @property \yuncms\broadcast\BaseBroadcast $broadcast The broadcast component
  * @property \yuncms\notifications\NotificationManager $notification the notification connection.
  * @property \yuncms\payment\PaymentManager $payment the payment connection.
+ * @property \yuncms\mq\BaseMessageQueue $messageQueue the message queue connection.
  */
 trait ApplicationTrait
 {
@@ -30,6 +31,15 @@ trait ApplicationTrait
     public function getPayment(): PaymentManager
     {
         return $this->get('payment');
+    }
+
+    /**
+     * Returns the message queue component.
+     * @return \yuncms\mq\BaseMessageQueue the broadcast connection.
+     */
+    public function getMessageQueue()
+    {
+        return $this->get('messageQueue');
     }
 
     /**

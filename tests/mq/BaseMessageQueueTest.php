@@ -5,21 +5,21 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\tests\broadcast;
+namespace yuncms\tests\mq;
 
 use Yii;
 use yii\helpers\FileHelper;
-use yuncms\broadcast\BaseMessage;
-use yuncms\broadcast\BaseBroadcast;
+use yuncms\mq\BaseMessage;
+use yuncms\mq\BaseMessageQueue;
 use yuncms\tests\TestCase;
 
-class BaseBroadcastTest extends TestCase
+class BaseMessageQueueTest extends TestCase
 {
     public function setUp()
     {
         $this->mockApplication([
             'components' => [
-                'broadcast' => $this->createTestBroadcastComponent(),
+                'mq' => $this->createTestMessageQueueComponent(),
             ],
         ]);
         $filePath = $this->getTestFilePath();
@@ -44,20 +44,20 @@ class BaseBroadcastTest extends TestCase
     }
 
     /**
-     * @return Broadcast test broadcast component instance.
+     * @return MessageQueue test broadcast component instance.
      */
-    protected function createTestBroadcastComponent()
+    protected function createTestMessageQueueComponent()
     {
-        $component = new Broadcast();
+        $component = new MessageQueue();
         return $component;
     }
 
     public function testUseFileTransport()
     {
-        $broadcast = new Broadcast();
+        $broadcast = new MessageQueue();
         $this->assertFalse($broadcast->useFileTransport);
-        $this->assertEquals('@runtime/broadcast', $broadcast->fileTransportPath);
-        $broadcast->fileTransportPath = '@yuncms/tests/runtime/broadcast';
+        $this->assertEquals('@runtime/mq', $broadcast->fileTransportPath);
+        $broadcast->fileTransportPath = '@yuncms/tests/runtime/mq';
         $broadcast->useFileTransport = true;
         $broadcast->fileTransportCallback = function () {
             return 'message.txt';
@@ -72,21 +72,21 @@ class BaseBroadcastTest extends TestCase
     public function testBeforeSendEvent()
     {
         $message = new Message();
-        $broadcastMock = $this->getMockBuilder('yuncms\tests\broadcast\Broadcast')
+        $messageQueueMock = $this->getMockBuilder('yuncms\tests\mq\MessageQueue')
             ->setMethods(['beforeSend', 'afterSend'])
             ->getMock();
-        $broadcastMock->expects($this->once())->method('beforeSend')->with($message)->will($this->returnValue(true));
-        $broadcastMock->expects($this->once())->method('afterSend')->with($message, true);
-        $broadcastMock->send($message);
+        $messageQueueMock->expects($this->once())->method('beforeSend')->with($message)->will($this->returnValue(true));
+        $messageQueueMock->expects($this->once())->method('afterSend')->with($message, true);
+        $messageQueueMock->send($message);
     }
 }
 
 /**
- * Test Mailer class.
+ * Test MessageQueue class.
  */
-class Broadcast extends BaseBroadcast
+class MessageQueue extends BaseMessageQueue
 {
-    public $messageClass = 'yuncms\tests\broadcast\Message';
+    public $messageClass = 'yuncms\tests\mq\Message';
 
     public $sentMessages = [];
 

@@ -5,12 +5,13 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\tests\broadcast;
+namespace yuncms\tests\mq;
 
 use Yii;
-use yuncms\broadcast\BaseBroadcast;
-use yuncms\broadcast\BaseMessage;
+use yuncms\mq\BaseMessageQueue;
+use yuncms\mq\BaseMessage;
 use yuncms\tests\TestCase;
+
 
 class BaseMessageTest extends TestCase
 {
@@ -18,38 +19,38 @@ class BaseMessageTest extends TestCase
     {
         $this->mockApplication([
             'components' => [
-                'broadcast' => $this->createTestBroadcastComponent(),
+                'messageQueue' => $this->createTestMessageQueueComponent(),
             ],
         ]);
     }
 
     /**
-     * @return TestBroadcast test broadcast component instance.
+     * @return TestMessageQueue test message queue component instance.
      */
-    protected function createTestBroadcastComponent()
+    protected function createTestMessageQueueComponent()
     {
-        $component = new TestBroadcast();
+        $component = new TestMessageQueue();
         return $component;
     }
     /**
-     * @return TestBroadcast broadcast instance.
+     * @return TestMessageQueue broadcast instance.
      */
-    protected function getBroadcast()
+    protected function getMessageQueue()
     {
-        return Yii::$app->get('broadcast');
+        return Yii::$app->get('messageQueue');
     }
 
     // Tests :
     public function testSend()
     {
-        $broadcast = $this->getBroadcast();
+        $broadcast = $this->getMessageQueue();
         $message = $broadcast->createMessage([]);
         $message->send($broadcast);
         $this->assertEquals($message, $broadcast->sentMessages[0], 'Unable to send message!');
     }
-    public function testToString()
+    public function testToJson()
     {
-        $broadcast = $this->getBroadcast();
+        $broadcast = $this->getMessageQueue();
         $message = $broadcast->createMessage([]);
         $this->assertEquals($message->toJson(), '' . $message);
     }
@@ -58,9 +59,9 @@ class BaseMessageTest extends TestCase
 /**
  * Test Broadcast class.
  */
-class TestBroadcast extends BaseBroadcast
+class TestMessageQueue extends BaseMessageQueue
 {
-    public $messageClass = 'yuncms\tests\broadcast\TestMessage';
+    public $messageClass = 'yuncms\tests\mq\TestMessage';
     public $sentMessages = [];
     protected function sendMessage($message)
     {

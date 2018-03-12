@@ -17,7 +17,7 @@ use yuncms\notifications\contracts\NotificationInterface;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Notification extends BaseObject implements NotificationInterface
+class Notifiable extends BaseObject implements NotificationInterface
 {
     /**
      * Determines if the notification can be sent.

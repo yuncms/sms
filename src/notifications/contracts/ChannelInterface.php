@@ -7,7 +7,7 @@
 
 namespace yuncms\notifications\contracts;
 
-use yuncms\notifications\Notification;
+use yuncms\notifications\Notifiable;
 
 /**
  * Interface ChannelInterface

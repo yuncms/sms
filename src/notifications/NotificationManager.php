@@ -251,12 +251,12 @@ class NotificationManager extends Component
     /**
      * Send a notification to all channels
      *
-     * @param Notification $notification
+     * @param Notifiable $notification
      * @param array|null $channels
      * @return void return the channel
      * @throws \yii\base\InvalidConfigException
      */
-    public function send(Notification $notification, array $channels = null)
+    public function send(Notifiable $notification, array $channels = null)
     {
         if ($channels === null) {
             $channels = array_keys($this->getChannels(true));

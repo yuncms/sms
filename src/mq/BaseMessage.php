@@ -5,8 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\broadcast;
-
+namespace yuncms\mq;
 
 use Yii;
 use yii\base\BaseObject;
@@ -22,10 +21,10 @@ use yuncms\helpers\Json;
 class BaseMessage extends BaseObject implements MessageInterface
 {
     /**
-     * @var BroadcastInterface the broadcast instance that created this message.
+     * @var MessageInterface the message queue instance that created this message.
      * For independently created messages this is `null`.
      */
-    public $broadcast;
+    public $messageQueue;
 
     /**
      * @var array
@@ -102,21 +101,20 @@ class BaseMessage extends BaseObject implements MessageInterface
     }
 
     /**
-     * Sends this broadcast message.
-     * @param BroadcastInterface $broadcast the broadcast that should be used to send this message.
-     * If no broadcast is given it will first check if [[broadcast]] is set and if not,
-     * the "broadcast" application component will be used instead.
+     * Sends this message queue message.
+     * @param MessageQueueInterface $messageQueue the message queue that should be used to send this message.
+     * If no message queue is given it will first check if [[messageQueue]] is set and if not,
+     * the "messageQueue" application component will be used instead.
      * @return bool whether this message is sent successfully.
      */
-    public function send(BroadcastInterface $broadcast = null)
+    public function send(MessageQueueInterface $messageQueue = null)
     {
-        if ($broadcast === null && $this->broadcast === null) {
-            $broadcast = Yii::$app->getBroadcast();
-        } elseif ($broadcast === null) {
-            $broadcast = $this->broadcast;
+        if ($messageQueue === null && $this->messageQueue === null) {
+            $messageQueue = Yii::$app->getMessageQueue();
+        } elseif ($messageQueue === null) {
+            $messageQueue = $this->messageQueue;
         }
-
-        return $broadcast->send($this);
+        return $messageQueue->send($this);
     }
 
     /**

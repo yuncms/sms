@@ -5,56 +5,56 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\broadcast;
+namespace yuncms\mq;
 
 use Yii;
 use yii\base\Component;
 
 /**
- * 广播组件
+ * 消息队列组件
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-abstract class BaseBroadcast extends Component implements BroadcastInterface
+abstract class BaseMessageQueue extends Component implements MessageQueueInterface
 {
     /**
-     * @event BroadcastEvent an event raised right before send.
-     * You may set [[BroadcastEvent::isValid]] to be false to cancel the send.
+     * @event MessageQueueEvent an event raised right before send.
+     * You may set [[MessageQueueEvent::isValid]] to be false to cancel the send.
      */
     const EVENT_BEFORE_SEND = 'beforeSend';
 
     /**
-     * @event BroadcastEvent an event raised right after send.
+     * @event MessageQueueEvent an event raised right after send.
      */
     const EVENT_AFTER_SEND = 'afterSend';
 
     /**
      * @var string the default class name of the new message instances created by [[createMessage()]]
      */
-    public $messageClass = 'yuncms\broadcast\BaseMessage';
+    public $messageClass = 'yuncms\mq\BaseMessage';
 
     /**
-     * @var bool whether to save broadcast messages as files under [[fileTransportPath]] instead of sending them
+     * @var bool whether to save message queue messages as files under [[fileTransportPath]] instead of sending them
      * to the actual recipients. This is usually used during development for debugging purpose.
      * @see fileTransportPath
      */
     public $useFileTransport = false;
 
     /**
-     * @var string the directory where the broadcast messages are saved when [[useFileTransport]] is true.
+     * @var string the directory where the message queue messages are saved when [[useFileTransport]] is true.
      */
-    public $fileTransportPath = '@runtime/broadcast';
+    public $fileTransportPath = '@runtime/mq';
 
     /**
      * @var callable a PHP callback that will be called by [[send()]] when [[useFileTransport]] is true.
-     * The callback should return a file name which will be used to save the broadcast message.
+     * The callback should return a file name which will be used to save the message queue message.
      * If not set, the file name will be generated based on the current timestamp.
      *
      * The signature of the callback is:
      *
      * ```php
-     * function ($broadcast, $message)
+     * function ($messageQueue, $message)
      * ```
      */
     public $fileTransportCallback;
@@ -72,9 +72,10 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
     {
         $config = [
             'class' => $this->messageClass,
-            'broadcast' => $this,
+            'messageQueue' => $this,
             'body' => $message,
-            'tag' => $tag
+            'tag' => $tag,
+            'attributes' => $attributes,
         ];
         return Yii::createObject($config);
     }
@@ -93,12 +94,12 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
     }
 
     /**
-     * Sends the given broadcast message.
-     * This method will log a message about the broadcast being sent.
-     * If [[useFileTransport]] is true, it will save the broadcast as a file under [[fileTransportPath]].
-     * Otherwise, it will call [[sendMessage()]] to send the broadcast to its recipient(s).
-     * Child classes should implement [[sendMessage()]] with the actual broadcast sending logic.
-     * @param MessageInterface $message broadcast message instance to be sent
+     * Sends the given message queue message.
+     * This method will log a message about the message queue being sent.
+     * If [[useFileTransport]] is true, it will save the message queue as a file under [[fileTransportPath]].
+     * Otherwise, it will call [[sendMessage()]] to send the message queue to its recipient(s).
+     * Child classes should implement [[sendMessage()]] with the actual message queue sending logic.
+     * @param MessageInterface $message message queue message instance to be sent
      * @return bool whether the message has been sent successfully
      */
     public function send($message)
@@ -106,7 +107,7 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
         if (!$this->beforeSend($message)) {
             return false;
         }
-        Yii::info('Sending broadcast :' . $message->toJson(), __METHOD__);
+        Yii::info('Sending message queue :' . $message->toJson(), __METHOD__);
 
         if ($this->useFileTransport) {
             $isSuccessful = $this->saveMessage($message);
@@ -125,7 +126,7 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
      * Child classes may override this method to implement more efficient way of
      * sending multiple messages.
      *
-     * @param array $messages list of broadcast messages, which should be sent.
+     * @param array $messages list of message queue messages, which should be sent.
      * @return int number of messages that are successfully sent.
      */
     public function sendMultiple(array $messages)
@@ -142,7 +143,7 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
 
     /**
      * Sends the specified message.
-     * This method should be implemented by child classes with the actual broadcast sending logic.
+     * This method should be implemented by child classes with the actual message queue sending logic.
      * @param MessageInterface $message the message to be sent
      * @return bool whether the message is sent successfully
      */
@@ -182,11 +183,11 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
      * You may override this method to do last-minute preparation for the message.
      * If you override this method, please make sure you call the parent implementation first.
      * @param MessageInterface $message
-     * @return bool whether to continue sending an broadcast.
+     * @return bool whether to continue sending an message queue.
      */
     public function beforeSend($message)
     {
-        $event = new BroadcastEvent(['message' => $message]);
+        $event = new MessageQueueEvent(['message' => $message]);
         $this->trigger(self::EVENT_BEFORE_SEND, $event);
         return $event->isValid;
     }
@@ -200,7 +201,7 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
      */
     public function afterSend($message, $isSuccessful)
     {
-        $event = new BroadcastEvent(['message' => $message, 'isSuccessful' => $isSuccessful]);
+        $event = new MessageQueueEvent(['message' => $message, 'isSuccessful' => $isSuccessful]);
         $this->trigger(self::EVENT_AFTER_SEND, $event);
     }
 }
