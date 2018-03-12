@@ -12,6 +12,7 @@ use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yuncms\notifications\channels\Channel;
+use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\contracts\NotificationInterface;
 
 /**
@@ -249,33 +250,31 @@ class NotificationManager extends Component
     }
 
     /**
-     * Send a notification to all channels
+     * 通过可用渠道将给定的通知发送给给定的可通知实体。您可以传递数组以便将多个通知发送给多个收件人。
      *
-     * @param Notifiable $notification
-     * @param array|null $channels
-     * @return void return the channel
-     * @throws \yii\base\InvalidConfigException
+     * @param NotifiableInterface[]|NotifiableInterface $recipients the recipients that can receive given notifications.
+     * @param NotificationInterface[]|NotificationInterface $notifications the notification that should be delivered.
+     * @return void
+     * @throws InvalidConfigException
      */
-    public function send(Notifiable $notification, array $channels = null)
+    public function send($recipients, $notifications)
     {
-        if ($channels === null) {
-            $channels = array_keys($this->getChannels(true));
+        if (!is_array($recipients)) {
+            $recipients = [$recipients];
         }
-
-        foreach ((array)$channels as $id) {
-            $channel = $this->get($id);
-            if (!$notification->shouldSend($channel)) {
-                continue;
-            }
-            $handle = 'to' . ucfirst($id);
-            try {
-                if ($notification->hasMethod($handle)) {
-                    call_user_func([clone $notification, $handle], $channel);
-                } else {
-                    $channel->send(clone $notification);
+        if (!is_array($notifications)) {
+            $notifications = [$notifications];
+        }
+        foreach ($recipients as $recipient) {
+            $channels = array_intersect($recipient->viaChannels(), array_keys($this->getChannels(true)));
+            foreach ($notifications as $notification) {
+                if (!$recipient->shouldReceiveNotification($notification)) {
+                    continue;
                 }
-            } catch (\Exception $e) {
-                Yii::warning("Notification sending by channel '$id' has failed: " . $e->getMessage(), __METHOD__);
+                $channels = array_intersect($channels, $notification->broadcastOn());
+                foreach ($channels as $channel) {
+                    $this->get($channel)->send($recipient, $notification);
+                }
             }
         }
     }
