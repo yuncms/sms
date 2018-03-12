@@ -8,6 +8,7 @@
 namespace yuncms\db;
 
 use yii\db\ColumnSchemaBuilder;
+use yii\db\Schema;
 
 class Migration extends \yii\db\Migration
 {
@@ -85,6 +86,33 @@ class Migration extends \yii\db\Migration
     }
 
     /**
+     * Shortcut for creating url column.
+     * @return ColumnSchemaBuilder the column instance which can be further customized.
+     */
+    public function url(): ColumnSchemaBuilder
+    {
+        return $this->string();
+    }
+
+    /**
+     * Shortcut for creating md5 column.
+     * @return ColumnSchemaBuilder the column instance which can be further customized.
+     */
+    public function md5(): ColumnSchemaBuilder
+    {
+        return $this->string(32);
+    }
+
+    /**
+     * Shortcut for creating small md5 column.
+     * @return ColumnSchemaBuilder the column instance which can be further customized.
+     */
+    public function smallMd5(): ColumnSchemaBuilder
+    {
+        return $this->string(16);
+    }
+
+    /**
      * Shortcut for creating ip address column.
      * @return ColumnSchemaBuilder the column instance which can be further customized.
      */
@@ -103,4 +131,23 @@ class Migration extends \yii\db\Migration
         return $this->unsignedInteger(10);
     }
 
+    /**
+     * Shortcut for creating a colour column
+     *
+     * @return ColumnSchemaBuilder the column instance which can be further customized.
+     */
+    public function colour(): ColumnSchemaBuilder
+    {
+        return $this->string(6);
+    }
+
+    /**
+     * Shortcut for creating a counter column
+     *
+     * @return ColumnSchemaBuilder the column instance which can be further customized.
+     */
+    public function counter()
+    {
+        return $this->unsignedInteger()->defaultValue(0);
+    }
 }
