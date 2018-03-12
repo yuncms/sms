@@ -74,7 +74,8 @@ abstract class BaseBroadcast extends Component implements BroadcastInterface
             'class' => $this->messageClass,
             'broadcast' => $this,
             'body' => $message,
-            'tag' => $tag
+            'tag' => $tag,
+            'attributes' => $attributes
         ];
         return Yii::createObject($config);
     }
