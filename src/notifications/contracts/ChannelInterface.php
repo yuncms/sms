@@ -9,5 +9,5 @@ namespace yuncms\notifications\contracts;
 
 interface ChannelInterface
 {
-
+    public function send(NotifiableInterface $recipient, NotificationInterface $notification);
 }

@@ -252,8 +252,8 @@ class NotificationManager extends Component
     /**
      * 通过可用渠道将给定的通知发送给给定的可通知实体。您可以传递数组以便将多个通知发送给多个收件人。
      *
-     * @param NotifiableInterface[]|NotifiableInterface $recipients the recipients that can receive given notifications.
-     * @param NotificationInterface[]|NotificationInterface $notifications the notification that should be delivered.
+     * @param NotifiableInterface[]|NotifiableInterface $recipients 可以收到给定通知的收件人。
+     * @param NotificationInterface[]|NotificationInterface $notifications 应该交付的通知。
      * @return void
      * @throws InvalidConfigException
      */

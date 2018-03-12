@@ -15,7 +15,7 @@ use yii\base\BaseObject;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-abstract class BaseMessage extends BaseObject
+class BaseMessage extends BaseObject
 {
     /**
      * The "level" of the notification (info, success, error).

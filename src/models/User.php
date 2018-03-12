@@ -13,6 +13,8 @@ use yii\filters\RateLimitInterface;
 use yii\behaviors\TimestampBehavior;
 use creocoder\taggable\TaggableBehavior;
 use yuncms\helpers\PasswordHelper;
+use yuncms\notifications\contracts\NotifiableInterface;
+use yuncms\notifications\NotifiableTrait;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -59,8 +61,10 @@ use yuncms\helpers\PasswordHelper;
  * @property UserToken[] $userTokens
  *
  */
-class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
+class User extends ActiveRecord implements IdentityInterface, RateLimitInterface, NotifiableInterface
 {
+    use NotifiableTrait;
+
     //事件定义
     const BEFORE_CREATE = 'beforeCreate';
     const AFTER_CREATE = 'afterCreate';
@@ -640,7 +644,7 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
             $this->generateAccessToken();
             $this->generateAuthKey();
         }
-        if(!empty($this->username)){
+        if (!empty($this->username)) {
             $this->username = $this->generateUsername();
         }
         if (!empty($this->password)) {
@@ -732,5 +736,46 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
     {
         Yii::$app->cache->set($action->controller->id . ':' . $action->id . ':' . $this->id . '_allowance', $allowance, 60);
         Yii::$app->cache->set($action->controller->id . ':' . $action->id . ':' . $this->id . '_allowance_update_at', $timestamp, 60);
+    }
+
+    //////// NotifiableInterface /////////
+    ///
+    /**
+     * 默认通过电子邮件发送通知
+     * @return array
+     */
+    public function viaChannels()
+    {
+        return ['mail', 'sms'];
+    }
+
+    /**
+     * 获取给定通道的通知路由信息。
+     * @return mixed
+     */
+    public function routeNotificationForMail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * 获取给定通道的通知路由信息。
+     * @return mixed
+     */
+    public function routeNotificationForSms()
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * 获取给定通道的通知路由信息。
+     * @return mixed
+     */
+    public function routeNotificationForApp()
+    {
+        return [
+            'target' => 'ACCOUNT',
+            'targetValue' => $this->id,
+        ];
     }
 }

@@ -7,11 +7,16 @@
 
 namespace yuncms\notifications;
 
-
 use yii\helpers\Inflector;
 use yuncms\notifications\messages\BaseMessage;
 
-class NotificationTrait
+/**
+ * Class NotificationTrait
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
+trait NotificationTrait
 {
     /**
      * 确定通知将传送到哪个频道

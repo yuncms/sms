@@ -16,7 +16,7 @@ use yuncms\notifications\contracts\NotificationInterface;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class NotifiableTrait
+trait NotifiableTrait
 {
     /**
      * 确定通知实体是否应通过签入通知设置来接收通知。
@@ -67,8 +67,8 @@ class NotifiableTrait
                 return $this->id;
             case 'mail':
                 return $this->email;
-            case 'twilio':
-                return $this->phone_number;
+            case 'sms':
+                return $this->mobile;
         }
     }
 }
