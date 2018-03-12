@@ -27,6 +27,4 @@ interface NotificationInterface
      * @return BaseMessage
      */
     public function exportFor($channel);
-
-
 }

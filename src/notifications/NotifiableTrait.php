@@ -63,6 +63,8 @@ class NotifiableTrait
             return $this->{$method}();
         }
         switch ($channel) {
+            case 'app':
+                return $this->id;
             case 'mail':
                 return $this->email;
             case 'twilio':
