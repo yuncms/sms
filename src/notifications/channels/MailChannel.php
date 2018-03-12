@@ -34,8 +34,6 @@ class MailChannel extends Component implements ChannelInterface
      */
     public $from;
 
-
-
     /**
      * @throws \yii\base\InvalidConfigException
      */

@@ -16,19 +16,18 @@ namespace yuncms\notifications\messages;
 class AliyunCloudPushMessage extends BaseMessage
 {
     /**
-     * @var string 推送目标
-     */
-    public $target = 'ALL';
-
-    /**
-     * @var string 目标
-     */
-    public $targetValue = 'all';
-
-    /**
      * @var array 扩展参数
      */
     public $extParameters;
 
-
+    /**
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'titleRequired' => ['title', 'required'],
+            'bodyRequired' => ['body', 'required'],
+        ];
+    }
 }

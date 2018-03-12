@@ -26,13 +26,14 @@ trait NotificationTrait
     {
         $channels = [];
         $methods = get_class_methods($this);
+
         foreach ($methods as $method) {
             if (strpos($method, 'exportFor') === false) {
                 continue;
             }
             $channel = str_replace('exportFor', '', $method);
             if (!empty($channel)) {
-                $channels[] = Inflector::camel2id($channel);
+                $channels[] = Inflector::variablize($channel);
             }
         }
         return $channels;

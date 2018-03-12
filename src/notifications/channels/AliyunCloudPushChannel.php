@@ -27,7 +27,7 @@ class AliyunCloudPushChannel extends Component implements ChannelInterface
     /**
      * @var string|\xutl\aliyun\Aliyun
      */
-    public $aliyun;
+    public $aliyun = 'aliyun';
 
     /**
      * @var string
@@ -55,15 +55,19 @@ class AliyunCloudPushChannel extends Component implements ChannelInterface
          */
         $message = $notification->exportFor('aliyunCloudPush');
         $appRecipient = $recipient->routeNotificationFor('aliyunCloudPush');
-        $this->aliyun->getCloudPush()->pushNoticeToAndroid([
-            'AppKey' => $this->appKey,
-            'Target' => $appRecipient['target'],
-            'TargetValue' => $appRecipient['targetValue'],
-            'Title' => $message->title,
-            'Body' => $message->body,
-            'ExtParameters' => Json::encode($message->extParameters),//JSON
-        ]);
-
+        if($message->validate()){
+            $this->aliyun->getCloudPush()->pushNoticeToAndroid([
+                'AppKey' => $this->appKey,
+                'Target' => $appRecipient['target'],
+                'TargetValue' => $appRecipient['targetValue'],
+                'Title' => $message->title,
+                'Body' => $message->body,
+                'ExtParameters' => Json::encode($message->extParameters),//JSON
+            ]);
+        } else {
+            print_r($message->getErrors());
+            exit;
+        }
         $this->aliyun->getCloudPush()->pushNoticeToIOS([
             'AppKey' => $this->appKey,
             'Target' => $appRecipient['target'],

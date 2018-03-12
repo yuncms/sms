@@ -8,6 +8,7 @@
 namespace yuncms\notifications\messages;
 
 use yii\base\BaseObject;
+use yii\base\Model;
 
 /**
  * Class BaseMessage
@@ -15,7 +16,7 @@ use yii\base\BaseObject;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class BaseMessage extends BaseObject
+class BaseMessage extends Model
 {
     /**
      * The title of the notification.
