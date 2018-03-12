@@ -7,13 +7,13 @@
 
 namespace yuncms\notifications\channels;
 
-
 use Yii;
+use yii\base\Component;
+use yii\di\Instance;
 use yuncms\notifications\contracts\ChannelInterface;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\contracts\NotificationInterface;
 use yuncms\notifications\messages\AppMessage;
-use xutl\aliyun\jobs\PushNoticeToMobile;
 
 /**
  * App 推送渠道
@@ -21,10 +21,10 @@ use xutl\aliyun\jobs\PushNoticeToMobile;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class AliyunCloudPushChannel implements ChannelInterface
+class AliyunCloudPushChannel extends Component implements ChannelInterface
 {
     /**
-     * @var string
+     * @var string|\xutl\aliyun\Aliyun
      */
     public $aliyun;
 
@@ -39,7 +39,7 @@ class AliyunCloudPushChannel implements ChannelInterface
     public function init()
     {
         parent::init();
-        $this->mailer = Instance::ensure($this->mailer, 'yii\mail\MailerInterface');
+        $this->aliyun = Instance::ensure($this->aliyun, 'xutl\aliyun\Aliyun');
     }
 
     /**
@@ -52,23 +52,18 @@ class AliyunCloudPushChannel implements ChannelInterface
          * @var $message AppMessage
          */
         $message = $notification->exportFor('app');
-
         $appRecipient = $recipient->routeNotificationFor('app');
-        $cloudPush = Yii::$app->aliyun->getCloudPush();
-        $cloudPush->pushNoticeToAndroid([
-            'AppKey' => $this->_appKey,
-            'Target' => $this->target,
-            'TargetValue' => $this->targetValue,
-            'Title' => $this->title,
-            'Body' => $this->body,
-            'ExtParameters' => $this->extParameters,//JSON
+        $this->aliyun->getCloudPush()->push([
+            'AppKey' => $this->appKey,
+            'Target' => $appRecipient->target,
+            'TargetValue' => $appRecipient->targetValue,
+            'DeviceType' => 'ALL',
+            'Title' => $message->title,
+            'PushType' => 'NOTICE',//表示通知
+            'Body' => $message->body,
+            'StoreOffline' => 'true',
+            'ExpireTime' => '',
+            'ExtParameters' => $message->extParameters,//JSON
         ]);
-        Yii::$app->queue->push(new PushNoticeToMobile([
-            'target' => $appRecipient->target,
-            'targetValue' => $appRecipient->targetValue,
-            'title' => $message->title,
-            'body' => $message->body,
-            'extParameters' => $message->extParameters
-        ]));
     }
 }
