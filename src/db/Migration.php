@@ -8,8 +8,13 @@
 namespace yuncms\db;
 
 use yii\db\ColumnSchemaBuilder;
-use yii\db\Schema;
 
+/**
+ * Class Migration
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class Migration extends \yii\db\Migration
 {
     /**
