@@ -58,7 +58,17 @@ class AliyunCloudPushChannel extends Component implements ChannelInterface
         $this->aliyun->getCloudPush()->pushNoticeToAndroid([
             'AppKey' => $this->appKey,
             'Target' => $appRecipient['target'],
-            'TargetValue' => 'ALL',
+            'TargetValue' => $appRecipient['targetValue'],
+            'Title' => $message->title,
+            'Body' => $message->body,
+            'ExtParameters' => Json::encode($message->extParameters),//JSON
+        ]);
+
+        $this->aliyun->getCloudPush()->pushNoticeToIOS([
+            'AppKey' => $this->appKey,
+            'Target' => $appRecipient['target'],
+            'TargetValue' => $appRecipient['targetValue'],
+            'ApnsEnv' => YII_ENV_DEV ? 'DEV' : 'PRODUCT',
             'Title' => $message->title,
             'Body' => $message->body,
             'ExtParameters' => Json::encode($message->extParameters),//JSON
