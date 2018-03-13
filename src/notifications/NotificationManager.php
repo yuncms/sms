@@ -276,7 +276,6 @@ class NotificationManager extends Component
                 if (!$recipient->shouldReceiveNotification($notification)) {
                     continue;
                 }
-                print_r($channels);
                 $channels = array_intersect($channels, $notification->broadcastOn());
                 foreach ($channels as $channel) {
                     $this->get($channel)->send($recipient, $notification);
