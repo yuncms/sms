@@ -71,7 +71,7 @@ class BaseSetting extends ActiveRecord implements SettingInterface
     public function behaviors()
     {
         return [
-            'timestamp' => [
+            [
                 'class' => TimestampBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => 'created',
