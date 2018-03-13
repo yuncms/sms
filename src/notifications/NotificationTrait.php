@@ -56,7 +56,7 @@ trait NotificationTrait
      */
     public function exportFor($channel)
     {
-        if (method_exists($this, $method = 'exportFor'.Inflector::id2camel($channel))) {
+        if (method_exists($this, $method = 'exportFor'.Inflector::camelize($channel))) {
             return $this->{$method}();
         }
         throw new \InvalidArgumentException("Can not find message export for chanel `{$channel}`");

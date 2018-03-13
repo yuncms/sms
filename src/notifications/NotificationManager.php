@@ -23,14 +23,19 @@ use yuncms\notifications\contracts\NotificationInterface;
  *     'components' => [
  *         'notification' => [
  *             'channels' => [
- *                 'db' => [
- *                     'class' => 'yuncms\notifications\channels\DBChannel',
- *                 ],
- *                 'email' => [
+ *                 'mail' => [
  *                     'class' => 'yuncms\notifications\channels\EmailChannel',
- *                     'message' => [
- *                         'from' => 'admin@example.com',
- *                     ],
+ *                     'from' => 'admin@example.com',
+ *                 ],
+ *                 'aliyunCloudPushChannel' => [
+ *                     'class' => 'yuncms\notifications\channels\AliyunCloudPushChannel',
+ *                     'appKey' => 'abcd'
+ *                 ],
+ *                 'jPush' => [
+ *                     'class' => 'yuncms\notifications\channels\JPushChannel',
+ *                 ],
+ * '               sms' => [
+ *                     'class' => 'yuncms\notifications\channels\SmsChannel',
  *                 ],
  *             ],
  *         ],
@@ -271,6 +276,7 @@ class NotificationManager extends Component
                 if (!$recipient->shouldReceiveNotification($notification)) {
                     continue;
                 }
+                print_r($channels);
                 $channels = array_intersect($channels, $notification->broadcastOn());
                 foreach ($channels as $channel) {
                     $this->get($channel)->send($recipient, $notification);

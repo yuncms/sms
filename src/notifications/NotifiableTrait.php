@@ -25,7 +25,7 @@ trait NotifiableTrait
      */
     public function shouldReceiveNotification(NotificationInterface $notification)
     {
-        $alias = Inflector::camel2id(get_class($notification));
+        $alias = get_class($notification);
         if (isset($this->notificationSettings)) {
             $settings = $this->notificationSettings;
             if (array_key_exists($alias, $settings)) {
@@ -59,11 +59,11 @@ trait NotifiableTrait
      */
     public function routeNotificationFor($channel)
     {
-        if (method_exists($this, $method = 'routeNotificationFor' . Inflector::id2camel($channel))) {
+        if (method_exists($this, $method = 'routeNotificationFor' . Inflector::camelize($channel))) {
             return $this->{$method}();
         }
         switch ($channel) {
-            case 'app':
+            case 'aliyunCloudPush':
                 return $this->id;
             case 'mail':
                 return $this->email;
