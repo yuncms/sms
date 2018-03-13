@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use yuncms\db\Migration;
 
 class m180223_102927Create_user_extra_table extends Migration
 {
@@ -20,14 +20,14 @@ class m180223_102927Create_user_extra_table extends Migration
          * 创建用户附表
          */
         $this->createTable($this->tableName, [
-            'user_id' => $this->integer()->unsigned()->notNull()->comment('User ID'),
-            'login_ip' => $this->string()->comment('Login Ip'),
-            'login_at' => $this->integer()->unsigned()->comment('Login At'),
-            'login_num' => $this->integer()->unsigned()->defaultValue(0)->comment('Login Num'),
-            'last_visit' => $this->integer()->unsigned()->comment('Last Visit'),
-            'views' => $this->integer()->unsigned()->defaultValue(0)->comment('Views'),
-            'supports' => $this->integer()->unsigned()->defaultValue(0)->comment('Supports'),
-            'followers' => $this->integer()->unsigned()->defaultValue(0)->comment('Followers'),
+            'user_id' => $this->userId()->notNull()->comment('User ID'),
+            'login_ip' => $this->ipAddress()->comment('Login Ip'),
+            'login_at' => $this->unixTimestamp()->comment('Login At'),
+            'login_num' => $this->counter()->comment('Login Num'),
+            'last_visit' => $this->counter()->comment('Last Visit'),
+            'views' => $this->counter()->comment('Views'),
+            'supports' => $this->counter()->comment('Supports'),
+            'followers' => $this->counter()->comment('Followers'),
         ], $tableOptions);
         $this->addPrimaryKey('{{%user_extra_pk}}', $this->tableName, 'user_id');
         $this->addForeignKey('{{%user_extra_fk_1}}', $this->tableName, 'user_id', '{{%user}}', 'id', 'CASCADE', 'RESTRICT');

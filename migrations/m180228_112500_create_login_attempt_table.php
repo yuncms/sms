@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use yuncms\db\Migration;
 
 /**
  * Handles the creation of table `login_attempt`.
@@ -24,9 +24,9 @@ class m180228_112500_create_login_attempt_table extends Migration
             'id' => $this->primaryKey(),
             'key' => $this->string()->notNull(),
             'amount' => $this->integer(2)->defaultValue(1),
-            'reset_at' => $this->integer()->unsigned(),
-            'created_at' => $this->integer()->unsigned(),
-            'updated_at' => $this->integer()->unsigned(),
+            'reset_at' => $this->unixTimestamp(),
+            'created_at' => $this->unixTimestamp(),
+            'updated_at' => $this->unixTimestamp(),
         ], $tableOptions);
         $this->createIndex('user_login_attempt_key_index', $this->tableName, 'key');
         $this->createIndex('user_login_attempt_amount_index', $this->tableName, 'amount');

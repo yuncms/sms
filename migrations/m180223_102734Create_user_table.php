@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use yuncms\db\Migration;
 
 class m180223_102734Create_user_table extends Migration
 {
@@ -18,7 +18,7 @@ class m180223_102734Create_user_table extends Migration
         }
 
         $this->createTable($this->tableName, [
-            'id' => $this->primaryKey(11)->unsigned()->comment('ID'),
+            'id' => $this->primaryKey()->unsigned()->comment('ID'),
             'username' => $this->string(50)->notNull()->unique()->comment('Username'),
             'email' => $this->string(64)->unique()->comment('Email'),
             'mobile' => $this->string(11)->unique()->comment('Mobile'),
@@ -31,11 +31,11 @@ class m180223_102734Create_user_table extends Migration
             'unconfirmed_mobile' => $this->string(11)->comment('Unconfirmed Mobile'),
             'registration_ip' => $this->string()->comment('Registration Ip'),
             'flags' => $this->integer()->defaultValue(0)->comment('Flags'),
-            'email_confirmed_at' => $this->integer()->unsigned()->comment('Email Confirmed At'),
-            'mobile_confirmed_at' => $this->integer()->unsigned()->comment('Mobile Confirmed At'),
-            'blocked_at' => $this->integer()->unsigned()->comment('Blocked At'),
-            'created_at' => $this->integer()->unsigned()->notNull()->comment('Created At'),
-            'updated_at' => $this->integer()->unsigned()->notNull()->comment('Updated At'),
+            'email_confirmed_at' => $this->unixTimestamp()->comment('Email Confirmed At'),
+            'mobile_confirmed_at' => $this->unixTimestamp()->comment('Mobile Confirmed At'),
+            'blocked_at' => $this->unixTimestamp()->comment('Blocked At'),
+            'created_at' => $this->unixTimestamp()->notNull()->comment('Created At'),
+            'updated_at' => $this->unixTimestamp()->notNull()->comment('Updated At'),
         ], $tableOptions);
     }
 

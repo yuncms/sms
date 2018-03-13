@@ -29,12 +29,13 @@ class Migration extends \yii\db\Migration
 
     /**
      * Shortcut for creating a user id column
-     *
+     * @param int $length column size or precision definition.
+     * This parameter will be ignored if not supported by the DBMS.
      * @return ColumnSchemaBuilder the column instance which can be further customized.
      */
-    public function userId(): ColumnSchemaBuilder
+    public function userId($length = 11): ColumnSchemaBuilder
     {
-        return $this->integer()->unsigned();
+        return $this->integer($length)->unsigned();
     }
 
     /**

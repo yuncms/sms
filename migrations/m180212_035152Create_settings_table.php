@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use yuncms\db\Migration;
 
 class m180212_035152Create_settings_table extends Migration
 {
