@@ -8,9 +8,11 @@
 namespace yuncms\notifications\channels;
 
 use yii\base\Component;
+use yii\base\InvalidConfigException;
 use yuncms\notifications\contracts\ChannelInterface;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\contracts\NotificationInterface;
+use JPush\Client as JPush;
 
 /**
  * 极光推送
@@ -20,9 +22,42 @@ use yuncms\notifications\contracts\NotificationInterface;
  */
 class JPushChannel extends Component implements ChannelInterface
 {
+    public $appKey;
+    public $appSecret;
 
+    private $_client;
+
+    /**
+     * @throws InvalidConfigException
+     */
+    public function init()
+    {
+        parent::init();
+        if (empty ($this->appKey)) {
+            throw new InvalidConfigException ('The "appKey" property must be set.');
+        }
+        if (empty ($this->appSecret)) {
+            throw new InvalidConfigException ('The "appSecret" property must be set.');
+        }
+        $this->_client = new JPush($this->appKey, $this->appSecret);
+    }
+
+    /**
+     * @param NotifiableInterface $recipient
+     * @param NotificationInterface $notification
+     */
     public function send(NotifiableInterface $recipient, NotificationInterface $notification)
     {
-        // TODO: Implement send() method.
+        /**
+         * @var $message JPushMessage
+         */
+        $message = $notification->exportFor('jpush');
+        $appRecipient = $recipient->routeNotificationFor('jpush');
+
+        $this->_client->push()
+            ->setPlatform($appRecipient['platform'])
+            ->addAllAudience()
+            ->setNotificationAlert($message->body)
+            ->send();
     }
 }
