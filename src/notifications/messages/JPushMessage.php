@@ -15,7 +15,6 @@ namespace yuncms\notifications\messages;
  */
 class JPushMessage extends BaseMessage
 {
-    public $platform = 'all';
     /**
      * @var array 扩展参数
      */

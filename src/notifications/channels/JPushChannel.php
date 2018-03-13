@@ -26,6 +26,9 @@ class JPushChannel extends Component implements ChannelInterface
     public $appKey;
     public $appSecret;
 
+    /**
+     * @var JPush
+     */
     private $_client;
 
     /**
