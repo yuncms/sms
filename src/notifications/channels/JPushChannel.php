@@ -60,7 +60,7 @@ class JPushChannel extends Component implements ChannelInterface
 
         $this->_client->push()
             ->setPlatform($appRecipient['platform'])
-            ->addAllAudience()
+            ->addAlias($appRecipient['id'])
             ->setNotificationAlert($message->body)
             ->send();
     }
