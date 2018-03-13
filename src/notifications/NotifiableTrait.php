@@ -67,6 +67,8 @@ trait NotifiableTrait
                 return $this->id;
             case 'mail':
                 return $this->email;
+            case 'jpush':
+                return $this->id;
             case 'sms':
                 return $this->mobile;
         }
