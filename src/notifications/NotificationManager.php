@@ -11,7 +11,6 @@ use Closure;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
-use yuncms\notifications\channels\Channel;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\contracts\NotificationInterface;
 
