@@ -8,6 +8,7 @@
 namespace yuncms\console\controllers;
 
 use Yii;
+use yii\base\Event;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Console;
@@ -51,12 +52,35 @@ class TaskController extends Controller
     protected $dateTime;
 
     /**
+     * @var string 任务配置文件
+     */
+    public $taskFile = '@vendor/yuncms/tasks.php';
+
+    /**
      * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {
         parent::init();
         $this->dateTime = Yii::$app->formatter->asDatetime(time());
+        $this->taskFile = Yii::getAlias($this->taskFile);
+    }
+
+    /**
+     * 初始化并注册计划任务
+     */
+    public function initTask()
+    {
+        if (is_file($this->taskFile)) {
+            $tasks = require $this->taskFile;
+            foreach ($tasks as $task) {
+                if (isset($task['class'])) {
+                    Event::on($task['class'], $task['event'], $task['callback']);
+                } else {
+                    Event::on($task[0], $task[1], $task[2]);
+                }
+            }
+        }
     }
 
     /**
