@@ -37,7 +37,8 @@
     "yiisoft/yii2": "~2.0.0",
     "yiisoft/yii2-swiftmailer": "~2.1.0",
     "yiisoft/yii2-queue": "~2.0.0",
-    "yiisoft/yii2-authclient": "~2.1.0"
+    "yiisoft/yii2-authclient": "~2.1.0",
+    "yuncms/composer": "~2.0.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~7.0",
