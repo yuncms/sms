@@ -16,10 +16,10 @@ use yii\helpers\Console;
 /**
  * Class CronController
  *
- * 0/5 * * * * /path/to/yii cron/minute >/dev/null 2>&1
- * 30 * * * * /path/to/yii cron/hourly >/dev/null 2>&1
- * 00 18 * * * /path/to/yii cron/daily >/dev/null 2>&1
- * 00 00 15 * * /path/to/yii cron/month >/dev/null 2>&1
+ * 0/5 * * * * /path/to/yii task/minute >/dev/null 2>&1
+ * 30 * * * * /path/to/yii task/hourly >/dev/null 2>&1
+ * 00 18 * * * /path/to/yii task/daily >/dev/null 2>&1
+ * 00 00 15 * * /path/to/yii task/month >/dev/null 2>&1
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
