@@ -62,7 +62,6 @@
     "yuncms/broadcast-qcloud": "~1.0",
     "jpush/jpush": "~3.5",
     "xutl/yii2-aliyun": "~2.0"
-
   },
   "suggest": {
     "ext-imagick": "Adds support for more image processing formats and options.",
@@ -89,6 +88,10 @@
     }
   },
   "extra": {
+    "yuncms": {
+      "id": "framework",
+      "migrationPath": "@vendor/yuncms/framework/migrations"
+    },
     "branch-alias": {
       "dev-master": "1.0-dev"
     }
