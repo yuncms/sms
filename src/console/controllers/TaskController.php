@@ -83,6 +83,9 @@ class TaskController extends Controller
         }
     }
 
+    /**
+     * Show task configuration.
+     */
     public function actionShow()
     {
         if (is_file($this->taskFile)) {
