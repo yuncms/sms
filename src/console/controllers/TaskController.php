@@ -83,6 +83,16 @@ class TaskController extends Controller
         }
     }
 
+    public function actionShow()
+    {
+        if (is_file($this->taskFile)) {
+            $tasks = require $this->taskFile;
+            print_r($tasks);
+        } else {
+            $this->stdout("Task configuration file does not exist." . PHP_EOL, Console::FG_YELLOW);
+        }
+    }
+
     /**
      * Executes minute cron tasks.
      * @return int
@@ -111,7 +121,7 @@ class TaskController extends Controller
      */
     public function actionDaily()
     {
-        $this->stdout($this->dateTime. " Executing daily tasks." . PHP_EOL, Console::FG_YELLOW);
+        $this->stdout($this->dateTime . " Executing daily tasks." . PHP_EOL, Console::FG_YELLOW);
         $this->trigger(self::EVENT_ON_DAILY_RUN);
         return ExitCode::OK;
     }
