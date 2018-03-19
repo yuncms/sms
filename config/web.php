@@ -7,21 +7,16 @@ return [
     'components' => [
         'request' => [
             'class' => yuncms\web\Request::class,
-            'ipHeaders' => [
-                'Client-IP',
-                'X-Forwarded-For',
-                'X-Forwarded',
-                'X-Cluster-Client-IP',
-                'X-REAL-IP',
-                'Forwarded-For',
-                'Forwarded',
-                'RemoteIp'
-            ],
             'secureProtocolHeaders' => [
-                'X-Forwarded-Proto' => ['https'],
-                'Front-End-Https' => ['on'],
-                'X-CLIENT-SCHEME' => ['https'],
+                'X-Forwarded-Proto' => ['https'], // Common
+                'Front-End-Https' => ['on'], // Microsoft
+                'X-Client-Scheme' => ['https'],// Aliyun CDN
                 'X-Client-Proto' => ['https'],
+            ],
+            'ipHeaders' => [
+                'X-Forwarded-For',// Common
+                'ALI-CDN-REAL-IP',// Aliyun CDN
+                'X-Cluster-Client-IP',
             ],
         ],
         'response' => [
@@ -30,11 +25,9 @@ return [
         'urlManager' => [
             'class' => yii\web\UrlManager::class,
         ],
-        'user' => [
-            'class' => yuncms\web\User::class,
-            'identityClass' => yuncms\models\User::class,
-            'enableAutoLogin' => true,
-            'loginUrl' => ['/user/security/login'],
+        'assetManager' => [//前端资源压缩
+            'linkAssets' => PHP_OS == 'WINNT' ? false : true,
+            'appendTimestamp' => true,
         ],
     ]
 ];
