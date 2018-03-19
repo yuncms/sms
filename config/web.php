@@ -4,6 +4,9 @@ return [
     'bootstrap' => [
         'log', 'queue',
     ],
+    'controllerMap' => [
+        'health' => 'yuncms\web\controllers\HealthController'
+    ],
     'components' => [
         'request' => [
             'class' => yuncms\web\Request::class,
@@ -22,12 +25,13 @@ return [
         'response' => [
             'class' => yuncms\web\Response::class,
         ],
-        'urlManager' => [
-            'class' => yii\web\UrlManager::class,
-        ],
-        'assetManager' => [//前端资源压缩
-            'linkAssets' => PHP_OS == 'WINNT' ? false : true,
-            'appendTimestamp' => true,
-        ],
+//        'urlManager' => [
+//            'class' => yii\web\UrlManager::class,
+//            'enablePrettyUrl' => true,
+//            'showScriptName' => false,
+//            'rules' => [
+//                'GET ping' => 'health/ping',
+//            ],
+//        ],
     ]
 ];

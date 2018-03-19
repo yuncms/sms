@@ -32,6 +32,20 @@ class Application extends \yii\web\Application
     {
         parent::bootstrap();
         $this->setLanguage();
+        $this->catchOffline();
+    }
+
+    /**
+     * 检查离线
+     */
+    public function catchOffline()
+    {
+        if (Yii::$app->settings->get('close', 'system')) {
+            $this->catchAll = [
+                'site/offline',
+                'reason' => Yii::$app->settings->get('closeReason', 'system')
+            ];
+        }
     }
 
     /**
