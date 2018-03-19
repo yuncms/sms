@@ -8,6 +8,7 @@
 namespace yuncms\web;
 
 use Yii;
+use yii\web\Cookie;
 use yuncms\base\ApplicationTrait;
 
 /**
@@ -23,6 +24,36 @@ use yuncms\base\ApplicationTrait;
 class Application extends \yii\web\Application
 {
     use ApplicationTrait;
+
+    /**
+     * @inheritdoc
+     */
+    protected function bootstrap()
+    {
+        parent::bootstrap();
+        $this->setLanguage();
+    }
+
+    /**
+     * set language
+     * @param null $language
+     * @return void
+     */
+    public function setLanguage($language = null)
+    {
+        if (is_null($language)) {
+            if (($language = Yii::$app->request->getQueryParam('_lang')) !== null) {
+                $this->language = $language;
+                Yii::$app->response->cookies->add(new Cookie(['name' => '_lang', 'value' => $language]));
+            } else if (($cookie = Yii::$app->request->cookies->get('_lang')) !== null) {
+                $this->language = $cookie->value;
+            } else if (($language = Yii::$app->request->getPreferredLanguage()) !== null) {
+                $this->language = $language;
+            }
+        } else {
+            $this->language = $language;
+        }
+    }
 
     /**
      * @inheritdoc
