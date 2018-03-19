@@ -5,24 +5,23 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\payment\gateways;
+namespace yuncms\payment;
 
-use Yii;
+use yii\base\Exception;
 
 /**
- * Class Alipay
+ * Class PaymentException
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Alipay extends BaseAliPay
+class PaymentException extends Exception
 {
     /**
-     * @return string
+     * @return string the user-friendly name of this exception
      */
-    public function getTitle()
+    public function getName()
     {
-        return Yii::t('yuncms', 'Alipay');
+        return 'Payment Exception';
     }
-
 }
