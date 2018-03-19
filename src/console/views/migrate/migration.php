@@ -12,10 +12,17 @@ if (!empty($namespace)) {
 }
 ?>
 
-use yii\db\Migration;
+use yuncms\db\Migration;
 
+/**
+ * Class <?= $className . "\n" ?>
+ */
 class <?= $className ?> extends Migration
 {
+    /*
+     * @var string the table name.
+     */
+    public $tableName;
 
     public function safeUp()
     {
@@ -24,21 +31,21 @@ class <?= $className ?> extends Migration
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-        $this->createTable('{{%test}}', [
+        $this->createTable($this->tableName, [
             'id' => $this->primaryKey()->unsigned()->comment('ID'),
-            //'user_id' => $this->integer()->unsigned()->comment('User ID'),
-            'status' => $this->smallInteger(1)->defaultValue(0)->comment('Status'),
-            'published_at' => $this->integer(10)->unsigned()->comment('Published At'),
-            'created_at' => $this->integer(10)->unsigned()->notNull()->comment('Created At'),
-            'updated_at' => $this->integer(10)->unsigned()->notNull()->comment('Updated At'),
+            //'user_id' => $this->unsignedInteger()->comment('User ID'),
+            'status' => $this->unsignedTinyInteger(1)->defaultValue(0)->comment('Status'),
+            'published_at' => $this->unixTimestamp()->comment('Published At'),
+            'created_at' => $this->unixTimestamp()->notNull()->comment('Created At'),
+            'updated_at' => $this->unixTimestamp()->notNull()->comment('Updated At'),
         ], $tableOptions);
 
-        //$this->addForeignKey('{{%test_fk}}', '{{%test}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
+        //$this->addForeignKey('test_fk', $this->tableName, 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     public function safeDown()
     {
-        $this->dropTable('{{%test}}');
+        $this->dropTable($this->tableName);
     }
 
 

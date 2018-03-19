@@ -28,6 +28,13 @@ return [
         'migrate' => [
             'class' => yuncms\console\controllers\MigrateController::class,
             'templateFile' => '@yuncms/console/views/migrate/migration.php',
+            'generatorTemplateFiles'=>[
+                'create_table' => '@yuncms/console/views/migrate/createTableMigration.php',
+                'drop_table' => '@yuncms/console/views/migrate/dropTableMigration.php',
+                'add_column' => '@yuncms/console/views/migrate/addColumnMigration.php',
+                'drop_column' => '@yuncms/console/views/migrate/dropColumnMigration.php',
+                'create_junction' => '@yuncms/console/views/migrate/createTableMigration.php',
+            ],
             'migrationPath' => $migrationPaths,
         ],
     ],
