@@ -10,6 +10,7 @@ namespace yuncms\jobs;
 use yii\base\BaseObject;
 use yii\queue\Queue;
 use yuncms\db\ActiveRecord;
+use yii\queue\RetryableJobInterface;
 
 /**
  * Class UpdateActiveRecordAll

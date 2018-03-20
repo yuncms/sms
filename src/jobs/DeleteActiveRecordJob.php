@@ -11,6 +11,7 @@ use yii\base\BaseObject;
 use yii\db\StaleObjectException;
 use yii\queue\Queue;
 use yuncms\db\ActiveRecord;
+use yii\queue\RetryableJobInterface;
 
 /**
  * Class DeleteActiveRecordJob

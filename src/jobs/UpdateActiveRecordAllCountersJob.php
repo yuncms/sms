@@ -7,10 +7,16 @@
 
 namespace yuncms\jobs;
 
-
 use yii\base\BaseObject;
 use yuncms\db\ActiveRecord;
+use yii\queue\RetryableJobInterface;
 
+/**
+ * Class updateActiveRecordAllCountersJob
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class updateActiveRecordAllCountersJob extends BaseObject implements RetryableJobInterface
 {
     /**
