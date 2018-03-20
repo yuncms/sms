@@ -42,6 +42,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "~7.0",
+    "yiisoft/yii2-debug": "~2.0.0",
+    "yiisoft/yii2-gii": "~2.0.0",
     "league/flysystem-aws-s3-v3": "~1.0",
     "league/flysystem-azure": "~1.0",
     "league/flysystem-cached-adapter": "~1.0",
@@ -95,5 +97,18 @@
     "branch-alias": {
       "dev-master": "1.0-dev"
     }
-  }
+  },
+  "repositories": [
+    {
+      "packagist": false
+    },
+    {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    },
+    {
+      "type": "composer",
+      "url": "https://packages.tintsoft.com"
+    }
+  ]
 }

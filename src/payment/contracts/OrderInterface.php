@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\payment;
+namespace yuncms\payment\contracts;
 
 /**
  * Interface OrderInterface

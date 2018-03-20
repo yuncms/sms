@@ -9,6 +9,8 @@ namespace yuncms\payment\gateways;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\di\Instance;
+use yuncms\payment\PaymentManager;
 use yuncms\payment\traits\HasHttpRequest;
 
 /**
@@ -17,7 +19,7 @@ use yuncms\payment\traits\HasHttpRequest;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class BaseAliPay  extends Gateway
+class BaseAliPay extends Gateway
 {
     use HasHttpRequest;
 
@@ -50,6 +52,11 @@ class BaseAliPay  extends Gateway
     public $baseUrl = 'https://openapi.alipay.com';
 
     /**
+     * @var string|PaymentManager
+     */
+    public $payment = 'payment';
+
+    /**
      * @var array 交易类型和Trade映射
      */
     public $tradeTypeMap = [
@@ -67,12 +74,26 @@ class BaseAliPay  extends Gateway
     public function init()
     {
         parent::init();
+        $this->payment = Instance::ensure($this->payment, PaymentManager::class);
+    }
+
+    /**
+     * 初始化AppID
+     * @throws InvalidConfigException
+     */
+    protected function initApp()
+    {
+        if (empty ($this->appId) && !isset($this->payment->params['alipay.appId'])) {
+            throw new InvalidConfigException ('The "appId" property must be set.');
+        }
+        if (empty ($this->appId)) {
+            $this->appId = $this->payment->params['alipay.appId'];
+        }
+
         if (!in_array('sha256', openssl_get_md_methods(), true)) {
             trigger_error('need openssl support sha256', E_USER_ERROR);
         }
-        if (empty ($this->appId)) {
-            throw new InvalidConfigException ('The "appId" property must be set.');
-        }
+
         if (empty ($this->privateKey)) {
             throw new InvalidConfigException ('The "privateKey" property must be set.');
         }
@@ -90,6 +111,4 @@ class BaseAliPay  extends Gateway
             throw new InvalidConfigException(openssl_error_string());
         }
     }
-
-
 }
