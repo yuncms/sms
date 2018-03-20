@@ -23,18 +23,7 @@ class ControllerTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->controller = new FakeController('fake', new \yuncms\web\Application([
-            'id' => 'app',
-            'basePath' => __DIR__,
-
-            'components' => [
-                'request' => [
-                    'cookieValidationKey' => 'wefJDF8sfdsfSDefwqdxj9oq',
-                    'scriptFile' => __DIR__ . '/index.php',
-                    'scriptUrl' => '/index.php',
-                ],
-            ],
-        ]));
+        $this->controller = new FakeController('fake', $this->mockWebApplication());
         $this->mockWebApplication(['controller' => $this->controller]);
     }
 
@@ -62,7 +51,7 @@ class ControllerTest extends TestCase
             ],
         ];
         $result = $this->controller->asJsonP($data);
-        $this->assertInstanceOf('yii\web\Response', $result);
+        $this->assertInstanceOf('yuncms\web\Response', $result);
         $this->assertSame(Yii::$app->response, $result, 'response should be the same as Yii::$app->response');
         $this->assertEquals(Response::FORMAT_JSONP, $result->format);
         $this->assertEquals($data, $result->data);
@@ -72,7 +61,7 @@ class ControllerTest extends TestCase
     {
         $data = 'clallback';
         $result = $this->controller->asRaw($data);
-        $this->assertInstanceOf('yii\web\Response', $result);
+        $this->assertInstanceOf('yuncms\web\Response', $result);
         $this->assertSame(Yii::$app->response, $result, 'response should be the same as Yii::$app->response');
         $this->assertEquals(Response::FORMAT_RAW, $result->format);
         $this->assertEquals($data, $result->data);

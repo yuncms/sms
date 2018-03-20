@@ -52,6 +52,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'id' => 'testapp',
             'basePath' => __DIR__,
             'vendorPath' => $this->getVendorPath(),
+            'components' => [
+                'cache' => [
+                    'class' => \yii\caching\DummyCache::class,
+                ],
+                'settings' => [
+                    'class' => \yuncms\components\Settings::class,
+                    'frontCache' => 'cache'
+                ],
+            ]
         ], $config));
     }
 
@@ -62,6 +71,19 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             'basePath' => __DIR__,
             'vendorPath' => $this->getVendorPath(),
             'components' => [
+                'db' => [
+                    'class' => \yii\db\Connection::class,
+                    'charset' => 'utf8',
+                    'tablePrefix' => 'yun_',
+                    'dsn' => 'sqlite::memory:',
+                ],
+                'cache' => [
+                    'class' => \yii\caching\DummyCache::class,
+                ],
+                'settings' => [
+                    'class' => \yuncms\components\Settings::class,
+                    'frontCache' => 'cache'
+                ],
                 'request' => [
                     'class' => \yuncms\web\Request::class,
                     'cookieValidationKey' => 'wefJDF8sfdsfSDefwqdxj9oq',

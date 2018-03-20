@@ -31,8 +31,8 @@ class Application extends \yii\web\Application
     protected function bootstrap()
     {
         parent::bootstrap();
-        $this->setLanguage();
-        $this->catchOffline();
+        //$this->setLanguage();
+        //$this->catchOffline();
     }
 
     /**

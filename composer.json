@@ -63,7 +63,8 @@
     "yuncms/broadcast-aliyun": "~1.0",
     "yuncms/broadcast-qcloud": "~1.0",
     "jpush/jpush": "~3.5",
-    "xutl/yii2-aliyun": "~2.0"
+    "xutl/yii2-aliyun": "~2.0",
+    "phpgangsta/googleauthenticator":"~1.0.0"
   },
   "suggest": {
     "ext-imagick": "Adds support for more image processing formats and options.",
@@ -105,10 +106,6 @@
     {
       "type": "composer",
       "url": "https://packagist.phpcomposer.com"
-    },
-    {
-      "type": "composer",
-      "url": "https://packages.tintsoft.com"
     }
   ]
 }
