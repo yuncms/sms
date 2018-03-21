@@ -37,8 +37,7 @@
     "yiisoft/yii2": "~2.0.0",
     "yiisoft/yii2-swiftmailer": "~2.1.0",
     "yiisoft/yii2-queue": "~2.0.0",
-    "yiisoft/yii2-authclient": "~2.1.0",
-    "yuncms/composer": "2.0.x-dev"
+    "yiisoft/yii2-authclient": "~2.1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~7.0",
@@ -63,7 +62,8 @@
     "yuncms/mq-aliyun": "~1.0",
     "yuncms/mq-qcloud": "~1.0",
     "jpush/jpush": "~3.5",
-    "xutl/yii2-aliyun": "~2.0"
+    "xutl/yii2-aliyun": "~2.0",
+    "yuncms/composer": "2.0.x-dev"
   },
   "suggest": {
     "ext-imagick": "Adds support for more image processing formats and options.",
