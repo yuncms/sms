@@ -121,7 +121,7 @@ class Captcha extends InputWidget
             $input = Html::textInput($this->name, $this->value, $this->options);
             $this->mobileField = $this->name;
         }
-        $button = Html::button(Yii::t('app', 'Get Verify Code'), $this->buttonOptions);
+        $button = Html::button(Yii::t('yuncms', 'Get Verify Code'), $this->buttonOptions);
 
         $this->registerClientScript();
         echo strtr($this->template, [
@@ -140,7 +140,7 @@ class Captcha extends InputWidget
             'hashKey'=> 'yiiSmsCaptcha/' . trim($this->captchaAction, '/'),
             'mobileField' => $this->mobileField,
             'buttonTime' => '秒后重发',
-            'buttonGet'=>Yii::t('app', 'Get Verify Code'),
+            'buttonGet'=>Yii::t('yuncms', 'Get Verify Code'),
         ], $this->clientOptions);
         $options = empty ($this->clientOptions) ? '' : Json::htmlEncode($this->clientOptions);
         $id = $this->buttonOptions['id'];

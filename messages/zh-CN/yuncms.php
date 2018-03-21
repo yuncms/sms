@@ -24,6 +24,7 @@ return [
     'ID' => '',
     'Key' => '',
     'Modified' => '',
+    'Get Verify Code' => '获取验证码',
     'Monday' => '星期一',
     'Please select correct type' => '',
     'Saturday' => '星期六',
