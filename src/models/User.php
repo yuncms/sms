@@ -3,7 +3,6 @@
 namespace yuncms\models;
 
 use Yii;
-use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
@@ -12,6 +11,7 @@ use yii\web\IdentityInterface;
 use yii\filters\RateLimitInterface;
 use yii\behaviors\TimestampBehavior;
 use creocoder\taggable\TaggableBehavior;
+use yuncms\db\ActiveRecord;
 use yuncms\helpers\PasswordHelper;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\NotifiableTrait;

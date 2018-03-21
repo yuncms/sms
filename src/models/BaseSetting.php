@@ -5,7 +5,7 @@ namespace yuncms\models;
 use Yii;
 use yii\helpers\Json;
 use yii\db\Expression;
-use yii\db\ActiveRecord;
+use yuncms\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\base\InvalidArgumentException;
 use yii\behaviors\TimestampBehavior;

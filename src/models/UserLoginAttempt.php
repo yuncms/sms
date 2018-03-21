@@ -7,7 +7,7 @@
 
 namespace yuncms\models;
 
-use yii\db\ActiveRecord;
+use yuncms\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
 /**
