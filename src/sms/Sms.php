@@ -33,6 +33,9 @@ class Sms extends Component
      */
     public $defaultGateway;
 
+    /**
+     * @var StrategyInterface
+     */
     public $defaultStrategy;
 
     /**

@@ -39,6 +39,10 @@ return [
         'notification' => [
             'class' => yuncms\notifications\NotificationManager::class,
         ],
+        'sms' => [
+            'class' => yuncms\sms\Sms::class,
+            'defaultStrategy' => yuncms\sms\strategies\OrderStrategy::class
+        ],
         'snowflake' => [
             'class' => yuncms\base\Snowflake::class,
             'workerId' => 0,
