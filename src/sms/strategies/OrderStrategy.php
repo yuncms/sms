@@ -24,6 +24,6 @@ class OrderStrategy implements StrategyInterface
      */
     public function apply(array $gateways)
     {
-        return array_keys($gateways);
+        return $gateways;
     }
 }

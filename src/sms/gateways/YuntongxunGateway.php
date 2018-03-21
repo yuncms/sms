@@ -32,11 +32,25 @@ class YuntongxunGateway extends Gateway
 
     const SUCCESS_CODE = '000000';
 
-
+    /**
+     * @var string 应用ID
+     */
     public $appId;
+
+    /**
+     * @var string 账号
+     */
     public $accountSid;
+
+    /**
+     * @var string
+     */
     public $accountToken;
-    public $isSubAccount;
+
+    /**
+     * @var bool 是否是子账号
+     */
+    public $isSubAccount = false;
 
     /**
      * @throws InvalidConfigException

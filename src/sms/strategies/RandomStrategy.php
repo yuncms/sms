@@ -25,6 +25,6 @@ class RandomStrategy implements StrategyInterface
         uasort($gateways, function () {
             return mt_rand() - mt_rand();
         });
-        return array_keys($gateways);
+        return $gateways;
     }
 }
