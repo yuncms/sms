@@ -12,6 +12,7 @@ use Yii;
 use yii\base\Component;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
+use yuncms\sms\contracts\MessageInterface;
 use yuncms\sms\contracts\StrategyInterface;
 use yuncms\sms\strategies\OrderStrategy;
 
@@ -62,7 +63,7 @@ class Sms extends Component
      * Send a message.
      *
      * @param string|array $to
-     * @param \yuncms\sms\contracts\MessageInterface|array $message
+     * @param MessageInterface|array $message
      * @param array $gateways
      * @return array
      * @throws InvalidConfigException
