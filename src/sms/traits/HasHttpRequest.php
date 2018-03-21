@@ -72,6 +72,7 @@ trait HasHttpRequest
         $options = [
             'base_uri' => method_exists($this, 'getBaseUri') ? $this->getBaseUri() : '',
             'timeout' => property_exists($this, 'timeout') ? $this->timeout : 5.0,
+            'verify'=>false,
         ];
         return $options;
     }

@@ -62,6 +62,7 @@ class Messenger
         $strategyAppliedGateways = $this->sms->strategy()->apply($gateways);
         $results = [];
         $isSuccessful = false;
+        print_r($strategyAppliedGateways);exit;
         foreach ($strategyAppliedGateways as $gateway) {
             try {
                 $results[$gateway] = [
