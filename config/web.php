@@ -18,8 +18,12 @@ return [
             ],
             'ipHeaders' => [
                 'X-Forwarded-For',// Common
-                'ALI-CDN-REAL-IP',// Aliyun CDN
                 'X-Cluster-Client-IP',
+                'ALI-CDN-REAL-IP',// Aliyun CDN
+                'Client-IP',
+                'X-Forwarded',
+                'Forwarded-For',
+                'Forwarded',
             ],
         ],
         'response' => [
