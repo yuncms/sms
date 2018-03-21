@@ -8,20 +8,19 @@
 namespace yuncms\db;
 
 use Yii;
-use yuncms\db\jobs\DeleteActiveRecordJob;
-use yuncms\db\jobs\DeleteAllActiveRecordJob;
-use yuncms\db\jobs\updateActiveRecordAllCountersJob;
-use yuncms\db\jobs\UpdateActiveRecordAllJob;
-use yuncms\db\jobs\UpdateActiveRecordAttributesJob;
-use yuncms\db\jobs\UpdateActiveRecordCountersJob;
+use yuncms\jobs\DeleteActiveRecordJob;
+use yuncms\jobs\DeleteAllActiveRecordJob;
+use yuncms\jobs\updateActiveRecordAllCountersJob;
+use yuncms\jobs\UpdateActiveRecordAllJob;
+use yuncms\jobs\UpdateActiveRecordAttributesJob;
+use yuncms\jobs\UpdateActiveRecordCountersJob;
 
 /**
- * Class ActiveRecord
- *
- * @author Tongle Xu <xutongle@gmail.com>
- * @since 3.0
+ * ActiveRecord Trait ,支持异步更新删除。
+ * @property ActiveRecord $this
+ * @package yuncms\db
  */
-class ActiveRecord extends \yii\db\ActiveRecord
+trait ActiveRecordTrait
 {
     /**
      * 快速创建实例
@@ -47,7 +46,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public function updateAttributesAsync($attributes)
     {
         Yii::$app->queue->push(new UpdateActiveRecordAttributesJob([
-            'modelClass' => get_called_class(),
+            'modelName' => get_called_class(),
             'condition' => $this->getPrimaryKey(true),
             'attributes' => $attributes,
         ]));
@@ -60,7 +59,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public function updateCountersAsync($counters)
     {
         Yii::$app->queue->push(new UpdateActiveRecordCountersJob([
-            'modelClass' => get_called_class(),
+            'modelName' => get_called_class(),
             'condition' => $this->getPrimaryKey(true),
             'counters' => $counters,
         ]));
@@ -72,7 +71,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public function deleteAsync()
     {
         Yii::$app->queue->push(new DeleteActiveRecordJob([
-            'modelClass' => get_called_class(),
+            'modelName' => get_called_class(),
             'condition' => $this->getPrimaryKey(true)
         ]));
     }
@@ -86,7 +85,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public static function updateAllAsync($attributes, $condition = '', $params = [])
     {
         Yii::$app->queue->push(new UpdateActiveRecordAllJob([
-            'modelClass' => get_called_class(),
+            'modelName' => get_called_class(),
             'condition' => $condition,
             'attributes' => $attributes,
             'params' => $params
@@ -102,7 +101,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public static function updateAllCountersAsync($counters, $condition = '', $params = [])
     {
         Yii::$app->queue->push(new updateActiveRecordAllCountersJob([
-            'modelClass' => get_called_class(),
+            'modelName' => get_called_class(),
             'condition' => $condition,
             'counters' => $counters,
             'params' => $params
@@ -117,7 +116,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public static function deleteAllAsync($condition = null, $params = [])
     {
         Yii::$app->queue->push(new DeleteAllActiveRecordJob([
-            'modelClass' => get_called_class(),
+            'modelName' => get_called_class(),
             'condition' => $condition,
             'params' => $params
         ]));

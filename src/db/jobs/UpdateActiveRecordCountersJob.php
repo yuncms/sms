@@ -5,27 +5,28 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\jobs;
+namespace yuncms\db\jobs;
 
 use yii\base\BaseObject;
+use yii\queue\Queue;
 use yuncms\db\ActiveRecord;
 use yii\queue\RetryableJobInterface;
 
 /**
- * Class updateActiveRecordAllCountersJob
+ * Class UpdateCountersJob
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class updateActiveRecordAllCountersJob extends BaseObject implements RetryableJobInterface
+class UpdateActiveRecordCountersJob extends BaseObject implements RetryableJobInterface
 {
     /**
      * @var string
      */
-    public $modelName;
+    public $modelClass;
 
     /**
-     * @var array|string 查询条件
+     * @var array 查询条件
      */
     public $condition;
 
@@ -35,20 +36,23 @@ class updateActiveRecordAllCountersJob extends BaseObject implements RetryableJo
     public $counters;
 
     /**
-     * @var array the parameters (name => value) to be bound to the query.
-     */
-    public $params = [];
-
-    /**
      * @param Queue $queue which pushed and is handling the job
      */
     public function execute($queue)
     {
-        /**
-         * @var ActiveRecord $modelName
-         */
-        $modelName = $this->modelName;
-        $modelName::updateAllCounters($this->counters, $this->condition, $this->params);
+        $model = $this->getModel();
+        $model->updateCounters($this->counters);
+    }
+
+    /**
+     * 获取模型实例
+     * @return ActiveRecord|null
+     */
+    public function getModel()
+    {
+        /** @var ActiveRecord $class */
+        $class = $this->modelClass;
+        return $class::findOne($this->condition);
     }
 
     /**

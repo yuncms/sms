@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\jobs;
+namespace yuncms\db\jobs;
 
 use yii\base\BaseObject;
 use yii\queue\Queue;
@@ -13,38 +13,41 @@ use yuncms\db\ActiveRecord;
 use yii\queue\RetryableJobInterface;
 
 /**
- * Class DeleteAllActiveRecordJob
+ * Class UpdateActiveRecordAll
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class DeleteAllActiveRecordJob extends BaseObject implements RetryableJobInterface
+class UpdateActiveRecordAllJob extends BaseObject implements RetryableJobInterface
 {
+    /**
+     * @var string
+     */
+    public $modelClass;
+
+    /**
+     * @var array|string 查询条件
+     */
+    public $condition;
+
+    /**
+     * @var array
+     */
+    public $attributes;
+
     /**
      * @var array the parameters (name => value) to be bound to the query.
      */
     public $params = [];
 
     /**
-     * @var string
-     */
-    public $modelName;
-
-    /**
-     * @var array 查询条件
-     */
-    public $condition;
-
-    /**
      * @param Queue $queue which pushed and is handling the job
      */
     public function execute($queue)
     {
-        /**
-         * @var ActiveRecord $modelName
-         */
-        $modelName = $this->modelName;
-        $modelName::deleteAll($this->condition, $this->params);
+        /** @var ActiveRecord $class */
+        $class = $this->modelClass;
+        $class::updateAll($this->attributes, $this->condition, $this->params);
     }
 
     /**
@@ -64,4 +67,6 @@ class DeleteAllActiveRecordJob extends BaseObject implements RetryableJobInterfa
     {
         return $attempt < 3;
     }
+
+
 }
