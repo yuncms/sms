@@ -24,6 +24,7 @@ return [
     'ID' => '',
     'Key' => '',
     'Modified' => '',
+    'Resend after @second@ seconds' => '@second@ 秒后重发',
     'Get Verify Code' => '获取验证码',
     'Monday' => '星期一',
     'Please select correct type' => '',

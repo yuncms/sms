@@ -132,7 +132,7 @@
                 return;
             } else {
                 e.attr("disabled", true);
-                e.html(countdown + e.data('yiiSmsCaptcha').settings.buttonTime);
+                e.html(e.data('yiiSmsCaptcha').settings.buttonTime.replace(/@second@/, countdown));
                 countdown--;
                 editCookie(hashKey, countdown, countdown + 1);
             }

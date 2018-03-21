@@ -139,7 +139,7 @@ class Captcha extends InputWidget
             'refreshUrl' => Url::toRoute($this->captchaAction),
             'hashKey'=> 'yiiSmsCaptcha/' . trim($this->captchaAction, '/'),
             'mobileField' => $this->mobileField,
-            'buttonTime' => '秒后重发',
+            'buttonTime' => Yii::t('yuncms', 'Resend after @second@ seconds'),
             'buttonGet'=>Yii::t('yuncms', 'Get Verify Code'),
         ], $this->clientOptions);
         $options = empty ($this->clientOptions) ? '' : Json::htmlEncode($this->clientOptions);
