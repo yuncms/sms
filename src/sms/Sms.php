@@ -63,7 +63,7 @@ class Sms extends Component
      * Send a message.
      *
      * @param string|array $to
-     * @param MessageInterface|array $message
+     * @param array|string|MessageInterface $message
      * @param array $gateways
      * @return array
      * @throws InvalidConfigException
