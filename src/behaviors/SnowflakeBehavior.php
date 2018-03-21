@@ -19,7 +19,7 @@ use yuncms\base\Snowflake;
  * ```
  * return [
  *      'snowflake'=>[
- *          'class' => 'xutl\snowflake\SnowflakeBehavior',
+ *          'class' => 'yuncms\behaviors\SnowflakeBehavior',
  *          'attribute' => 'id',
  *      ],
  * ];
