@@ -9,6 +9,7 @@ namespace yuncms\base;
 
 use yuncms\notifications\NotificationManager;
 use yuncms\payment\PaymentManager;
+use yuncms\sms\Sms;
 
 /**
  * Trait ApplicationTrait
@@ -22,9 +23,19 @@ use yuncms\payment\PaymentManager;
  * @property \yuncms\notifications\NotificationManager $notification the notification connection.
  * @property \yuncms\payment\PaymentManager $payment the payment connection.
  * @property \yuncms\mq\BaseMessageQueue $messageQueue the message queue connection.
+ * @property \yuncms\sms\Sms $sms the sms connection.
  */
 trait ApplicationTrait
 {
+    /**
+     * Returns the sms component.
+     * @return \yuncms\sms\Sms the sms component.
+     */
+    public function getSms(): Sms
+    {
+        return $this->get('sms');
+    }
+
     /**
      * @return \yuncms\payment\PaymentManager
      */
