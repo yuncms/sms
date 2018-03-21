@@ -7,7 +7,6 @@
 
 namespace yuncms\sms\jobs;
 
-
 use Yii;
 use yii\base\BaseObject;
 use yii\queue\RetryableJobInterface;
