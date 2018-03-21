@@ -47,7 +47,7 @@ class YuntongxunGateway extends Gateway
         if (empty ($this->appId)) {
             throw new InvalidConfigException ('The "appId" property must be set.');
         }
-        if (empty ($this->accountId)) {
+        if (empty ($this->accountSid)) {
             throw new InvalidConfigException ('The "accountSid" property must be set.');
         }
         if (empty ($this->accountToken)) {
