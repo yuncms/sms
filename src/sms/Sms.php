@@ -30,7 +30,7 @@ class Sms extends Component
     public $params = [];
 
     /**
-     * @var string
+     * @var array
      */
     public $defaultGateway;
 
