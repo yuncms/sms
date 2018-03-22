@@ -11,7 +11,7 @@ use yii\helpers\Inflector;
 use yuncms\notifications\contracts\NotificationInterface;
 
 /**
- * Class NotifiableTrait
+ * 通知接受者
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0

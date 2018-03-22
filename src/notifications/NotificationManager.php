@@ -41,6 +41,14 @@ use yuncms\notifications\contracts\NotificationInterface;
  *         ],
  *     ],
  * ]
+ *
+ * $notificationManager = Yii::$app->notification;
+ * $notification = new Notification();
+ * $recipient = new Recipient();
+ * try {
+ *     $notificationManager->send($recipient, $notification);
+ * } catch (InvalidConfigException $e) {
+ * }
  * ```
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0

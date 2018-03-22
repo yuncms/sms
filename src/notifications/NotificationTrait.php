@@ -11,7 +11,7 @@ use yii\helpers\Inflector;
 use yuncms\notifications\messages\BaseMessage;
 
 /**
- * Class NotificationTrait
+ * 通知消息创建
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
