@@ -72,5 +72,6 @@ trait NotifiableTrait
             case 'sms':
                 return $this->mobile;
         }
+        return null;
     }
 }

@@ -15,6 +15,7 @@ use yuncms\notifications\contracts\ChannelInterface;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\contracts\NotificationInterface;
 use yuncms\notifications\messages\AliyunCloudPushMessage;
+use xutl\aliyun\Aliyun;
 
 /**
  * App 推送渠道
@@ -25,7 +26,7 @@ use yuncms\notifications\messages\AliyunCloudPushMessage;
 class AliyunCloudPushChannel extends Component implements ChannelInterface
 {
     /**
-     * @var string|\xutl\aliyun\Aliyun
+     * @var string|Aliyun
      */
     public $aliyun = 'aliyun';
 
@@ -40,7 +41,7 @@ class AliyunCloudPushChannel extends Component implements ChannelInterface
     public function init()
     {
         parent::init();
-        $this->aliyun = Instance::ensure($this->aliyun, 'xutl\aliyun\Aliyun');
+        $this->aliyun = Instance::ensure($this->aliyun, Aliyun::class);
     }
 
     /**
@@ -55,40 +56,23 @@ class AliyunCloudPushChannel extends Component implements ChannelInterface
          */
         $message = $notification->exportFor('aliyunCloudPush');
         $appRecipient = $recipient->routeNotificationFor('aliyunCloudPush');
-        if($message->validate()){
-            $this->aliyun->getCloudPush()->pushNoticeToAndroid([
+        if ($message->validate()) {
+            $messageParams = [
                 'AppKey' => $this->appKey,
                 'Target' => $appRecipient['target'],
                 'TargetValue' => $appRecipient['targetValue'],
                 'Title' => $message->title,
                 'Body' => $message->body,
-                'ExtParameters' => Json::encode($message->extParameters),//JSON
-            ]);
+            ];
+            if (!empty($message->extParameters)) {
+                $messageParams['ExtParameters'] = Json::encode($message->extParameters);
+            }
+            $this->aliyun->getCloudPush()->pushNoticeToAndroid($messageParams);
+            $messageParams['ApnsEnv'] = YII_ENV_DEV ? 'DEV' : 'PRODUCT';
+            $this->aliyun->getCloudPush()->pushNoticeToIOS($messageParams);
         } else {
             print_r($message->getErrors());
             exit;
         }
-        $this->aliyun->getCloudPush()->pushNoticeToIOS([
-            'AppKey' => $this->appKey,
-            'Target' => $appRecipient['target'],
-            'TargetValue' => $appRecipient['targetValue'],
-            'ApnsEnv' => YII_ENV_DEV ? 'DEV' : 'PRODUCT',
-            'Title' => $message->title,
-            'Body' => $message->body,
-            'ExtParameters' => Json::encode($message->extParameters),//JSON
-        ]);
-
-        $this->aliyun->getCloudPush()->push([
-            'AppKey' => $this->appKey,
-            'Target' => $appRecipient['target'],
-            'TargetValue' => $appRecipient['targetValue'],
-            'DeviceType' => 'ALL',
-            'Title' => $message->title,
-            'PushType' => 'NOTICE',//表示通知
-            'Body' => $message->body,
-            'StoreOffline' => 'true',
-            //'ExpireTime' => 'YYYY-MM-DDThh:mm:ssZ',
-            'ExtParameters' => Json::encode($message->extParameters),//JSON
-        ]);
     }
 }

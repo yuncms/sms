@@ -11,6 +11,7 @@ use Closure;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
+use yuncms\notifications\contracts\ChannelInterface;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\contracts\NotificationInterface;
 
@@ -112,7 +113,7 @@ class NotificationManager extends Component
      *
      * @param string $id channel ID (e.g. `db`).
      * @param bool $throwException whether to throw an exception if `$id` is not registered with the locator before.
-     * @return Channel|object|null the channel of the specified ID. If `$throwException` is false and `$id`
+     * @return ChannelInterface|object|null the channel of the specified ID. If `$throwException` is false and `$id`
      * is not registered before, null will be returned.
      * @throws InvalidConfigException if `$id` refers to a nonexistent channel ID
      * @see has()
