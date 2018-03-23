@@ -23,8 +23,6 @@ class Gateway extends Component implements GatewayInterface
 
     const DEFAULT_TIMEOUT = 5.0;
 
-
-
     /**
      * @var float
      */
@@ -40,11 +38,12 @@ class Gateway extends Component implements GatewayInterface
     /**
      * 获取交易类型
      * @param int $tradeType
+     * @param string $defaultValue
      * @return mixed|string
      */
-    public function getTradeType($tradeType)
+    public function getTradeType($tradeType, $defaultValue)
     {
-        return isset($this->tradeTypeMap[$tradeType]) ? $this->tradeTypeMap[$tradeType] : 'NATIVE';
+        return isset($this->tradeTypeMap[$tradeType]) ? $this->tradeTypeMap[$tradeType] : $defaultValue;
     }
 
     /**

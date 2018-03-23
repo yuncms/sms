@@ -81,6 +81,9 @@ class WeChat extends Gateway
     public function init()
     {
         parent::init();
+        if (!in_array('sha256', openssl_get_md_methods(), true)) {
+            trigger_error('need openssl support sha256', E_USER_ERROR);
+        }
         if (empty ($this->appId)) {
             throw new InvalidConfigException ('The "appId" property must be set.');
         }
@@ -89,6 +92,12 @@ class WeChat extends Gateway
         }
         if (empty ($this->mchId)) {
             throw new InvalidConfigException ('The "mchId" property must be set.');
+        }
+        if (empty ($this->privateKey)) {
+            throw new InvalidConfigException ('The "privateKey" property must be set.');
+        }
+        if (empty ($this->publicKey)) {
+            throw new InvalidConfigException ('The "publicKey" property must be set.');
         }
         $this->initPrivateKey();
         $this->initPublicKey();
@@ -100,77 +109,6 @@ class WeChat extends Gateway
     public function getTitle()
     {
         return Yii::t('yuncms', 'WeChat Pay');
-    }
-
-    /**
-     * 初始化私钥
-     * @throws InvalidConfigException
-     */
-    protected function initPrivateKey()
-    {
-        if (!empty ($this->privateKey)) {
-            $privateKey = Yii::getAlias($this->privateKey);
-            $this->privateKey = openssl_pkey_get_private("file://" . $privateKey);
-            if ($this->privateKey === false) {
-                throw new InvalidConfigException(openssl_error_string());
-            }
-        } else {
-            throw new InvalidConfigException ('The "privateKey" property must be set.');
-        }
-    }
-
-    /**
-     * 初始化公钥
-     * @throws InvalidConfigException
-     */
-    protected function initPublicKey()
-    {
-        if (!empty ($this->publicKey)) {
-            $publicKey = Yii::getAlias($this->publicKey);
-            $this->publicKey = openssl_pkey_get_public("file://" . $publicKey);
-            if ($this->publicKey === false) {
-                throw new InvalidConfigException(openssl_error_string());
-            }
-        } else {
-            throw new InvalidConfigException ('The "publicKey" property must be set.');
-        }
-    }
-
-    /**
-     * 生成签名
-     * @param array $params
-     * @return string
-     * @throws InvalidConfigException
-     */
-    protected function generateSignature(array $params)
-    {
-        $bizParameters = [];
-        foreach ($params as $k => $v) {
-            if ($k != "sign" && $v != "" && !is_array($v)) {
-                $bizParameters[$k] = $v;
-            }
-        }
-        ksort($bizParameters);
-        $bizString = urldecode(http_build_query($bizParameters) . '&key=' . $this->apiKey);
-        if ($this->signType == self::SIGNATURE_METHOD_MD5) {
-            $sign = md5($bizString);
-        } elseif ($this->signType == self::SIGNATURE_METHOD_SHA256) {
-            $sign = hash_hmac('sha256', $bizString, $this->apiKey);
-        } else {
-            throw new InvalidConfigException ('This encryption is not supported');
-        }
-        return strtoupper($sign);
-    }
-
-    /**
-     * 转换XML到数组
-     * @param \SimpleXMLElement|string $xml
-     * @return array
-     */
-    protected function convertXmlToArray($xml)
-    {
-        libxml_disable_entity_loader(true);
-        return json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
     }
 
     /**
@@ -267,5 +205,76 @@ class WeChat extends Gateway
     public function callback(Request $request, &$paymentId, &$money, &$message, &$payId)
     {
         return;
+    }
+
+    /**
+     * 生成签名
+     * @param array $params
+     * @return string
+     * @throws InvalidConfigException
+     */
+    protected function generateSignature(array $params)
+    {
+        $bizParameters = [];
+        foreach ($params as $k => $v) {
+            if ($k != "sign" && $v != "" && !is_array($v)) {
+                $bizParameters[$k] = $v;
+            }
+        }
+        ksort($bizParameters);
+        $bizString = urldecode(http_build_query($bizParameters) . '&key=' . $this->apiKey);
+        if ($this->signType == self::SIGNATURE_METHOD_MD5) {
+            $sign = md5($bizString);
+        } elseif ($this->signType == self::SIGNATURE_METHOD_SHA256) {
+            $sign = hash_hmac('sha256', $bizString, $this->apiKey);
+        } else {
+            throw new InvalidConfigException ('This encryption is not supported');
+        }
+        return strtoupper($sign);
+    }
+
+    /**
+     * 转换XML到数组
+     * @param \SimpleXMLElement|string $xml
+     * @return array
+     */
+    protected function convertXmlToArray($xml)
+    {
+        libxml_disable_entity_loader(true);
+        return json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+    }
+
+    /**
+     * 初始化私钥
+     * @throws InvalidConfigException
+     */
+    protected function initPrivateKey()
+    {
+        if (!empty ($this->privateKey)) {
+            $privateKey = Yii::getAlias($this->privateKey);
+            $this->privateKey = openssl_pkey_get_private("file://" . $privateKey);
+            if ($this->privateKey === false) {
+                throw new InvalidConfigException(openssl_error_string());
+            }
+        } else {
+            throw new InvalidConfigException ('The "privateKey" property must be set.');
+        }
+    }
+
+    /**
+     * 初始化公钥
+     * @throws InvalidConfigException
+     */
+    protected function initPublicKey()
+    {
+        if (!empty ($this->publicKey)) {
+            $publicKey = Yii::getAlias($this->publicKey);
+            $this->publicKey = openssl_pkey_get_public("file://" . $publicKey);
+            if ($this->publicKey === false) {
+                throw new InvalidConfigException(openssl_error_string());
+            }
+        } else {
+            throw new InvalidConfigException ('The "publicKey" property must be set.');
+        }
     }
 }
