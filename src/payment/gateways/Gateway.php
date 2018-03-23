@@ -23,10 +23,29 @@ class Gateway extends Component implements GatewayInterface
 
     const DEFAULT_TIMEOUT = 5.0;
 
+
+
     /**
      * @var float
      */
     protected $timeout;
+
+    /**
+     * @var array 交易类型和Trade映射
+     */
+    public $tradeTypeMap = [
+
+    ];
+
+    /**
+     * 获取交易类型
+     * @param int $tradeType
+     * @return mixed|string
+     */
+    public function getTradeType($tradeType)
+    {
+        return isset($this->tradeTypeMap[$tradeType]) ? $this->tradeTypeMap[$tradeType] : 'NATIVE';
+    }
 
     /**
      * Return timeout.

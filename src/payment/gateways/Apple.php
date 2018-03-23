@@ -7,9 +7,6 @@
 
 namespace yuncms\payment\gateways;
 
-
-use yuncms\payment\Gateway;
-
 class Apple extends Gateway
 {
 

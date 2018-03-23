@@ -8,9 +8,9 @@
 namespace yuncms\sms\gateways;
 
 use yii\base\InvalidConfigException;
+use yuncms\base\HasHttpRequest;
 use yuncms\sms\contracts\MessageInterface;
 use yuncms\sms\exceptions\GatewayErrorException;
-use yuncms\sms\traits\HasHttpRequest;
 
 /**
  * Class YuntongxunGateway

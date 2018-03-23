@@ -5,13 +5,15 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\payment\traits;
+namespace yuncms\base;
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * Trait HasHttpRequest
+ *
+ * @since 3.0
  */
 trait HasHttpRequest
 {
@@ -21,7 +23,6 @@ trait HasHttpRequest
      * @param string $endpoint
      * @param array $query
      * @param array $headers
-     *
      * @return array
      */
     protected function get($endpoint, $query = [], $headers = [])
@@ -38,7 +39,6 @@ trait HasHttpRequest
      * @param string $endpoint
      * @param array $params
      * @param array $headers
-     *
      * @return array
      */
     protected function post($endpoint, $params = [], $headers = [])
@@ -55,7 +55,6 @@ trait HasHttpRequest
      * @param string $method
      * @param string $endpoint
      * @param array $options http://docs.guzzlephp.org/en/latest/request-options.html
-     *
      * @return array
      */
     protected function request($method, $endpoint, $options = [])
@@ -73,8 +72,8 @@ trait HasHttpRequest
         $options = [
             'base_uri' => method_exists($this, 'getBaseUri') ? $this->getBaseUri() : '',
             'timeout' => property_exists($this, 'timeout') ? $this->timeout : 5.0,
+            'verify' => false,
         ];
-
         return $options;
     }
 
@@ -82,9 +81,7 @@ trait HasHttpRequest
      * Return http client.
      *
      * @param array $options
-     *
      * @return \GuzzleHttp\Client
-     *
      * @codeCoverageIgnore
      */
     protected function getHttpClient(array $options = [])
@@ -96,20 +93,17 @@ trait HasHttpRequest
      * Convert response contents to json.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
-     *
      * @return array|mixed
      */
     protected function unwrapResponse(ResponseInterface $response)
     {
         $contentType = $response->getHeaderLine('Content-Type');
         $contents = $response->getBody()->getContents();
-
         if (false !== stripos($contentType, 'json') || stripos($contentType, 'javascript')) {
             return json_decode($contents, true);
         } elseif (false !== stripos($contentType, 'xml')) {
             return json_decode(json_encode(simplexml_load_string($contents)), true);
         }
-
         return $contents;
     }
 }
