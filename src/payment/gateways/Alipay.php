@@ -102,14 +102,4 @@ class Alipay extends Gateway
             throw new InvalidConfigException(openssl_error_string());
         }
     }
-
-    /**
-     * 获取交易类型
-     * @param int $tradeType
-     * @return mixed|string
-     */
-    protected function getTradeType($tradeType)
-    {
-        return isset($this->tradeTypeMap[$tradeType]) ? $this->tradeTypeMap[$tradeType] : 'alipay.trade.precreate';
-    }
 }
