@@ -11,5 +11,13 @@ return [
             'class' => yuncms\backend\RbacManager::class,
             'cache' => 'cache',
         ],
+        'user' => [
+            'identityClass' => yuncms\admin\models\Admin::class
+        ],
+    ],
+    'modules' => [
+        'admin' => [
+            'class' => yuncms\admin\Module::class
+        ]
     ]
 ];
