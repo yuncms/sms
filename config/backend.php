@@ -6,6 +6,7 @@
  */
 return [
     'bootstrap' => ['log', yuncms\admin\Bootstrap::class],
+    'layout' => '@vendor/xutl/yii2-inspinia-widget/views/layouts/main',
     'components' => [
         'authManager' => [
             'class' => yuncms\rbac\DbManager::class,
