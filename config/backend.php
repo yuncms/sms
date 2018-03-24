@@ -18,7 +18,13 @@ return [
             'ruleTable' => '{{%admin_auth_rule}}'
         ],
         'user' => [
-            'identityClass' => yuncms\admin\models\Admin::class
+            'identityClass' => yuncms\admin\models\Admin::class,
+            'enableAutoLogin' => true,
+            'loginUrl' => ['/admin/security/login'],
+            'identityCookie' => [
+                'name' => '_identity_backend',
+                'httpOnly' => true
+            ],
         ],
     ],
     'modules' => [

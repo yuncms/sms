@@ -9,7 +9,7 @@ namespace yuncms\admin;
 
 use Yii;
 use yii\base\BootstrapInterface;
-use yuncms\backend\AccessControl;
+use yuncms\filters\BackendAccessControl;
 
 /**
  * Class Bootstrap
@@ -27,9 +27,8 @@ class Bootstrap implements BootstrapInterface
     public function bootstrap($app)
     {
         //附加权限验证行为
-        $app->attachBehavior('access', Yii::createObject(AccessControl::class));
+        $app->attachBehavior('access', Yii::createObject(BackendAccessControl::class));
 
-        //锁定布局
-        $app->layout = '@vendor/xutl/yii2-inspinia-widget/views/layouts/main';
+
     }
 }
