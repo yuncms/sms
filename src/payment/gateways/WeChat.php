@@ -8,10 +8,13 @@
 namespace yuncms\payment\gateways;
 
 use Yii;
+use yii\base\Exception;
 use yii\base\InvalidConfigException;
 use yii\httpclient\Client;
-use yuncms\base\HasHttpRequest;
+use yuncms\payment\exceptions\PaymentException;
 use yuncms\web\Request;
+use yuncms\base\HasHttpRequest;
+use yuncms\payment\contracts\ChargeInterface;
 
 /**
  * Class Wechat
@@ -67,11 +70,12 @@ class WeChat extends Gateway
      * @var array 交易类型和Trade映射
      */
     public $tradeTypeMap = [
-        Gateway::TRADE_TYPE_NATIVE => 'NATIVE',//WEB 原生扫码支付
-        Gateway::TRADE_TYPE_JS_API => 'JSAPI',//应用内JS API,如微信
-        Gateway::TRADE_TYPE_APP => 'APP',//app支付
-        Gateway::TRADE_TYPE_H5 => 'MWEB',//H5支付
-        Gateway::TRADE_TYPE_MICROPAY => 'MICROPAY',//刷卡支付
+        self::TRADE_TYPE_QR_CODE => 'NATIVE',//WEB 原生扫码支付
+        self::TRADE_TYPE_JS_API => 'JSAPI',//应用内JS API,如微信
+        self::TRADE_TYPE_APP => 'APP',//app支付
+        self::TRADE_TYPE_WAP => 'MWEB',//H5支付
+        self::TRADE_TYPE_POS => 'MICROPAY',//刷卡支付
+        self::TRADE_TYPE_WEB => 'NATIVE'//PC支付
     ];
 
     /**
@@ -112,26 +116,25 @@ class WeChat extends Gateway
     }
 
     /**
-     * 统一下单(公众号，扫码，APP，刷卡等支付均走这个方法)
-     * @param Trade $trade
-     * @return mixed
-     * @throws \yii\base\Exception
+     * @param ChargeInterface $charge
+     * @return
+     * @throws PaymentException
+     * @throws Exception
      */
-    public function unifiedOrder(Trade $trade)
+    public function Charge(ChargeInterface $charge)
     {
         $data = [
-            'body' => $trade->subject,
-            'out_trade_no' => $trade->id,
-            'total_fee' => round($trade->total_amount * 100),
-            'fee_type' => $trade->currency,
-            'trade_type' => $this->getTradeType($trade->type),
+            'body' => $charge->getSubject(),
+            'out_trade_no' => $charge->getOrderNo(),
+            'total_fee' => $charge->getAmount(),
+            'fee_type' => $charge->getCurrency(),
+            'trade_type' => $this->getTradeType($charge->type),
             'notify_url' => $this->getNoticeUrl(),
-            'spbill_create_ip' => Yii::$app->request->isConsoleRequest ? '127.0.0.1' : Yii::$app->request->userIP,
+            'spbill_create_ip' =>$charge->getClientIp(),
             'device_info' => 'WEB',
-            'attach' => $trade->attach,
+            'attach' => $charge->getDescription(),
         ];
-        //print_r($data);exit;
-        if ($trade->type == Trade::TYPE_JS_API) {
+        if ($charge->type == self::TRADE_TYPE_JS_API) {
             if (isset($trade->user->socialAccounts['wechat'])) {
                 $weParams = $trade->user->socialAccounts['wechat']->getDecodedData();
                 $data['openid'] = $weParams['openid'];
@@ -150,6 +153,17 @@ class WeChat extends Gateway
         } else {
             throw new Exception ('Http request failed.');
         }
+    }
+
+    /**
+     * 统一下单(公众号，扫码，APP，刷卡等支付均走这个方法)
+     * @param Trade $trade
+     * @return mixed
+     * @throws \yii\base\Exception
+     */
+    public function unifiedOrder(Trade $trade)
+    {
+
     }
 
     /**

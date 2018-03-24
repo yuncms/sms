@@ -10,6 +10,9 @@ return [
         'log', 'queue',
     ],
     'components' => [
+        'cache' => [
+            'keyPrefix' => 'wechat',       //前缀
+        ],
         'request' => [
             'class' => yuncms\wechat\Request::class,
             'secureProtocolHeaders' => [

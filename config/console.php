@@ -17,6 +17,9 @@ return [
         'log', 'queue',
     ],
     'components' => [
+        'cache' => [
+            'keyPrefix' => 'rest',       //前缀
+        ],
         'request' => [
             'class' => yuncms\console\Request::class,
         ],
@@ -28,7 +31,7 @@ return [
         'migrate' => [
             'class' => yuncms\console\controllers\MigrateController::class,
             'templateFile' => '@yuncms/console/views/migrate/migration.php',
-            'generatorTemplateFiles'=>[
+            'generatorTemplateFiles' => [
                 'create_table' => '@yuncms/console/views/migrate/createTableMigration.php',
                 'drop_table' => '@yuncms/console/views/migrate/dropTableMigration.php',
                 'add_column' => '@yuncms/console/views/migrate/addColumnMigration.php',

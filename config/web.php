@@ -8,6 +8,9 @@ return [
         'health' => 'yuncms\web\controllers\HealthController'
     ],
     'components' => [
+        'cache' => [
+            'keyPrefix' => 'web',       //前缀
+        ],
         'request' => [
             'class' => yuncms\web\Request::class,
             'secureProtocolHeaders' => [

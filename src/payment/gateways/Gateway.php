@@ -26,12 +26,12 @@ class Gateway extends Component implements GatewayInterface
     const DEFAULT_TIMEOUT = 5.0;
 
     //交易类型
-    const TYPE_QR_CODE = 'qr-code';//扫码支付
-    const TYPE_JS_API = 'js-api';//应用内JS API,如微信
-    const TYPE_APP = 'app';//app支付
-    const TYPE_WAP = 'wap';//H5支付
-    const TYPE_WEB = 'web';//PC支付
-    const TYPE_POST = 'pos';//刷卡支付
+    const TRADE_TYPE_QR_CODE = 'qr-code';//扫码支付
+    const TRADE_TYPE_JS_API = 'js-api';//应用内JS API,如微信
+    const TRADE_TYPE_APP = 'app';//app支付
+    const TRADE_TYPE_WAP = 'wap';//H5支付
+    const TRADE_TYPE_WEB = 'web';//PC支付
+    const TRADE_TYPE_POS = 'pos';//刷卡支付
 
     //交易状态
     const STATE_NOT_PAY = 0b0;//未支付

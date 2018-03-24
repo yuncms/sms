@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace vendor\yuncms\framework\src\payment\models;
+namespace yuncms\payment\models;
 
 
 use yuncms\db\ActiveRecord;

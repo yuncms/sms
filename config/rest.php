@@ -13,6 +13,9 @@ return [
         'health' => 'yuncms\web\controllers\HealthController'
     ],
     'components' => [
+        'cache' => [
+            'keyPrefix' => 'rest',       //前缀
+        ],
         'request' => [
             'class' => yuncms\web\Request::class,
             'parsers' => [
