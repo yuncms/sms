@@ -11,15 +11,15 @@ use yii\web\AssetBundle;
 /**
  * TypeAheadPluginAsset
  */
-class BootstrapTypeAheadAsset extends AssetBundle
+class BootstrapTypeAheadPluginAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/yuncms/framework/resources/css/bootstrap-typeahead';
+    public $sourcePath = '@vendor/yuncms/framework/resources/lib/typeahead.js';
 
-    public $css = [
-        'bootstrap-typeahead.css',
+    public $js = [
+        'bootstrap-typeahead/js/typeahead.bundle.js',
     ];
 
     public $depends = [
-        'yuncms\widgets\BootstrapTypeAheadPluginAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
     ];
 }
