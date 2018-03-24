@@ -6,8 +6,9 @@ $migrationPaths = array_merge(
         //'@yii/caching/migrations',
         //'@yii/log/migrations',
         '@yii/web/migrations',
-        '@yii/rbac/migrations',
+        //'@yii/rbac/migrations',
         '@yii/i18n/migrations',
+        '@yuncms/admin/migrations',
         '@app/migrations',
     ]
 );

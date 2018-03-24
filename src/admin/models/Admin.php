@@ -89,19 +89,19 @@ class Admin extends ActiveRecord implements IdentityInterface
             // username rules
             ['username', 'string', 'min' => 3, 'max' => 50],
             ['username', 'match', 'pattern' => self::$usernameRegexp],
-            [['username'], 'unique', 'message' => Yii::t('admin', 'This username has already been taken')],
+            [['username'], 'unique', 'message' => Yii::t('yuncms', 'This username has already been taken')],
             ['username', 'trim'],
 
             // email rules
             [['email'], 'string', 'max' => 60],
             ['email', 'email'],
-            [['email'], 'unique', 'message' => Yii::t('admin', 'This email has already been taken')],
+            [['email'], 'unique', 'message' => Yii::t('yuncms', 'This email has already been taken')],
             ['email', 'trim'],
 
             // mobile rules
             [['mobile'], 'string', 'max' => 11],
             ['mobile', 'match', 'pattern' => self::$mobileRegexp],
-            [['mobile'], 'unique', 'message' => Yii::t('admin', 'This mobile has already been taken')],
+            [['mobile'], 'unique', 'message' => Yii::t('yuncms', 'This mobile has already been taken')],
 
             // password rules
             ['password', 'string', 'min' => 6, 'max' => 255],

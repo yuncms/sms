@@ -23,7 +23,7 @@ class m180324_103503_create_admin_menu_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
         $this->createTable($this->tableName, [
-            'id' => $this->primaryKey()->comment('ID'),
+            'id' => $this->primaryKey()->unsigned()->comment('ID'),
             'name' => $this->string(128)->notNull()->comment('Name'),
             'parent' => $this->integer()->unsigned()->comment('Parent'),
             'route' => $this->string()->comment('Route'),
