@@ -22,6 +22,15 @@ return [
         'authClientCollection' => [
             'class' => yii\authclient\Collection::class,
         ],
+        'i18n' => [
+            'translations' => [
+                'yuncms'=>[
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@vendor/yuncms/framework/messages',
+                    'sourceLanguage' => 'en-US',
+                ],
+            ]
+        ],
         'settings' => [
             'class' => yuncms\components\Settings::class,
             'frontCache' => 'cache'
