@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\backend;
+namespace yuncms\admin;
 
 use Yii;
 use yii\base\BootstrapInterface;

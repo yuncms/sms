@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\rbac\rules;
+namespace yuncms\rbac;
 
 use Yii;
 use yii\rbac\Item;

@@ -5,11 +5,17 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\rbac\rules;
+namespace yuncms\rbac;
 
 use yii\rbac\Item;
 use yii\rbac\Rule;
 
+/**
+ * Class RouteRule
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class RouteRule extends Rule
 {
     /**
