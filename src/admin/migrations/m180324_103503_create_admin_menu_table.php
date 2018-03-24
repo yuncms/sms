@@ -1,35 +1,41 @@
 <?php
 
-namespace yuncms\admin\migrations;
+use yuncms\db\Migration;
 
-use yii\db\Migration;
-
-class M171113043435Create_admin_menu_table extends Migration
+/**
+ * Handles the creation of table `admin_menu`.
+ */
+class m180324_103503_create_admin_menu_table extends Migration
 {
+    /**
+     * @var string The table name.
+     */
+    public $tableName = '{{%admin_menu}}';
 
+    /**
+     * {@inheritdoc}
+     */
     public function safeUp()
     {
-
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-
-        $this->createTable('{{%admin_menu}}', [
-            'id' => $this->primaryKey()->unsigned()->comment('ID'),
+        $this->createTable($this->tableName, [
+            'id' => $this->primaryKey()->comment('ID'),
             'name' => $this->string(128)->notNull()->comment('Name'),
             'parent' => $this->integer()->unsigned()->comment('Parent'),
             'route' => $this->string()->comment('Route'),
             'icon' => $this->string(30)->comment('Icon'),
             'visible' => $this->boolean()->defaultValue(true)->comment('Visible'),
-            //排序
             'sort' => $this->smallInteger()->defaultValue(99)->comment('Sort'),
             'data' => $this->text()->comment('Data')
         ], $tableOptions);
-        $this->addForeignKey('{{%admin_menu_fk_1}}', '{{%admin_menu}}', 'parent', '{{%admin_menu}}', 'id', 'SET NULL', 'CASCADE');
 
-        $this->batchInsert('{{%admin_menu}}', ['id', 'name', 'parent', 'route', 'icon', 'sort', 'data'], [
+        $this->addForeignKey('admin_menu_fk_1', $this->tableName, 'parent', $this->tableName, 'id', 'SET NULL', 'CASCADE');
+
+        $this->batchInsert($this->tableName, ['id', 'name', 'parent', 'route', 'icon', 'sort', 'data'], [
             //一级主菜单
             [1, '控制台', NULL, '/site/index', 'fa-th-large', 1, NULL],
             [2, '核心设置', NULL, NULL, 'fa-cog', 2, NULL],
@@ -56,10 +62,10 @@ class M171113043435Create_admin_menu_table extends Migration
         ]);
 
         //隐藏的子菜单[隐藏的子菜单不设置id字段，使用自增]//从10000开始
-        $this->batchInsert('{{%admin_menu}}', ['id', 'name', 'parent', 'route', 'visible', 'sort'], [
+        $this->batchInsert($this->tableName, ['id', 'name', 'parent', 'route', 'visible', 'sort'], [
             [10000, '管理员查看', 22, '/admin/admin/view', 0, NULL],
         ]);
-        $this->batchInsert('{{%admin_menu}}', ['name', 'parent', 'route', 'visible', 'sort'], [
+        $this->batchInsert($this->tableName, ['name', 'parent', 'route', 'visible', 'sort'], [
             ['更新管理员', 22, '/admin/admin/update', 0, NULL], ['授权设置', 22, '/admin/assignment/view', 0, NULL],
             ['角色查看', 24, '/admin/role/view', 0, NULL], ['创建角色', 24, '/admin/role/create', 0, NULL], ['更新角色', 24, '/admin/role/update', 0, NULL],
             ['权限查看', 25, '/admin/permission/view', 0, NULL], ['创建权限', 25, '/admin/permission/create', 0, NULL], ['更新权限', 25, '/admin/permission/update', 0, NULL],
@@ -71,24 +77,11 @@ class M171113043435Create_admin_menu_table extends Migration
         ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function safeDown()
     {
-        $this->dropTable('{{%admin_menu}}');
+        $this->dropTable($this->tableName);
     }
-
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "M171113043435Create_admin_menu_table cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

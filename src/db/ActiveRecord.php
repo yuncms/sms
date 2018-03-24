@@ -31,8 +31,9 @@ class ActiveRecord extends \yii\db\ActiveRecord
      */
     public static function create(array $attributes, $runValidation = true)
     {
-        $model = new static ($attributes);
+        $model = new static();
         $model->loadDefaultValues();
+        $model->load($attributes, '');
         if ($model->save($runValidation)) {
             return $model;
         }

@@ -1,12 +1,15 @@
 <?php
 
-namespace yuncms\admin\migrations;
+use yuncms\db\Migration;
 
-use yii\db\Migration;
-
-class M171113044621Create_admin_rbac_table extends Migration
+/**
+ * Handles the creation of table `admin_rbac`.
+ */
+class m180324_104125_create_admin_rbac_table extends Migration
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public function safeUp()
     {
         $tableOptions = null;
@@ -14,12 +17,11 @@ class M171113044621Create_admin_rbac_table extends Migration
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-
         $this->createTable('{{%admin_auth_rule}}', [
             'name' => $this->string(64)->notNull()->unique(),
             'data' => $this->text(),
-            'created_at' => $this->integer(),
-            'updated_at' => $this->integer()
+            'created_at' => $this->unixTimestamp(),
+            'updated_at' => $this->unixTimestamp()
         ], $tableOptions);
 
         $this->createTable('{{%admin_auth_item}}', [
@@ -28,24 +30,24 @@ class M171113044621Create_admin_rbac_table extends Migration
             'description' => $this->text(),
             'rule_name' => $this->string(64),
             'data' => $this->text(),
-            'created_at' => $this->integer(),
-            'updated_at' => $this->integer(),
+            'created_at' => $this->unixTimestamp(),
+            'updated_at' => $this->unixTimestamp(),
         ], $tableOptions);
         $this->createIndex('idx-auth_item-type', '{{%admin_auth_item}}', 'type');
-        $this->addForeignKey('{{%admin_auth_item_ibfk_1}}', '{{%admin_auth_item}}', 'rule_name', '{{%admin_auth_rule}}', 'name', 'SET NULL', 'CASCADE');
+        $this->addForeignKey('admin_auth_item_fk_1', '{{%admin_auth_item}}', 'rule_name', '{{%admin_auth_rule}}', 'name', 'SET NULL', 'CASCADE');
 
         $this->createTable('{{%admin_auth_item_child}}', [
             'parent' => $this->string(64)->notNull(),
             'child' => $this->string(64)->notNull(),
         ], $tableOptions);
         $this->addPrimaryKey('', '{{%admin_auth_item_child}}', ['parent', 'child']);
-        $this->addForeignKey('{{%admin_auth_item_child_ibfk_1}}', '{{%admin_auth_item_child}}', 'parent', '{{%admin_auth_item}}', 'name', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('{{%admin_auth_item_child_ibfk_2}}', '{{%admin_auth_item_child}}', 'child', '{{%admin_auth_item}}', 'name', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('admin_auth_item_child_fk_1', '{{%admin_auth_item_child}}', 'parent', '{{%admin_auth_item}}', 'name', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('admin_auth_item_child_fk_2', '{{%admin_auth_item_child}}', 'child', '{{%admin_auth_item}}', 'name', 'CASCADE', 'CASCADE');
 
         $this->createTable('{{%admin_auth_assignment}}', [
             'item_name' => $this->string(64)->notNull(),
             'user_id' => $this->string(64)->notNull(),
-            'created_at' => $this->integer(),
+            'created_at' => $this->unixTimestamp(),
         ], $tableOptions);
         $this->addPrimaryKey('', '{{%admin_auth_assignment}}', ['item_name', 'user_id']);
         $this->addForeignKey('{{%admin_auth_assignment_ibfk_1}}', '{{%admin_auth_assignment}}', 'item_name', '{{%admin_auth_item}}', 'name', 'CASCADE', 'CASCADE');
@@ -73,6 +75,9 @@ class M171113044621Create_admin_rbac_table extends Migration
         $this->insert('{{%admin_auth_assignment}}', ['item_name' => 'Super Administrator', 'user_id' => 1, 'created_at' => time()]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function safeDown()
     {
         $this->dropTable('{{%admin_auth_assignment}}');
@@ -80,20 +85,4 @@ class M171113044621Create_admin_rbac_table extends Migration
         $this->dropTable('{{%admin_auth_item}}');
         $this->dropTable('{{%admin_auth_rule}}');
     }
-
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "M171113044621Create_admin_rbac_table cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

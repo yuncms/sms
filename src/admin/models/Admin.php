@@ -8,9 +8,9 @@
 namespace yuncms\admin\models;
 
 use Yii;
-use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\web\IdentityInterface;
+use yuncms\db\ActiveRecord;
 use yuncms\helpers\ArrayHelper;
 
 /**
