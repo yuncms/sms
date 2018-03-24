@@ -5,8 +5,11 @@
  * @license http://www.tintsoft.com/license/
  */
 return [
-    'bootstrap' => ['log', yuncms\admin\Bootstrap::class],
+    'bootstrap' => ['log'],
     'layout' => '@vendor/xutl/yii2-inspinia-widget/views/layouts/main',
+    'as access' => [
+        'class' => 'yuncms\filters\BackendAccessControl',
+    ],
     'components' => [
         'authManager' => [
             'class' => yuncms\rbac\DbManager::class,
