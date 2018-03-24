@@ -18,15 +18,15 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'password')->passwordInput() ?>
 
     <?= $form->field($model, 'status')->inline(true)->radioList([
-        '1' => Yii::t('admin', 'Active'),
-        '0' => Yii::t('admin', 'Disable')
+        '1' => Yii::t('yuncms', 'Active'),
+        '0' => Yii::t('yuncms', 'Disable')
     ]) ?>
 
 </fieldset>
 <div class="form-actions">
     <div class="row">
         <div class="col-md-12">
-            <?= Html::submitButton($model->isNewRecord ? Yii::t('admin', 'Create') : Yii::t('admin', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? Yii::t('yuncms', 'Create') : Yii::t('yuncms', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
     </div>
 </div>

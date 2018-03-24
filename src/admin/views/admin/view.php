@@ -12,7 +12,7 @@ use yuncms\admin\models\Admin;
 
 $this->title = $model->username;
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('admin', 'Manage Admin'),
+    'label' => Yii::t('yuncms', 'Manage Admin'),
     'url' => ['index']
 ];
 $this->params['breadcrumbs'][] = $this->title;
@@ -29,24 +29,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' => [
                         [
-                            'label' => Yii::t('admin', 'Manage Admin'),
+                            'label' => Yii::t('yuncms', 'Manage Admin'),
                             'url' => ['index'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Create Admin'),
+                            'label' => Yii::t('yuncms', 'Create Admin'),
                             'url' => ['create'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Update Admin'),
+                            'label' => Yii::t('yuncms', 'Update Admin'),
                             'url' => ['update', 'id' => $model->id],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Delete Admin'),
+                            'label' => Yii::t('yuncms', 'Delete Admin'),
                             'url' => ['delete', 'id' => $model->id],
                             'options' => [
                                 'class' => 'btn btn-danger btn-sm',
                                 'data' => [
-                                    'confirm' => Yii::t('admin', 'Are you sure you want to delete this item?'),
+                                    'confirm' => Yii::t('yuncms', 'Are you sure you want to delete this item?'),
                                     'method' => 'post',
                                 ],
                             ]
@@ -65,8 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'mobile',
                     'email:email',
                     [
-                        'value' => $model->status == Admin::STATUS_ACTIVE ? Yii::t('admin', 'Active') : Yii::t('admin', 'Disable'),
-                        'label' => Yii::t('admin', 'Status'),
+                        'value' => $model->status == Admin::STATUS_ACTIVE ? Yii::t('yuncms', 'Active') : Yii::t('yuncms', 'Disable'),
+                        'label' => Yii::t('yuncms', 'Status'),
                     ],
                     'last_login_at:datetime',
                     'created_at:datetime',

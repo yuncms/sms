@@ -13,7 +13,7 @@ use yuncms\admin\models\Admin;
 /* @var \yuncms\admin\models\AdminSearch $searchModel */
 /* @var \yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('admin', 'Manage Admin');
+$this->title = Yii::t('yuncms', 'Manage Admin');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -29,11 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' => [
                         [
-                            'label' => Yii::t('admin', 'Manage Admin'),
+                            'label' => Yii::t('yuncms', 'Manage Admin'),
                             'url' => ['index'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Create Admin'),
+                            'label' => Yii::t('yuncms', 'Create Admin'),
                             'url' => ['create'],
                         ],
                     ]]); ?>
@@ -55,22 +55,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'status',
                         'value' => function ($model) {
-                            return $model->status == Admin::STATUS_ACTIVE ? Yii::t('admin', 'Active') : Yii::t('admin', 'Disable');
+                            return $model->status == Admin::STATUS_ACTIVE ? Yii::t('yuncms', 'Active') : Yii::t('yuncms', 'Disable');
                         },
-                        'label' => Yii::t('admin', 'Status'),
+                        'label' => Yii::t('yuncms', 'Status'),
                     ],
                     'last_login_at:datetime',
                     'created_at:datetime',
                     'updated_at:datetime',
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'header' => Yii::t('admin', 'Operation'),
+                        'header' => Yii::t('yuncms', 'Operation'),
                         'template' => '{assignment} {view} {update} {delete}',
                         'buttons' => ['assignment' => function ($url, $model, $key) {
                             return Html::a('<span class="glyphicon glyphicon-dashboard"></span>',
                                 Url::toRoute(['assignment/view', 'id' => $model->id]), [
-                                    'title' => Yii::t('admin', 'Assignment'),
-                                    'aria-label' => Yii::t('admin', 'Assignment'),
+                                    'title' => Yii::t('yuncms', 'Assignment'),
+                                    'aria-label' => Yii::t('yuncms', 'Assignment'),
                                     'data-pjax' => '0',
                                 ]);
                         }]

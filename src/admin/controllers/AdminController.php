@@ -52,7 +52,7 @@ class AdminController extends Controller
     {
         $model = new Admin();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Create success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Create success.'));
             return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('create', ['model' => $model]);
@@ -82,7 +82,7 @@ class AdminController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Update success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Update success.'));
             return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('update', ['model' => $model]);
@@ -102,11 +102,11 @@ class AdminController extends Controller
     public function actionDelete($id)
     {
         if (Admin::find()->count() == 1) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'This is the last administrator, delete can not manage the system, it can not be deleted!'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'This is the last administrator, delete can not manage the system, it can not be deleted!'));
             return $this->redirect(['index']);
         }
         $this->findModel($id)->delete();
-        Yii::$app->getSession()->setFlash('success', Yii::t('admin', 'Delete success.'));
+        Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Delete success.'));
         return $this->redirect(['index']);
     }
 
@@ -123,7 +123,7 @@ class AdminController extends Controller
         if (($model = Admin::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException (Yii::t('yii', 'The requested page does not exist.'));
+            throw new NotFoundHttpException (Yii::t('yuncms', 'The requested page does not exist.'));
         }
     }
 }

@@ -7,9 +7,9 @@ use xutl\inspinia\Alert;
 /* @var \yii\web\View $this */
 /* @var \yuncms\admin\models\Admin $model */
 
-$this->title = Yii::t('admin', 'Create Admin');
+$this->title = Yii::t('yuncms', 'Create Admin');
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('admin', 'Manage Admin'),
+    'label' => Yii::t('yuncms', 'Manage Admin'),
     'url' => ['index']
 ];
 $this->params['breadcrumbs'][] = $this->title;
@@ -25,11 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' => [
                         [
-                            'label' => Yii::t('admin', 'Manage Admin'),
+                            'label' => Yii::t('yuncms', 'Manage Admin'),
                             'url' => ['index'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Create Admin'),
+                            'label' => Yii::t('yuncms', 'Create Admin'),
                             'url' => ['create'],
                         ],
                     ]]); ?>
