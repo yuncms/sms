@@ -7,6 +7,10 @@
 
 namespace yuncms\backend;
 
+use Yii;
+use yii\db\ActiveRecordInterface;
+use yii\web\NotFoundHttpException;
+
 /**
  * Class Action
  *
