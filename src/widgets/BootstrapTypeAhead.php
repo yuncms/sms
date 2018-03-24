@@ -15,7 +15,7 @@ use yii\helpers\Html;
  * @see http://twitter.github.io/typeahead.js/examples/
  * @package Leaps\Typeahead
  */
-class TypeAhead extends InputWidget
+class BootstrapTypeAhead extends InputWidget
 {
     /**
      * @var array the options for the Bootstrap TypeAhead JS plugin.
@@ -66,7 +66,7 @@ class TypeAhead extends InputWidget
     {
         $view = $this->getView();
 
-        TypeAheadAsset::register($view);
+        BootstrapTypeAheadAsset::register($view);
 
         $id = $this->options['id'];
 
@@ -82,7 +82,7 @@ class TypeAhead extends InputWidget
         $dataSets = !empty($dataSets) ? implode(", ", $dataSets) : '{}';
 
         foreach ($this->engines as $bloodhound) {
-            if ($bloodhound instanceof TypeAheadBloodhound) {
+            if ($bloodhound instanceof BootstrapTypeAheadBloodhound) {
                 $js[] = $bloodhound->getClientScript();
             }
         }

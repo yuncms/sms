@@ -15,7 +15,7 @@ use yii\base\InvalidConfigException;
  * Bloodhound is a helper class to configure Bloodhound suggestion engines.
  * @package yuncms\widgets
  */
-class TypeAheadBloodhound extends BaseObject
+class BootstrapTypeAheadBloodhound extends BaseObject
 {
     /**
      * @var string the engine js name

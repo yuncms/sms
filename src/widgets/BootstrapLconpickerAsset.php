@@ -15,9 +15,9 @@ use yii\web\AssetBundle;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class IconpIckerAsset extends AssetBundle
+class BootstrapLconpickerAsset extends AssetBundle
 {
-    public $sourcePath = '@yuncms/admin/resources/assets';
+    public $sourcePath = '@vendor/yuncms/framework/resources/lib/bootstrap-iconpicker';
 
     /**
      * 发布参数

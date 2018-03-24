@@ -8,16 +8,16 @@ use yii\web\AssetBundle;
  *
  * @author Leandro Gehlen <leandrogehlen@gmail.com>
  */
-class TreeGridAsset extends AssetBundle {
+class JqueryTreeGridAsset extends AssetBundle {
 
-    public $sourcePath = '@yuncms/admin/resources/assets';
+    public $sourcePath = '@vendor/yuncms/framework/resources/lib/jquery-treegrid';
 
     public $js = [
-        'jquery-treegrid/js/jquery.treegrid.min.js',
+        'js/jquery.treegrid.js',
     ];
 
     public $css = [
-        'jquery-treegrid/css/jquery.treegrid.css',
+        'css/jquery.treegrid.css',
     ];
 
     public $depends = [
