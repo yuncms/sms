@@ -5,16 +5,22 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace xutl\inspinia;
+namespace yuncms\web\assets\inspinia;
 
 use yii\web\AssetBundle;
 
+/**
+ * Class InspiniaAsset
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class InspiniaAsset extends AssetBundle
 {
     /**
      * @inherit
      */
-    public $sourcePath = __DIR__.'/dist';
+    public $sourcePath = __DIR__ . '/dist';
 
     public $css = [
         'css/animate.css',
