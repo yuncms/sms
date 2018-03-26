@@ -344,7 +344,7 @@ class TreeGrid extends Widget
                 $column = $this->createDataColumn($column);
             } else {
                 $column = Yii::createObject(array_merge([
-                    'class' => $this->dataColumnClass ? : TreeColumn::className(),
+                    'class' => $this->dataColumnClass ? : TreeColumn::class,
                     'grid' => $this,
                 ], $column));
             }
@@ -359,7 +359,7 @@ class TreeGrid extends Widget
     /**
      * Creates a [[DataColumn]] object based on a string in the format of "attribute:format:label".
      * @param string $text the column specification string
-     * @return DataColumn the column instance
+     * @return object|DataColumn
      * @throws InvalidConfigException if the column specification is invalid
      */
     protected function createDataColumn($text)
@@ -369,7 +369,7 @@ class TreeGrid extends Widget
         }
 
         return Yii::createObject([
-            'class' => $this->dataColumnClass ? : TreeColumn::className(),
+            'class' => $this->dataColumnClass ? : TreeColumn::class,
             'grid' => $this,
             'attribute' => $matches[1],
             'format' => isset($matches[3]) ? $matches[3] : 'text',
