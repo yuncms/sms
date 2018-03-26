@@ -15,6 +15,7 @@ use yii\web\NotFoundHttpException;
 use yuncms\web\Response;
 use yuncms\web\Controller;
 use yuncms\admin\models\AdminMenu;
+use yuncms\admin\actions\PositionAction;
 use yuncms\helpers\RBACHelper;
 
 /**
@@ -42,7 +43,7 @@ class MenuController extends Controller
     {
         return [
             'position' => [
-                'class' => 'yuncms\admin\actions\Position',
+                'class' => PositionAction::class,
                 'returnUrl' => Url::current()
             ]
         ];
