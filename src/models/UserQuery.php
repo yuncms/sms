@@ -2,7 +2,7 @@
 
 namespace yuncms\models;
 
-use yuncms\db\ActiveRecord;
+use yii\db\ActiveQuery;
 use creocoder\taggable\TaggableQueryBehavior;
 
 /**

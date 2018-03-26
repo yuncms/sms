@@ -45,7 +45,7 @@ class SettingsAction extends Action
                 //Yii::$app->settings->set($key, $value, $this->controller->module->id, $model->types[$key]);
                 Yii::$app->settings->set($key, $value, $model->formName(), $model->types[$key]);
             }
-            Yii::$app->getSession()->addFlash('success', Yii::t('core', 'Successfully saved settings.'));
+            Yii::$app->getSession()->addFlash('success', Yii::t('yuncms', 'Successfully saved settings.'));
             return $this->controller->redirect([$this->controller->action->id]);
         }
         foreach ($model->attributes() as $key) {

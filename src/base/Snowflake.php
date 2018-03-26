@@ -11,7 +11,7 @@ use yii\base\Component;
 use yii\base\Exception;
 
 /**
- * Class Snowflake
+ * 雪花算法
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
