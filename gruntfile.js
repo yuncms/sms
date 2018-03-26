@@ -4,11 +4,11 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         watch: {
             inspiniajs: {
-                files: ['src/web/assets/inspinia/src/js/*.js'],
+                files: ['resources/assets/inspinia/src/js/*.js'],
                 tasks: ['concat', 'uglify:cpjs']
             },
             otherjs: {
-                files: ['src/web/assets/*/dist/*.js', '!src/web/assets/*/dist/*.min.js'],
+                files: ['resources/assets/*/dist/*.js', '!resources/assets/*/dist/*.min.js'],
                 tasks: ['uglify:otherjs']
             }
         },
@@ -21,11 +21,11 @@ module.exports = function (grunt) {
             },
             dist: {
                 expand: true,
-                cwd: 'src/web/assets',
+                cwd: 'resources/assets',
                 src: [
                     '**/*.css'
                 ],
-                dest: 'src/web/assets'
+                dest: 'resources/assets'
             }
         },
         concat: {
@@ -34,9 +34,9 @@ module.exports = function (grunt) {
                     banner: '/*! <%= pkg.name %> <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n'
                 },
                 src: [
-                    'src/web/assets/inspinia/src/js/inspinia.js'
+                    'resources/assets/inspinia/src/js/inspinia.js'
                 ],
-                dest: 'src/web/assets/inspinia/dist/js/inspinia.js'
+                dest: 'resources/assets/inspinia/dist/js/inspinia.js'
             }
         },
         uglify: {
@@ -46,14 +46,14 @@ module.exports = function (grunt) {
                 screwIE8: true
             },
             inspiniajs: {
-                src: 'src/web/assets/inspinia/dist/js/inspinia.js',
-                dest: 'src/web/assets/inspinia/dist/js/inspinia.min.js'
+                src: 'resources/assets/inspinia/dist/js/inspinia.js',
+                dest: 'resources/assets/inspinia/dist/js/inspinia.min.js'
             },
             otherjs: {
                 expand: true,
-                cwd: 'src/web/assets',
+                cwd: 'resources/assets',
                 src: ['*/dist/*.js', '!*/dist/*.min.js', '!tests/dist/tests.js'],
-                dest: 'src/web/assets',
+                dest: 'resources/assets',
                 rename: function (dest, src) {
                     // Keep them where they came from
                     return dest + '/' + src;
@@ -74,12 +74,12 @@ module.exports = function (grunt) {
             },
             beforeconcat: [
                 'gruntfile.js',
-                'src/web/assets/**/*.js',
-                '!src/web/assets/**/*.min.js',
-                '!src/web/assets/inspinia/dist/js/inspinia.js'
+                'resources/assets/**/*.js',
+                '!resources/assets/**/*.min.js',
+                '!resources/assets/inspinia/dist/js/inspinia.js'
             ],
             afterconcat: [
-                'src/web/assets/inspinia/dist/js/inspinia.js'
+                'resources/assets/inspinia/dist/js/inspinia.js'
             ]
         }
     });
