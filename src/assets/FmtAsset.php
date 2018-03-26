@@ -20,7 +20,7 @@ class Asset extends AssetBundle
     /**
      * @inherit
      */
-    public $sourcePath = '@vendor/yuncms/framework/resources/css/fmt';
+    public $sourcePath = '@vendor/yuncms/framework/resources/assets/fmt';
 
     /**
      * @inherit

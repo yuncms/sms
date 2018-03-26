@@ -20,7 +20,7 @@ class SwitcheryAsset extends AssetBundle
     /**
      * @inherit
      */
-    public $sourcePath = __DIR__ . '/dist';
+    public $sourcePath = '@vendor/yuncms/framework/resources/assets/switchery/dist';
 
     public $css = [
         'switchery.css',
