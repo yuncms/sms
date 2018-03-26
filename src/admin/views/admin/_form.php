@@ -19,8 +19,8 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'password')->passwordInput() ?>
 
     <?= $form->field($model, 'status')->inline(true)->radioList([
-        '1' => Yii::t('yuncms', 'Active'),
-        '0' => Yii::t('yuncms', 'Disable')
+        '0' => Yii::t('yuncms', 'Active'),
+        '1' => Yii::t('yuncms', 'Disable')
     ]) ?>
 
 </fieldset>
