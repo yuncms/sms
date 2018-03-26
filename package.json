@@ -11,6 +11,7 @@
   "dependencies": {},
   "devDependencies": {
     "event-stream": "^3.3.4",
+    "autoprefixer": "^7.1.4",
     "grunt": "latest",
     "grunt-cli": "latest",
     "grunt-contrib-concat": "latest",
