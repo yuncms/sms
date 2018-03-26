@@ -41,6 +41,7 @@
     "yiisoft/yii2-sphinx": "~2.0.0",
     "yiisoft/yii2-redis": "~2.0.0",
     "xutl/yii2-inspinia-widget": "~1.0",
+    "xutl/yii2-type-ahead-widget": "~1.0",
     "yii2tech/ar-position": "~1.0"
   },
   "require-dev": {
