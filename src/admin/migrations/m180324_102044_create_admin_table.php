@@ -40,7 +40,7 @@ class m180324_102044_create_admin_table extends Migration
             'email' => 'xutongle@gmail.com',
             'mobile' => '13800138000',
             'password' => '123456',
-            'status' => true,
+            'status' => 0b0,
         ]);
     }
 

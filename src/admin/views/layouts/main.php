@@ -5,13 +5,12 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
+use yuncms\admin\models\Admin;
 use yuncms\assets\InspiniaAsset;
 
 $assetBundle = InspiniaAsset::register($this);
 
 $this->title = 'Manage Center';
-print_r(Yii::$app->user->identity);
-exit;
 ?>
 <?php $this->beginPage() ?><!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">
@@ -47,11 +46,11 @@ exit;
                             <span class="m-r-sm text-muted welcome-message">Welcome <?=Yii::$app->user->identity->username?>.</span>
                         </li>
                         <li>
-                            <?= Html::a('<i class="fa fa-sign-out"></i>' . Yii::t('admin', 'Logout'), Url::to(['/admin/security/logout']), [
-                                'title' => Yii::t('admin', 'Sign Out'),
+                            <?= Html::a('<i class="fa fa-sign-out"></i>' . Yii::t('yuncms', 'Logout'), Url::to(['/admin/security/logout']), [
+                                'title' => Yii::t('yuncms', 'Sign Out'),
                                 'data' => [
                                     'method' => 'post',
-                                    'confirm' => Yii::t('admin', 'You can improve your security further after logging out by closing this opened browser')
+                                    'confirm' => Yii::t('yuncms', 'You can improve your security further after logging out by closing this opened browser')
                                 ]
                             ]); ?>
                         </li>
