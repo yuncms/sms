@@ -5,6 +5,7 @@ use yii\bootstrap\ActiveForm;
 
 /* @var \yii\web\View $this */
 /* @var ActiveForm $form */
+/* @var \yuncms\admin\models\Admin $model */
 ?>
 
 <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>

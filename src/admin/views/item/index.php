@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yuncms\admin\components\RouteRule;
+use yuncms\rbac\RouteRule;
 use xutl\inspinia\Box;
 use xutl\inspinia\Toolbar;
 use xutl\inspinia\Alert;

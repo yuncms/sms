@@ -61,7 +61,7 @@ $this->registerMetaTag(['name' => 'author', 'content' => 'TintSoft Team']);
 
         <?= $form->field($model, 'verifyCode', [
             'errorOptions' => ['class' => 'help-block help-block-error full-width','style'=>'text-align:left'],
-        ])->widget(Captcha::className(), [
+        ])->widget(Captcha::class, [
             'captchaAction' => '/admin/security/captcha',
             'options' => [
                 'class' => 'form-control',

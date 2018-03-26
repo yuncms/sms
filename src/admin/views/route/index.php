@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\helpers\Json;
 use xutl\inspinia\Box;
-use xutl\inspinia\Toolbar;
 use xutl\inspinia\Alert;
 
 /* @var \yii\web\View $this */
@@ -61,7 +60,7 @@ $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate
                 <div class="col-sm-5">
                     <div class="input-group">
                         <input class="form-control search" data-target="avaliable"
-                               placeholder="<?= Yii::t('admin', 'Search for avaliable') ?>">
+                               placeholder="<?= Yii::t('yuncms', 'Search for avaliable') ?>">
                         <span class="input-group-btn">
                             <?= Html::a('<span class="glyphicon glyphicon-refresh"></span>', ['refresh'], ['class' => 'btn btn-default', 'id' => 'btn-refresh']) ?>
                         </span>

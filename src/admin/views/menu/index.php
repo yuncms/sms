@@ -1,9 +1,9 @@
 <?php
 
 use yii\helpers\Url;
-use yuncms\admin\helpers\Html;
+use yuncms\helpers\Html;
 use yii\widgets\Pjax;
-use yuncms\admin\grid\TreeGrid;
+use yuncms\grid\TreeGrid;
 use xutl\inspinia\Box;
 use xutl\inspinia\Toolbar;
 use xutl\inspinia\Alert;

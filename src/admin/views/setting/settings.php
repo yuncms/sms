@@ -8,7 +8,6 @@
 use yii\helpers\Html;
 use xutl\inspinia\ActiveForm;
 use xutl\inspinia\Box;
-use xutl\inspinia\Toolbar;
 use xutl\inspinia\Alert;
 
 $this->title = Yii::t('yuncms', 'Site Setting');

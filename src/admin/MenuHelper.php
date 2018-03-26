@@ -9,7 +9,6 @@ namespace yuncms\admin\helpers;
 use Yii;
 use yii\caching\TagDependency;
 use yuncms\admin\models\AdminMenu;
-use yuncms\admin\components\RbacManager;
 
 /**
  * Class MenuHelper
@@ -17,6 +16,14 @@ use yuncms\admin\components\RbacManager;
  */
 class MenuHelper
 {
+    /**
+     * @return \yii\rbac\ManagerInterface|\yuncms\rbac\DbManager
+     */
+    protected static function getAuthManager()
+    {
+        return Yii::$app->getAuthManager();
+    }
+
     /**
      * 获取指定用户的菜单
      * @param mixed $userId
@@ -39,8 +46,7 @@ class MenuHelper
      */
     public static function getAssignedMenu($userId, $root = null, $callback = null)
     {
-        /* @var $manager \yuncms\admin\components\RbacManager */
-        $manager = Yii::$app->getAuthManager();
+        $manager = self::getAuthManager();
         $menus = AdminMenu::find()->asArray()->indexBy('id')->all();
         $key = [__METHOD__, $userId, $manager->defaultRoles];
 
@@ -93,7 +99,7 @@ class MenuHelper
             $assigned = static::requiredParent($assigned, $menus);
             if ($manager->cache !== null) {
                 $manager->cache->set($key, $assigned, $manager->cacheDuration, new TagDependency([
-                    'tags' => RbacManager::CACHE_TAG
+                    'tags' => $manager->cacheTag
                 ]));
             }
         }
@@ -103,7 +109,7 @@ class MenuHelper
             $result = static::normalizeMenu($assigned, $menus, $callback, $root);
             if ($manager->cache !== null && $callback === null) {
                 $manager->cache->set($key, $result, $manager->cacheDuration, new TagDependency([
-                    'tags' => RbacManager::CACHE_TAG
+                    'tags' => $manager->cacheTag
                 ]));
             }
         }
