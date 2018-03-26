@@ -24,7 +24,6 @@ class SwitcheryAsset extends AssetBundle
 
     public $css = [
         'switchery.css',
-        'css/style.css'
     ];
 
     /**
@@ -35,9 +34,6 @@ class SwitcheryAsset extends AssetBundle
     ];
 
     public $depends = [
-        'yii\web\JqueryAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
-        'yuncms\widgets\FontAwesomeAsset',
-        'yii\web\YiiAsset',
+        'yuncms\web\assets\switchery\SwitcheryAsset'
     ];
 }

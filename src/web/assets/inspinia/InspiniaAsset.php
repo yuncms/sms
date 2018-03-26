@@ -42,6 +42,6 @@ class InspiniaAsset extends AssetBundle
         'yii\bootstrap\BootstrapPluginAsset',
         'yuncms\widgets\FontAwesomeAsset',
         'yii\web\YiiAsset',
-        'yuncms\web\assets\switchery\SwitcheryAsset'
+
     ];
 }

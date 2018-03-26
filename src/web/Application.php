@@ -88,6 +88,7 @@ class Application extends \yii\web\Application
         }
 
         // Override where Yii should find its asset deps
+        Yii::setAlias('@lib', $this->getVendorPath() . '/yuncms/framework/lib');
         Yii::setAlias('@bower/bootstrap/dist', $this->getVendorPath() . '/yuncms/framework/resources/lib/bootstrap');
         Yii::setAlias('@bower/jquery/dist', $this->getVendorPath() . '/yuncms/framework/resources/lib/jquery');
         Yii::setAlias('@bower/inputmask/dist', $this->getVendorPath() . '/yuncms/framework/resources/lib/inputmask');
