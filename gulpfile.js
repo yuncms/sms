@@ -26,7 +26,10 @@ var staticDeps = [
     { srcGlob: 'node_modules/jquery-treegrid/css/*', dest: libPath+'jquery-treegrid/css' },
     { srcGlob: 'node_modules/font-awesome/css/*', dest: libPath+'font-awesome/css' },
     { srcGlob: 'node_modules/font-awesome/fonts/*', dest: libPath+'font-awesome/fonts' },
-    { srcGlob: 'node_modules/cropper/dist/*', dest: libPath+'cropper' }
+    { srcGlob: 'node_modules/cropper/dist/*', dest: libPath+'cropper' },
+    { srcGlob: 'node_modules/metismenu/dist/*', dest: libPath+'metismenu' },
+    { srcGlob: 'node_modules/pace-progress/*', dest: libPath+'pace' },
+    { srcGlob: 'node_modules/jquery-slimscroll/*', dest: libPath+'jquery-slimscroll' }
 ];
 
 gulp.task('deps', function() {
