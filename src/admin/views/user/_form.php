@@ -1,11 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-use xutl\inspinia\ActiveForm;
+use yuncms\admin\widgets\ActiveForm;
 
 /**
  * @var yii\bootstrap\ActiveForm $form
- * @var yuncms\user\models\User $model
+ * @var yuncms\models\User $model
  */
 ?>
 <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
@@ -23,7 +23,7 @@ use xutl\inspinia\ActiveForm;
 
 <div class="form-group">
     <div class="col-sm-4 col-sm-offset-2">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('user', 'Create') : Yii::t('user', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('yuncms', 'Create') : Yii::t('yuncms', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 </div>
 

@@ -1,18 +1,18 @@
 <?php
-
 use yii\bootstrap\Nav;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use xutl\inspinia\Box;
 use xutl\inspinia\Toolbar;
 use xutl\inspinia\Alert;
+
 /**
  * @var yii\web\View $this
- * @var yuncms\user\models\User $model
+ * @var yuncms\models\User $model
  */
 
-$this->title = Yii::t('user', 'Create a user account');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('user', 'Users'), 'url' => ['index']];
+$this->title = Yii::t('yuncms', 'Create a user account');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -26,12 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' => [
                         [
-                            'label' => Yii::t('user', 'Manage Users'),
-                            'url' => ['/user/user/index'],
+                            'label' => Yii::t('yuncms', 'Manage Users'),
+                            'url' => ['/admin/user/index'],
                         ],
                         [
-                            'label' => Yii::t('user', 'Create User'),
-                            'url' => ['/user/user/create'],
+                            'label' => Yii::t('yuncms', 'Create User'),
+                            'url' => ['/admin/user/create'],
                         ],
                     ]]); ?>
                 </div>

@@ -1,15 +1,16 @@
 <?php
-use xutl\inspinia\ActiveForm;
-use yii\helpers\Html;
+
+use yuncms\admin\widgets\ActiveForm;
+use yuncms\helpers\Html;
 
 /**
  * @var yii\web\View $this
- * @var yuncms\user\models\User $user
- * @var yuncms\user\models\UserProfile $profile
+ * @var yuncms\models\User $user
+ * @var yuncms\models\UserProfile $profile
  */
 
 ?>
-<?php $this->beginContent('@yuncms/user/backend/views/user/update.php', ['model' => $model]) ?>
+<?php $this->beginContent('@yuncms/admin/views/user/update.php', ['model' => $model]) ?>
 
 <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 
@@ -24,7 +25,7 @@ use yii\helpers\Html;
 
 <div class="form-group">
     <div class="col-sm-4 col-sm-offset-2">
-        <?= Html::submitButton(Yii::t('app', 'Update'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('yuncms', 'Update'), ['class' => 'btn btn-primary']) ?>
     </div>
 </div>
 

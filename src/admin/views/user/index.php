@@ -15,7 +15,7 @@ use yuncms\user\models\Authentication;
  * @var UserSearch $searchModel
  */
 
-$this->title = Yii::t('user', 'Manage Users');
+$this->title = Yii::t('yuncms', 'Manage Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -29,16 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' => [
                         [
-                            'label' => Yii::t('user', 'Manage User'),
-                            'url' => ['/user/user/index'],
+                            'label' => Yii::t('yuncms', 'Manage User'),
+                            'url' => ['/admin/user/index'],
                         ],
                         [
-                            'label' => Yii::t('user', 'Create User'),
-                            'url' => ['/user/user/create'],
+                            'label' => Yii::t('yuncms', 'Create User'),
+                            'url' => ['/admin/user/create'],
                         ],
                         [
-                            'label' => Yii::t('user', 'Settings'),
-                            'url' => ['/user/user/settings'],
+                            'label' => Yii::t('yuncms', 'Settings'),
+                            'url' => ['/admin/user/settings'],
                         ],
                     ]]); ?>
                 </div>
@@ -55,8 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'username',
                     'email:email',
                     'mobile',
-                    //'extra.amount',
-                    //'extra.point',
 //                    [
 //                        'header' => Yii::t('user', 'Authentication'),
 //                        'value' => function ($model) {
@@ -96,15 +94,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]),
                     ],
                     [
-                        'header' => Yii::t('user', 'Confirmation'),
+                        'header' => Yii::t('yuncms', 'Confirmation'),
                         'value' => function ($model) {
                             if ($model->isEmailConfirmed) {
-                                return '<div class="text-center"><span class="text-success">' . Yii::t('user', 'Confirmed') . '</span></div>';
+                                return '<div class="text-center"><span class="text-success">' . Yii::t('yuncms', 'Confirmed') . '</span></div>';
                             } else {
-                                return Html::a(Yii::t('user', 'Confirm'), ['confirm', 'id' => $model->id], [
+                                return Html::a(Yii::t('yuncms', 'Confirm'), ['confirm', 'id' => $model->id], [
                                     'class' => 'btn btn-xs btn-success btn-block',
                                     'data-method' => 'post',
-                                    'data-confirm' => Yii::t('user', 'Are you sure you want to confirm this user?'),
+                                    'data-confirm' => Yii::t('yuncms', 'Are you sure you want to confirm this user?'),
                                 ]);
                             }
                         },
@@ -112,13 +110,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'visible' => Yii::$app->settings->get('enableConfirmation', 'user'),
                     ],
                     [
-                        'header' => Yii::t('user', 'Block status'),
+                        'header' => Yii::t('yuncms', 'Block status'),
                         'value' => function ($model) {
                             if ($model->isBlocked) {
-                                return Html::a(Yii::t('user', 'Unblock'), ['block', 'id' => $model->id], [
+                                return Html::a(Yii::t('yuncms', 'Unblock'), ['block', 'id' => $model->id], [
                                     'class' => 'btn btn-xs btn-success btn-block',
                                     'data-method' => 'post',
-                                    'data-confirm' => Yii::t('user', 'Are you sure you want to unblock this user?'),
+                                    'data-confirm' => Yii::t('yuncms', 'Are you sure you want to unblock this user?'),
                                 ]);
                             } else {
                                 return Html::a(Yii::t('user', 'Block'), ['block', 'id' => $model->id], [
@@ -132,7 +130,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
-
                     ],
                 ]
             ]); ?>

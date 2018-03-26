@@ -13,8 +13,8 @@ use xutl\inspinia\Alert;
  * @var string $content
  */
 
-$this->title = Yii::t('user', 'Update User Account');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('user', 'Users'), 'url' => ['index']];
+$this->title = Yii::t('yuncms', 'Update User Account');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 if (!isset($this->params['noPadding'])) {
     $this->params['noPadding'] = null;
@@ -33,63 +33,63 @@ if (!isset($this->params['noPadding'])) {
                 <div class="col-sm-6 m-b-xs">
                     <?= Toolbar::widget(['items' => [
                         [
-                            'label' => Yii::t('user', 'Manage User'),
+                            'label' => Yii::t('yuncms', 'Manage User'),
                             'url' => ['/user/user/index'],
                         ],
                         [
-                            'label' => Yii::t('user', 'Create User'),
+                            'label' => Yii::t('yuncms', 'Create User'),
                             'url' => ['/user/user/create'],
                         ],
-                        ['label' => Yii::t('user', 'Account details'), 'url' => ['/user/user/update', 'id' => $model->id]],
-                        ['label' => Yii::t('user', 'Profile details'), 'url' => ['/user/user/update-profile', 'id' => $model->id]],
-                        ['label' => Yii::t('user', 'Information'), 'url' => ['/user/user/view', 'id' => $model->id]],
+                        ['label' => Yii::t('yuncms', 'Account details'), 'url' => ['/user/user/update', 'id' => $model->id]],
+                        ['label' => Yii::t('yuncms', 'Profile details'), 'url' => ['/user/user/update-profile', 'id' => $model->id]],
+                        ['label' => Yii::t('yuncms', 'Information'), 'url' => ['/user/user/view', 'id' => $model->id]],
                         [
-                            'label' => Yii::t('user', 'Email Confirm'),
+                            'label' => Yii::t('yuncms', 'Email Confirm'),
                             'url' => ['/user/user/confirm', 'id' => $model->id],
                             'visible' => !$model->isEmailConfirmed,
                             'options' => [
                                 'class'=>'btn btn-sm',
                                 'data-method' => 'post',
-                                'data-confirm' => Yii::t('user', 'Are you sure you want to confirm this user?'),
+                                'data-confirm' => Yii::t('yuncms', 'Are you sure you want to confirm this user?'),
                             ],
                         ],
                         [
-                            'label' => Yii::t('user', 'Mobile Confirm'),
+                            'label' => Yii::t('yuncms', 'Mobile Confirm'),
                             'url' => ['/user/user/confirm', 'id' => $model->id],
                             'visible' => !$model->isMobileConfirmed,
                             'options' => [
                                 'class'=>'btn btn-sm',
                                 'data-method' => 'post',
-                                'data-confirm' => Yii::t('user', 'Are you sure you want to confirm this user?'),
+                                'data-confirm' => Yii::t('yuncms', 'Are you sure you want to confirm this user?'),
                             ],
                         ],
                         [
-                            'label' => Yii::t('user', 'Block'),
+                            'label' => Yii::t('yuncms', 'Block'),
                             'url' => ['/user/user/block', 'id' => $model->id],
                             'visible' => !$model->isBlocked,
                             'options' => [
                                 'class'=>'btn btn-sm',
                                 'data-method' => 'post',
-                                'data-confirm' => Yii::t('user', 'Are you sure you want to block this user?'),
+                                'data-confirm' => Yii::t('yuncms', 'Are you sure you want to block this user?'),
                             ],
                         ],
                         [
-                            'label' => Yii::t('user', 'Unblock'),
+                            'label' => Yii::t('yuncms', 'Unblock'),
                             'url' => ['/user/user/block', 'id' => $model->id],
                             'visible' => $model->isBlocked,
                             'options' => [
                                 'class'=>'btn btn-sm',
                                 'data-method' => 'post',
-                                'data-confirm' => Yii::t('user', 'Are you sure you want to unblock this user?'),
+                                'data-confirm' => Yii::t('yuncms', 'Are you sure you want to unblock this user?'),
                             ],
                         ],
                         [
-                            'label' => Yii::t('user', 'Delete'),
+                            'label' => Yii::t('yuncms', 'Delete'),
                             'url' => ['/user/user/delete', 'id' => $model->id],
                             'options' => [
                                 'class'=>'btn btn-sm',
                                 'data-method' => 'post',
-                                'data-confirm' => Yii::t('user', 'Are you sure you want to delete this user?'),
+                                'data-confirm' => Yii::t('yuncms', 'Are you sure you want to delete this user?'),
                             ],
                         ],
                     ]]); ?>

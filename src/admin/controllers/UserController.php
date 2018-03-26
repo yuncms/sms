@@ -146,7 +146,7 @@ class UserController extends Controller
             return ActiveForm::validate($profile);
         }
         if ($profile->load(Yii::$app->request->post()) && $profile->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('user', 'Profile details have been updated'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Profile details have been updated'));
             return $this->refresh();
         }
 
@@ -186,7 +186,7 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
         $model->setEmailConfirm();
-        Yii::$app->getSession()->setFlash('success', Yii::t('user', 'User has been confirmed'));
+        Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'User has been confirmed'));
         return $this->redirect(Url::previous('actions-redirect'));
     }
 
@@ -206,7 +206,7 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
         $model->delete();
-        Yii::$app->getSession()->setFlash('success', Yii::t('user', 'User has been deleted'));
+        Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'User has been deleted'));
         return $this->redirect(['index']);
     }
 
@@ -223,10 +223,10 @@ class UserController extends Controller
         $user = $this->findModel($id);
         if ($user->getIsBlocked()) {
             $user->unblock();
-            Yii::$app->getSession()->setFlash('success', Yii::t('user', 'User has been unblocked'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'User has been unblocked'));
         } else {
             $user->block();
-            Yii::$app->getSession()->setFlash('success', Yii::t('user', 'User has been blocked'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'User has been blocked'));
         }
         return $this->redirect(Url::previous('actions-redirect'));
     }

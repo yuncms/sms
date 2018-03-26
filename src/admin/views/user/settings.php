@@ -10,8 +10,8 @@ use yuncms\user\models\Settings;
 /* @var $this yii\web\View */
 /* @var $model yuncms\user\models\Settings */
 
-$this->title = Yii::t('user', 'Settings');
-$this->params['breadcrumbs'][] = Yii::t('user', 'Manage Users');
+$this->title = Yii::t('yuncms', 'Settings');
+$this->params['breadcrumbs'][] = Yii::t('yuncms', 'Manage Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -26,15 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Toolbar::widget([
                         'items' => [
                             [
-                                'label' => Yii::t('user', 'Manage User'),
+                                'label' => Yii::t('yuncms', 'Manage User'),
                                 'url' => ['/user/user/index'],
                             ],
                             [
-                                'label' => Yii::t('user', 'Create User'),
+                                'label' => Yii::t('yuncms', 'Create User'),
                                 'url' => ['/user/user/create'],
                             ],
                             [
-                                'label' => Yii::t('user', 'Settings'),
+                                'label' => Yii::t('yuncms', 'Settings'),
                                 'url' => ['/user/user/settings'],
                             ],
                         ]
@@ -58,18 +58,18 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'enablePasswordRecovery')->inline()->checkbox([], false) ?>
 
             <?= $form->field($model, 'emailChangeStrategy')->inline()->dropDownList([
-                Settings::STRATEGY_INSECURE => Yii::t('user', 'Insecure'),
-                Settings::STRATEGY_DEFAULT => Yii::t('user', 'Default'),
-                Settings::STRATEGY_SECURE => Yii::t('user', 'Secure'),
+                Settings::STRATEGY_INSECURE => Yii::t('yuncms', 'Insecure'),
+                Settings::STRATEGY_DEFAULT => Yii::t('yuncms', 'Default'),
+                Settings::STRATEGY_SECURE => Yii::t('yuncms', 'Secure'),
             ], [
-                'prompt' => Yii::t('user', 'Please select')
+                'prompt' => Yii::t('yuncms', 'Please select')
             ]) ?>
             <?= $form->field($model, 'mobileChangeStrategy')->inline()->dropDownList([
-                Settings::STRATEGY_INSECURE => Yii::t('user', 'Insecure'),
-                Settings::STRATEGY_DEFAULT => Yii::t('user', 'Default'),
-                Settings::STRATEGY_SECURE => Yii::t('user', 'Secure'),
+                Settings::STRATEGY_INSECURE => Yii::t('yuncms', 'Insecure'),
+                Settings::STRATEGY_DEFAULT => Yii::t('yuncms', 'Default'),
+                Settings::STRATEGY_SECURE => Yii::t('yuncms', 'Secure'),
             ], [
-                'prompt' => Yii::t('user', 'Please select')
+                'prompt' => Yii::t('yuncms', 'Please select')
             ]) ?>
 
             <?= $form->field($model, 'avatarPath') ?>
@@ -77,21 +77,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             <?= $form->field($model, 'rememberFor', [
-                'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">' . Yii::t('user', 'Second') . '</span></div>',
-            ])->input('number')->hint(Yii::t('user', 'The time you want the user will be remembered without asking for credentials.')) ?>
+                'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">' . Yii::t('yuncms', 'Second') . '</span></div>',
+            ])->input('number')->hint(Yii::t('yuncms', 'The time you want the user will be remembered without asking for credentials.')) ?>
             <?= $form->field($model, 'confirmWithin', [
-                'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">' . Yii::t('user', 'Second') . '</span></div>',
-            ])->input('number')->hint(Yii::t('user', 'The time before a confirmation token becomes invalid.')) ?>
+                'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">' . Yii::t('yuncms', 'Second') . '</span></div>',
+            ])->input('number')->hint(Yii::t('yuncms', 'The time before a confirmation token becomes invalid.')) ?>
             <?= $form->field($model, 'recoverWithin', [
                 'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">' . Yii::t('user', 'Second') . '</span></div>',
-            ])->input('number')->hint(Yii::t('user', 'The time before a recovery token becomes invalid.')) ?>
-            <?= $form->field($model, 'cost')->input('number')->hint(Yii::t('user', 'Cost parameter used by the Blowfish hash algorithm.')) ?>
+            ])->input('number')->hint(Yii::t('yuncms', 'The time before a recovery token becomes invalid.')) ?>
+            <?= $form->field($model, 'cost')->input('number')->hint(Yii::t('yuncms', 'Cost parameter used by the Blowfish hash algorithm.')) ?>
 
             <?= $form->field($model, 'requestRateLimit', [
-                'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">' . Yii::t('user', 'Times') . '</span></div>',
-            ])->input('number')->hint(Yii::t('user', 'RESTFul The maximum number of requests allowed in one minute.')) ?>
+                'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">' . Yii::t('yuncms', 'Times') . '</span></div>',
+            ])->input('number')->hint(Yii::t('yuncms', 'RESTFul The maximum number of requests allowed in one minute.')) ?>
 
-            <?= Html::submitButton(Yii::t('user', 'Settings'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(Yii::t('yuncms', 'Settings'), ['class' => 'btn btn-primary']) ?>
 
             <?php ActiveForm::end(); ?>
             <?php Box::end(); ?>

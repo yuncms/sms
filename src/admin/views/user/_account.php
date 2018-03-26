@@ -11,7 +11,7 @@ use xutl\inspinia\ActiveForm;
 
 ?>
 
-<?php $this->beginContent('@yuncms/user/backend/views/user/update.php', ['model' => $model]) ?>
+<?php $this->beginContent('@yuncms/admin/views/user/update.php', ['model' => $model]) ?>
 
 <?php $form = ActiveForm::begin([
     'layout' => 'horizontal',
