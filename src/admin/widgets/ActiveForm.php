@@ -22,7 +22,7 @@ class ActiveForm extends \yii\bootstrap\ActiveForm
 
     /**
      * @inheritdoc
-     * @return ActiveField the created ActiveField object
+     * @return \yii\bootstrap\ActiveField|ActiveField
      */
     public function field($model, $attribute, $options = [])
     {

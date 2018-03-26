@@ -50,6 +50,9 @@ class Alert extends Widget
     public $closeButton = [];
 
 
+    /**
+     * @throws \Exception
+     */
     public function init()
     {
         parent::init();

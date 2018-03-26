@@ -7,12 +7,11 @@
 
 namespace yuncms\admin\widgets;
 
-use yii\helpers\Html;
+use yuncms\helpers\Html;
 use yii\bootstrap\Widget;
 
 /**
  * Class Box
- * @package xutl\inspinia
  */
 class Box extends Widget
 {
