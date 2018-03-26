@@ -2,8 +2,9 @@
 
 use yii\captcha\Captcha;
 use yuncms\helpers\Html;
+use yuncms\assets\InspiniaAsset;
 use yuncms\admin\widgets\ActiveForm;
-use yuncms\admin\widgets\InspiniaAsset;
+
 
 /* @var \yii\web\View $this */
 /* @var ActiveForm $form */
