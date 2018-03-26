@@ -5,17 +5,17 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\web\assets;
+namespace yuncms\web\assets\switchery;
 
 use yii\web\AssetBundle;
 
 /**
- * Class InspiniaAsset
+ * Class SwitcheryAsset
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class InspiniaAsset extends AssetBundle
+class SwitcheryAsset extends AssetBundle
 {
     /**
      * @inherit
@@ -23,7 +23,7 @@ class InspiniaAsset extends AssetBundle
     public $sourcePath = __DIR__ . '/dist';
 
     public $css = [
-        'css/animate.css',
+        'switchery.css',
         'css/style.css'
     ];
 
@@ -31,10 +31,7 @@ class InspiniaAsset extends AssetBundle
      * @inherit
      */
     public $js = [
-        'js/plugins/metisMenu/jquery.metisMenu.js',
-        'js/plugins/slimscroll/jquery.slimscroll.min.js',
-        'js/inspinia.js',
-        'js/plugins/pace/pace.min.js',
+        'switchery.min.js'
     ];
 
     public $depends = [
@@ -42,6 +39,5 @@ class InspiniaAsset extends AssetBundle
         'yii\bootstrap\BootstrapPluginAsset',
         'yuncms\widgets\FontAwesomeAsset',
         'yii\web\YiiAsset',
-        'yuncms\web\assets\switchery\SwitcheryAsset'
     ];
 }

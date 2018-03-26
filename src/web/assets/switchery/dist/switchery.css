@@ -1,0 +1,64 @@
+/*
+ *
+ * Main stylesheet for Switchery.
+ * http://abpetkov.github.io/switchery/
+ *
+ */
+
+/* Switchery defaults. */
+
+.switchery {
+  background-color: #fff;
+  border: 1px solid #dfdfdf;
+  border-radius: 20px;
+  cursor: pointer;
+  display: inline-block;
+  height: 30px;
+  position: relative;
+  vertical-align: middle;
+  width: 50px;
+
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  background-clip: content-box;
+}
+
+.switchery > small {
+  background: #fff;
+  border-radius: 100%;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  height: 30px;
+  position: absolute;
+  top: 0;
+  width: 30px;
+}
+
+/* Switchery sizes. */
+
+.switchery-small {
+  border-radius: 20px;
+  height: 20px;
+  width: 33px;
+}
+
+.switchery-small > small {
+  height: 20px;
+  width: 20px;
+}
+
+.switchery-large {
+  border-radius: 40px;
+  height: 40px;
+  width: 66px;
+}
+
+.switchery-large > small {
+  height: 40px;
+  width: 40px;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN3aXRjaGVyeS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7O0dBS0c7O0FBRUgseUJBQXlCOztBQUV6QjtFQUNFLHVCQUF1QjtFQUN2QiwwQkFBMEI7RUFDMUIsb0JBQW9CO0VBQ3BCLGdCQUFnQjtFQUNoQixzQkFBc0I7RUFDdEIsYUFBYTtFQUNiLG1CQUFtQjtFQUNuQix1QkFBdUI7RUFDdkIsWUFBWTs7RUFFWix1QkFBdUI7RUFFdkIsMEJBQTBCO0VBQzFCLHNCQUFzQjtFQUN0QixrQkFBa0I7RUFDbEIsZ0NBQXdCO1VBQXhCLHdCQUF3QjtFQUN4Qiw2QkFBNkI7Q0FDOUI7O0FBRUQ7RUFDRSxpQkFBaUI7RUFDakIsb0JBQW9CO0VBQ3BCLGlEQUF5QztVQUF6Qyx5Q0FBeUM7RUFDekMsYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixPQUFPO0VBQ1AsWUFBWTtDQUNiOztBQUVELHNCQUFzQjs7QUFFdEI7RUFDRSxvQkFBb0I7RUFDcEIsYUFBYTtFQUNiLFlBQVk7Q0FDYjs7QUFFRDtFQUNFLGFBQWE7RUFDYixZQUFZO0NBQ2I7O0FBRUQ7RUFDRSxvQkFBb0I7RUFDcEIsYUFBYTtFQUNiLFlBQVk7Q0FDYjs7QUFFRDtFQUNFLGFBQWE7RUFDYixZQUFZO0NBQ2IiLCJmaWxlIjoic3dpdGNoZXJ5LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4gKlxuICogTWFpbiBzdHlsZXNoZWV0IGZvciBTd2l0Y2hlcnkuXG4gKiBodHRwOi8vYWJwZXRrb3YuZ2l0aHViLmlvL3N3aXRjaGVyeS9cbiAqXG4gKi9cblxuLyogU3dpdGNoZXJ5IGRlZmF1bHRzLiAqL1xuXG4uc3dpdGNoZXJ5IHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgYm9yZGVyOiAxcHggc29saWQgI2RmZGZkZjtcbiAgYm9yZGVyLXJhZGl1czogMjBweDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIGhlaWdodDogMzBweDtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xuICB3aWR0aDogNTBweDtcblxuICAtbW96LXVzZXItc2VsZWN0OiBub25lO1xuICAta2h0bWwtdXNlci1zZWxlY3Q6IG5vbmU7XG4gIC13ZWJraXQtdXNlci1zZWxlY3Q6IG5vbmU7XG4gIC1tcy11c2VyLXNlbGVjdDogbm9uZTtcbiAgdXNlci1zZWxlY3Q6IG5vbmU7XG4gIGJveC1zaXppbmc6IGNvbnRlbnQtYm94O1xuICBiYWNrZ3JvdW5kLWNsaXA6IGNvbnRlbnQtYm94O1xufVxuXG4uc3dpdGNoZXJ5ID4gc21hbGwge1xuICBiYWNrZ3JvdW5kOiAjZmZmO1xuICBib3JkZXItcmFkaXVzOiAxMDAlO1xuICBib3gtc2hhZG93OiAwIDFweCAzcHggcmdiYSgwLCAwLCAwLCAwLjQpO1xuICBoZWlnaHQ6IDMwcHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAwO1xuICB3aWR0aDogMzBweDtcbn1cblxuLyogU3dpdGNoZXJ5IHNpemVzLiAqL1xuXG4uc3dpdGNoZXJ5LXNtYWxsIHtcbiAgYm9yZGVyLXJhZGl1czogMjBweDtcbiAgaGVpZ2h0OiAyMHB4O1xuICB3aWR0aDogMzNweDtcbn1cblxuLnN3aXRjaGVyeS1zbWFsbCA+IHNtYWxsIHtcbiAgaGVpZ2h0OiAyMHB4O1xuICB3aWR0aDogMjBweDtcbn1cblxuLnN3aXRjaGVyeS1sYXJnZSB7XG4gIGJvcmRlci1yYWRpdXM6IDQwcHg7XG4gIGhlaWdodDogNDBweDtcbiAgd2lkdGg6IDY2cHg7XG59XG5cbi5zd2l0Y2hlcnktbGFyZ2UgPiBzbWFsbCB7XG4gIGhlaWdodDogNDBweDtcbiAgd2lkdGg6IDQwcHg7XG59XG5cblxuIl19 */
