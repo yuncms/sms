@@ -14,7 +14,7 @@ use yii\behaviors\TimestampBehavior;
  * Class UserLoginAttempt
  *
  * @property integer $id
- * @property string $username
+ * @property string $key
  * @property integer $amount
  * @property integer $reset_at
  * @property integer
@@ -30,7 +30,7 @@ class UserLoginAttempt extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%login_attempt}}';
+        return '{{%user_login_attempt}}';
     }
 
     public function behaviors()
@@ -43,7 +43,7 @@ class UserLoginAttempt extends ActiveRecord
     public function rules()
     {
         return [
-            [['username'], 'required'],
+            [['key'], 'required'],
         ];
     }
 
