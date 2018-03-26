@@ -8,6 +8,7 @@
 namespace yuncms\admin\models;
 
 use Yii;
+use yuncms\admin\behaviors\LoginAttemptBehavior;
 use yuncms\base\Model;
 
 /**
@@ -42,6 +43,15 @@ class LoginForm extends Model
      * @var Admin
      */
     private $_user;
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => LoginAttemptBehavior::class,
+            ],
+        ];
+    }
 
 
     /**
