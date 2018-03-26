@@ -11,10 +11,10 @@ use yuncms\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * Class UserLoginAttempt
+ * Class AdminLoginAttempt
  *
  * @property integer $id
- * @property string $username
+ * @property string $key
  * @property integer $amount
  * @property integer $reset_at
  * @property integer
@@ -43,7 +43,7 @@ class AdminLoginAttempt extends ActiveRecord
     public function rules()
     {
         return [
-            [['username'], 'required'],
+            [['key'], 'required'],
         ];
     }
 

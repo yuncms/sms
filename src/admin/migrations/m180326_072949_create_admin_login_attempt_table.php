@@ -7,7 +7,7 @@ use yuncms\db\Migration;
  */
 class m180326_072949_create_admin_login_attempt_table extends Migration
 {
-    public $tableName = '{{%admin_user_login_attempt}}';
+    public $tableName = '{{%admin_login_attempt}}';
 
     /**
      * {@inheritdoc}
