@@ -2,14 +2,14 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use xutl\inspinia\ActiveForm;
-use yuncms\widgets\IconpIcker;
-use xutl\typeahead\Bloodhound;
-use xutl\typeahead\TypeAhead;
+use yuncms\widgets\BootstrapIconpicker;
+use yuncms\widgets\BootstrapTypeAheadBloodhound;
+use yuncms\widgets\BootstrapTypeAhead;
 
 /* @var \yii\web\View $this */
 /* @var \yuncms\admin\models\AdminMenu $model */
 /* @var yii\bootstrap\ActiveForm $form */
-$engine = new Bloodhound([
+$engine = new BootstrapTypeAheadBloodhound([
     'name' => 'countriesEngine',
     'clientOptions' => [
         'datumTokenizer' => new \yii\web\JsExpression("Bloodhound.tokenizers.obj.whitespace('name')"),
@@ -32,7 +32,7 @@ $engine = new Bloodhound([
 <?= $form->field($model, 'name')->textInput(['maxlength' => 128]) ?>
 <div class="hr-line-dashed"></div>
 <?= $form->field($model, 'parent_name')->widget(
-    TypeAhead::className(),
+    BootstrapTypeAhead::class,
     [
         'options' => ['class' => 'form-control'],
         'engines' => [$engine],
@@ -56,7 +56,7 @@ $engine = new Bloodhound([
 <div class="hr-line-dashed"></div>
 <?= $form->field($model, 'sort')->input('number') ?>
 <div class="hr-line-dashed"></div>
-<?= $form->field($model, 'icon')->widget(IconpIcker::className()) ?>
+<?= $form->field($model, 'icon')->widget(BootstrapIconpicker::class) ?>
 <div class="hr-line-dashed"></div>
 <?= $form->field($model, 'data')->textarea(['rows' => 4]) ?>
 

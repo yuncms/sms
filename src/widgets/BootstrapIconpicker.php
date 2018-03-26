@@ -15,7 +15,7 @@ use yii\helpers\Html;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class BootstrapLconpicker extends InputWidget
+class BootstrapIconpicker extends InputWidget
 {
     public $buttonOptions = [];
 
@@ -61,7 +61,7 @@ class BootstrapLconpicker extends InputWidget
         echo Html::endTag('div');
         echo Html::endTag('div');
         $view = $this->getView();
-        BootstrapLconpickerAsset::register($view);
+        BootstrapIconpickerAsset::register($view);
 
         $view->registerJs("$('#{$this->options['id']}_btn').on('change', function(e) { $('#{$this->options['id']}').val(e.icon);});");
     }

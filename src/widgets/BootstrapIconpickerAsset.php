@@ -10,12 +10,12 @@ namespace yuncms\widgets;
 use yii\web\AssetBundle;
 
 /**
- * Class IconpIckerAsset
+ * Class BootstrapIconpickerAsset
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class BootstrapLconpickerAsset extends AssetBundle
+class BootstrapIconpickerAsset extends AssetBundle
 {
     public $sourcePath = '@vendor/yuncms/framework/resources/lib/bootstrap-iconpicker';
 
