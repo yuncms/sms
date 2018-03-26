@@ -80,7 +80,7 @@ $this->registerMetaTag(['name' => 'author', 'content' => 'TintSoft Team']);
 
         <?php ActiveForm::end(); ?>
         <p class="m-t">
-            <small><strong>Copyright</strong> TintSoft Company © 2012-<?= date('Y') ?></small>
+            <small><strong>Copyright</strong> TintSoft Information Technology Co.,Ltd. © 2012-<?= date('Y') ?></small>
         </p>
     </div>
 </div>
