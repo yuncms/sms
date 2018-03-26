@@ -92,10 +92,10 @@ class LoginAttemptBehavior extends Behavior
         if ($this->message === null) {
             $this->message = Yii::t('yuncms', 'You have exceeded the password attempts.');
         }
-        if (!in_array($this->durationUnit, $this->_safeUnits)) {
+        if (!array_key_exists($this->durationUnit, $this->_safeUnits)) {
             throw new Exception($this->durationUnit . " is not an allowed unit.");
         }
-        if (!in_array($this->disableDurationUnit, $this->_safeUnits)) {
+        if (!array_key_exists($this->disableDurationUnit, $this->_safeUnits)) {
             throw new Exception($this->disableDurationUnit . " is not an allowed unit.");
         }
     }

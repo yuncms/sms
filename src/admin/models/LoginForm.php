@@ -50,6 +50,7 @@ class LoginForm extends Model
             [
                 'class' => LoginAttemptBehavior::class,
                 'disableDurationUnit' => LoginAttemptBehavior::UNIT_MINUTE,
+                'durationUnit'=>LoginAttemptBehavior::UNIT_MINUTE,
             ],
         ];
     }

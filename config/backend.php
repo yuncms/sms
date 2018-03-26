@@ -6,7 +6,7 @@
  */
 return [
     'bootstrap' => ['log'],
-    'layout' => '@vendor/xutl/yii2-inspinia-widget/views/layouts/main',
+    'layout' => '@yuncms/admin/views/layouts/main',
     'as access' => [
         'class' => 'yuncms\filters\BackendAccessControl',
     ],
