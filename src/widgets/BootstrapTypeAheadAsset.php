@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
  */
 class BootstrapTypeAheadAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/yuncms/framework/resources/css/bootstrap-typeahead';
+    public $sourcePath = '@vendor/yuncms/framework/resources/assets/bootstrap-typeahead';
 
     public $css = [
         'bootstrap-typeahead.css',

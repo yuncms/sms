@@ -30,18 +30,18 @@ class BootstrapIconpickerAsset extends AssetBundle
      * @inheritdoc
      */
     public $js = [
-        'bootstrap-iconpicker/js/iconset/iconset-glyphicon.min.js',
-        'bootstrap-iconpicker/js/iconset/iconset-fontawesome-4.2.0.min.js',
-        'bootstrap-iconpicker/js/bootstrap-iconpicker.min.js',
+        'js/iconset/iconset-glyphicon.min.js',
+        'js/iconset/iconset-fontawesome-4.7.0.min.js',
+        'js/bootstrap-iconpicker.js',
     ];
 
     public $css = [
-        'bootstrap-iconpicker/css/bootstrap-iconpicker.min.css',
+        'css/bootstrap-iconpicker.min.css',
     ];
 
     public $depends = [
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
-        'yiilab\fontawesome\FontAwesomeAsset',
+        'yuncms\assets\FontAwesomeAsset',
     ];
 }

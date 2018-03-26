@@ -16,7 +16,7 @@ class BootstrapTypeAheadPluginAsset extends AssetBundle
     public $sourcePath = '@vendor/yuncms/framework/resources/lib/typeahead.js';
 
     public $js = [
-        'bootstrap-typeahead/js/typeahead.bundle.js',
+        'typeahead.bundle.min.js',
     ];
 
     public $depends = [
