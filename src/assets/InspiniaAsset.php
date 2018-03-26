@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\web\assets;
+namespace yuncms\assets;
 
 use yii\web\AssetBundle;
 
@@ -23,25 +23,22 @@ class InspiniaAsset extends AssetBundle
     public $sourcePath = __DIR__ . '/dist';
 
     public $css = [
-        'css/animate.css',
-        'css/style.css'
+        'css/inspinia.css'
     ];
 
     /**
      * @inherit
      */
     public $js = [
-        'js/plugins/metisMenu/jquery.metisMenu.js',
-        'js/plugins/slimscroll/jquery.slimscroll.min.js',
-        'js/inspinia.js',
-        'js/plugins/pace/pace.min.js',
+        'js/inspinia.min.js'
     ];
 
     public $depends = [
-        'yii\web\JqueryAsset',
+        'yuncms\assets\AnimateCssAsset',
+        'yuncms\assets\JqueryMetisMenuAsset',
         'yii\bootstrap\BootstrapPluginAsset',
-        'yuncms\widgets\FontAwesomeAsset',
-        'yii\web\YiiAsset',
-
+        'yuncms\assets\FontAwesomeAsset',
+        'yuncms\assets\JquerySlimScroll',
+        'yii\web\YiiAsset'
     ];
 }

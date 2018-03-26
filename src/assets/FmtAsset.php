@@ -5,11 +5,16 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\widgets;
-
+namespace yuncms\assets;
 
 use yii\web\AssetBundle;
 
+/**
+ * Class Asset
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class Asset extends AssetBundle
 {
     /**

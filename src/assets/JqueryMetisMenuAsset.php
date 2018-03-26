@@ -5,35 +5,38 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\web\assets\switchery;
+namespace yuncms\assets;
 
+/**
+ *
+ */
 use yii\web\AssetBundle;
 
 /**
- * Class SwitcheryAsset
+ * Class MetisMenuAsset
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class SwitcheryAsset extends AssetBundle
+class JqueryMetisMenuAsset extends AssetBundle
 {
     /**
      * @inherit
      */
-    public $sourcePath = __DIR__ . '/dist';
+    public $sourcePath = '@vendor/yuncms/framework/resources/lib/metismenu';
 
     public $css = [
-        'switchery.css',
+        'metisMenu.min.css',
     ];
 
     /**
      * @inherit
      */
     public $js = [
-        'switchery.min.js'
+        'metisMenu.min.js'
     ];
 
     public $depends = [
-        'yuncms\web\assets\switchery\SwitcheryAsset'
+        'yii\web\JqueryAsset'
     ];
 }
