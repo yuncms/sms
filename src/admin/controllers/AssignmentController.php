@@ -10,8 +10,8 @@ use Yii;
 use yii\web\Response;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use yuncms\admin\models\AdminAssignment;
 use yii\web\NotFoundHttpException;
+use yuncms\admin\models\AdminAssignment;
 use yuncms\admin\models\AdminAssignmentSearch;
 
 /**
@@ -22,7 +22,7 @@ class AssignmentController extends Controller
     public $userClassName;
     public $idField = 'id';
     public $usernameField = 'username';
-    public $fullnameField;
+    public $fullNameField;
     public $extraColumns = [];
 
 
@@ -44,7 +44,7 @@ class AssignmentController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'assign' => ['post'],
                     'revoke' => ['post'],
@@ -84,7 +84,7 @@ class AssignmentController extends Controller
             'model' => $model,
             'idField' => $this->idField,
             'usernameField' => $this->usernameField,
-            'fullnameField' => $this->fullnameField,
+            'fullNameField' => $this->fullNameField,
         ]);
     }
 
@@ -130,7 +130,7 @@ class AssignmentController extends Controller
         if (($user = $class::findIdentity($id)) !== null) {
             return new AdminAssignment($id, $user);
         } else {
-            throw new NotFoundHttpException(Yii::t('yii', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('yuncms', 'The requested page does not exist.'));
         }
     }
 }

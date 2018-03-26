@@ -11,7 +11,7 @@ use xutl\inspinia\Alert;
  * @var \yuncms\admin\models\AdminAuthItem $model
  */
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Manage Rule'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Manage Rule'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -25,24 +25,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' =>  [
                         [
-                            'label' => Yii::t('admin', 'Manage Rule'),
+                            'label' => Yii::t('yuncms', 'Manage Rule'),
                             'url' => ['/admin/rule/index'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Create Rule'),
+                            'label' => Yii::t('yuncms', 'Create Rule'),
                             'url' => ['/admin/rule/create'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Update Rule'),
+                            'label' => Yii::t('yuncms', 'Update Rule'),
                             'url' => ['/admin/rule/update', 'id' => $model->name],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Delete Rule'),
+                            'label' => Yii::t('yuncms', 'Delete Rule'),
                             'url' => ['/admin/rule/delete', 'id' => $model->name],
                             'options' => [
                                 'class' => 'btn btn-danger btn-sm',
                                 'data' => [
-                                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                    'confirm' => Yii::t('yuncms', 'Are you sure you want to delete this item?'),
                                     'method' => 'post',
                                 ],
                             ]

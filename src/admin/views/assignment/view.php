@@ -17,8 +17,8 @@ if (!empty($fullnameField)) {
 }
 $userName = Html::encode($userName);
 
-$this->title = Yii::t('admin', 'Assignment') . ' : ' . $userName;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Manage Assignment'), 'url' => ['index']];
+$this->title = Yii::t('yuncms', 'Assignment') . ' : ' . $userName;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Manage Assignment'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $userName;
 
 $opts = Json::htmlEncode([
@@ -39,11 +39,11 @@ $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' => [
                         [
-                            'label' => Yii::t('admin', 'Manage Assignment'),
+                            'label' => Yii::t('yuncms', 'Manage Assignment'),
                             'url' => ['/admin/assignment/index'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Create'),
+                            'label' => Yii::t('yuncms', 'Create'),
                             'url' => ['/user/user/create'],
                         ],
                     ]]); ?>
@@ -56,7 +56,7 @@ $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate
             <div class="row">
                 <div class="col-sm-5">
                     <input class="form-control search" data-target="avaliable"
-                           placeholder="<?= Yii::t('admin', 'Search for avaliable') ?>">
+                           placeholder="<?= Yii::t('yuncms', 'Search for avaliable') ?>">
                     <select multiple size="20" class="form-control list" data-target="avaliable">
                     </select>
                 </div>
@@ -76,7 +76,7 @@ $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate
                 </div>
                 <div class="col-sm-5">
                     <input class="form-control search" data-target="assigned"
-                           placeholder="<?= Yii::t('admin', 'Search for assigned') ?>">
+                           placeholder="<?= Yii::t('yuncms', 'Search for assigned') ?>">
                     <select multiple size="20" class="form-control list" data-target="assigned">
                     </select>
                 </div>

@@ -12,7 +12,7 @@ use xutl\inspinia\Alert;
 /* @var \yii\data\ActiveDataProvider $dataProvider */
 /* @var \yuncms\admin\models\AdminMenuSearch $searchModel */
 
-$this->title = Yii::t('admin', 'Manage Menu');
+$this->title = Yii::t('yuncms', 'Manage Menu');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -26,11 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' => [
                         [
-                            'label' => Yii::t('admin', 'Manage Menu'),
+                            'label' => Yii::t('yuncms', 'Manage Menu'),
                             'url' => ['/admin/menu/index'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Create Menu'),
+                            'label' => Yii::t('yuncms', 'Create Menu'),
                             'url' => ['/admin/menu/create'],
                         ],
                     ]]); ?>
@@ -59,18 +59,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw'
                     ],
                     [
-                        'class' => 'yuncms\admin\grid\PositionColumn',
+                        'class' => 'yuncms\grid\PositionColumn',
                         'attribute' => 'sort'
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'header' => Yii::t('app', 'Operation'),
+                        'header' => Yii::t('yuncms', 'Operation'),
                         'template' => '{add} {view} {update} {delete}',
                         'buttons' => ['add' => function ($url, $model, $key) {
                             return Html::a('<span class="fa fa-plus"></span>',
                                 Url::toRoute(['/admin/menu/create', 'parent' => $model->id]), [
-                                    'title' => Yii::t('admin', 'Add subMenu'),
-                                    'aria-label' => Yii::t('admin', 'Add subMenu'),
+                                    'title' => Yii::t('yuncms', 'Add subMenu'),
+                                    'aria-label' => Yii::t('yuncms', 'Add subMenu'),
                                     'data-pjax' => '0',
                                 ]);
                         }]

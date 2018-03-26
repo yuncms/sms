@@ -20,14 +20,14 @@ unset($rules[RouteRule::RULE_NAME]);
 <div class="hr-line-dashed"></div>
 <?= $form->field($model, 'description')->textarea(['rows' => 2]) ?>
 <div class="hr-line-dashed"></div>
-<?= $form->field($model, 'ruleName')->dropDownList($rules, ['prompt' => '--' . Yii::t('admin', 'Select Rule')]) ?>
+<?= $form->field($model, 'ruleName')->dropDownList($rules, ['prompt' => '--' . Yii::t('yuncms', 'Select Rule')]) ?>
 <div class="hr-line-dashed"></div>
 <?= $form->field($model, 'data')->textarea(['rows' => 6]) ?>
 <div class="hr-line-dashed"></div>
 
 <div class="form-group">
     <div class="col-sm-4 col-sm-offset-2">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), [
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('yuncms', 'Create') : Yii::t('yuncms', 'Update'), [
             'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
             'name' => 'submit-button'])
         ?>

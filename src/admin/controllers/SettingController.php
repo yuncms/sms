@@ -22,7 +22,7 @@ class SettingController extends Controller
         return [
             //....
             'setting' => [
-                'class' => 'yuncms\core\actions\SettingsAction',
+                'class' => 'yuncms\actions\SettingsAction',
                 'modelClass' => 'yuncms\admin\models\Settings',
                 //'scenario' => 'user',
                 //'scenario' => 'site', // Change if you want to re-use the model for multiple setting form.

@@ -11,7 +11,7 @@ use xutl\inspinia\Box;
 use xutl\inspinia\Toolbar;
 use xutl\inspinia\Alert;
 
-$this->title = Yii::t('admin', 'Site Setting');
+$this->title = Yii::t('yuncms', 'Site Setting');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="hr-line-dashed"></div>
             <div class="form-group">
                 <div class="col-sm-4 col-sm-offset-2">
-                    <?= Html::submitButton(Yii::t('admin', 'Save'), ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton(Yii::t('yuncms', 'Save'), ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>
             <?php ActiveForm::end(); ?>

@@ -9,7 +9,7 @@ namespace yuncms\admin\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ArrayDataProvider;
-use yuncms\admin\components\RouteRule;
+use yuncms\rbac\RouteRule;
 
 /**
  * Description of BizRule
@@ -35,7 +35,7 @@ class AdminBizRuleSearch extends Model
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('admin', 'Rule Name'),
+            'name' => Yii::t('yuncms', 'Rule Name'),
         ];
     }
 

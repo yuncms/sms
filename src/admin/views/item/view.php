@@ -46,51 +46,51 @@ $this->registerCss("
 $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>';
 
 if ($labels['Item'] == 'Role') {
-    $this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Manage Role'), 'url' => ['index']];
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Manage Role'), 'url' => ['index']];
     $actions = [
         [
-            'label' => Yii::t('admin', 'Manage Role'),
+            'label' => Yii::t('yuncms', 'Manage Role'),
             'url' => ['/admin/role/index'],
         ],
         [
-            'label' => Yii::t('admin', 'Create Role'),
+            'label' => Yii::t('yuncms', 'Create Role'),
             'url' => ['/admin/role/create'],
         ],
         [
-            'label' => Yii::t('admin', 'Update Role'),
+            'label' => Yii::t('yuncms', 'Update Role'),
             'url' => ['/admin/role/update', 'id' => $model->name],
         ],
         [
-            'label' => Yii::t('admin', 'Delete Role'),
+            'label' => Yii::t('yuncms', 'Delete Role'),
             'url' => ['/admin/role/delete', 'id' => $model->name],
             'options' => [
                 'class' => 'btn btn-danger  btn-sm',
-                'data-confirm' => Yii::t('app', 'Are you sure to delete this item?'),
+                'data-confirm' => Yii::t('yuncms', 'Are you sure to delete this item?'),
                 'data-method' => 'post',
             ],
         ],
     ];
 } else {
-    $this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Manage Permission'), 'url' => ['index']];
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Manage Permission'), 'url' => ['index']];
     $actions = [
         [
-            'label' => Yii::t('admin', 'Manage Permission'),
+            'label' => Yii::t('yuncms', 'Manage Permission'),
             'url' => ['/admin/permission/index'],
         ],
         [
-            'label' => Yii::t('admin', 'Create Permission'),
+            'label' => Yii::t('yuncms', 'Create Permission'),
             'url' => ['/admin/permission/create'],
         ],
         [
-            'label' => Yii::t('admin', 'Update Permission'),
+            'label' => Yii::t('yuncms', 'Update Permission'),
             'url' => ['/admin/permission/update', 'id' => $model->name],
         ],
         [
-            'label' => Yii::t('admin', 'Delete Permission'),
+            'label' => Yii::t('yuncms', 'Delete Permission'),
             'url' => ['/admin/permission/delete', 'id' => $model->name],
             'options' => [
                 'class' => 'btn btn-danger  btn-sm',
-                'data-confirm' => Yii::t('app', 'Are you sure to delete this item?'),
+                'data-confirm' => Yii::t('yuncms', 'Are you sure to delete this item?'),
                 'data-method' => 'post',
             ],
         ],
@@ -130,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row">
                 <div class="col-sm-5">
                     <input class="form-control search" data-target="avaliable"
-                           placeholder="<?= Yii::t('admin', 'Search for avaliable') ?>">
+                           placeholder="<?= Yii::t('yuncms', 'Search for avaliable') ?>">
                     <select multiple size="20" class="form-control list" data-target="avaliable">
                     </select>
                 </div>
@@ -147,7 +147,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="col-sm-5">
                     <input class="form-control search" data-target="assigned"
-                           placeholder="<?= Yii::t('admin', 'Search for assigned') ?>">
+                           placeholder="<?= Yii::t('yuncms', 'Search for assigned') ?>">
                     <select multiple size="20" class="form-control list" data-target="assigned">
                     </select>
                 </div>

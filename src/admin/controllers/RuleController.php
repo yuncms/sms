@@ -71,7 +71,7 @@ class RuleController extends Controller
         $model = new AdminBizRule(null);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Helper::invalidate();
-            Yii::$app->getSession()->setFlash('success', Yii::t('app','Create success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms','Create success.'));
             return $this->redirect(['view', 'id' => $model->name]);
         } else {
             return $this->render('create', ['model' => $model,]);
@@ -91,7 +91,7 @@ class RuleController extends Controller
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Helper::invalidate();
-            Yii::$app->getSession()->setFlash('success', Yii::t('app','Update success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms','Update success.'));
             return $this->redirect(['view', 'id' => $model->name]);
         }
 
@@ -110,7 +110,7 @@ class RuleController extends Controller
         $model = $this->findModel($id);
         Yii::$app->authManager->remove($model->item);
         Helper::invalidate();
-        Yii::$app->getSession()->setFlash('success', Yii::t('app','Delete success.'));
+        Yii::$app->getSession()->setFlash('success', Yii::t('yuncms','Delete success.'));
         return $this->redirect(['index']);
     }
 
@@ -127,7 +127,7 @@ class RuleController extends Controller
         if ($item) {
             return new AdminBizRule($item);
         } else {
-            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('yuncms', 'The requested page does not exist.'));
         }
     }
 }

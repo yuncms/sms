@@ -7,7 +7,7 @@ use xutl\inspinia\Toolbar;
 use xutl\inspinia\Alert;
 
 /* @var \yii\web\View $this */
-$this->title = Yii::t('admin', 'Manage Route');
+$this->title = Yii::t('yuncms', 'Manage Route');
 $this->params['breadcrumbs'][] = $this->title;
 
 $opts = Json::htmlEncode([
@@ -50,9 +50,9 @@ $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate
             <div class="widget-body-toolbar">
                 <div class="input-group">
                     <input id="inp-route" type="text" class="form-control"
-                           placeholder="<?= Yii::t('admin', 'New route(s)') ?>">
+                           placeholder="<?= Yii::t('yuncms', 'New route(s)') ?>">
                     <span class="input-group-btn">
-                        <?= Html::a(Yii::t('admin', 'Add') . $animateIcon, ['create'], ['class' => 'btn btn-success', 'id' => 'btn-new']) ?>
+                        <?= Html::a(Yii::t('yuncms', 'Add') . $animateIcon, ['create'], ['class' => 'btn btn-success', 'id' => 'btn-new']) ?>
                     </span>
                 </div>
             </div>
@@ -85,7 +85,7 @@ $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate
                 </div>
                 <div class="col-sm-5">
                     <input class="form-control search" data-target="assigned"
-                           placeholder="<?= Yii::t('admin', 'Search for assigned') ?>">
+                           placeholder="<?= Yii::t('yuncms', 'Search for assigned') ?>">
                     <select multiple size="20" class="form-control list" data-target="assigned">
                     </select>
                 </div>

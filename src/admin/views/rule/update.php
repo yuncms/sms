@@ -8,10 +8,10 @@ use xutl\inspinia\Alert;
 /* @var yii\web\View $this   */
 /* @var yuncms\admin\models\AdminBizRule $model  */
 
-$this->title = Yii::t('admin', 'Update Rule') . ': ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Manage Rule'), 'url' => ['index']];
+$this->title = Yii::t('yuncms', 'Update Rule') . ': ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Manage Rule'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->name]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('yuncms', 'Update');
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
@@ -24,11 +24,11 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' =>  [
                         [
-                            'label' => Yii::t('admin', 'Manage Rule'),
+                            'label' => Yii::t('yuncms', 'Manage Rule'),
                             'url' => ['/admin/rule/index'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Create Rule'),
+                            'label' => Yii::t('yuncms', 'Create Rule'),
                             'url' => ['/admin/rule/create'],
                         ],
                     ]

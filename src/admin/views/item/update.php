@@ -11,28 +11,28 @@ use xutl\inspinia\Alert;
 
 $labels = $this->context->labels();
 if ($labels['Item'] == 'Role') {
-    $this->title = Yii::t('admin', 'Update Role') . ': ' . $model->name;
-    $this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Manage Role'), 'url' => ['index']];
+    $this->title = Yii::t('yuncms', 'Update Role') . ': ' . $model->name;
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Manage Role'), 'url' => ['index']];
     $actions = [
         [
-            'label' => Yii::t('admin', 'Manage Role'),
+            'label' => Yii::t('yuncms', 'Manage Role'),
             'url' => ['/admin/role/index'],
         ],
         [
-            'label' => Yii::t('admin', 'Create Role'),
+            'label' => Yii::t('yuncms', 'Create Role'),
             'url' => ['/admin/role/create'],
         ],
     ];
 } else {
-    $this->title = Yii::t('admin', 'Update Permission') . ': ' . $model->name;
-    $this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Manage Permission'), 'url' => ['index']];
+    $this->title = Yii::t('yuncms', 'Update Permission') . ': ' . $model->name;
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Manage Permission'), 'url' => ['index']];
     $actions = [
         [
-            'label' => Yii::t('admin', 'Manage Permission'),
+            'label' => Yii::t('yuncms', 'Manage Permission'),
             'url' => ['/admin/permission/index'],
         ],
         [
-            'label' => Yii::t('admin', 'Create Permission'),
+            'label' => Yii::t('yuncms', 'Create Permission'),
             'url' => ['/admin/permission/create'],
         ],
     ];
@@ -40,7 +40,7 @@ if ($labels['Item'] == 'Role') {
 
 
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->name]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('yuncms', 'Update');
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">

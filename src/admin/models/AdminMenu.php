@@ -79,15 +79,15 @@ class AdminMenu extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('admin', 'Menu Name'),
-            'parent' => Yii::t('admin', 'Parent Menu'),
-            'route' => Yii::t('admin', 'Menu Route'),
-            'icon' => Yii::t('admin', 'Menu Icon'),
-            'visible' => Yii::t('admin', 'Visible'),
-            'sort' => Yii::t('admin', 'Sort'),
-            'data' => Yii::t('admin', 'Menu Data'),
-            'parent_name' => Yii::t('admin', 'Parent Menu'),
+            'id' => Yii::t('yuncms', 'ID'),
+            'name' => Yii::t('yuncms', 'Menu Name'),
+            'parent' => Yii::t('yuncms', 'Parent Menu'),
+            'route' => Yii::t('yuncms', 'Menu Route'),
+            'icon' => Yii::t('yuncms', 'Menu Icon'),
+            'visible' => Yii::t('yuncms', 'Visible'),
+            'sort' => Yii::t('yuncms', 'Sort'),
+            'data' => Yii::t('yuncms', 'Menu Data'),
+            'parent_name' => Yii::t('yuncms', 'Parent Menu'),
         ];
     }
 
@@ -103,7 +103,7 @@ class AdminMenu extends ActiveRecord
             ->where('[[id]]=:id');
         while ($parent) {
             if ($this->id == $parent) {
-                $this->addError('parent_name', Yii::t('admin', 'Loop detected.'));
+                $this->addError('parent_name', Yii::t('yuncms', 'Loop detected.'));
                 return;
             }
             $parent = $query->params([':id' => $parent])->scalar($db);
@@ -116,7 +116,7 @@ class AdminMenu extends ActiveRecord
      */
     public function getMenuParent()
     {
-        return $this->hasOne(self::className(), ['id' => 'parent']);
+        return $this->hasOne(self::class, ['id' => 'parent']);
     }
 
     /**
@@ -125,7 +125,7 @@ class AdminMenu extends ActiveRecord
      */
     public function getMenus()
     {
-        return $this->hasMany(self::className(), ['parent' => 'id']);
+        return $this->hasMany(self::class, ['parent' => 'id']);
     }
 
     private static $_routes;

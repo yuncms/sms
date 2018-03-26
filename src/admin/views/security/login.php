@@ -10,7 +10,7 @@ use xutl\inspinia\InspiniaAsset;
 /* @var \yuncms\admin\models\LoginForm $model */
 
 $asset = InspiniaAsset::register($this);
-$this->title = Yii::$app->name . ' - ' . Yii::t('admin', 'Sign in');
+$this->title = Yii::$app->name . ' - ' . Yii::t('yuncms', 'Sign in');
 
 //Meta
 $this->registerMetaTag(['name' => 'description', 'content' => 'TintSoft Team']);
@@ -34,7 +34,7 @@ $this->registerMetaTag(['name' => 'author', 'content' => 'TintSoft Team']);
         <div>
             <h1 class="logo-name">Y+</h1>
         </div>
-        <h3><?= Yii::t('admin', 'Manage Center'); ?></h3>
+        <h3><?= Yii::t('yuncms', 'Manage Center'); ?></h3>
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
             'options' => [
@@ -46,7 +46,7 @@ $this->registerMetaTag(['name' => 'author', 'content' => 'TintSoft Team']);
             'inputOptions' => [
                 'autofocus' => 'autofocus',
                 'autocomplete' => 'off',
-                'placeholder' => Yii::t('admin', 'Username')
+                'placeholder' => Yii::t('yuncms', 'Username')
             ],
             'errorOptions' => ['class' => 'help-block help-block-error full-width','style'=>'text-align:left'],
         ])->label(false); ?>
@@ -54,7 +54,7 @@ $this->registerMetaTag(['name' => 'author', 'content' => 'TintSoft Team']);
         <?= $form->field($model, 'password', [
             'inputOptions' => [
                 'autocomplete' => 'off',
-                'placeholder' => Yii::t('admin', 'Password')
+                'placeholder' => Yii::t('yuncms', 'Password')
             ],
            'errorOptions' => ['class' => 'help-block help-block-error full-width','style'=>'text-align:left'],
         ])->passwordInput()->label(false) ?>
@@ -66,7 +66,7 @@ $this->registerMetaTag(['name' => 'author', 'content' => 'TintSoft Team']);
             'options' => [
                 'class' => 'form-control',
                 'autocomplete' => 'off',
-                'placeholder' => Yii::t('admin', 'VerifyCode')
+                'placeholder' => Yii::t('yuncms', 'VerifyCode')
             ],
             'template' => '<div class="row"><div class="col-lg-6 col-sm-6 col-xs-6">{input}</div><div class="col-lg-6 col-sm-6 col-xs-6">{image}</div></div>'
         ])->label(false) ?>
@@ -76,7 +76,7 @@ $this->registerMetaTag(['name' => 'author', 'content' => 'TintSoft Team']);
         ]) ?>
 
 
-        <?= Html::submitButton(Yii::t('admin', 'Sign in'), ['class' => 'btn btn-primary block full-width m-b']) ?>
+        <?= Html::submitButton(Yii::t('yuncms', 'Sign in'), ['class' => 'btn btn-primary block full-width m-b']) ?>
 
         <?php ActiveForm::end(); ?>
         <p class="m-t">

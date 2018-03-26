@@ -17,7 +17,7 @@ use xutl\inspinia\ActiveForm;
 <div class="form-group">
     <div class="col-sm-4 col-sm-offset-2">
         <?php
-        echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), [
+        echo Html::submitButton($model->isNewRecord ? Yii::t('yuncms', 'Create') : Yii::t('yuncms', 'Update'), [
             'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])
         ?>
     </div>

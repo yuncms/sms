@@ -13,7 +13,7 @@ use xutl\inspinia\Alert;
 /* @var $usernameField string */
 /* @var $extraColumns string[] */
 
-$this->title = Yii::t('admin', 'Manage Assignment');
+$this->title = Yii::t('yuncms', 'Manage Assignment');
 $this->params['breadcrumbs'][] = $this->title;
 
 $columns = [
@@ -25,7 +25,7 @@ if (!empty($extraColumns)) {
 }
 $columns[] = [
     'class' => 'yii\grid\ActionColumn',
-    'template' => '{view}', 'header' => Yii::t('app', 'Operation')
+    'template' => '{view}', 'header' => Yii::t('yuncms', 'Operation')
 ];
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -41,11 +41,11 @@ $columns[] = [
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' => [
                         [
-                            'label' => Yii::t('admin', 'Manage Assignment'),
+                            'label' => Yii::t('yuncms', 'Manage Assignment'),
                             'url' => ['/admin/assignment/index'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Create Admin'),
+                            'label' => Yii::t('yuncms', 'Create Admin'),
                             'url' => ['/admin/admin/create'],
                         ],
                     ]]); ?>

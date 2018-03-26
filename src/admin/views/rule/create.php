@@ -8,8 +8,8 @@ use xutl\inspinia\Alert;
 /* @var \yii\web\View $this */
 /* @var \yuncms\admin\models\AdminBizRule $model */
 
-$this->title = Yii::t('admin', 'Create Rule');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('admin', 'Manage Rule'), 'url' => ['index']];
+$this->title = Yii::t('yuncms', 'Create Rule');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Manage Rule'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' => [
                         [
-                            'label' => Yii::t('admin', 'Manage Rule'),
+                            'label' => Yii::t('yuncms', 'Manage Rule'),
                             'url' => ['/admin/rule/index'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Create Rule'),
+                            'label' => Yii::t('yuncms', 'Create Rule'),
                             'url' => ['/admin/rule/create'],
                         ],
                     ]

@@ -8,8 +8,8 @@ namespace yuncms\admin\models;
 
 use Yii;
 use yii\rbac\Item;
-use yii\base\Model;
 use yii\helpers\Json;
+use yuncms\base\Model;
 use yuncms\admin\components\Helper;
 
 /**
@@ -97,11 +97,11 @@ class AdminAuthItem extends Model
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('admin', 'Auth Name'),
-            'type' => Yii::t('admin', 'Auth Type'),
-            'description' => Yii::t('admin', 'Auth Description'),
-            'ruleName' => Yii::t('admin', 'Auth Rule Name'),
-            'data' => Yii::t('admin', 'Auth Data'),
+            'name' => Yii::t('yuncms', 'Auth Name'),
+            'type' => Yii::t('yuncms', 'Auth Type'),
+            'description' => Yii::t('yuncms', 'Auth Description'),
+            'ruleName' => Yii::t('yuncms', 'Auth Rule Name'),
+            'data' => Yii::t('yuncms', 'Auth Data'),
         ];
     }
 

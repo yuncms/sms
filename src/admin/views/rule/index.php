@@ -11,7 +11,7 @@ use xutl\inspinia\Alert;
 /* @var \yii\data\ActiveDataProvider $dataProvider */
 /* @var \yuncms\admin\models\AdminBizRuleSearch $searchModel */
 
-$this->title = Yii::t('admin', 'Manage Rule');
+$this->title = Yii::t('yuncms', 'Manage Rule');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -25,11 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-sm-4 m-b-xs">
                     <?= Toolbar::widget(['items' => [
                         [
-                            'label' => Yii::t('admin', 'Manage Rule'),
+                            'label' => Yii::t('yuncms', 'Manage Rule'),
                             'url' => ['/admin/rule/index'],
                         ],
                         [
-                            'label' => Yii::t('admin', 'Create Rule'),
+                            'label' => Yii::t('yuncms', 'Create Rule'),
                             'url' => ['/admin/rule/create'],
                         ],
                     ]
@@ -48,9 +48,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn'],
                     [
                         'attribute' => 'name',
-                        'label' => Yii::t('admin', 'Rule Name'),
+                        'label' => Yii::t('yuncms', 'Rule Name'),
                     ],
-                    ['class' => 'yii\grid\ActionColumn', 'header' => Yii::t('app', 'Operation')],
+                    ['class' => 'yii\grid\ActionColumn', 'header' => Yii::t('yuncms', 'Operation')],
                 ],
             ]);
             ?>

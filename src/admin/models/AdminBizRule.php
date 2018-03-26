@@ -71,12 +71,12 @@ class AdminBizRule extends Model
     public function classExists()
     {
         if (!class_exists($this->className)) {
-            $message = Yii::t('app', "Unknown class '{class}'", ['class' => $this->className]);
+            $message = Yii::t('yuncms', "Unknown class '{class}'", ['class' => $this->className]);
             $this->addError('className', $message);
             return;
         }
-        if (!is_subclass_of($this->className, Rule::className())) {
-            $message = Yii::t('app', "'{class}' must extend from 'yii\\rbac\\Rule' or its child class", [
+        if (!is_subclass_of($this->className, Rule::class)) {
+            $message = Yii::t('yuncms', "'{class}' must extend from 'yii\\rbac\\Rule' or its child class", [
                 'class' => $this->className]);
             $this->addError('className', $message);
         }
@@ -88,8 +88,8 @@ class AdminBizRule extends Model
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('admin', 'Rule Name'),
-            'className' => Yii::t('admin', 'Rule Class Name'),
+            'name' => Yii::t('yuncms', 'Rule Name'),
+            'className' => Yii::t('yuncms', 'Rule Class Name'),
         ];
     }
 

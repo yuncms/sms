@@ -10,6 +10,12 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
+/**
+ * Class LoginHistory
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class LoginHistory extends ActiveRecord
 {
     /**

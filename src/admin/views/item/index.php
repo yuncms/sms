@@ -14,26 +14,26 @@ use xutl\inspinia\Alert;
 
 $labels = $this->context->labels();
 if ($labels['Item'] == 'Role') {
-    $this->title = Yii::t('admin', 'Manage Role');
+    $this->title = Yii::t('yuncms', 'Manage Role');
     $actions = [
         [
-            'label' => Yii::t('admin', 'Manage Role'),
+            'label' => Yii::t('yuncms', 'Manage Role'),
             'url' => ['/admin/role/index'],
         ],
         [
-            'label' => Yii::t('admin', 'Create Role'),
+            'label' => Yii::t('yuncms', 'Create Role'),
             'url' => ['/admin/role/create'],
         ],
     ];
 } else {
-    $this->title = Yii::t('admin', 'Manage Permission');
+    $this->title = Yii::t('yuncms', 'Manage Permission');
     $actions = [
         [
-            'label' => Yii::t('admin', 'Manage Permission'),
+            'label' => Yii::t('yuncms', 'Manage Permission'),
             'url' => ['/admin/permission/index'],
         ],
         [
-            'label' => Yii::t('admin', 'Create Permission'),
+            'label' => Yii::t('yuncms', 'Create Permission'),
             'url' => ['/admin/permission/create'],
         ],
     ];
@@ -69,16 +69,16 @@ unset($rules[RouteRule::RULE_NAME]);
                     ['class' => 'yii\grid\SerialColumn'],
                     [
                         'attribute' => 'name',
-                        'label' => Yii::t('admin', 'Role Name'),
+                        'label' => Yii::t('yuncms', 'Role Name'),
                     ],
                     [
                         'attribute' => 'ruleName',
-                        'label' => Yii::t('admin', 'Rule Name'),
+                        'label' => Yii::t('yuncms', 'Rule Name'),
                         'filter' => $rules
                     ],
                     [
                         'attribute' => 'description',
-                        'label' => Yii::t('admin', 'Role Description'),
+                        'label' => Yii::t('yuncms', 'Role Description'),
                     ],
                     ['class' => 'yii\grid\ActionColumn',],
                 ],

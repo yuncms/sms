@@ -30,7 +30,7 @@ class MenuController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -100,7 +100,7 @@ class MenuController extends Controller
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Helper::invalidate();
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Create success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Create success.'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -128,7 +128,7 @@ class MenuController extends Controller
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Helper::invalidate();
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Update success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Update success.'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -151,7 +151,7 @@ class MenuController extends Controller
     {
         $this->findModel($id)->delete();
         Helper::invalidate();
-        Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Delete success.'));
+        Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Delete success.'));
         return $this->redirect(['index']);
     }
 
@@ -179,7 +179,7 @@ class MenuController extends Controller
         if (($model = AdminMenu::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('yuncms', 'The requested page does not exist.'));
         }
     }
 }

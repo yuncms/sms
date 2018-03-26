@@ -12,7 +12,7 @@ use yii\base\BaseObject;
 use yii\helpers\VarDumper;
 use yii\caching\TagDependency;
 use yuncms\admin\components\Helper;
-use yuncms\admin\components\RouteRule;
+use yuncms\rbac\RouteRule;
 
 /**
  * Description of Route

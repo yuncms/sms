@@ -38,9 +38,9 @@ class AdminAssignmentSearch extends Model
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('admin', 'Username'),
-            'name' => Yii::t('admin', 'Name'),
+            'id' => Yii::t('yuncms', 'ID'),
+            'username' => Yii::t('yuncms', 'Username'),
+            'name' => Yii::t('yuncms', 'Name'),
         ];
     }
 
