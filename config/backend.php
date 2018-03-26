@@ -5,12 +5,20 @@
  * @license http://www.tintsoft.com/license/
  */
 return [
-    'bootstrap' => ['log','queue'],
+    'bootstrap' => ['log', 'queue'],
     'layout' => '@yuncms/admin/views/layouts/main',
+    //'defaultRoute' => 'dashboard',
     'as access' => [
         'class' => 'yuncms\filters\BackendAccessControl',
     ],
     'components' => [
+        'request' => [
+            'csrfParam' => '_csrf_backend',
+        ],
+        'session' => [
+            // this is the name of the session cookie used for login on the backend
+            'name' => 'advanced-backend',
+        ],
         'authManager' => [
             'class' => yuncms\rbac\DbManager::class,
             'cache' => 'cache',

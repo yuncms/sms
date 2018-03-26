@@ -1,7 +1,8 @@
 <?php
 
 $migrationPaths = array_merge(
-    require(__DIR__ . '/../../migrations.php'),
+    //require(__DIR__ . '/../../migrations.php'),
+[],
     [
         //'@yii/caching/migrations',
         //'@yii/log/migrations',
