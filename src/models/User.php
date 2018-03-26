@@ -612,7 +612,7 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
      *
      * @return boolean
      */
-    public function create()
+    public function createUser()
     {
         if ($this->getIsNewRecord() == false) {
             throw new \RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
