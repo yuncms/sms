@@ -7,6 +7,7 @@
 
 namespace yuncms\base;
 
+use yii\web\UrlManager;
 use yuncms\notifications\NotificationManager;
 use yuncms\payment\PaymentManager;
 use yuncms\sms\Sms;
@@ -24,9 +25,19 @@ use yuncms\sms\Sms;
  * @property \yuncms\payment\PaymentManager $payment the payment connection.
  * @property \yuncms\mq\BaseMessageQueue $messageQueue the message queue connection.
  * @property \yuncms\sms\Sms $sms the sms connection.
+ * @property \yii\web\UrlManager $frontUrlManager the frontUrlManager connection.
  */
 trait ApplicationTrait
 {
+    /**
+     * Returns the sms component.
+     * @return UrlManager the frontUrlManager component.
+     */
+    public function getFrontUrlManager(): UrlManager
+    {
+        return $this->get('frontUrlManager');
+    }
+
     /**
      * Returns the sms component.
      * @return \yuncms\sms\Sms the sms component.

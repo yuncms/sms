@@ -5,11 +5,13 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yuncms\asstes\InspiniaAsset;
+use yuncms\assets\InspiniaAsset;
 
 $assetBundle = InspiniaAsset::register($this);
 
 $this->title = 'Manage Center';
+print_r(Yii::$app->user->identity);
+exit;
 ?>
 <?php $this->beginPage() ?><!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">

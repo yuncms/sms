@@ -21,7 +21,7 @@ class Bootstrap implements BootstrapInterface
 {
     /**
      * 初始化
-     * @param \yii\base\Application $app
+     * @param \yuncms\web\Application $app
      * @throws \yii\base\InvalidConfigException
      */
     public function bootstrap($app)
@@ -30,6 +30,6 @@ class Bootstrap implements BootstrapInterface
         $app->attachBehavior('access', Yii::createObject(BackendAccessControl::class));
 
         //设置前台URL
-        $this->frontUrlManager->baseUrl = Yii::$app->settings->get('url', 'system');
+        $app->frontUrlManager->baseUrl = Yii::$app->settings->get('url', 'system');
     }
 }

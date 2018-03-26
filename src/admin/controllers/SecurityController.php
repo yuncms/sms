@@ -7,8 +7,8 @@
 namespace yuncms\admin\controllers;
 
 use Yii;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yuncms\web\Controller;
 use yuncms\admin\models\LoginForm;
 
 /**
@@ -60,7 +60,6 @@ class SecurityController extends Controller
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            exit;
             return $this->goHome();
         } else {
             $this->layout = false;

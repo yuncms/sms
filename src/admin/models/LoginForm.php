@@ -43,14 +43,14 @@ class LoginForm extends Model
      */
     private $_user;
 
-//    public function behaviors()
-//    {
-//        return [
-//            [
-//                'class' => LoginAttemptBehavior::class,
-//            ],
-//        ];
-//    }
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => LoginAttemptBehavior::class,
+            ],
+        ];
+    }
 
 
     /**

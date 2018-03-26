@@ -4,6 +4,7 @@ $migrationPaths = array_merge(
     //require(__DIR__ . '/../../migrations.php'),
 [],
     [
+        '@vendor/yuncms/framework/migrations',
         //'@yii/caching/migrations',
         //'@yii/log/migrations',
         '@yii/web/migrations',

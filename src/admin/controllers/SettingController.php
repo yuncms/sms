@@ -6,7 +6,7 @@
  */
 namespace yuncms\admin\controllers;
 
-use yii\web\Controller;
+use yuncms\web\Controller;
 
 /**
  * Class SettingController

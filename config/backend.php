@@ -5,12 +5,9 @@
  * @license http://www.tintsoft.com/license/
  */
 return [
-    'bootstrap' => ['log', 'queue'],
+    'bootstrap' => ['log', 'queue', 'yuncms\admin\Bootstrap'],
     'layout' => '@yuncms/admin/views/layouts/main',
     //'defaultRoute' => 'dashboard',
-    'as access' => [
-        'class' => 'yuncms\filters\BackendAccessControl',
-    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf_backend',
@@ -36,6 +33,16 @@ return [
                 'name' => '_identity_backend',
                 'httpOnly' => true
             ],
+        ],
+        'urlManager' => [
+            'class' => yii\web\UrlManager::class,
+            'rules' => [
+                'login' => '/admin/security/login',
+                'logout' => '/admin/security/logout',
+            ],
+        ],
+        'frontUrlManager' => [
+            'class' => yii\web\UrlManager::class,
         ],
     ],
     'modules' => [

@@ -8,8 +8,8 @@ namespace yuncms\admin\controllers;
 
 use Yii;
 use yii\web\Response;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yuncms\web\Controller;
 use yii\web\NotFoundHttpException;
 use yuncms\admin\models\AdminAssignment;
 use yuncms\admin\models\AdminAssignmentSearch;

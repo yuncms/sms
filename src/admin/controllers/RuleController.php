@@ -7,9 +7,9 @@
 namespace yuncms\admin\controllers;
 
 use Yii;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
+use yuncms\web\Controller;
 use yuncms\admin\models\AdminBizRule;
 use yuncms\helpers\RBACHelper;
 use yuncms\admin\models\AdminBizRuleSearch;

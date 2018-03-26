@@ -53,8 +53,8 @@ class m180324_104125_create_admin_rbac_table extends Migration
         $this->addForeignKey('{{%admin_auth_assignment_ibfk_1}}', '{{%admin_auth_assignment}}', 'item_name', '{{%admin_auth_item}}', 'name', 'CASCADE', 'CASCADE');
 
         //添加规则
-        $this->insert('{{%admin_auth_rule}}', ['name' => 'RouteRule', 'data' => 'O:33:"yuncms\admin\components\RouteRule":3:{s:4:"name";s:9:"RouteRule";s:9:"createdAt";i:1482143421;s:9:"updatedAt";i:1482143421;}', 'created_at' => time(), 'updated_at' => time()]);
-        $this->insert('{{%admin_auth_rule}}', ['name' => 'GuestRule', 'data' => 'O:33:"yuncms\admin\components\GuestRule":3:{s:4:"name";s:9:"GuestRule";s:9:"createdAt";i:1482143535;s:9:"updatedAt";i:1482143421;}', 'created_at' => time(), 'updated_at' => time()]);
+        $this->insert('{{%admin_auth_rule}}', ['name' => 'GuestRule', 'data' => 'O:21:"yuncms\rbac\GuestRule":3:{s:4:"name";s:9:"GuestRule";s:9:"createdAt";i:1522062274;s:9:"updatedAt";i:1522062274;}', 'created_at' => time(), 'updated_at' => time()]);
+        $this->insert('{{%admin_auth_rule}}', ['name' => 'RouteRule', 'data' => 'O:21:"yuncms\rbac\RouteRule":3:{s:4:"name";s:9:"RouteRule";s:9:"createdAt";i:1522062288;s:9:"updatedAt";i:1522062288;}', 'created_at' => time(), 'updated_at' => time()]);
 
         //添加角色
         $this->batchInsert('{{%admin_auth_item}}', ['name', 'type', 'description', 'rule_name', 'created_at', 'updated_at'], [
