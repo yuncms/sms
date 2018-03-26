@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use xutl\inspinia\ActiveForm;
+use yuncms\admin\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model yuncms\admin\models\AdminSearch */

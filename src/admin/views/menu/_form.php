@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Url;
-use yii\helpers\Html;
-use xutl\inspinia\ActiveForm;
+use yuncms\helpers\Html;
+use yuncms\admin\widgets\ActiveForm;
 use yuncms\widgets\BootstrapIconpicker;
 use yuncms\widgets\BootstrapTypeAheadBloodhound;
 use yuncms\widgets\BootstrapTypeAhead;

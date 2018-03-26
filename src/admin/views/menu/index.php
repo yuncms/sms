@@ -1,12 +1,12 @@
 <?php
 
 use yii\helpers\Url;
-use yuncms\helpers\Html;
 use yii\widgets\Pjax;
+use yuncms\helpers\Html;
 use yuncms\grid\TreeGrid;
-use xutl\inspinia\Box;
-use xutl\inspinia\Toolbar;
-use xutl\inspinia\Alert;
+use yuncms\admin\widgets\Box;
+use yuncms\admin\widgets\Toolbar;
+use yuncms\admin\widgets\Alert;
 
 /* @var \yii\web\View $this */
 /* @var \yii\data\ActiveDataProvider $dataProvider */

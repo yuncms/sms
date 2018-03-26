@@ -3,14 +3,14 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yuncms\rbac\RouteRule;
-use xutl\inspinia\Box;
-use xutl\inspinia\Toolbar;
-use xutl\inspinia\Alert;
+use yuncms\admin\widgets\Box;
+use yuncms\admin\widgets\Toolbar;
+use yuncms\admin\widgets\Alert;
 
 /* @var \yii\web\View $this */
 /* @var \yii\data\ActiveDataProvider $dataProvider */
 /* @var \yuncms\admin\models\AdminAuthItemSearch $searchModel */
-/* @var \yuncms\admin\components\ItemController $context */
+/* @var \yuncms\admin\ItemController $context */
 
 $labels = $this->context->labels();
 if ($labels['Item'] == 'Role') {

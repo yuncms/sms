@@ -1,9 +1,9 @@
 <?php
 
-use yii\helpers\Html;
 use yii\captcha\Captcha;
-use xutl\inspinia\ActiveForm;
-use xutl\inspinia\InspiniaAsset;
+use yuncms\helpers\Html;
+use yuncms\admin\widgets\ActiveForm;
+use yuncms\admin\widgets\InspiniaAsset;
 
 /* @var \yii\web\View $this */
 /* @var ActiveForm $form */

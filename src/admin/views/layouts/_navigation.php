@@ -1,6 +1,5 @@
 <?php
 use yuncms\admin\widgets\Nav;
-use yuncms\admin\widgets\SideBar;
 use yuncms\admin\helpers\MenuHelper;
 $menus = MenuHelper::getAssignedMenu(Yii::$app->user->id);
 ?>

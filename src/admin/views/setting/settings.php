@@ -5,10 +5,10 @@
  * @license http://www.tintsoft.com/license/
  */
 
-use yii\helpers\Html;
-use xutl\inspinia\ActiveForm;
-use xutl\inspinia\Box;
-use xutl\inspinia\Alert;
+use yuncms\helpers\Html;
+use yuncms\admin\widgets\ActiveForm;
+use yuncms\admin\widgets\Box;
+use yuncms\admin\widgets\Alert;
 
 $this->title = Yii::t('yuncms', 'Site Setting');
 $this->params['breadcrumbs'][] = $this->title;

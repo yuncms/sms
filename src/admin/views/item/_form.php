@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use xutl\inspinia\ActiveForm;
-use yuncms\admin\components\RouteRule;
+use yuncms\rbac\RouteRule;
+use yuncms\admin\widgets\ActiveForm;
 
 /* @var yii\web\View $this */
 /* @var yuncms\admin\models\AdminAuthItem $model */
-/* @var xutl\inspinia\ActiveForm $form */
-/* @var yuncms\admin\components\ItemController $context */
+/* @var ActiveForm $form */
+/* @var yuncms\admin\ItemController $context */
 
 $labels = $this->context->labels();
 $rules = array_keys(Yii::$app->getAuthManager()->getRules());
