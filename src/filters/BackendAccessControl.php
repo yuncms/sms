@@ -11,7 +11,7 @@ use Yii;
 use yii\base\Module;
 use yii\di\Instance;
 use yii\base\ActionFilter;
-use YII\web\User;
+use yii\web\User;
 use yii\web\ForbiddenHttpException;
 use yuncms\helpers\RBACHelper;
 

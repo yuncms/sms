@@ -5,7 +5,6 @@ use yuncms\helpers\Html;
 use yuncms\assets\InspiniaAsset;
 use yuncms\admin\widgets\ActiveForm;
 
-
 /* @var \yii\web\View $this */
 /* @var ActiveForm $form */
 /* @var \yuncms\admin\models\LoginForm $model */

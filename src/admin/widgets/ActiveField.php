@@ -8,10 +8,9 @@
 namespace yuncms\admin\widgets;
 
 use Yii;
-use yii\helpers\Url;
-use yii\helpers\Html;
 use xutl\plupload\Plupload;
-use xutl\bootstrap\filestyle\FilestyleAsset;
+use yuncms\helpers\Html;
+use yuncms\assets\BootstrapFileStyleAsset;
 
 /**
  * Class ActiveField
@@ -34,7 +33,7 @@ class ActiveField extends \yii\bootstrap\ActiveField
             $src = Yii::$app->getModule('attachment')->getUrl('/images/none.jpg');
         }
         $this->parts['{img}'] = Html::img($src, $options);
-        FilestyleAsset::register($this->form->view);
+        BootstrapFileStyleAsset::register($this->form->view);
         return parent::fileInput($options);
     }
 
@@ -48,7 +47,7 @@ class ActiveField extends \yii\bootstrap\ActiveField
             $src = Yii::$app->getModule('attachment')->getUrl('/images/none.jpg');
         }
         $this->parts['{img}'] = Html::img($src, $options);
-        FilestyleAsset::register($this->form->view);
+        BootstrapFileStyleAsset::register($this->form->view);
         return parent::fileInput($options).Plupload::widget(['url'=>'url']);
     }
 
@@ -66,7 +65,7 @@ class ActiveField extends \yii\bootstrap\ActiveField
                 //'size' => 'lg'
             ]
         ], $options);
-        FilestyleAsset::register($this->form->view);
+        BootstrapFileStyleAsset::register($this->form->view);
         return parent::fileInput($options);
     }
 

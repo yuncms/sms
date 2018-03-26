@@ -8,6 +8,7 @@
 namespace yuncms\admin\behaviors;
 
 use Yii;
+use yii\base\Exception;
 use yii\base\Model;
 use yii\base\Behavior;
 use yuncms\admin\models\AdminLoginAttempt;
@@ -92,10 +93,10 @@ class LoginAttemptBehavior extends Behavior
             $this->message = Yii::t('yuncms', 'You have exceeded the password attempts.');
         }
         if (!in_array($this->durationUnit, $this->_safeUnits)) {
-            throw new \Exception($this->durationUnit . " is not an allowed unit.");
+            throw new Exception($this->durationUnit . " is not an allowed unit.");
         }
         if (!in_array($this->disableDurationUnit, $this->_safeUnits)) {
-            throw new \Exception($this->disableDurationUnit . " is not an allowed unit.");
+            throw new Exception($this->disableDurationUnit . " is not an allowed unit.");
         }
     }
 
