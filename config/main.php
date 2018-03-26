@@ -31,6 +31,9 @@ return [
                 ],
             ]
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+        ],
         'settings' => [
             'class' => yuncms\components\Settings::class,
             'frontCache' => 'cache'
