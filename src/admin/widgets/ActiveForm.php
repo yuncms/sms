@@ -6,6 +6,7 @@
  */
 
 namespace yuncms\admin\widgets;
+
 /**
  * Class ActiveForm
  *

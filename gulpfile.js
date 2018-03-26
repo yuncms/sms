@@ -29,7 +29,8 @@ var staticDeps = [
     { srcGlob: 'node_modules/cropper/dist/*', dest: libPath+'cropper' },
     { srcGlob: 'node_modules/metismenu/dist/*', dest: libPath+'metismenu' },
     { srcGlob: 'node_modules/pace-progress/*', dest: libPath+'pace' },
-    { srcGlob: 'node_modules/jquery-slimscroll/*', dest: libPath+'jquery-slimscroll' }
+    { srcGlob: 'node_modules/jquery-slimscroll/*', dest: libPath+'jquery-slimscroll' },
+    { srcGlob: 'node_modules/bootstrap-filestyle/src/*', dest: libPath+'bootstrap-filestyle' }
 ];
 
 gulp.task('deps', function() {
