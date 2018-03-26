@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\console;
+namespace yuncms\console\controllers;
 
 use Yii;
 use yii\console\Controller;

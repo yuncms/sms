@@ -31,6 +31,9 @@ return [
         'task' => [
             'class' => yuncms\console\controllers\TaskController::class,
         ],
+        'user' => [
+            'class' => yuncms\console\controllers\UserController::class,
+        ],
         'migrate' => [
             'class' => yuncms\console\controllers\MigrateController::class,
             'templateFile' => '@yuncms/console/views/migrate/migration.php',
