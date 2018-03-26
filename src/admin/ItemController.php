@@ -4,20 +4,24 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
-namespace yuncms\admin\controllers;
+
+namespace yuncms\admin;
 
 use Yii;
+use yii\rbac\Item;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
-use yuncms\admin\models\AdminBizRule;
+use yii\base\NotSupportedException;
+use yuncms\admin\models\AdminAuthItem;
+use yuncms\admin\models\AdminAuthItemSearch;
 use yuncms\helpers\RBACHelper;
-use yuncms\admin\models\AdminBizRuleSearch;
 
 /**
- * Description of RuleController
+ * Class ItemController
+ * @property integer $type
  */
-class RuleController extends Controller
+class ItemController extends Controller
 {
     /**
      * @inheritdoc
@@ -29,6 +33,8 @@ class RuleController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
+                    'assign' => ['post'],
+                    'remove' => ['post'],
                 ],
             ],
         ];
@@ -40,8 +46,9 @@ class RuleController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new AdminBizRuleSearch();
+        $searchModel = new AdminAuthItemSearch(['type' => $this->type]);
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
@@ -57,6 +64,7 @@ class RuleController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
+
         return $this->render('view', ['model' => $model]);
     }
 
@@ -68,13 +76,13 @@ class RuleController extends Controller
      */
     public function actionCreate()
     {
-        $model = new AdminBizRule(null);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            RBACHelper::invalidate();
-            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms','Create success.'));
+        $model = new AdminAuthItem(null);
+        $model->type = $this->type;
+        if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('admin','Create success.'));
             return $this->redirect(['view', 'id' => $model->name]);
         } else {
-            return $this->render('create', ['model' => $model,]);
+            return $this->render('create', ['model' => $model]);
         }
     }
 
@@ -89,13 +97,11 @@ class RuleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            RBACHelper::invalidate();
-            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms','Update success.'));
+        if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->name]);
         }
 
-        return $this->render('update', ['model' => $model,]);
+        return $this->render('update', ['model' => $model]);
     }
 
     /**
@@ -108,24 +114,81 @@ class RuleController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        Yii::$app->authManager->remove($model->item);
+        Yii::$app->getAuthManager()->remove($model->item);
         RBACHelper::invalidate();
-        Yii::$app->getSession()->setFlash('success', Yii::t('yuncms','Delete success.'));
+
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Assign items
+     * @param string $id
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionAssign($id)
+    {
+        $items = Yii::$app->getRequest()->post('items', []);
+        $model = $this->findModel($id);
+        $success = $model->addChildren($items);
+        Yii::$app->getResponse()->format = 'json';
+        return array_merge($model->getItems(), ['success' => $success]);
+    }
+
+    /**
+     * Assign or remove items
+     * @param string $id
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionRemove($id)
+    {
+        $items = Yii::$app->getRequest()->post('items', []);
+        $model = $this->findModel($id);
+        $success = $model->removeChildren($items);
+        Yii::$app->getResponse()->format = 'json';
+        return array_merge($model->getItems(), ['success' => $success]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getViewPath()
+    {
+        return $this->module->getViewPath() . DIRECTORY_SEPARATOR . 'item';
+    }
+
+    /**
+     * Label use in view
+     * @throws NotSupportedException
+     */
+    public function labels()
+    {
+        throw new NotSupportedException(get_class($this) . ' does not support labels().');
+    }
+
+    /**
+     * Type of Auth Item.
+     * @return void
+     */
+    public function getType()
+    {
+
     }
 
     /**
      * Finds the AuthItem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return AdminBizRule the loaded model
+     * @return AdminAuthItem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        $item = Yii::$app->authManager->getRule($id);
+        $auth = Yii::$app->getAuthManager();
+        $item = $this->type === Item::TYPE_ROLE ? $auth->getRole($id) : $auth->getPermission($id);
         if ($item) {
-            return new AdminBizRule($item);
+            return new AdminAuthItem($item);
         } else {
             throw new NotFoundHttpException(Yii::t('yuncms', 'The requested page does not exist.'));
         }

@@ -7,7 +7,7 @@
 namespace yuncms\admin\controllers;
 
 use yii\rbac\Item;
-use yuncms\admin\components\ItemController;
+use yuncms\admin\ItemController;
 
 /**
  * RoleController implements the CRUD actions for AuthItem model.

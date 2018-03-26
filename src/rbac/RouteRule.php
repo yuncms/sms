@@ -18,10 +18,12 @@ use yii\rbac\Rule;
  */
 class RouteRule extends Rule
 {
+    const RULE_NAME = 'route_rule';
+
     /**
      * @inheritdoc
      */
-    public $name = 'route_rule';
+    public $name = self::RULE_NAME;
 
     /**
      * Executes the rule.

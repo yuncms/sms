@@ -15,7 +15,7 @@ use yii\bootstrap\ActiveForm;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yuncms\admin\models\AdminMenu;
-use yuncms\admin\components\Helper;
+use yuncms\helpers\RBACHelper;
 
 /**
  * Class MenuController
@@ -99,7 +99,7 @@ class MenuController extends Controller
             return ActiveForm::validate($model);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Helper::invalidate();
+            RBACHelper::invalidate();
             Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Create success.'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -127,7 +127,7 @@ class MenuController extends Controller
             return ActiveForm::validate($model);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Helper::invalidate();
+            RBACHelper::invalidate();
             Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Update success.'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -150,7 +150,7 @@ class MenuController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        Helper::invalidate();
+        RBACHelper::invalidate();
         Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Delete success.'));
         return $this->redirect(['index']);
     }
