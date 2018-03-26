@@ -3,7 +3,7 @@
 use yii\captcha\Captcha;
 use yuncms\helpers\Html;
 use yuncms\admin\widgets\ActiveForm;
-use yuncms\admin\widgets\InspiniaAsset;
+use yuncms\assets\InspiniaAsset;
 
 /* @var \yii\web\View $this */
 /* @var ActiveForm $form */
