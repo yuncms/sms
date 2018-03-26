@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 return [
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log','queue'],
     'layout' => '@yuncms/admin/views/layouts/main',
     'as access' => [
         'class' => 'yuncms\filters\BackendAccessControl',

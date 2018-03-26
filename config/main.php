@@ -25,14 +25,14 @@ return [
         'i18n' => [
             'translations' => [
                 'yuncms'=>[
-                    'class' => 'yii\i18n\PhpMessageSource',
+                    'class' => yii\i18n\PhpMessageSource::class,
                     'basePath' => '@vendor/yuncms/framework/messages',
                     'sourceLanguage' => 'en-US',
                 ],
             ]
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            'class' => yii\swiftmailer\Mailer::class,
         ],
         'settings' => [
             'class' => yuncms\components\Settings::class,
