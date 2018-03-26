@@ -57,6 +57,7 @@ class m180324_103503_create_admin_menu_table extends Migration
             [28, '菜单管理', 2, '/admin/menu/index', 'fa-wrench', 7, NULL],
             //[30, '附件设置', 2, '/attachment/attachment/setting', 'fa-cog', 8, NULL],
 
+            [30, '用户管理', 5, '/admin/user/index', 'fa-user', 2, NULL],
             // [40, '地区管理', 3, '/area/index', 'fa-globe', 1, NULL],
             //[43, '敏感词管理', 3, '/admin/ban-word/index', 'fa-exclamation-triangle', 2, NULL],
         ]);
@@ -74,6 +75,14 @@ class m180324_103503_create_admin_menu_table extends Migration
             ['菜单查看', 28, '/admin/menu/view', 0, NULL], ['创建菜单', 28, '/admin/menu/create', 0, NULL], ['更新菜单', 28, '/admin/menu/update', 0, NULL],
             //['创建地区', 40, '/area/create', 0, NULL], ['更新地区', 40, '/area/update', 0, NULL],
             //['敏感词查看', 43, '/admin/ban-word/view', 0, NULL], ['创建敏感词', 43, '/admin/ban-word/create', 0, NULL], ['更新敏感词', 43, '/admin/ban-word/update', 0, NULL],
+        ]);
+
+        $this->batchInsert('{{%admin_menu}}', ['name', 'parent', 'route', 'visible', 'sort'], [
+            ['用户设置', 30, '/admin/user/settings', 0, NULL],
+            ['新建用户', 30, '/admin/user/create', 0, NULL],
+            ['用户查看', 30, '/admin/user/view', 0, NULL],
+            ['用户修改', 30, '/admin/user/update-profile', 0, NULL],
+            ['账户详情', 30, '/admin/user/update', 0, NULL],
         ]);
     }
 
