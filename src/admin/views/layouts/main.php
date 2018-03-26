@@ -5,8 +5,7 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yuncms\web\asstes\inspinia\InspiniaAsset;
-
+use yuncms\asstes\InspiniaAsset;
 
 $assetBundle = InspiniaAsset::register($this);
 

@@ -29,6 +29,7 @@ class Bootstrap implements BootstrapInterface
         //附加权限验证行为
         $app->attachBehavior('access', Yii::createObject(BackendAccessControl::class));
 
-
+        //设置前台URL
+        $this->frontUrlManager->baseUrl = Yii::$app->settings->get('url', 'system');
     }
 }

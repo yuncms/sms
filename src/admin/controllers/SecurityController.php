@@ -60,6 +60,7 @@ class SecurityController extends Controller
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            exit;
             return $this->goHome();
         } else {
             $this->layout = false;
