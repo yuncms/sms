@@ -5,7 +5,7 @@ use yuncms\db\Migration;
 /**
  * Handles the creation of table `login_attempt`.
  */
-class m180228_112500_create_login_attempt_table extends Migration
+class m180228_112500Create_user_login_attempt_table extends Migration
 {
     public $tableName = '{{%user_login_attempt}}';
 
