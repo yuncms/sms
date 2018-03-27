@@ -1,5 +1,7 @@
 {
   "private": true,
+  "name": "YUNCMS",
+  "version": "3.0",
   "main": "gulpfile.js",
   "scripts": {
     "dev": "set NODE_ENV=development && node node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -37,7 +39,7 @@
     "typeahead.js": "~0.11.*",
     "font-awesome": "~4.7.0",
     "laravel-mix": "^1.6.1",
-    "cropper": "~3.1.4",
+    "cropper": "~3.1.6",
     "metismenu": "~2.0.*",
     "pace-progress": "~1.0.*",
     "jquery-slimscroll": "~1.3.*",
