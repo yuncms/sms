@@ -5,7 +5,11 @@ module.exports = function (grunt) {
         watch: {
             inspiniajs: {
                 files: ['resources/assets/inspinia/src/js/*.js'],
-                tasks: ['concat', 'uglify:cpjs']
+                tasks: ['concat', 'uglify:inspiniajs']
+            },
+            userjs: {
+                files: ['resources/assets/yuncms-user/src/js/*.js'],
+                tasks: [ 'uglify:userjs']
             },
             otherjs: {
                 files: ['resources/assets/*/dist/*.js', '!resources/assets/*/dist/*.min.js'],
@@ -49,6 +53,14 @@ module.exports = function (grunt) {
                 src: 'resources/assets/inspinia/dist/js/inspinia.js',
                 dest: 'resources/assets/inspinia/dist/js/inspinia.min.js'
             },
+            userjs: {
+                src: 'resources/assets/yuncms-user/src/js/user.js',
+                dest: 'resources/assets/yuncms-user/dist/js/user.min.js'
+            },
+            usercropperjs: {
+                src: 'resources/assets/yuncms-user/src/js/cropper.js',
+                dest: 'resources/assets/yuncms-user/dist/js/cropper.min.js'
+            },
             otherjs: {
                 expand: true,
                 cwd: 'resources/assets',
@@ -76,10 +88,14 @@ module.exports = function (grunt) {
                 'gruntfile.js',
                 'resources/assets/**/*.js',
                 '!resources/assets/**/*.min.js',
-                '!resources/assets/inspinia/dist/js/inspinia.js'
+                '!resources/assets/inspinia/dist/js/inspinia.js',
+                '!resources/assets/yuncms-user/src/js/user.js',
+                '!resources/assets/yuncms-user/src/js/cropper.js'
             ],
             afterconcat: [
-                'resources/assets/inspinia/dist/js/inspinia.js'
+                'resources/assets/inspinia/dist/js/inspinia.js',
+                'resources/assets/yuncms-user/dist/js/user.js',
+                'resources/assets/yuncms-user/dist/js/cropper.js'
             ]
         }
     });
