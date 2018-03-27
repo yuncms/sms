@@ -1,11 +1,10 @@
 <?php
-
-use yii\helpers\Html;
 use yii\web\View;
-use yuncms\user\models\User;
-use xutl\inspinia\Box;
-use xutl\inspinia\Toolbar;
-use xutl\inspinia\Alert;
+use yuncms\helpers\Html;
+use yuncms\models\User;
+use yuncms\admin\widgets\Box;
+use yuncms\admin\widgets\Toolbar;
+use yuncms\admin\widgets\Alert;
 
 /**
  * @var View $this

@@ -217,6 +217,7 @@ class UserController extends Controller
      *
      * @return Response
      * @throws NotFoundHttpException
+     * @throws \yii\base\Exception
      */
     public function actionBlock($id)
     {

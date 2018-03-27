@@ -1,10 +1,8 @@
 <?php
-use yii\bootstrap\Nav;
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
-use xutl\inspinia\Box;
-use xutl\inspinia\Toolbar;
-use xutl\inspinia\Alert;
+use yuncms\helpers\Html;
+use yuncms\admin\widgets\Box;
+use yuncms\admin\widgets\Toolbar;
+use yuncms\admin\widgets\Alert;
 
 /**
  * @var yii\web\View $this
