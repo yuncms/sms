@@ -7,6 +7,7 @@
 
 namespace yuncms\base;
 
+use yii\base\Application;
 use yii\web\UrlManager;
 use yuncms\notifications\NotificationManager;
 use yuncms\payment\PaymentManager;
@@ -14,6 +15,7 @@ use yuncms\sms\Sms;
 
 /**
  * Trait ApplicationTrait
+ * @property Application $this
  * @property \yuncms\components\Settings $settings The settings manager component
  * @property \yii\authclient\Collection $authClientCollection The authClient Collection component
  * @property \yii\queue\Queue $queue The queue component
@@ -125,5 +127,21 @@ trait ApplicationTrait
     public function getSettings(): \yuncms\components\Settings
     {
         return $this->get('settings');
+    }
+
+    /**
+     * 给用户发送邮件
+     * @param string $to 收件箱
+     * @param string $subject 标题
+     * @param string $view 视图
+     * @param array $params 参数
+     * @return boolean
+     */
+    public function sendMail($to, $subject, $view, $params = []): bool
+    {
+        if (empty($to)) {
+            return false;
+        }
+        return $this->getMailer()->compose(['html' => $view, 'text' => $view], $params)->setTo($to)->setSubject($subject)->send();
     }
 }

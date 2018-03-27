@@ -26,7 +26,7 @@ return [
         ],
         'i18n' => [
             'translations' => [
-                'yuncms'=>[
+                'yuncms' => [
                     'class' => yii\i18n\PhpMessageSource::class,
                     'basePath' => '@vendor/yuncms/framework/messages',
                     'sourceLanguage' => 'en-US',
@@ -35,6 +35,7 @@ return [
         ],
         'mailer' => [
             'class' => yii\swiftmailer\Mailer::class,
+            'viewPath' => '@yuncms/mail',
         ],
         'settings' => [
             'class' => yuncms\components\Settings::class,
