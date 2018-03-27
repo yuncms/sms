@@ -142,6 +142,8 @@ trait ApplicationTrait
         if (empty($to)) {
             return false;
         }
-        return $this->getMailer()->compose(['html' => $view, 'text' => $view], $params)->setTo($to)->setSubject($subject)->send();
+        /** @var \yii\mail\MailerInterface $mailer */
+        $mailer = $this->getMailer();
+        return $mailer->compose(['html' => $view, 'text' => $view], $params)->setTo($to)->setSubject($subject)->send();
     }
 }

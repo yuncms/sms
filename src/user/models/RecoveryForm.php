@@ -65,7 +65,7 @@ class RecoveryForm extends Model
             'emailExist' => ['email', 'exist', 'targetClass' => User::class, 'message' => Yii::t('yuncms', 'There is no user with this email address')],
             'emailUnconfirmed' => ['email', function ($attribute) {
                 $this->user = User::findByEmail($this->email);
-                if ($this->user !== null && $this->getSetting('enableConfirmation') && !$this->user->isEmailConfirmed) {
+                if ($this->user !== null && Yii::$app->settings->get('enableConfirmation','user') && !$this->user->isEmailConfirmed) {
                     $this->addError($attribute, Yii::t('yuncms', 'You need to confirm your email address.'));
                 }
             }],
@@ -85,7 +85,7 @@ class RecoveryForm extends Model
             /** @var UserToken $token */
             $token = new UserToken([ 'user_id' => $this->user->id, 'type' => UserToken::TYPE_RECOVERY]);
             $token->save(false);
-            $this->sendMessage($this->user->email,Yii::t('yuncms', 'Complete password reset on {0}', Yii::$app->name),'recovery',['user' => $this->user, 'token' => $token]);
+            Yii::$app->sendMail($this->user->email,Yii::t('yuncms', 'Complete password reset on {0}', Yii::$app->name),'user/recovery',['user' => $this->user, 'token' => $token]);
             Yii::$app->session->setFlash('info', Yii::t('yuncms', 'An email has been sent with instructions for resetting your password'));
             return true;
         }

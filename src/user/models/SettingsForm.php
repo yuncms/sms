@@ -140,7 +140,7 @@ class SettingsForm extends Model
             if ($this->email == $this->user->email && $this->user->unconfirmed_email != null) {
                 $this->user->unconfirmed_email = null;
             } elseif ($this->email != $this->user->email) {
-                switch ($this->getSetting('emailChangeStrategy')) {
+                switch (Yii::$app->settings->get('emailChangeStrategy','user')) {
                     case UserSettings::STRATEGY_INSECURE:
                         $this->insecureEmailChange();
                         break;
@@ -177,14 +177,12 @@ class SettingsForm extends Model
         /** @var UserToken $token */
         $token = new UserToken(['user_id' => $this->user->id, 'type' => UserToken::TYPE_CONFIRM_NEW_EMAIL]);
         $token->save(false);
-        $this->sendMessage($this->user->unconfirmed_email, Yii::t('yuncms', 'Confirm email change on {0}', Yii::$app->name), 'reconfirmation', ['user' => $this->user, 'token' => $token]);
+        Yii::$app->sendMail($this->user->unconfirmed_email, Yii::t('yuncms', 'Confirm email change on {0}', Yii::$app->name), 'user/reconfirmation', ['user' => $this->user, 'token' => $token]);
         Yii::$app->session->setFlash('info', Yii::t('yuncms', 'A confirmation message has been sent to your new email address'));
     }
 
     /**
      * Sends a confirmation message to both old and new email addresses with link to confirm changing of email.
-     *
-     * @throws \yii\base\InvalidConfigException
      */
     protected function secureEmailChange()
     {
@@ -192,7 +190,7 @@ class SettingsForm extends Model
         /** @var UserToken $token */
         $token = new UserToken(['user_id' => $this->user->id, 'type' => UserToken::TYPE_CONFIRM_OLD_EMAIL]);
         $token->save(false);
-        $this->sendMessage($this->user->email, Yii::t('yuncms', 'Confirm email change on {0}', Yii::$app->name), 'reconfirmation', ['user' => $this->user, 'token' => $token]);
+        Yii::$app->sendMail($this->user->email, Yii::t('yuncms', 'Confirm email change on {0}', Yii::$app->name), 'user/reconfirmation', ['user' => $this->user, 'token' => $token]);
         // unset flags if they exist
         $this->user->flags &= ~User::NEW_EMAIL_CONFIRMED;
         $this->user->flags &= ~User::OLD_EMAIL_CONFIRMED;

@@ -259,7 +259,7 @@ class User extends \yuncms\models\BaseUser
             /** @var UserToken $token */
             $token = new UserToken(['type' => UserToken::TYPE_CONFIRMATION]);
             $token->link('user', $this);
-            $this->sendMessage($this->email, Yii::t('yuncms', 'Welcome to {0}', Yii::$app->name), 'welcome', ['user' => $this, 'token' => isset($token) ? $token : null, 'module' => $this->module, 'showPassword' => false]);
+            Yii::$app->sendMail($this->email, Yii::t('yuncms', 'Welcome to {0}', Yii::$app->name), 'user/welcome', ['user' => $this, 'token' => isset($token) ? $token : null, 'module' => Yii::$app->getModule('user'), 'showPassword' => false]);
         } else {
             Yii::$app->user->login($this, Yii::$app->settings->get('user.rememberFor'));
         }
