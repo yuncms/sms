@@ -19,6 +19,8 @@ use Da\QrCode\QrCode;
  */
 class Controller extends \yii\web\Controller
 {
+
+
     /**
      * Sets the response format of the given data as JSONP.
      *
@@ -55,9 +57,10 @@ class Controller extends \yii\web\Controller
     /**
      * 输出二维码
      * @param string $data
-     * @return mixed
+     * @return YiiResponse
+     * @throws \Da\QrCode\Exception\UnknownWriterException
      */
-    public function asQrCode($data)
+    public function asQrCode($data): YiiResponse
     {
         $response = Yii::$app->getResponse();
         $response->format = YiiResponse::FORMAT_RAW;

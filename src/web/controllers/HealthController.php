@@ -7,12 +7,10 @@
 
 namespace yuncms\web\controllers;
 
-use Yii;
 use yuncms\web\Controller;
-use yuncms\web\Response;
 
 /**
- * Class PingController
+ * 健康检查
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
@@ -25,7 +23,6 @@ class HealthController extends Controller
      */
     public function actionPing()
     {
-        Yii::$app->response->format = Response::FORMAT_RAW;
-        return 'Pong';
+        return $this->asRaw('Pong');
     }
 }

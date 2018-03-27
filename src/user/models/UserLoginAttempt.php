@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\models;
+namespace yuncms\user\models;
 
 use yuncms\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;

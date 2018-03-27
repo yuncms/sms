@@ -4,13 +4,10 @@ namespace yuncms\models;
 
 use Yii;
 use yii\db\Query;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
-use yii\helpers\Url;
 use yii\web\IdentityInterface;
 use yii\filters\RateLimitInterface;
 use yii\behaviors\TimestampBehavior;
-use creocoder\taggable\TaggableBehavior;
 use yuncms\db\ActiveRecord;
 use yuncms\helpers\PasswordHelper;
 use yuncms\notifications\contracts\NotifiableInterface;
@@ -18,14 +15,6 @@ use yuncms\notifications\NotifiableTrait;
 
 /**
  * This is the model class for table "{{%user}}".
- *
- * Magic methods:
- * @method ActiveRecord getTagValues($asArray = null)
- * @method ActiveRecord setTagValues($values)
- * @method ActiveRecord addTagValues($values)
- * @method ActiveRecord removeTagValues($values)
- * @method ActiveRecord removeAllTagValues()
- * @method ActiveRecord hasTagValues($values)
  *
  * Database fields:
  * @property integer $id
@@ -47,18 +36,11 @@ use yuncms\notifications\NotifiableTrait;
  * @property integer $created_at
  * @property integer $updated_at
  *
+ * @property string $password
  * @property-read boolean $isBlocked 账户是否锁定
  * @property-read bool $isMobileConfirmed 是否已经手机激活
  * @property-read bool $isEmailConfirmed 是否已经邮箱激活
- * @property-read bool $isAvatar 是否有头像
- *
- * Defined relations:
- * @property UserExtra $extra
- * @property UserLoginHistory[] $userLoginHistories
- * @property UserProfile $profile
- * @property UserSocialAccount[] $socialAccounts
- * @property Tag[] $tags
- * @property UserToken[] $userTokens
+
  *
  */
 class User extends ActiveRecord implements IdentityInterface, RateLimitInterface, NotifiableInterface
@@ -71,37 +53,14 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
     const BEFORE_REGISTER = 'beforeRegister';
     const AFTER_REGISTER = 'afterRegister';
 
-    //场景定义
-    const SCENARIO_CREATE = 'create';//后台或控制台创建用户
-    const SCENARIO_UPDATE = 'update';//后台或控制台修改用户
-    const SCENARIO_REGISTER = 'basic_create';//邮箱注册
-    const SCENARIO_EMAIL_REGISTER = 'email_create';//邮箱注册
-    const SCENARIO_MOBILE_REGISTER = 'mobile_create';//手机号注册
-    const SCENARIO_SETTINGS = 'settings';//更新
-    const SCENARIO_CONNECT = 'connect';//账户链接或自动注册新用户
-    const SCENARIO_PASSWORD = 'password';
-
     // following constants are used on secured email changing process
     const OLD_EMAIL_CONFIRMED = 0b1;
     const NEW_EMAIL_CONFIRMED = 0b10;
-
-    //头像
-    const AVATAR_BIG = 'big';
-    const AVATAR_MIDDLE = 'middle';
-    const AVATAR_SMALL = 'small';
 
     /**
      * @var string Plain password. Used for model validation.
      */
     public $password;
-
-    /**
-     * @var UserProfile|null
-     */
-    private $_profile;
-
-    /** @var  UserExtra|null */
-    private $_extra;
 
     /**
      * @var string Default username regexp
@@ -134,32 +93,7 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
     {
         return [
             'timestamp' => TimestampBehavior::class,
-            'taggable' => [
-                'class' => TaggableBehavior::class,
-                'tagValuesAsArray' => true,
-                'tagRelation' => 'tags',
-                'tagValueAttribute' => 'id',
-                'tagFrequencyAttribute' => 'frequency',
-            ],
         ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function scenarios()
-    {
-        $scenarios = parent::scenarios();
-        return ArrayHelper::merge($scenarios, [
-            static::SCENARIO_CREATE => ['nickname', 'email', 'password'],
-            static::SCENARIO_UPDATE => ['nickname', 'email', 'password'],
-            static::SCENARIO_REGISTER => ['nickname', 'password'],
-            static::SCENARIO_EMAIL_REGISTER => ['nickname', 'email', 'password'],
-            static::SCENARIO_MOBILE_REGISTER => ['mobile', 'password'],
-            static::SCENARIO_SETTINGS => ['username', 'email', 'password'],
-            static::SCENARIO_CONNECT => ['nickname', 'email', 'password'],//链接账户密码可以为空邮箱可以为空
-            static::SCENARIO_PASSWORD => ['password'],//只修改密码
-        ]);
     }
 
     /**
@@ -175,14 +109,12 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
             'usernameTrim' => ['username', 'trim'],
 
             // nickname rules
-            'nicknameRequired' => ['nickname', 'required', 'on' => [self::SCENARIO_EMAIL_REGISTER, self::SCENARIO_CONNECT]],
             'nicknameMatch' => ['nickname', 'match', 'pattern' => static::$nicknameRegexp],
             'nicknameLength' => ['nickname', 'string', 'min' => 3, 'max' => 255],
             'nicknameUnique' => ['nickname', 'unique', 'message' => Yii::t('yuncms', 'This nickname has already been taken')],
             'nicknameTrim' => ['nickname', 'trim'],
 
             // email rules
-            'emailRequired' => ['email', 'required', 'on' => [self::SCENARIO_EMAIL_REGISTER]],
             'emailPattern' => ['email', 'email', 'checkDNS' => true],
             'emailLength' => ['email', 'string', 'max' => 255],
             'emailUnique' => ['email', 'unique', 'message' => Yii::t('yuncms', 'This email address has already been taken')],
@@ -190,19 +122,13 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
             'emailDefault' => ['email', 'default', 'value' => null],
 
             //mobile rules
-            'mobileRequired' => ['mobile', 'required', 'on' => [self::SCENARIO_MOBILE_REGISTER]],
             'mobilePattern' => ['mobile', 'match', 'pattern' => static::$mobileRegexp],
             'mobileLength' => ['mobile', 'string', 'max' => 11],
             'mobileUnique' => ['mobile', 'unique', 'message' => Yii::t('yuncms', 'This phone has already been taken')],
             'mobileDefault' => ['mobile', 'default', 'value' => null],
 
             // password rules
-            'passwordRequired' => ['password', 'required', 'on' => [self::SCENARIO_EMAIL_REGISTER, self::SCENARIO_MOBILE_REGISTER]],
             'passwordLength' => ['password', 'string', 'min' => 6],
-
-            // tags rules
-            'tags' => ['tagValues', 'safe'],
-
 
             [['flags', 'email_confirmed_at', 'mobile_confirmed_at', 'blocked_at'], 'integer'],
             [['registration_ip'], 'string', 'max' => 255],
@@ -240,105 +166,6 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
     }
 
     /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getExtra()
-    {
-        return $this->hasOne(UserExtra::class, ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLoginHistories()
-    {
-        return $this->hasMany(UserLoginHistory::class, ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProfile()
-    {
-        return $this->hasOne(UserProfile::class, ['user_id' => 'id']);
-    }
-
-    /**
-     * 返回所有已经连接的社交媒体账户
-     * @return UserSocialAccount[] Connected accounts ($provider => $account)
-     */
-    public function getSocialAccounts()
-    {
-        $connected = [];
-        /** @var UserSocialAccount[] $accounts */
-        $accounts = $this->hasMany(UserSocialAccount::class, ['user_id' => 'id'])->all();
-        /**
-         * @var UserSocialAccount $account
-         */
-        foreach ($accounts as $account) {
-            $connected[$account->provider] = $account;
-        }
-
-        return $connected;
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTags()
-    {
-        return $this->hasMany(Tag::class, ['id' => 'tag_id'])->viaTable('{{%user_tag}}', ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTokens()
-    {
-        return $this->hasMany(UserToken::class, ['user_id' => 'id']);
-    }
-
-    /**
-     * 获取头像Url
-     * @param string $size
-     * @return string
-     */
-    public function getAvatar($size = self::AVATAR_MIDDLE)
-    {
-        $size = in_array($size, [self::AVATAR_BIG, self::AVATAR_MIDDLE, self::AVATAR_SMALL]) ? $size : self::AVATAR_BIG;
-        if ($this->getIsAvatar()) {
-            $avatarFileName = "_avatar_{$size}.jpg";
-            return $this->getAvatarUrl($this->id) . $avatarFileName . '?_t=' . $this->updated_at;
-        } else {
-            $avatarUrl = "/img/no_avatar_{$size}.gif";
-            if (Yii::getAlias('@webroot', false)) {
-                $baseUrl = UserAsset::register(Yii::$app->view)->baseUrl;
-                return Url::to($baseUrl . $avatarUrl, true);
-            } else {
-                return '';
-            }
-        }
-    }
-
-    /**
-     * 设置用户资料
-     * @param UserProfile $profile
-     */
-    public function setProfile(UserProfile $profile)
-    {
-        $this->_profile = $profile;
-    }
-
-    /**
-     * 设置用户延伸资料
-     * @param UserExtra $extra
-     */
-    public function setExtra($extra)
-    {
-        $this->_extra = $extra;
-    }
-
-    /**
      * 设置Email已经验证
      * @return bool
      */
@@ -354,15 +181,6 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
     public function setMobileConfirm()
     {
         return (bool)$this->updateAttributes(['mobile_confirmed_at' => time()]);
-    }
-
-    /**
-     * @inheritdoc
-     * @return UserQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new UserQuery(get_called_class());
     }
 
     /**
@@ -512,7 +330,6 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
      * 重置密码
      *
      * @param string $password
-     *
      * @return boolean
      * @throws \yii\base\Exception
      */
@@ -550,15 +367,6 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
     }
 
     /**
-     * 返回用户是否有头像
-     * @return boolean Whether the user is blocked or not.
-     */
-    public function getIsAvatar()
-    {
-        return $this->avatar != 0;
-    }
-
-    /**
      * 返回用户邮箱是否已经激活
      * @return boolean Whether the user is confirmed or not.
      */
@@ -575,62 +383,6 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
     {
         return $this->mobile_confirmed_at != null;
     }
-
-    /**
-     * 此方法用于注册新用户帐户。 如果 enableConfirmation 设置为true，则此方法
-     * 将生成新的确认令牌，并使用邮件发送给用户。
-     *
-     * @return boolean
-     */
-    public function register()
-    {
-        if ($this->getIsNewRecord() == false) {
-            throw new \RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
-        }
-        $this->password = Yii::$app->settings->get('user.enableGeneratingPassword') ? PasswordHelper::generate(8) : $this->password;
-        if ($this->scenario == self::SCENARIO_EMAIL_REGISTER) {
-            $this->email_confirmed_at = Yii::$app->settings->get('user.enableConfirmation') ? null : time();
-        }
-        $this->trigger(self::BEFORE_REGISTER);
-        if (!$this->save()) {
-            return false;
-        }
-        if (Yii::$app->settings->get('user.enableConfirmation') && !empty($this->email)) {
-            /** @var UserToken $token */
-            $token = new UserToken(['type' => UserToken::TYPE_CONFIRMATION]);
-            $token->link('user', $this);
-            $this->sendMessage($this->email, Yii::t('user', 'Welcome to {0}', Yii::$app->name), 'welcome', ['user' => $this, 'token' => isset($token) ? $token : null, 'module' => $this->module, 'showPassword' => false]);
-        } else {
-            Yii::$app->user->login($this, Yii::$app->settings->get('user.rememberFor'));
-        }
-        $this->trigger(self::AFTER_REGISTER);
-        return true;
-    }
-
-    /**
-     * 创建新用户帐户。 如果用户不提供密码，则会生成密码。
-     *
-     * @return boolean
-     */
-    public function createUser()
-    {
-        if ($this->getIsNewRecord() == false) {
-            throw new \RuntimeException('Calling "' . __CLASS__ . '::' . __METHOD__ . '" on existing user');
-        }
-        $this->password = $this->password == null ? PasswordHelper::generate(8) : $this->password;
-        $this->trigger(self::BEFORE_CREATE);
-        if (!$this->save()) {
-            return false;
-        }
-        $this->trigger(self::AFTER_CREATE);
-        return true;
-    }
-
-//    public function afterFind()
-//    {
-//        parent::afterFind();
-//        // ...custom code here...
-//    }
 
     /**
      * @inheritdoc
@@ -652,47 +404,6 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
         }
         return true;
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-        if ($insert) {
-            if ($this->_profile == null) {
-                $this->_profile = new UserProfile();
-            }
-            $this->_profile->link('user', $this);
-
-            if ($this->_extra == null) {
-                $this->_extra = new UserExtra();
-            }
-            $this->_extra->link('user', $this);
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function beforeDelete()
-//    {
-//        if (!parent::beforeDelete()) {
-//            return false;
-//        }
-//        // ...custom code here...
-//        return true;
-//    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function afterDelete()
-//    {
-//        parent::afterDelete();
-//
-//        // ...custom code here...
-//    }
 
     /**
      * Returns the maximum number of allowed requests and the window size.
