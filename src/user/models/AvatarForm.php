@@ -11,7 +11,6 @@ use Yii;
 use yii\base\Model;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
-use yuncms\user\UserTrait;
 
 /**
  * Class PortraitForm
@@ -19,8 +18,6 @@ use yuncms\user\UserTrait;
  */
 class AvatarForm extends Model
 {
-    use UserTrait;
-
     /**
      * @var \yii\web\UploadedFile 头像上传字段
      */

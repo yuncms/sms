@@ -47,8 +47,8 @@ return [
 
     ],
     'modules' => [
-        'admin' => [
-            'class' => yuncms\admin\Module::class
+        'user' => [
+            'class' => yuncms\user\Module::class
         ]
     ]
 ];

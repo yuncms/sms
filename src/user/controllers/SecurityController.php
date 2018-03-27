@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\user\frontend\controllers;
+namespace yuncms\user\controllers;
 
 use Yii;
 use yii\helpers\Url;
@@ -15,13 +15,10 @@ use yii\widgets\ActiveForm;
 use yii\filters\AccessControl;
 use yii\authclient\AuthAction;
 use yii\authclient\ClientInterface;
-
 use yuncms\user\Module;
 use yuncms\user\models\User;
 use yuncms\user\models\UserSocialAccount;
 use yuncms\user\models\LoginForm;
-use yuncms\user\UserTrait;
-
 
 /**
  * Controller that manages user authentication process.
@@ -30,8 +27,6 @@ use yuncms\user\UserTrait;
  */
 class SecurityController extends Controller
 {
-    use UserTrait;
-
     /**
      * @inheritdoc
      */
@@ -137,7 +132,7 @@ class SecurityController extends Controller
                 Yii::$app->session->setFlash('danger', Yii::t('yuncms', 'Your account has been blocked.'));
                 $this->action->successUrl = Url::to(['/user/security/login']);
             } else {
-                Yii::$app->user->login($account->user, $this->getSetting('rememberFor'));
+                Yii::$app->user->login($account->user, Yii::$app->settings->get('rememberFor','user'));
                 $this->action->successUrl = Yii::$app->getUser()->getReturnUrl();
             }
         } else {
