@@ -9,6 +9,7 @@ namespace yuncms\web;
 
 use Yii;
 use yii\web\Response as YiiResponse;
+use Da\QrCode\QrCode;
 
 /**
  * Class Controller
@@ -49,5 +50,20 @@ class Controller extends \yii\web\Controller
         $response->data = $data;
         $response->format = YiiResponse::FORMAT_RAW;
         return $response;
+    }
+
+    /**
+     * 输出二维码
+     * @param string $data
+     * @return mixed
+     */
+    public function asQrCode($data)
+    {
+        $response = Yii::$app->getResponse();
+        $response->format = YiiResponse::FORMAT_RAW;
+        $headers = Yii::$app->response->getHeaders();
+        $qrCode = new QrCode($data);
+        $headers->setDefault('Content-Type', $qrCode->getContentType());
+        return $qrCode->writeString();
     }
 }

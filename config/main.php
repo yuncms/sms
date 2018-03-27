@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'name' => 'YUNCMS',
+    'sourceLanguage' => 'en-US',
     'components' => [
         'formatter' => [
             'class' => yii\i18n\Formatter::class,
