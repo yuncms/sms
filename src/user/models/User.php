@@ -9,6 +9,7 @@ namespace yuncms\user\models;
 
 use Yii;
 use yii\helpers\Url;
+use yuncms\assets\UserAsset;
 use yuncms\db\ActiveRecord;
 use yuncms\helpers\ArrayHelper;
 use yuncms\helpers\PasswordHelper;

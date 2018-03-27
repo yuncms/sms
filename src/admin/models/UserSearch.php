@@ -46,11 +46,11 @@ class UserSearch extends Model
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('user', 'ID'),
-            'username' => Yii::t('user', 'Username'),
-            'email' => Yii::t('user', 'Email'),
-            'created_at' => Yii::t('user', 'Registration time'),
-            'registration_ip' => Yii::t('user', 'Registration ip'),
+            'id' => Yii::t('yuncms', 'ID'),
+            'username' => Yii::t('yuncms', 'Username'),
+            'email' => Yii::t('yuncms', 'Email'),
+            'created_at' => Yii::t('yuncms', 'Registration time'),
+            'registration_ip' => Yii::t('yuncms', 'Registration ip'),
         ];
     }
 

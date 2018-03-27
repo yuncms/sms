@@ -72,15 +72,15 @@ class UserSocialAccount extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('user', 'ID'),
-            'user_id' => Yii::t('user', 'Uer ID'),
-            'username' => Yii::t('user', 'Username'),
-            'email' => Yii::t('user', 'EMail'),
-            'provider' => Yii::t('user', 'Provider'),
-            'client_id' => Yii::t('user', 'Client Id'),
-            'code' => Yii::t('user', 'Code'),
-            'created_at' => Yii::t('user', 'Created At'),
-            'data' => Yii::t('user', 'Data'),
+            'id' => Yii::t('yuncms', 'ID'),
+            'user_id' => Yii::t('yuncms', 'Uer ID'),
+            'username' => Yii::t('yuncms', 'Username'),
+            'email' => Yii::t('yuncms', 'EMail'),
+            'provider' => Yii::t('yuncms', 'Provider'),
+            'client_id' => Yii::t('yuncms', 'Client Id'),
+            'code' => Yii::t('yuncms', 'Code'),
+            'created_at' => Yii::t('yuncms', 'Created At'),
+            'data' => Yii::t('yuncms', 'Data'),
         ];
     }
 
@@ -168,7 +168,7 @@ class UserSocialAccount extends ActiveRecord
     public static function connectWithUser(BaseClientInterface $client)
     {
         if (Yii::$app->user->isGuest) {
-            Yii::$app->session->setFlash('danger', Yii::t('user', 'Something went wrong'));
+            Yii::$app->session->setFlash('danger', Yii::t('yuncms', 'Something went wrong'));
             return;
         }
 
@@ -176,9 +176,9 @@ class UserSocialAccount extends ActiveRecord
 
         if ($account->user === null) {
             $account->link('user', Yii::$app->user->identity);
-            Yii::$app->session->setFlash('success', Yii::t('user', 'Your account has been connected'));
+            Yii::$app->session->setFlash('success', Yii::t('yuncms', 'Your account has been connected'));
         } else {
-            Yii::$app->session->setFlash('danger', Yii::t('user', 'This account has already been connected to another user'));
+            Yii::$app->session->setFlash('danger', Yii::t('yuncms', 'This account has already been connected to another user'));
         }
     }
 

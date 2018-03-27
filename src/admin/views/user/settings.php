@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">' . Yii::t('yuncms', 'Second') . '</span></div>',
             ])->input('number')->hint(Yii::t('yuncms', 'The time before a confirmation token becomes invalid.')) ?>
             <?= $form->field($model, 'recoverWithin', [
-                'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">' . Yii::t('user', 'Second') . '</span></div>',
+                'inputTemplate' => '<div class="input-group">{input}<span class="input-group-addon">' . Yii::t('yuncms', 'Second') . '</span></div>',
             ])->input('number')->hint(Yii::t('yuncms', 'The time before a recovery token becomes invalid.')) ?>
             <?= $form->field($model, 'cost')->input('number')->hint(Yii::t('yuncms', 'Cost parameter used by the Blowfish hash algorithm.')) ?>
 

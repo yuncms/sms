@@ -56,18 +56,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'email:email',
                     'mobile',
 //                    [
-//                        'header' => Yii::t('user', 'Authentication'),
+//                        'header' => Yii::t('yuncms', 'Authentication'),
 //                        'value' => function ($model) {
 //                            if (\yuncms\authentication\models\Authentication::isAuthentication($model->id)) {
 //                                if ($model->authentication->status == \yuncms\authentication\models\Authentication::STATUS_PENDING) {
-//                                    return Yii::t('user', 'Pending review');
+//                                    return Yii::t('yuncms', 'Pending review');
 //                                } elseif ($model->authentication->status == \yuncms\authentication\models\Authentication::STATUS_REJECTED) {
-//                                    return Yii::t('user', 'Rejected');
+//                                    return Yii::t('yuncms', 'Rejected');
 //                                } elseif ($model->authentication->status == \yuncms\authentication\models\Authentication::STATUS_AUTHENTICATED) {
-//                                    return Yii::t('user', 'Authenticated');
+//                                    return Yii::t('yuncms', 'Authenticated');
 //                                }
 //                            }
-//                            return Yii::t('user', 'UnSubmitted');
+//                            return Yii::t('yuncms', 'UnSubmitted');
 //                        },
 //                        'format' => 'raw',
 //                    ],
@@ -119,10 +119,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'data-confirm' => Yii::t('yuncms', 'Are you sure you want to unblock this user?'),
                                 ]);
                             } else {
-                                return Html::a(Yii::t('user', 'Block'), ['block', 'id' => $model->id], [
+                                return Html::a(Yii::t('yuncms', 'Block'), ['block', 'id' => $model->id], [
                                     'class' => 'btn btn-xs btn-danger btn-block',
                                     'data-method' => 'post',
-                                    'data-confirm' => Yii::t('user', 'Are you sure you want to block this user?'),
+                                    'data-confirm' => Yii::t('yuncms', 'Are you sure you want to block this user?'),
                                 ]);
                             }
                         },

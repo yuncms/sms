@@ -66,10 +66,10 @@ class UserLoginHistory extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('user', 'ID'),
-            'user_id' => Yii::t('user', 'User ID'),
-            'ip' => Yii::t('user', 'Ip'),
-            'created_at' => Yii::t('user', 'Created At'),
+            'id' => Yii::t('yuncms', 'ID'),
+            'user_id' => Yii::t('yuncms', 'User ID'),
+            'ip' => Yii::t('yuncms', 'Ip'),
+            'created_at' => Yii::t('yuncms', 'Created At'),
         ];
     }
 
