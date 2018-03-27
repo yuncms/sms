@@ -61,9 +61,10 @@ class Controller extends \yii\web\Controller
     {
         $response = Yii::$app->getResponse();
         $response->format = YiiResponse::FORMAT_RAW;
-        $headers = Yii::$app->response->getHeaders();
+        $headers = $response->getHeaders();
         $qrCode = new QrCode($data);
         $headers->setDefault('Content-Type', $qrCode->getContentType());
-        return $qrCode->writeString();
+        $response->data = $qrCode->writeString();
+        return $response;
     }
 }
