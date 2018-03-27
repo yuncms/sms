@@ -10,7 +10,7 @@ namespace yuncms\admin\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yuncms\models\User;
+use yuncms\user\models\User;
 
 /**
  * UserSearch represents the model behind the search form about User.

@@ -6,7 +6,7 @@ use yuncms\admin\widgets\Alert;
 
 /**
  * @var yii\web\View $this
- * @var yuncms\models\User $model
+ * @var yuncms\user\models\User $model
  */
 
 $this->title = Yii::t('yuncms', 'Create a user account');

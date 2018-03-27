@@ -1,13 +1,13 @@
 <?php
-use yii\helpers\Html;
-use yuncms\user\frontend\widgets\Connect;
+use yuncms\helpers\Html;
+use yuncms\user\widgets\Connect;
 
 /*
  * @var yii\web\View $this
  * @var yii\widgets\ActiveForm $form
  */
 
-$this->title = Yii::t('user', 'Social Networks');
+$this->title = Yii::t('yuncms', 'Social Networks');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -16,10 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $this->render('/_profile_menu') ?>
     </div>
     <div class="col-md-10">
-        <h2 class="h3 profile-title"><?= Yii::t('user', 'Social Networks') ?></h2>
+        <h2 class="h3 profile-title"><?= Yii::t('yuncms', 'Social Networks') ?></h2>
         <div class="row">
             <div class="alert alert-info">
-                <p><?= Yii::t('user', 'You can connect multiple accounts to be able to log in using them') ?>.</p>
+                <p><?= Yii::t('yuncms', 'You can connect multiple accounts to be able to log in using them') ?>.</p>
             </div>
             <div class="col-md-12">
 
@@ -42,11 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                             <td style="width: 120px">
                                 <?= $auth->isConnected($client) ?
-                                    Html::a(Yii::t('user', 'Disconnect'), $auth->createClientUrl($client), [
+                                    Html::a(Yii::t('yuncms', 'Disconnect'), $auth->createClientUrl($client), [
                                         'class' => 'btn btn-danger btn-block',
                                         'data-method' => 'post',
                                     ]) :
-                                    Html::a(Yii::t('user', 'Connect'), $auth->createClientUrl($client), [
+                                    Html::a(Yii::t('yuncms', 'Connect'), $auth->createClientUrl($client), [
                                         'class' => 'btn btn-success btn-block',
                                     ])
                                 ?>

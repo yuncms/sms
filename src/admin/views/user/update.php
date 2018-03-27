@@ -1,14 +1,14 @@
 <?php
 use yii\web\View;
 use yuncms\helpers\Html;
-use yuncms\models\User;
+use yuncms\models\BaseUser;
 use yuncms\admin\widgets\Box;
 use yuncms\admin\widgets\Toolbar;
 use yuncms\admin\widgets\Alert;
 
 /**
  * @var View $this
- * @var User $model
+ * @var BaseUser $model
  * @var string $content
  */
 

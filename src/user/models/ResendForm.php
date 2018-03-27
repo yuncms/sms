@@ -51,7 +51,7 @@ class ResendForm extends Model
             'emailExist' => ['email', 'exist', 'targetClass' => User::class],
             'emailConfirmed' => ['email', function () {
                 if ($this->user != null && $this->user->isEmailConfirmed) {
-                    $this->addError('email', Yii::t('user', 'This account has already been confirmed'));
+                    $this->addError('email', Yii::t('yuncms', 'This account has already been confirmed'));
                 }
             }]
         ];
@@ -63,7 +63,7 @@ class ResendForm extends Model
     public function attributeLabels()
     {
         return [
-            'email' => Yii::t('user', 'Email')
+            'email' => Yii::t('yuncms', 'Email')
         ];
     }
 

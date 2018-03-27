@@ -14,8 +14,8 @@ use yii\web\Controller;
 use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
-use yuncms\models\User;
-use yuncms\models\UserProfile;
+use yuncms\user\models\User;
+use yuncms\user\models\UserProfile;
 use yuncms\admin\models\UserSearch;
 
 /**
@@ -138,7 +138,7 @@ class UserController extends Controller
         $model = $this->findModel($id);
         $profile = $model->profile;
         if ($profile == null) {
-            $profile = Yii::createObject(UserProfile::className());
+            $profile = Yii::createObject(UserProfile::class);
             $profile->link('user', $model);
         }
         if (Yii::$app->request->isAjax && $profile->load(Yii::$app->request->post())) {

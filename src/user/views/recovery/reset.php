@@ -3,10 +3,10 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 /* @var yii\web\View $this */
-/* @var yuncms\user\frontend\models\RecoveryForm $model */
+/* @var yuncms\user\models\RecoveryForm $model */
 /* @var yii\widgets\ActiveForm $form */
 
-$this->title = Yii::t('user', 'Reset your password');
+$this->title = Yii::t('yuncms', 'Reset your password');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-md-6 col-md-offset-3">
@@ -19,7 +19,7 @@ $this->title = Yii::t('user', 'Reset your password');
 
     <?= $form->field($model, 'password')->passwordInput() ?>
 
-    <?= Html::submitButton(Yii::t('user', 'Finish'), ['class' => 'btn btn-success btn-block']) ?><br>
+    <?= Html::submitButton(Yii::t('yuncms', 'Finish'), ['class' => 'btn btn-success btn-block']) ?><br>
 
     <?php ActiveForm::end(); ?>
 </div>

@@ -156,7 +156,7 @@ class LoginAttemptBehavior extends Behavior
     {
         if (!$this->_attempt) {
             $this->_attempt = new UserLoginAttempt;
-            $this->_attempt->username = $this->getKey();
+            $this->_attempt->key = $this->getKey();
         }
         return $this->_attempt;
     }

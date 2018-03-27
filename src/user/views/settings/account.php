@@ -1,15 +1,15 @@
 <?php
 
 use yii\helpers\Url;
-use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yuncms\helpers\Html;
 
 /*
  * @var yii\web\View $this
  * @var yii\widgets\ActiveForm $form
  * @var yuncms\user\frontend\models\SettingsForm $model
  */
-$this->title = Yii::t('user', 'Security Setting');
+$this->title = Yii::t('yuncms', 'Security Setting');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $this->render('/_profile_menu') ?>
     </div>
     <div class="col-md-10">
-        <h2 class="h3 profile-title"><?= Yii::t('user', 'Security Setting') ?></h2>
+        <h2 class="h3 profile-title"><?= Yii::t('yuncms', 'Security Setting') ?></h2>
         <div class="row">
             <div class="col-md-8">
                 <?php $form = ActiveForm::begin([
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <?= Html::submitButton(Yii::t('user', 'Save'), ['class' => 'btn btn-success']) ?><br>
+                        <?= Html::submitButton(Yii::t('yuncms', 'Save'), ['class' => 'btn btn-success']) ?><br>
                     </div>
                 </div>
 

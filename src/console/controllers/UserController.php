@@ -10,7 +10,7 @@ namespace yuncms\console\controllers;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
-use yuncms\models\User;
+use yuncms\user\models\User;
 
 /**
  * Class UserController

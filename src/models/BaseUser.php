@@ -43,7 +43,7 @@ use yuncms\notifications\NotifiableTrait;
 
  *
  */
-class User extends ActiveRecord implements IdentityInterface, RateLimitInterface, NotifiableInterface
+class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInterface, NotifiableInterface
 {
     use NotifiableTrait;
 
@@ -186,7 +186,7 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
     /**
      * 通过登陆邮箱或手机号获取用户
      * @param string $emailOrMobile
-     * @return User|null
+     * @return BaseUser|null
      */
     public static function findByEmailOrMobile($emailOrMobile)
     {

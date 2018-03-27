@@ -14,7 +14,7 @@ use yuncms\user\widgets\Connect;
  * @var boolean $enableRegistrationCaptcha
  */
 
-$this->title = Yii::t('user', 'Sign up');
+$this->title = Yii::t('yuncms', 'Sign up');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-md-6 col-md-offset-3">
@@ -41,21 +41,21 @@ $this->title = Yii::t('user', 'Sign up');
     <?php endif ?>
 
     <?= $form->field($model, 'registrationPolicy')->checkbox()->label(
-        Yii::t('user', 'Agree and accept {serviceAgreement} and {privacyPolicy}', [
-            'serviceAgreement' => Html::a(Yii::t('user', 'Service Agreement'), ['/legal/terms']),
-            'privacyPolicy' => Html::a(Yii::t('user', 'Privacy Policy'), ['/legal/privacy']),
+        Yii::t('yuncms', 'Agree and accept {serviceAgreement} and {privacyPolicy}', [
+            'serviceAgreement' => Html::a(Yii::t('yuncms', 'Service Agreement'), ['/legal/terms']),
+            'privacyPolicy' => Html::a(Yii::t('yuncms', 'Privacy Policy'), ['/legal/privacy']),
         ]), [
             'encode' => false
         ]
     ) ?>
 
-    <?= Html::submitButton(Yii::t('user', 'Sign up'), ['class' => 'btn btn-success btn-block btn-lg']) ?>
+    <?= Html::submitButton(Yii::t('yuncms', 'Sign up'), ['class' => 'btn btn-success btn-block btn-lg']) ?>
 
     <?php ActiveForm::end(); ?>
     <hr>
     <div class="widget-login pt-30">
         <p class="text-center">
-            <?= Html::a(Yii::t('user', 'Already registered? Sign in!'), ['/user/security/login']) ?>
+            <?= Html::a(Yii::t('yuncms', 'Already registered? Sign in!'), ['/user/security/login']) ?>
         </p>
         <?= Connect::widget([
             'baseAuthUrl' => ['/user/security/auth'],

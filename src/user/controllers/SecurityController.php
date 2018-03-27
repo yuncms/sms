@@ -63,7 +63,7 @@ class SecurityController extends Controller
                 'successCallback' => Yii::$app->user->getIsGuest() ? [$this, 'authenticate'] : [$this, 'connect']
             ],
             'wechat-auth' => [
-                'class' => \xutl\wechat\oauth\AuthAction::className(),
+                'class' => \xutl\wechat\oauth\AuthAction::class,
                 'successCallback' => [$this, 'authenticate']
             ]
         ];

@@ -1,7 +1,7 @@
 <?php
 /**
  * @var yii\web\View
- * @var yuncms\models\User $model
+ * @var yuncms\user\models\User $model
  */
 ?>
 

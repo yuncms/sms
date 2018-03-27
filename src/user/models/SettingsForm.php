@@ -98,7 +98,7 @@ class SettingsForm extends Model
             'currentPasswordRequired' => ['current_password', 'required'],
             'currentPasswordValidate' => ['current_password', function ($attr) {
                 if (!PasswordHelper::validate($this->$attr, $this->user->password_hash)) {
-                    $this->addError($attr, Yii::t('user', 'Current password is not valid'));
+                    $this->addError($attr, Yii::t('yuncms', 'Current password is not valid'));
                 }
             }]];
     }
@@ -165,7 +165,7 @@ class SettingsForm extends Model
     protected function insecureEmailChange()
     {
         $this->user->email = $this->email;
-        Yii::$app->session->setFlash('success', Yii::t('user', 'Your email address has been changed'));
+        Yii::$app->session->setFlash('success', Yii::t('yuncms', 'Your email address has been changed'));
     }
 
     /**
@@ -177,8 +177,8 @@ class SettingsForm extends Model
         /** @var UserToken $token */
         $token = new UserToken(['user_id' => $this->user->id, 'type' => UserToken::TYPE_CONFIRM_NEW_EMAIL]);
         $token->save(false);
-        $this->sendMessage($this->user->unconfirmed_email, Yii::t('user', 'Confirm email change on {0}', Yii::$app->name), 'reconfirmation', ['user' => $this->user, 'token' => $token]);
-        Yii::$app->session->setFlash('info', Yii::t('user', 'A confirmation message has been sent to your new email address'));
+        $this->sendMessage($this->user->unconfirmed_email, Yii::t('yuncms', 'Confirm email change on {0}', Yii::$app->name), 'reconfirmation', ['user' => $this->user, 'token' => $token]);
+        Yii::$app->session->setFlash('info', Yii::t('yuncms', 'A confirmation message has been sent to your new email address'));
     }
 
     /**
@@ -192,11 +192,11 @@ class SettingsForm extends Model
         /** @var UserToken $token */
         $token = new UserToken(['user_id' => $this->user->id, 'type' => UserToken::TYPE_CONFIRM_OLD_EMAIL]);
         $token->save(false);
-        $this->sendMessage($this->user->email, Yii::t('user', 'Confirm email change on {0}', Yii::$app->name), 'reconfirmation', ['user' => $this->user, 'token' => $token]);
+        $this->sendMessage($this->user->email, Yii::t('yuncms', 'Confirm email change on {0}', Yii::$app->name), 'reconfirmation', ['user' => $this->user, 'token' => $token]);
         // unset flags if they exist
         $this->user->flags &= ~User::NEW_EMAIL_CONFIRMED;
         $this->user->flags &= ~User::OLD_EMAIL_CONFIRMED;
         $this->user->save(false);
-        Yii::$app->session->setFlash('info', Yii::t('user', 'We have sent confirmation links to both old and new email addresses. You must click both links to complete your request'));
+        Yii::$app->session->setFlash('info', Yii::t('yuncms', 'We have sent confirmation links to both old and new email addresses. You must click both links to complete your request'));
     }
 }

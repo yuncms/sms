@@ -1,13 +1,13 @@
 <?php
 
-use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yuncms\helpers\Html;
 
 /* @var yii\web\View $this */
-/* @var yuncms\user\frontend\models\RecoveryForm $model */
+/* @var yuncms\user\models\RecoveryForm $model */
 /* @var yii\widgets\ActiveForm $form */
 
-$this->title = Yii::t('user', 'Recover your password');
+$this->title = Yii::t('yuncms', 'Recover your password');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-md-6 col-md-offset-3">
@@ -18,7 +18,7 @@ $this->title = Yii::t('user', 'Recover your password');
 
     <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
-    <?= Html::submitButton(Yii::t('user', 'Continue'), ['class' => 'btn btn-primary btn-block']) ?><br>
+    <?= Html::submitButton(Yii::t('yuncms', 'Continue'), ['class' => 'btn btn-primary btn-block']) ?><br>
 
     <?php ActiveForm::end(); ?>
 </div>

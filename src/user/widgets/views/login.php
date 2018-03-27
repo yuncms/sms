@@ -27,12 +27,12 @@ use yuncms\helpers\Html;
 
     <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
-    <?= Html::submitButton(Yii::t('user', 'Sign in'), ['class' => 'btn btn-primary btn-block']) ?>
+    <?= Html::submitButton(Yii::t('yuncms', 'Sign in'), ['class' => 'btn btn-primary btn-block']) ?>
 
     <?php ActiveForm::end(); ?>
 
 <?php else: ?>
 
-    <?= Html::a(Yii::t('user', 'Logout'), ['/user/security/logout'], ['class' => 'btn btn-danger btn-block', 'data-method' => 'post']) ?>
+    <?= Html::a(Yii::t('yuncms', 'Logout'), ['/user/security/logout'], ['class' => 'btn btn-danger btn-block', 'data-method' => 'post']) ?>
 
 <?php endif ?>

@@ -38,7 +38,7 @@ use creocoder\taggable\TaggableBehavior;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class User extends \yuncms\models\User
+class User extends \yuncms\models\BaseUser
 {
     //场景定义
     const SCENARIO_CREATE = 'create';//后台或控制台创建用户
@@ -258,7 +258,7 @@ class User extends \yuncms\models\User
             /** @var UserToken $token */
             $token = new UserToken(['type' => UserToken::TYPE_CONFIRMATION]);
             $token->link('user', $this);
-            $this->sendMessage($this->email, Yii::t('user', 'Welcome to {0}', Yii::$app->name), 'welcome', ['user' => $this, 'token' => isset($token) ? $token : null, 'module' => $this->module, 'showPassword' => false]);
+            $this->sendMessage($this->email, Yii::t('yuncms', 'Welcome to {0}', Yii::$app->name), 'welcome', ['user' => $this, 'token' => isset($token) ? $token : null, 'module' => $this->module, 'showPassword' => false]);
         } else {
             Yii::$app->user->login($this, Yii::$app->settings->get('user.rememberFor'));
         }

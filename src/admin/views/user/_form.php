@@ -5,7 +5,7 @@ use yuncms\admin\widgets\ActiveForm;
 
 /**
  * @var yii\bootstrap\ActiveForm $form
- * @var yuncms\models\User $model
+ * @var yuncms\user\models\User $model
  */
 ?>
 <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>

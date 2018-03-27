@@ -4,7 +4,7 @@ use yuncms\helpers\Html;
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><?= Yii::t('user', 'Active member'); ?></h2>
+        <h2 class="panel-title"><?= Yii::t('yuncms', 'Active member'); ?></h2>
     </div>
     <div class="panel-body">
         <ul class="avatar-list">
@@ -16,7 +16,7 @@ use yuncms\helpers\Html;
                     </li>
                 <?php endforeach; ?>
             <?php else: ?>
-                <?= Yii::t('user', 'No popular users') ?>
+                <?= Yii::t('yuncms', 'No popular users') ?>
             <?php endif; ?>
         </ul>
     </div>

@@ -116,7 +116,7 @@ class RegistrationForm extends Model
         if (!$user->register()) {
             return false;
         }
-        Yii::$app->session->setFlash('info', Yii::t('user', 'Your account has been created and a message with further instructions has been sent to your email'));
+        Yii::$app->session->setFlash('info', Yii::t('yuncms', 'Your account has been created and a message with further instructions has been sent to your email'));
         return Yii::$app->getUser()->login($user, Yii::$app->settings->get('rememberFor','user'));
     }
 

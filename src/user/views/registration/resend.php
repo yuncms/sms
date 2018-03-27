@@ -1,14 +1,14 @@
 <?php
 
-use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use yuncms\user\frontend\models\ResendForm;
+use yuncms\helpers\Html;
+use yuncms\user\models\ResendForm;
 
 /* @var yii\web\View $this */
-/* @var yuncms\user\frontend\models\ResendForm $model */
-/* @var yii\widgets\ActiveForm $form */
+/* @var ResendForm $model */
+/* @var ActiveForm $form */
 
-$this->title = Yii::t('user', 'Request new confirmation message');
+$this->title = Yii::t('yuncms', 'Request new confirmation message');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-md-6 col-md-offset-3">
@@ -20,7 +20,7 @@ $this->title = Yii::t('user', 'Request new confirmation message');
     ]); ?>
     <?= $form->field($model, 'email', ['inputOptions' => ['autocomplete' => 'off', 'required' => true]])->textInput(['autofocus' => true]) ?>
 
-    <?= Html::submitButton(Yii::t('user', 'Continue'), ['class' => 'btn btn-primary btn-block']) ?>
+    <?= Html::submitButton(Yii::t('yuncms', 'Continue'), ['class' => 'btn btn-primary btn-block']) ?>
 
     <?php ActiveForm::end(); ?>
 </div>

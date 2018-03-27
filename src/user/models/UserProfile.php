@@ -250,7 +250,7 @@ class UserProfile extends ActiveRecord
     public function validateTimeZone($attribute)
     {
         if (!in_array($this->$attribute, timezone_identifiers_list())) {
-            $this->addError($attribute, Yii::t('user', 'Time zone is not valid'));
+            $this->addError($attribute, Yii::t('yuncms', 'Time zone is not valid'));
         }
     }
 
