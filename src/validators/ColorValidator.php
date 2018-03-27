@@ -11,7 +11,7 @@ use Yii;
 use yii\validators\RegularExpressionValidator;
 
 /**
- * Class ColorValidator
+ * 16进制颜色验证
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0

@@ -39,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="alert alert-info">
-                <?= Yii::t('user', 'Credentials will be sent to the user by email') ?>.
-                <?= Yii::t('user', 'A password will be generated automatically if not provided') ?>.
+                <?= Yii::t('yuncms', 'Credentials will be sent to the user by email') ?>.
+                <?= Yii::t('yuncms', 'A password will be generated automatically if not provided') ?>.
             </div>
             <?= $this->render('_form', ['model' => $model]) ?>
             <?php Box::end(); ?>

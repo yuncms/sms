@@ -11,7 +11,7 @@ use Yii;
 use yii\validators\RegularExpressionValidator;
 
 /**
- * Class ISBNValidator
+ * 图书ISBN验证
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0

@@ -61,7 +61,7 @@ class UserController extends Controller
     public function actionIndex()
     {
         Url::remember('', 'actions-redirect');
-        $searchModel = Yii::createObject(UserSearch::className());
+        $searchModel = Yii::createObject(UserSearch::class);
         $dataProvider = $searchModel->search(Yii::$app->request->get());
 
         return $this->render('index', [
@@ -81,15 +81,15 @@ class UserController extends Controller
     {
         /** @var User $model */
         $model = Yii::createObject([
-            'class' => User::className(),
+            'class' => User::class,
             'scenario' => User::SCENARIO_CREATE,
         ]);
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
-        if ($model->load(Yii::$app->request->post()) && $model->create()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('user', 'User has been created'));
+        if ($model->load(Yii::$app->request->post()) && $model->createUser()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'User has been created'));
             return $this->redirect(['update', 'id' => $model->id]);
         }
         return $this->render('create', [
@@ -115,7 +115,7 @@ class UserController extends Controller
             return ActiveForm::validate($model);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('user', 'Account details have been updated'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Account details have been updated'));
             return $this->refresh();
         }
         return $this->render('_account', [
@@ -245,7 +245,7 @@ class UserController extends Controller
     {
         $user = User::findOne($id);
         if ($user === null) {
-            throw new NotFoundHttpException('The requested page does not exist');
+            throw new NotFoundHttpException(Yii::t('yuncms', 'The requested page does not exist.'));
         }
         return $user;
     }

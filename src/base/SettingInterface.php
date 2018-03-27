@@ -5,11 +5,11 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\models;
+namespace yuncms\base;
 
 /**
  * Interface SettingInterface
- * @package yuncms\core\models
+ * @package yuncms\base
  *
  * @author Aris Karageorgos <aris@phe.me>
  */

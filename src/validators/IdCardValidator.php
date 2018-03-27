@@ -10,7 +10,7 @@ use Yii;
 use yii\validators\Validator;
 
 /**
- * Class IdCardValidator
+ * 中国大陆18位身份证验证
  * [ 'id_card', 'yuncms\validators\IdCardValidator', 'message'=> '呀！身份证号码格式不正确，请重试！' ],
  * @package yuncms\validators
  */

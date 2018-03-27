@@ -40,13 +40,11 @@ return [
         'response' => [
             'class' => yuncms\web\Response::class,
         ],
-//        'urlManager' => [
-//            'class' => yii\web\UrlManager::class,
-//            'enablePrettyUrl' => true,
-//            'showScriptName' => false,
-//            'rules' => [
-//                'GET ping' => 'health/ping',
-//            ],
-//        ],
+        'urlManager' => [
+            'class' => yii\web\UrlManager::class,
+            'rules' => [
+                'GET ping' => 'health/ping',
+            ],
+        ],
     ]
 ];

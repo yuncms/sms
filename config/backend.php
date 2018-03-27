@@ -8,6 +8,9 @@ return [
     'bootstrap' => ['log', 'queue', 'yuncms\admin\Bootstrap'],
     'layout' => '@yuncms/admin/views/layouts/main',
     //'defaultRoute' => 'dashboard',
+    'controllerMap' => [
+        'health' => 'yuncms\web\controllers\HealthController'
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf_backend',
@@ -37,6 +40,7 @@ return [
         'urlManager' => [
             'class' => yii\web\UrlManager::class,
             'rules' => [
+                'GET ping' => 'health/ping',
                 'login' => '/admin/security/login',
                 'logout' => '/admin/security/logout',
             ],

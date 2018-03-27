@@ -9,6 +9,7 @@ namespace yuncms\web;
 
 use Yii;
 use yii\web\Cookie;
+use yii\web\User;
 use yuncms\base\ApplicationTrait;
 
 /**

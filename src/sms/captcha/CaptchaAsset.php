@@ -18,7 +18,7 @@ class CaptchaAsset extends AssetBundle
     /**
      * @inherit
      */
-    public $sourcePath = '@yuncms/sms/captcha/assets';
+    public $sourcePath = '@vendor/yuncms/framework/resources/assets/yuncms-sms-captcha';
 
     public $js = [
         'js/yii.smsCaptcha.js',

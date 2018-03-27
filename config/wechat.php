@@ -9,6 +9,9 @@ return [
     'bootstrap' => [
         'log', 'queue',
     ],
+    'controllerMap' => [
+        'health' => 'yuncms\web\controllers\HealthController'
+    ],
     'components' => [
         'cache' => [
             'keyPrefix' => 'wechat',       //前缀
@@ -33,6 +36,12 @@ return [
         ],
         'response' => [
             'class' => yuncms\wechat\Response::class,
+        ],
+        'urlManager' => [
+            'class' => yii\web\UrlManager::class,
+            'rules' => [
+                'GET ping' => 'health/ping',
+            ],
         ],
     ]
 ];

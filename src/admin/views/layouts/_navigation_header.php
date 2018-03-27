@@ -17,11 +17,11 @@ use yii\helpers\Html;
 <!--                        </span>-->
 <!--        </a>-->
 <!--        <ul class="dropdown-menu animated fadeInRight m-t-xs">-->
-<!--            <li>--><?//= Html::a(Yii::t('admin', 'Logout'), Url::to(['/admin/security/logout']), [
-//                'title' => Yii::t('admin', 'Sign Out'),
+<!--            <li>--><?//= Html::a(Yii::t('yuncms', 'Logout'), Url::to(['/admin/security/logout']), [
+//                'title' => Yii::t('yuncms', 'Sign Out'),
 //                'data' => [
 //                    'method' => 'post',
-//                    'confirm' => Yii::t('admin', 'You can improve your security further after logging out by closing this opened browser')
+//                    'confirm' => Yii::t('yuncms', 'You can improve your security further after logging out by closing this opened browser')
 //                ]
 //            ]); ?><!--</li>-->
 <!--        </ul>-->

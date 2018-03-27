@@ -13,7 +13,7 @@ use yii\validators\Validator;
 use yii\validators\ValidationAsset;
 
 /**
- * Class MobileValidator
+ * 中国大陆11位手机号码验证
  * [ 'mobile', 'yuncms\validators\MobileValidator', 'message'=> '呀！手机号码格式不正确，请重试！' ],
  * @package yuncms\validators
  */

@@ -13,7 +13,7 @@ use yii\validators\Validator;
 use yii\validators\ValidationAsset;
 
 /**
- * Class QqValidator
+ * QQ号码验证
  * [ 'qq', 'yuncms\validators\QqValidator', 'message'=> '亲，这个QQ号看起来不对呀！' ],
  * @package yuncms\validators
  */
