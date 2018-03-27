@@ -11,10 +11,33 @@ use yuncms\base\RequestTrait;
 
 /**
  * Class Request
+ * @property bool $isWeChat Whether this is an wechat request. This property is read-only.
+ * @property bool $isAliPay Whether this is an alipay request. This property is read-only.
+ *
  * @package yuncms\web
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class Request extends \yii\web\Request
 {
     use RequestTrait;
+
+    /**
+     * Returns whether this is an wechat request.
+     * @return bool whether this is an wechat request.
+     */
+    public function getIsWeChat()
+    {
+        $userAgent = $this->headers->get('User-Agent', '');
+        return stripos($userAgent, 'MicroMessenger') !== false;
+    }
+
+    /**
+     * Returns whether this is an alipay request.
+     * @return bool whether this is an alipay request.
+     */
+    public function getIsAliPay()
+    {
+        $userAgent = $this->headers->get('User-Agent', '');
+        return stripos($userAgent, 'Alipay') !== false;
+    }
 }
