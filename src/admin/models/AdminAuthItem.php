@@ -4,13 +4,14 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\admin\models;
 
 use Yii;
 use yii\rbac\Item;
 use yii\helpers\Json;
 use yuncms\base\Model;
-use yuncms\admin\components\Helper;
+use yuncms\helpers\RBACHelper;
 
 /**
  * This is the model class for table "tbl_auth_item".
@@ -39,7 +40,6 @@ class AdminAuthItem extends Model
      */
     private $_item;
 
-
     /**
      * Initialize object
      * @param Item $item
@@ -66,9 +66,9 @@ class AdminAuthItem extends Model
         return [
             [['ruleName'], 'in',
                 'range' => array_keys(Yii::$app->authManager->getRules()),
-                'message' => 'Rule not exists'],
+                'message' => Yii::t('yuncms', 'Rule not exists.')],
             [['name', 'type'], 'required'],
-            [['name'], 'unique', 'when' => function() {
+            [['name'], 'unique', 'when' => function () {
                 return $this->isNewRecord || ($this->_item->name != $this->name);
             }],
             [['type'], 'integer'],
@@ -158,7 +158,7 @@ class AdminAuthItem extends Model
             } else {
                 $manager->update($oldName, $this->_item);
             }
-            Helper::invalidate();
+            RBACHelper::invalidate();
             return true;
         } else {
             return false;
@@ -189,7 +189,7 @@ class AdminAuthItem extends Model
             }
         }
         if ($success > 0) {
-            Helper::invalidate();
+            RBACHelper::invalidate();
         }
         return $success;
     }
@@ -218,7 +218,7 @@ class AdminAuthItem extends Model
             }
         }
         if ($success > 0) {
-            Helper::invalidate();
+            RBACHelper::invalidate();
         }
         return $success;
     }
@@ -245,7 +245,7 @@ class AdminAuthItem extends Model
             unset($avaliable[$item->name]);
         }
         unset($avaliable[$this->name]);
-        return[
+        return [
             'avaliable' => $avaliable,
             'assigned' => $assigned
         ];

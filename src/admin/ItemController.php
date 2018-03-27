@@ -9,10 +9,10 @@ namespace yuncms\admin;
 
 use Yii;
 use yii\rbac\Item;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yii\base\NotSupportedException;
+use yuncms\web\Controller;
 use yuncms\admin\models\AdminAuthItem;
 use yuncms\admin\models\AdminAuthItemSearch;
 use yuncms\helpers\RBACHelper;
@@ -79,7 +79,7 @@ class ItemController extends Controller
         $model = new AdminAuthItem(null);
         $model->type = $this->type;
         if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('admin','Create success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms','Create success.'));
             return $this->redirect(['view', 'id' => $model->name]);
         } else {
             return $this->render('create', ['model' => $model]);
@@ -116,7 +116,6 @@ class ItemController extends Controller
         $model = $this->findModel($id);
         Yii::$app->getAuthManager()->remove($model->item);
         RBACHelper::invalidate();
-
         return $this->redirect(['index']);
     }
 

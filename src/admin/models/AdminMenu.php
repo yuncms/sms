@@ -8,7 +8,7 @@ namespace yuncms\admin\models;
 
 use Yii;
 use yii\db\Query;
-use yii\db\ActiveRecord;
+use yuncms\db\ActiveRecord;
 use yii2tech\ar\position\PositionBehavior;
 
 /**
@@ -43,7 +43,7 @@ class AdminMenu extends ActiveRecord
     {
         return [
             'positionBehavior' => [
-                'class' => PositionBehavior::className(),
+                'class' => PositionBehavior::class,
                 'positionAttribute' => 'sort',
                 'groupAttributes' => [
                     'parent' // multiple lists varying by 'parent'

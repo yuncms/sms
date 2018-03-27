@@ -7,8 +7,8 @@
 namespace yuncms\admin\models;
 
 use Yii;
-use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
+use yuncms\db\ActiveRecord;
 
 /**
  * Class LoginHistory

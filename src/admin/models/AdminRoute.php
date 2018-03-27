@@ -11,7 +11,7 @@ use Exception;
 use yii\base\BaseObject;
 use yii\helpers\VarDumper;
 use yii\caching\TagDependency;
-use yuncms\admin\components\Helper;
+use yuncms\helpers\RBACHelper;
 use yuncms\rbac\RouteRule;
 
 /**
@@ -58,7 +58,7 @@ class AdminRoute extends BaseObject
                 Yii::error($exc->getMessage(), __METHOD__);
             }
         }
-        Helper::invalidate();
+        RBACHelper::invalidate();
     }
 
     /**
@@ -77,7 +77,7 @@ class AdminRoute extends BaseObject
                 Yii::error($exc->getMessage(), __METHOD__);
             }
         }
-        Helper::invalidate();
+        RBACHelper::invalidate();
     }
 
     /**
@@ -248,7 +248,7 @@ class AdminRoute extends BaseObject
     }
 
     /**
-     * Ivalidate cache
+     * Invalidate cache
      */
     public static function invalidate()
     {
@@ -258,7 +258,7 @@ class AdminRoute extends BaseObject
     }
 
     /**
-     * Set default rule of parameterize route.
+     * Set default rule of parametrize route.
      * @throws Exception
      */
     protected function setDefaultRule()

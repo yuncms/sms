@@ -4,11 +4,12 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\admin\models;
 
 use Yii;
 use yii\base\BaseObject;
-use yuncms\admin\components\Helper;
+use yuncms\helpers\RBACHelper;
 
 /**
  * Description of Assignment
@@ -56,7 +57,7 @@ class AdminAssignment extends BaseObject
                 Yii::error($exc->getMessage(), __METHOD__);
             }
         }
-        Helper::invalidate();
+        RBACHelper::invalidate();
         return $success;
     }
 
@@ -79,7 +80,7 @@ class AdminAssignment extends BaseObject
                 Yii::error($exc->getMessage(), __METHOD__);
             }
         }
-        Helper::invalidate();
+        RBACHelper::invalidate();
         return $success;
     }
 
@@ -121,5 +122,6 @@ class AdminAssignment extends BaseObject
         if ($this->user) {
             return $this->user->$name;
         }
+        return null;
     }
 }
