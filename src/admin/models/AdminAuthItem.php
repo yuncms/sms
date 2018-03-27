@@ -23,6 +23,8 @@ use yuncms\helpers\RBACHelper;
  * @property string $data
  *
  * @property Item $item
+ * @property-read boolean $isNewRecord
+ *
  *
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
@@ -64,22 +66,31 @@ class AdminAuthItem extends Model
     public function rules()
     {
         return [
-            [['ruleName'], 'in',
-                'range' => array_keys(Yii::$app->authManager->getRules()),
-                'message' => Yii::t('yuncms', 'Rule not exists.')],
+            [['ruleName'], 'checkRule'],
             [['name', 'type'], 'required'],
-            [['name'], 'unique', 'when' => function () {
+            [['name'], 'checkUnique', 'when' => function () {
                 return $this->isNewRecord || ($this->_item->name != $this->name);
             }],
             [['type'], 'integer'],
             [['description', 'data', 'ruleName'], 'default'],
-            [['name'], 'string', 'max' => 64]
+            [['name'], 'string', 'max' => 64],
         ];
     }
 
-    public function unique()
+    /**
+     * @return \yii\rbac\ManagerInterface|\yuncms\rbac\DbManager
+     */
+    public static function getAuthManager()
     {
-        $authManager = Yii::$app->authManager;
+        return Yii::$app->getAuthManager();
+    }
+
+    /**
+     * Check role is unique
+     */
+    public function checkUnique()
+    {
+        $authManager = self::getAuthManager();
         $value = $this->name;
         if ($authManager->getRole($value) !== null || $authManager->getPermission($value) !== null) {
             $message = Yii::t('yii', '{attribute} "{value}" has already been taken.');
@@ -88,6 +99,27 @@ class AdminAuthItem extends Model
                 'value' => $value,
             ];
             $this->addError('name', Yii::$app->getI18n()->format($message, $params, Yii::$app->language));
+        }
+    }
+
+    /**
+     * Check for rule
+     */
+    public function checkRule()
+    {
+        $name = $this->ruleName;
+        if (!self::getAuthManager()->getRule($name)) {
+            try {
+                $rule = Yii::createObject($name);
+                if ($rule instanceof \yii\rbac\Rule) {
+                    $rule->name = $name;
+                    $this->getAuthManager()->add($rule);
+                } else {
+                    $this->addError('ruleName', Yii::t('yuncms', 'Invalid rule "{value}"', ['value' => $name]));
+                }
+            } catch (\Exception $exc) {
+                $this->addError('ruleName', Yii::t('yuncms', 'Rule "{value}" does not exists', ['value' => $name]));
+            }
         }
     }
 
@@ -121,11 +153,10 @@ class AdminAuthItem extends Model
      */
     public static function find($id)
     {
-        $item = Yii::$app->authManager->getRole($id);
+        $item = self::getAuthManager()->getRole($id);
         if ($item !== null) {
             return new self($item);
         }
-
         return null;
     }
 
@@ -137,7 +168,7 @@ class AdminAuthItem extends Model
     public function save()
     {
         if ($this->validate()) {
-            $manager = Yii::$app->authManager;
+            $manager = self::getAuthManager();
             if ($this->_item === null) {
                 if ($this->type == Item::TYPE_ROLE) {
                     $this->_item = $manager->createRole($this->name);
