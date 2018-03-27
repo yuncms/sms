@@ -7,14 +7,12 @@
 
 namespace yuncms\wechat;
 
-use yuncms\base\RequestTrait;
-
 /**
  * Class Request
- * @package yuncms\web
+ * @package yuncms\wechat
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class Request extends \yii\web\Request
+class Request extends \yuncms\web\Request
 {
-    use RequestTrait;
+
 }

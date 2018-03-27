@@ -9,10 +9,10 @@ namespace yuncms\wechat;
 
 /**
  * Class Response
- * @package yuncms\web
+ * @package yuncms\wechat
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class Response extends \yii\web\Response
+class Response extends \yuncms\web\Response
 {
 
 }

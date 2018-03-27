@@ -5,12 +5,12 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\behaviors;
+namespace yuncms\user\behaviors;
 
 use Yii;
 use yii\base\Model;
 use yii\base\Behavior;
-use yuncms\models\UserLoginAttempt;
+use yuncms\user\models\UserLoginAttempt;
 
 /**
  * Class LoginAttemptBehavior

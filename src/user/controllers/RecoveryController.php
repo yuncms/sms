@@ -8,10 +8,10 @@
 namespace yuncms\user\controllers;
 
 use Yii;
-use yii\web\Response;
-use yii\web\Controller;
 use yii\widgets\ActiveForm;
 use yii\filters\AccessControl;
+use yuncms\web\Response;
+use yuncms\web\Controller;
 use yuncms\user\models\UserToken;
 use yuncms\user\models\RecoveryForm;
 
