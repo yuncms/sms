@@ -47,12 +47,6 @@ class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInter
 {
     use NotifiableTrait;
 
-    //事件定义
-    const BEFORE_CREATE = 'beforeCreate';
-    const AFTER_CREATE = 'afterCreate';
-    const BEFORE_REGISTER = 'beforeRegister';
-    const AFTER_REGISTER = 'afterRegister';
-
     // following constants are used on secured email changing process
     const OLD_EMAIL_CONFIRMED = 0b1;
     const NEW_EMAIL_CONFIRMED = 0b10;
@@ -395,10 +389,11 @@ class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInter
         if ($insert) {
             $this->generateAccessToken();
             $this->generateAuthKey();
+            if (empty($this->username)) {
+                $this->generateUsername();
+            }
         }
-        if (!empty($this->username)) {
-            $this->username = $this->generateUsername();
-        }
+
         if (!empty($this->password)) {
             $this->password_hash = PasswordHelper::hash($this->password);
         }

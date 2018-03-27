@@ -9,6 +9,7 @@ namespace yuncms\user\models;
 
 use Yii;
 use yii\helpers\Url;
+use yuncms\models\BaseUser;
 use yuncms\assets\UserAsset;
 use yuncms\db\ActiveRecord;
 use yuncms\helpers\ArrayHelper;
@@ -39,8 +40,14 @@ use creocoder\taggable\TaggableBehavior;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class User extends \yuncms\models\BaseUser
+class User extends BaseUser
 {
+    //事件定义
+    const BEFORE_CREATE = 'beforeCreate';
+    const AFTER_CREATE = 'afterCreate';
+    const BEFORE_REGISTER = 'beforeRegister';
+    const AFTER_REGISTER = 'afterRegister';
+
     //场景定义
     const SCENARIO_CREATE = 'create';//后台或控制台创建用户
     const SCENARIO_UPDATE = 'update';//后台或控制台修改用户
