@@ -44,5 +44,11 @@ return [
                 'GET ping' => 'health/ping',
             ],
         ],
+
+    ],
+    'modules' => [
+        'admin' => [
+            'class' => yuncms\admin\Module::class
+        ]
     ]
 ];

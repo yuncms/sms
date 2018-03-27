@@ -15,7 +15,7 @@ use yii\web\AssetBundle;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Asset extends AssetBundle
+class FmtAsset extends AssetBundle
 {
     /**
      * @inherit
