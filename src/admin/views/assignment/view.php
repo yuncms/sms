@@ -44,7 +44,7 @@ $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate
                         ],
                         [
                             'label' => Yii::t('yuncms', 'Create'),
-                            'url' => ['/user/user/create'],
+                            'url' => ['/admin/admin/create'],
                         ],
                     ]]); ?>
                 </div>
