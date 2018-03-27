@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <span class="docs-tooltip" data-toggle="tooltip" title="<?= Yii::t('yuncms', 'Reset'); ?>">
                                 <span class="fa fa-refresh"></span>
                             </span>
-                            <?= Yii::t('user', 'Refresh') ?>
+                            <?= Yii::t('yuncms', 'Refresh') ?>
                         </button>
                         <label class="btn btn-primary btn-upload" for="inputImage"
                                title="<?= Yii::t('yuncms', 'Upload avatar'); ?>">
