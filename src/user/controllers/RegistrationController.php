@@ -13,7 +13,6 @@ use yii\web\Controller;
 use yii\widgets\ActiveForm;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
-use yuncms\user\UserTrait;
 use yuncms\user\models\User;
 use yuncms\user\models\UserSocialAccount;
 use yuncms\user\models\ResendForm;
@@ -28,8 +27,6 @@ use yuncms\user\models\RegistrationForm;
  */
 class RegistrationController extends Controller
 {
-    use UserTrait;
-
     /**
      * @inheritdoc
      */
@@ -79,7 +76,7 @@ class RegistrationController extends Controller
             Yii::$app->session->setFlash('danger', Yii::t('yuncms', 'You have already registered.'));
             return $this->goBack();
         }
-        if (!$this->getSetting('enableRegistration')) {
+        if (!Yii::$app->settings->get('enableRegistration', 'user')) {
             Yii::$app->session->setFlash('danger', Yii::t('yuncms', 'The system has closed the new user registration.'));
             return $this->goBack();
         }
@@ -95,8 +92,8 @@ class RegistrationController extends Controller
         }
         return $this->render('register', [
             'model' => $model,
-            'enableRegistrationCaptcha' => $this->getSetting('enableRegistrationCaptcha'),
-            'enableGeneratingPassword'=>$this->getSetting('enableGeneratingPassword'),
+            'enableRegistrationCaptcha' => Yii::$app->settings->get('enableRegistrationCaptcha', 'user'),
+            'enableGeneratingPassword' => Yii::$app->settings->get('enableGeneratingPassword', 'user'),
         ]);
     }
 
@@ -129,9 +126,9 @@ class RegistrationController extends Controller
             'email' => $account->email,
         ]);
 
-        if ($user->load(Yii::$app->request->post()) && $user->create()) {
+        if ($user->load(Yii::$app->request->post()) && $user->createUser()) {
             $account->connect($user);
-            Yii::$app->user->login($user, $this->getSetting('rememberFor'));
+            Yii::$app->user->login($user, Yii::$app->settings->get('rememberFor','user'));
             return $this->goBack();
         }
 
@@ -152,7 +149,7 @@ class RegistrationController extends Controller
     public function actionConfirm($id, $code)
     {
         $user = User::findOne($id);
-        if ($user === null || $this->getSetting('enableConfirmation') == false) {
+        if ($user === null || Yii::$app->settings->get('enableConfirmation','user') == false) {
             return $this->goBack();
         }
         $user->attemptConfirmation($code);
@@ -166,7 +163,7 @@ class RegistrationController extends Controller
      */
     public function actionResend()
     {
-        if ($this->getSetting('enableConfirmation') == false) {
+        if (Yii::$app->settings->get('enableConfirmation','user') == false) {
             return $this->goBack();
         }
         /** @var ResendForm $model */

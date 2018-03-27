@@ -7,12 +7,12 @@
 namespace yuncms\user\models;
 
 use Yii;
-use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
-use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\authclient\ClientInterface as BaseClientInterface;
 use yuncms\authclient\ClientInterface;
+use yuncms\db\ActiveRecord;
+use yuncms\helpers\Json;
 
 /**
  * This is the model class for table "{{%user_social_account}}".
@@ -89,7 +89,7 @@ class UserSocialAccount extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     /**
@@ -137,7 +137,7 @@ class UserSocialAccount extends ActiveRecord
     {
         /** @var UserSocialAccount $account */
         $account = Yii::createObject([
-            'class' => static::className(),
+            'class' => static::class,
             'provider' => $client->getId(),
             'client_id' => $client->getUserAttributes()['id'],
             'data' => json_encode($client->getUserAttributes())
@@ -194,7 +194,7 @@ class UserSocialAccount extends ActiveRecord
     {
         $account = UserSocialAccount::find()->byClient($client)->one();
         if (null === $account) {
-            $account = Yii::createObject(['class' => static::className(), 'provider' => $client->getId(), 'client_id' => $client->getUserAttributes()['id'], 'data' => json_encode($client->getUserAttributes())]);
+            $account = Yii::createObject(['class' => static::class, 'provider' => $client->getId(), 'client_id' => $client->getUserAttributes()['id'], 'data' => json_encode($client->getUserAttributes())]);
             $account->save(false);
         }
 
@@ -219,7 +219,7 @@ class UserSocialAccount extends ActiveRecord
 
         /** @var \yuncms\user\models\User $user */
         $user = Yii::createObject([
-            'class' => User::className(),
+            'class' => User::class,
             'scenario' => User::SCENARIO_CONNECT,
             'nickname' => $account->username,
             'email' => $account->email
@@ -244,60 +244,4 @@ class UserSocialAccount extends ActiveRecord
     {
         return new UserSocialAccountQuery(get_called_class());
     }
-
-//    public function afterFind()
-//    {
-//        parent::afterFind();
-//        // ...custom code here...
-//    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function beforeSave($insert)
-//    {
-//        if (!parent::beforeSave($insert)) {
-//            return false;
-//        }
-//
-//        // ...custom code here...
-//        return true;
-//    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function afterSave($insert, $changedAttributes)
-//    {
-//        parent::afterSave($insert, $changedAttributes);
-//        Yii::$app->queue->push(new ScanTextJob([
-//            'modelId' => $this->getPrimaryKey(),
-//            'modelClass' => get_class($this),
-//            'scenario' => $this->isNewRecord ? 'new' : 'edit',
-//            'category'=>'',
-//        ]));
-//        // ...custom code here...
-//    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function beforeDelete()
-//    {
-//        if (!parent::beforeDelete()) {
-//            return false;
-//        }
-//        // ...custom code here...
-//        return true;
-//    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function afterDelete()
-//    {
-//        parent::afterDelete();
-//
-//        // ...custom code here...
-//    }
 }

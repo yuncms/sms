@@ -6,13 +6,11 @@
  */
 namespace yuncms\authclient;
 
-use yii\authclient\ClientInterface as BaseInterface;
-
 /**
  * Enhances default yii client interface by adding methods that can be used to
  * get user's email and username.
  */
-interface ClientInterface extends BaseInterface
+interface ClientInterface extends \yii\authclient\ClientInterface
 {
     /**
      * @return string|null User's email

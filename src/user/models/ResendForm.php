@@ -18,8 +18,6 @@ use yuncms\base\Model;
  */
 class ResendForm extends Model
 {
-    use UserTrait;
-
     /**
      * @var string
      */

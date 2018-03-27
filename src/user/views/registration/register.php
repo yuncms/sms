@@ -3,12 +3,12 @@
 use yii\helpers\Html;
 use yii\captcha\Captcha;
 use yii\bootstrap\ActiveForm;
-use yuncms\user\frontend\widgets\Connect;
+use yuncms\user\widgets\Connect;
 
 /**
  * @var yii\web\View $this
  * @var yuncms\user\models\User $user
- * @var yuncms\user\frontend\models\RegistrationForm $model
+ * @var yuncms\user\models\RegistrationForm $model
  * @var yuncms\user\Module $module
  * @var boolean $enableGeneratingPassword
  * @var boolean $enableRegistrationCaptcha
@@ -34,7 +34,7 @@ $this->title = Yii::t('user', 'Sign up');
     <?php endif ?>
 
     <?php if ($enableRegistrationCaptcha == true): ?>
-        <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+        <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
                 'captchaAction' => '/user/registration/captcha',
                 'template' => '<div class="row"><div class="col-lg-6">{input}</div><div class="col-lg-3">{image}</div></div>']
         ); ?>

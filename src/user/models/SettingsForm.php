@@ -5,14 +5,12 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\user\frontend\models;
+namespace yuncms\user\models;
 
 use Yii;
-use yii\base\Model;
+use yuncms\base\Model;
 use yuncms\admin\models\UserSettings;
 use yuncms\helpers\PasswordHelper;
-use yuncms\user\models\User;
-use yuncms\user\models\UserToken;
 
 /**
  * SettingsForm gets user's username, email and password and changes them.
@@ -21,7 +19,6 @@ use yuncms\user\models\UserToken;
  */
 class SettingsForm extends Model
 {
-    use UserTrait;
 
     /**
      * @var string
@@ -112,11 +109,11 @@ class SettingsForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => Yii::t('user', 'Username'),
-            'email' => Yii::t('user', 'Email'),
-            'nickname' => Yii::t('user', 'Nickname'),
-            'new_password' => Yii::t('user', 'New password'),
-            'current_password' => Yii::t('user', 'Current password')];
+            'username' => Yii::t('yuncms', 'Username'),
+            'email' => Yii::t('yuncms', 'Email'),
+            'nickname' => Yii::t('yuncms', 'Nickname'),
+            'new_password' => Yii::t('yuncms', 'New password'),
+            'current_password' => Yii::t('yuncms', 'Current password')];
     }
 
     /**

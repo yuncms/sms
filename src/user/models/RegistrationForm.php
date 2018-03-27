@@ -15,8 +15,6 @@ use yuncms\base\Model;
  */
 class RegistrationForm extends Model
 {
-    use UserTrait;
-
     /**
      * @var string User email address
      */
@@ -61,16 +59,16 @@ class RegistrationForm extends Model
             'emailUnique' => ['email', 'unique', 'targetClass' => User::class, 'message' => Yii::t('yuncms', 'This email address has already been taken')],
 
             // password rules
-            'passwordRequired' => ['password', 'required', 'skipOnEmpty' => $this->getSetting('enableGeneratingPassword')],
+            'passwordRequired' => ['password', 'required', 'skipOnEmpty' => Yii::$app->settings->get('enableGeneratingPassword','user')],
             'passwordLength' => ['password', 'string', 'min' => 6],
 
             // verifyCode needs to be entered correctly
             'verifyCodeRequired' => ['verifyCode', 'required',
-                'skipOnEmpty' => !$this->getSetting('enableRegistrationCaptcha')],
+                'skipOnEmpty' => !Yii::$app->settings->get('enableRegistrationCaptcha','user')],
 
             'verifyCode' => ['verifyCode', 'captcha',
                 'captchaAction' => '/user/registration/captcha',
-                'skipOnEmpty' => !$this->getSetting('enableRegistrationCaptcha')
+                'skipOnEmpty' => !Yii::$app->settings->get('enableRegistrationCaptcha','user')
             ],
 
             'registrationPolicyRequired' => ['registrationPolicy', 'required', 'skipOnEmpty' => false, 'requiredValue' => true,
@@ -119,7 +117,7 @@ class RegistrationForm extends Model
             return false;
         }
         Yii::$app->session->setFlash('info', Yii::t('user', 'Your account has been created and a message with further instructions has been sent to your email'));
-        return Yii::$app->getUser()->login($user, $this->getSetting('rememberFor'));
+        return Yii::$app->getUser()->login($user, Yii::$app->settings->get('rememberFor','user'));
     }
 
     /**

@@ -7,9 +7,8 @@
 namespace yuncms\user\models;
 
 use Yii;
-use yii\db\ActiveRecord;
 use yii\helpers\Url;
-use yuncms\user\UserTrait;
+use yuncms\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%user_token}}".
@@ -25,9 +24,6 @@ use yuncms\user\UserTrait;
  */
 class UserToken extends ActiveRecord
 {
-
-    use UserTrait;
-
     const TYPE_CONFIRMATION = 0b0;
     const TYPE_RECOVERY = 0b1;
     const TYPE_CONFIRM_NEW_EMAIL = 0b10;
@@ -57,10 +53,10 @@ class UserToken extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => Yii::t('user', 'User ID'),
-            'code' => Yii::t('user', 'Code'),
-            'type' => Yii::t('user', 'Type'),
-            'created_at' => Yii::t('user', 'Created At'),
+            'user_id' => Yii::t('yuncms', 'User ID'),
+            'code' => Yii::t('yuncms', 'Code'),
+            'type' => Yii::t('yuncms', 'Type'),
+            'created_at' => Yii::t('yuncms', 'Created At'),
         ];
     }
 
@@ -132,12 +128,6 @@ class UserToken extends ActiveRecord
         return new UserTokenQuery(get_called_class());
     }
 
-//    public function afterFind()
-//    {
-//        parent::afterFind();
-//        // ...custom code here...
-//    }
-
     /**
      * @inheritdoc
      */
@@ -158,36 +148,4 @@ class UserToken extends ActiveRecord
 
         return true;
     }
-
-    /**
-     * @inheritdoc
-     */
-//    public function afterSave($insert, $changedAttributes)
-//    {
-//        parent::afterSave($insert, $changedAttributes);
-//
-//        // ...custom code here...
-//    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function beforeDelete()
-//    {
-//        if (!parent::beforeDelete()) {
-//            return false;
-//        }
-//        // ...custom code here...
-//        return true;
-//    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function afterDelete()
-//    {
-//        parent::afterDelete();
-//
-//        // ...custom code here...
-//    }
 }

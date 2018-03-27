@@ -1,14 +1,13 @@
 <?php
 
-namespace yuncms\user\frontend\widgets;
+namespace yuncms\user\widgets;
 
-use Yii;
 use yii\base\Widget;
-use yuncms\user\frontend\models\LoginForm;
+use yuncms\user\models\LoginForm;
 
 /**
  * Class Login
- * @package yuncms\user\frontend\widgets
+ * @package yuncms\user\widgets
  */
 class Login extends Widget
 {

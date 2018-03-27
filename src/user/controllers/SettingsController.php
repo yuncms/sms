@@ -5,25 +5,23 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\user\frontend\controllers;
+namespace yuncms\user\controllers;
 
 use Yii;
-use yii\web\Response;
-use yii\web\Controller;
 use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
-use yii\web\ForbiddenHttpException;
+use yuncms\web\Response;
+use yuncms\web\Controller;
 use yuncms\admin\models\UserSettings;
 use yuncms\tag\models\Tag;
 use yuncms\user\models\Settings;
 use yuncms\user\models\User;
 use yuncms\user\models\UserProfile;
 use yuncms\user\models\UserSocialAccount;
-use yuncms\user\frontend\models\AvatarForm;
-use yuncms\user\frontend\models\SettingsForm;
-use yuncms\user\UserTrait;
+use yuncms\user\models\AvatarForm;
+use yuncms\user\models\SettingsForm;
 
 /**
  * SettingsController manages updating user settings (e.g. profile, email and password).
@@ -32,8 +30,6 @@ use yuncms\user\UserTrait;
  */
 class SettingsController extends Controller
 {
-    use UserTrait;
-
     /** @inheritdoc */
     public $defaultAction = 'profile';
 

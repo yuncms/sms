@@ -8,8 +8,8 @@
 namespace yuncms\user\models;
 
 use Yii;
-use yii\base\Model;
-use yii\helpers\ArrayHelper;
+use yuncms\base\Model;
+use yuncms\helpers\ArrayHelper;
 
 
 /**
@@ -19,8 +19,6 @@ use yii\helpers\ArrayHelper;
  */
 class RecoveryForm extends Model
 {
-    use UserTrait;
-
     /**
      * @var string
      */

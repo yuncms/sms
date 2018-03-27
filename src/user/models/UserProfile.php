@@ -9,7 +9,8 @@ namespace yuncms\user\models;
 use Yii;
 use DateTime;
 use DateTimeZone;
-use yii\db\ActiveRecord;
+use yuncms\db\ActiveRecord;
+use yuncms\validators\MobileValidator;
 
 /**
  * This is the model class for table "{{%user_profile}}".
@@ -99,7 +100,7 @@ class UserProfile extends ActiveRecord
             ['mobile', 'string', 'min' => 11, 'max' => 11],
             [
                 'mobile',
-                'yuncms\core\validators\MobileValidator',
+                MobileValidator::class,
                 'when' => function ($model) {
                     return $model->country == 'China';
                 }
@@ -122,7 +123,7 @@ class UserProfile extends ActiveRecord
 
             [['weibo', 'wechat', 'facebook', 'twitter'], 'string', 'max' => 50],
             [['user_id'], 'unique'],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
 
 
         ];
@@ -134,29 +135,29 @@ class UserProfile extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => Yii::t('user', 'User ID'),
-            'gender' => Yii::t('user', 'Gender'),
-            'mobile' => Yii::t('user', 'Mobile'),
-            'email' => Yii::t('user', 'Email'),
-            'country' => Yii::t('user', 'Country'),
-            'province' => Yii::t('user', 'Province'),
-            'city' => Yii::t('user', 'City'),
-            'location' => Yii::t('user', 'Location'),
-            'address' => Yii::t('user', 'Address'),
-            'website' => Yii::t('user', 'Website'),
-            'timezone' => Yii::t('user', 'Timezone'),
-            'birthday' => Yii::t('user', 'Birthday'),
-            'current' => Yii::t('user', 'Current'),
-            'qq' => Yii::t('user', 'QQ'),
-            'weibo' => Yii::t('user', 'Weibo'),
-            'wechat' => Yii::t('user', 'Wechat'),
-            'facebook' => Yii::t('user', 'Facebook'),
-            'twitter' => Yii::t('user', 'Twitter'),
-            'company' => Yii::t('user', 'Company'),
-            'company_job' => Yii::t('user', 'Company Job'),
-            'school' => Yii::t('user', 'School'),
-            'introduction' => Yii::t('user', 'Introduction'),
-            'bio' => Yii::t('user', 'Bio'),
+            'user_id' => Yii::t('yuncms', 'User ID'),
+            'gender' => Yii::t('yuncms', 'Gender'),
+            'mobile' => Yii::t('yuncms', 'Mobile'),
+            'email' => Yii::t('yuncms', 'Email'),
+            'country' => Yii::t('yuncms', 'Country'),
+            'province' => Yii::t('yuncms', 'Province'),
+            'city' => Yii::t('yuncms', 'City'),
+            'location' => Yii::t('yuncms', 'Location'),
+            'address' => Yii::t('yuncms', 'Address'),
+            'website' => Yii::t('yuncms', 'Website'),
+            'timezone' => Yii::t('yuncms', 'Timezone'),
+            'birthday' => Yii::t('yuncms', 'Birthday'),
+            'current' => Yii::t('yuncms', 'Current'),
+            'qq' => Yii::t('yuncms', 'QQ'),
+            'weibo' => Yii::t('yuncms', 'Weibo'),
+            'wechat' => Yii::t('yuncms', 'Wechat'),
+            'facebook' => Yii::t('yuncms', 'Facebook'),
+            'twitter' => Yii::t('yuncms', 'Twitter'),
+            'company' => Yii::t('yuncms', 'Company'),
+            'company_job' => Yii::t('yuncms', 'Company Job'),
+            'school' => Yii::t('yuncms', 'School'),
+            'introduction' => Yii::t('yuncms', 'Introduction'),
+            'bio' => Yii::t('yuncms', 'Bio'),
         ];
     }
 
@@ -167,13 +168,13 @@ class UserProfile extends ActiveRecord
     {
         switch ($this->gender) {
             case self::GENDER_UNCONFIRMED:
-                $genderName = Yii::t('user', 'Secrecy');
+                $genderName = Yii::t('yuncms', 'Secrecy');
                 break;
             case self::GENDER_MALE:
-                $genderName = Yii::t('user', 'Male');
+                $genderName = Yii::t('yuncms', 'Male');
                 break;
             case self::GENDER_FEMALE:
-                $genderName = Yii::t('user', 'Female');
+                $genderName = Yii::t('yuncms', 'Female');
                 break;
             default:
                 throw new \RuntimeException('Your database is not supported!');
@@ -189,25 +190,25 @@ class UserProfile extends ActiveRecord
     {
         switch ($this->current) {
             case self::CURRENT_OTHER:
-                $currentName = Yii::t('user', 'Other');
+                $currentName = Yii::t('yuncms', 'Other');
                 break;
             case self::CURRENT_WORK:
-                $currentName = Yii::t('user', 'Work');
+                $currentName = Yii::t('yuncms', 'Work');
                 break;
             case self::CURRENT_FREELANCE:
-                $currentName = Yii::t('user', 'Freelance');
+                $currentName = Yii::t('yuncms', 'Freelance');
                 break;
             case self::CURRENT_START:
-                $currentName = Yii::t('user', 'Start');
+                $currentName = Yii::t('yuncms', 'Start');
                 break;
             case self::CURRENT_OUTSOURCE:
-                $currentName = Yii::t('user', 'Outsource');
+                $currentName = Yii::t('yuncms', 'Outsource');
                 break;
             case self::CURRENT_JOB:
-                $currentName = Yii::t('user', 'Job');
+                $currentName = Yii::t('yuncms', 'Job');
                 break;
             case self::CURRENT_STUDENT:
-                $currentName = Yii::t('user', 'Student');
+                $currentName = Yii::t('yuncms', 'Student');
                 break;
             default:
                 throw new \RuntimeException('Your database is not supported!');
@@ -244,10 +245,9 @@ class UserProfile extends ActiveRecord
      * 验证时区
      * Adds an error when the specified time zone doesn't exist.
      * @param string $attribute the attribute being validated
-     * @param array $params values for the placeholders in the error message
      * @return void
      */
-    public function validateTimeZone($attribute, $params)
+    public function validateTimeZone($attribute)
     {
         if (!in_array($this->$attribute, timezone_identifiers_list())) {
             $this->addError($attribute, Yii::t('user', 'Time zone is not valid'));
@@ -293,60 +293,4 @@ class UserProfile extends ActiveRecord
 
         return $dateTime->setTimezone($this->getTimeZone());
     }
-
-//    public function afterFind()
-//    {
-//        parent::afterFind();
-//        // ...custom code here...
-//    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function beforeSave($insert)
-//    {
-//        if (!parent::beforeSave($insert)) {
-//            return false;
-//        }
-//
-//        // ...custom code here...
-//        return true;
-//    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function afterSave($insert, $changedAttributes)
-//    {
-//        parent::afterSave($insert, $changedAttributes);
-//        Yii::$app->queue->push(new ScanTextJob([
-//            'modelId' => $this->getPrimaryKey(),
-//            'modelClass' => get_class($this),
-//            'scenario' => $this->isNewRecord ? 'new' : 'edit',
-//            'category'=>'',
-//        ]));
-//        // ...custom code here...
-//    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function beforeDelete()
-//    {
-//        if (!parent::beforeDelete()) {
-//            return false;
-//        }
-//        // ...custom code here...
-//        return true;
-//    }
-
-    /**
-     * @inheritdoc
-     */
-//    public function afterDelete()
-//    {
-//        parent::afterDelete();
-//
-//        // ...custom code here...
-//    }
 }

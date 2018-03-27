@@ -8,9 +8,9 @@
 namespace yuncms\user\models;
 
 use Yii;
-use yii\base\Model;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
+use yuncms\base\Model;
 
 /**
  * Class PortraitForm

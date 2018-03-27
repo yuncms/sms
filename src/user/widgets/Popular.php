@@ -1,13 +1,13 @@
 <?php
 
-namespace yuncms\user\frontend\widgets;
+namespace yuncms\user\widgets;
 
 use yii\base\Widget;
 use yuncms\user\models\User;
 
 /**
  * Class Popular
- * @package yuncms\user\frontend\widgets
+ * @package yuncms\user\widgets
  */
 class Popular extends Widget
 {

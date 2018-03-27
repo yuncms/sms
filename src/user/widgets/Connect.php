@@ -1,13 +1,13 @@
 <?php
 
-namespace yuncms\user\frontend\widgets;
+namespace yuncms\user\widgets;
 
 use Yii;
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\authclient\ClientInterface;
-use xutl\authclient\widgets\AuthChoice;
-use xutl\authclient\widgets\AuthChoiceAsset;
+use yuncms\authclient\ClientInterface;
+use yuncms\authclient\widgets\AuthChoice;
+use yuncms\authclient\widgets\AuthChoiceAsset;
 
 /**
  * Class Connect
@@ -39,7 +39,8 @@ class Connect extends AuthChoice
     }
 
     /**
-     * @inheritdoc
+     * @param ClientInterface $provider
+     * @return string
      */
     public function createClientUrl($provider)
     {
