@@ -11,6 +11,12 @@ return [
         'cache' => [
             'keyPrefix' => 'web',       //前缀
         ],
+        'user' => [
+            'identityClass' => yuncms\user\models\User::class,
+            'enableAutoLogin' => true,
+            'loginUrl' => ['/user/security/login'],
+            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+        ],
         'request' => [
             'class' => yuncms\web\Request::class,
             'secureProtocolHeaders' => [
