@@ -5,10 +5,10 @@ use yuncms\admin\widgets\Box;
 use yuncms\admin\widgets\Toolbar;
 use yuncms\admin\widgets\Alert;
 use yuncms\admin\widgets\ActiveForm;
-use yuncms\user\models\Settings;
+use yuncms\admin\models\UserSettings;
 
 /* @var $this yii\web\View */
-/* @var $model yuncms\user\models\Settings */
+/* @var $model yuncms\admin\models\UserSettings */
 
 $this->title = Yii::t('yuncms', 'Settings');
 $this->params['breadcrumbs'][] = Yii::t('yuncms', 'Manage Users');
@@ -27,15 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'items' => [
                             [
                                 'label' => Yii::t('yuncms', 'Manage User'),
-                                'url' => ['/user/user/index'],
+                                'url' => ['/admin/user/index'],
                             ],
                             [
                                 'label' => Yii::t('yuncms', 'Create User'),
-                                'url' => ['/user/user/create'],
+                                'url' => ['/admin/user/create'],
                             ],
                             [
                                 'label' => Yii::t('yuncms', 'Settings'),
-                                'url' => ['/user/user/settings'],
+                                'url' => ['/admin/user/settings'],
                             ],
                         ]
                     ]); ?>
@@ -58,16 +58,16 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'enablePasswordRecovery')->inline()->checkbox([], false) ?>
 
             <?= $form->field($model, 'emailChangeStrategy')->inline()->dropDownList([
-                Settings::STRATEGY_INSECURE => Yii::t('yuncms', 'Insecure'),
-                Settings::STRATEGY_DEFAULT => Yii::t('yuncms', 'Default'),
-                Settings::STRATEGY_SECURE => Yii::t('yuncms', 'Secure'),
+                UserSettings::STRATEGY_INSECURE => Yii::t('yuncms', 'Insecure'),
+                UserSettings::STRATEGY_DEFAULT => Yii::t('yuncms', 'Default'),
+                UserSettings::STRATEGY_SECURE => Yii::t('yuncms', 'Secure'),
             ], [
                 'prompt' => Yii::t('yuncms', 'Please select')
             ]) ?>
             <?= $form->field($model, 'mobileChangeStrategy')->inline()->dropDownList([
-                Settings::STRATEGY_INSECURE => Yii::t('yuncms', 'Insecure'),
-                Settings::STRATEGY_DEFAULT => Yii::t('yuncms', 'Default'),
-                Settings::STRATEGY_SECURE => Yii::t('yuncms', 'Secure'),
+                UserSettings::STRATEGY_INSECURE => Yii::t('yuncms', 'Insecure'),
+                UserSettings::STRATEGY_DEFAULT => Yii::t('yuncms', 'Default'),
+                UserSettings::STRATEGY_SECURE => Yii::t('yuncms', 'Secure'),
             ], [
                 'prompt' => Yii::t('yuncms', 'Please select')
             ]) ?>

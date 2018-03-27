@@ -29,7 +29,7 @@ class UserController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                     'confirm' => ['post'],
@@ -45,7 +45,7 @@ class UserController extends Controller
             //....
             'settings' => [
                 'class' => 'yuncms\actions\SettingsAction',
-                'modelClass' => 'yuncms\user\models\Settings',
+                'modelClass' => 'yuncms\admin\models\UserSettings',
                 //'scenario' => 'user',
                 //'scenario' => 'site', // Change if you want to re-use the model for multiple setting form.
                 'viewName' => 'settings'    // The form we need to render
