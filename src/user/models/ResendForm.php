@@ -90,8 +90,8 @@ class ResendForm extends Model
         /** @var UserToken $token */
         $token = new UserToken(['user_id' => $this->user->id, 'type' => UserToken::TYPE_CONFIRMATION]);
         $token->save(false);
-        $this->sendMessage($this->user->email,Yii::t('user', 'Confirm account on {0}', Yii::$app->name),'confirmation',['user' => $this->user, 'token' => $token]);
-        Yii::$app->session->setFlash('info', Yii::t('user', 'A message has been sent to your email address. It contains a confirmation link that you must click to complete registration.'));
+        $this->sendMessage($this->user->email,Yii::t('yuncms', 'Confirm account on {0}', Yii::$app->name),'confirmation',['user' => $this->user, 'token' => $token]);
+        Yii::$app->session->setFlash('info', Yii::t('yuncms', 'A message has been sent to your email address. It contains a confirmation link that you must click to complete registration.'));
         return true;
     }
 }

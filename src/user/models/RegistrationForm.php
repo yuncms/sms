@@ -5,12 +5,10 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\user\frontend\models;
+namespace yuncms\user\models;
 
 use Yii;
 use yuncms\base\Model;
-use yuncms\user\UserTrait;
-use yuncms\user\models\User;
 
 /**
  * Registration form collects user input on registration process, validates it and creates new User model.
@@ -60,7 +58,7 @@ class RegistrationForm extends Model
             'emailRequired' => ['email', 'required'],
             'emailTrim' => ['email', 'filter', 'filter' => 'trim'],
             'emailPattern' => ['email', 'email', 'checkDNS' => true],
-            'emailUnique' => ['email', 'unique', 'targetClass' => User::class, 'message' => Yii::t('user', 'This email address has already been taken')],
+            'emailUnique' => ['email', 'unique', 'targetClass' => User::class, 'message' => Yii::t('yuncms', 'This email address has already been taken')],
 
             // password rules
             'passwordRequired' => ['password', 'required', 'skipOnEmpty' => $this->getSetting('enableGeneratingPassword')],
@@ -76,7 +74,7 @@ class RegistrationForm extends Model
             ],
 
             'registrationPolicyRequired' => ['registrationPolicy', 'required', 'skipOnEmpty' => false, 'requiredValue' => true,
-                'message' => Yii::t('user', 'By registering you confirm that you accept the Service Agreement and Privacy Policy.'),],
+                'message' => Yii::t('yuncms', 'By registering you confirm that you accept the Service Agreement and Privacy Policy.'),],
         ];
     }
 
@@ -86,11 +84,11 @@ class RegistrationForm extends Model
     public function attributeLabels()
     {
         return [
-            'email' => Yii::t('user', 'Email'),
-            'nickname' => Yii::t('user', 'Nickname'),
-            'password' => Yii::t('user', 'Password'),
-            'verifyCode' => Yii::t('user', 'Verification Code'),
-            'registrationPolicy' => Yii::t('user', 'Agree and accept Service Agreement and Privacy Policy'),
+            'email' => Yii::t('yuncms', 'Email'),
+            'nickname' => Yii::t('yuncms', 'Nickname'),
+            'password' => Yii::t('yuncms', 'Password'),
+            'verifyCode' => Yii::t('yuncms', 'Verification Code'),
+            'registrationPolicy' => Yii::t('yuncms', 'Agree and accept Service Agreement and Privacy Policy'),
         ];
     }
 

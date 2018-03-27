@@ -11,7 +11,6 @@ use Yii;
 use yii\base\Model;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
-use yuncms\user\models\User;
 use yuncms\user\UserTrait;
 
 /**
@@ -52,7 +51,8 @@ class AvatarForm extends Model
         return [
             [['x', 'y', 'width', 'height'], 'integer'],
             [['file'], 'required'],
-            [['file'], 'file', 'extensions' => 'gif, jpg, png', 'maxSize' => 1024 * 1024 * 2, 'tooBig' => Yii::t('user', 'File has to be smaller than 2MB')],
+            [['file'], 'file', 'extensions' => 'gif, jpg, png', 'maxSize' => 1024 * 1024 * 2,
+                'tooBig' => Yii::t('yuncms', 'File has to be smaller than 2MB')],
         ];
     }
 
@@ -62,7 +62,7 @@ class AvatarForm extends Model
     public function attributeLabels()
     {
         return [
-            'portrait' => Yii::t('user', 'Portrait'),
+            'portrait' => Yii::t('yuncms', 'Portrait'),
         ];
     }
 

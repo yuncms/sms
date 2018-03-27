@@ -41,8 +41,8 @@ class RecoveryForm extends Model
     public function attributeLabels()
     {
         return [
-            'email' => Yii::t('user', 'Email'),
-            'password' => Yii::t('user', 'Password')
+            'email' => Yii::t('yuncms', 'Email'),
+            'password' => Yii::t('yuncms', 'Password')
         ];
     }
 
@@ -64,11 +64,11 @@ class RecoveryForm extends Model
             'emailTrim' => ['email', 'filter', 'filter' => 'trim'],
             'emailRequired' => ['email', 'required'],
             'emailPattern' => ['email', 'email'],
-            'emailExist' => ['email', 'exist', 'targetClass' => User::className(), 'message' => Yii::t('user', 'There is no user with this email address')],
+            'emailExist' => ['email', 'exist', 'targetClass' => User::class, 'message' => Yii::t('yuncms', 'There is no user with this email address')],
             'emailUnconfirmed' => ['email', function ($attribute) {
                 $this->user = User::findByEmail($this->email);
                 if ($this->user !== null && $this->getSetting('enableConfirmation') && !$this->user->isEmailConfirmed) {
-                    $this->addError($attribute, Yii::t('user', 'You need to confirm your email address.'));
+                    $this->addError($attribute, Yii::t('yuncms', 'You need to confirm your email address.'));
                 }
             }],
             'passwordRequired' => ['password', 'required'],
@@ -87,8 +87,8 @@ class RecoveryForm extends Model
             /** @var UserToken $token */
             $token = new UserToken([ 'user_id' => $this->user->id, 'type' => UserToken::TYPE_RECOVERY]);
             $token->save(false);
-            $this->sendMessage($this->user->email,Yii::t('user', 'Complete password reset on {0}', Yii::$app->name),'recovery',['user' => $this->user, 'token' => $token]);
-            Yii::$app->session->setFlash('info', Yii::t('user', 'An email has been sent with instructions for resetting your password'));
+            $this->sendMessage($this->user->email,Yii::t('yuncms', 'Complete password reset on {0}', Yii::$app->name),'recovery',['user' => $this->user, 'token' => $token]);
+            Yii::$app->session->setFlash('info', Yii::t('yuncms', 'An email has been sent with instructions for resetting your password'));
             return true;
         }
         return false;
@@ -110,7 +110,7 @@ class RecoveryForm extends Model
             return false;
         }
         if ($token->user->resetPassword($this->password)) {
-            Yii::$app->session->setFlash('success', Yii::t('user', 'Your password has been changed successfully.'));
+            Yii::$app->session->setFlash('success', Yii::t('yuncms', 'Your password has been changed successfully.'));
             $token->delete();
         } else {
             Yii::$app->session->setFlash('danger', Yii::t('user', 'An error occurred and your password has not been changed. Please try again later.'));

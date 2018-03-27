@@ -76,11 +76,11 @@ class RegistrationController extends Controller
     public function actionRegister()
     {
         if (!Yii::$app->user->isGuest) {
-            Yii::$app->session->setFlash('danger', Yii::t('user', 'You have already registered.'));
+            Yii::$app->session->setFlash('danger', Yii::t('yuncms', 'You have already registered.'));
             return $this->goBack();
         }
         if (!$this->getSetting('enableRegistration')) {
-            Yii::$app->session->setFlash('danger', Yii::t('user', 'The system has closed the new user registration.'));
+            Yii::$app->session->setFlash('danger', Yii::t('yuncms', 'The system has closed the new user registration.'));
             return $this->goBack();
         }
         /** @var RegistrationForm $model */

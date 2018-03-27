@@ -81,7 +81,7 @@ class SecurityController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            Yii::$app->session->setFlash('danger', Yii::t('user', 'You are already logged in.'));
+            Yii::$app->session->setFlash('danger', Yii::t('yuncms', 'You are already logged in.'));
             return $this->goHome();
         }
         if (Yii::$app->request->isGet) {
@@ -134,7 +134,7 @@ class SecurityController extends Controller
         }
         if ($account->user instanceof User) {
             if ($account->user->isBlocked) {
-                Yii::$app->session->setFlash('danger', Yii::t('user', 'Your account has been blocked.'));
+                Yii::$app->session->setFlash('danger', Yii::t('yuncms', 'Your account has been blocked.'));
                 $this->action->successUrl = Url::to(['/user/security/login']);
             } else {
                 Yii::$app->user->login($account->user, $this->getSetting('rememberFor'));

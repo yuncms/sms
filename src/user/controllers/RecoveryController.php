@@ -82,9 +82,9 @@ class RecoveryController extends Controller
         /** @var UserToken $token */
         $token = UserToken::findOne(['user_id' => $id, 'code' => $code, 'type' => UserToken::TYPE_RECOVERY]);
         if ($token === null || $token->isExpired || $token->user === null) {
-            Yii::$app->session->setFlash('danger', Yii::t('user', 'Recovery link is invalid or expired. Please try requesting a new one.'));
+            Yii::$app->session->setFlash('danger', Yii::t('yuncms', 'Recovery link is invalid or expired. Please try requesting a new one.'));
             return $this->render('/message', [
-                'title' => Yii::t('user', 'Invalid or expired link'),
+                'title' => Yii::t('yuncms', 'Invalid or expired link'),
                 'module' => $this->module
             ]);
         }

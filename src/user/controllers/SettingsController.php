@@ -73,7 +73,7 @@ class SettingsController extends Controller
             return ActiveForm::validate($model);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('user', 'Your profile has been updated'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Your profile has been updated'));
             return $this->refresh();
         }
         return $this->render('profile', [
@@ -89,7 +89,7 @@ class SettingsController extends Controller
     {
         $model = new AvatarForm();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('user', 'Your avatar has been updated'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Your avatar has been updated'));
         }
         return $this->render('avatar', [
             'model' => $model,
@@ -110,7 +110,7 @@ class SettingsController extends Controller
             return ActiveForm::validate($model);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', Yii::t('user', 'Your account details have been updated.'));
+            Yii::$app->session->setFlash('success', Yii::t('yuncms', 'Your account details have been updated.'));
             return $this->refresh();
         }
         return $this->render('account', [
@@ -192,15 +192,15 @@ class SettingsController extends Controller
     {
         $account = UserSocialAccount::find()->byId($id)->one();
         if ($account === null) {
-            Yii::$app->session->setFlash('success', Yii::t('user', 'Your account have been updated.'));
+            Yii::$app->session->setFlash('success', Yii::t('yuncms', 'Your account have been updated.'));
             return $this->redirect(['networks']);
         }
         if ($account->user_id != Yii::$app->user->id) {
-            Yii::$app->session->setFlash('success', Yii::t('user', 'You do not have the right to dismiss this social account.'));
+            Yii::$app->session->setFlash('success', Yii::t('yuncms', 'You do not have the right to dismiss this social account.'));
             return $this->redirect(['networks']);
         }
         $account->delete();
-        Yii::$app->session->setFlash('success', Yii::t('user', 'Your account have been updated.'));
+        Yii::$app->session->setFlash('success', Yii::t('yuncms', 'Your account have been updated.'));
         return $this->redirect(['networks']);
     }
 }
