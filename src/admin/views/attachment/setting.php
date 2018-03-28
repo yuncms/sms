@@ -45,8 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'layout' => 'horizontal'
             ]); ?>
 
-            <?= $form->field($model, 'storePath') ?>
-            <?= $form->field($model, 'storeUrl') ?>
+            <?= $form->field($model, 'volume') ?>
             <?= $form->field($model, 'imageMaxSize') ?>
             <?= $form->field($model, 'imageAllowFiles') ?>
             <?= $form->field($model, 'videoMaxSize') ?>

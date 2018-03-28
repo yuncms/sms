@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace vendor\yuncms\framework\src\admin\models;
+namespace yuncms\admin\models;
 
 use Yii;
 use yuncms\base\Model;
@@ -21,7 +21,7 @@ class AttachmentSetting extends Model
     /**
      * @var string 附件存储卷
      */
-    public $storeVolume;
+    public $volume;
 
     /**
      * @var string 图片上传最大大小
@@ -60,7 +60,7 @@ class AttachmentSetting extends Model
     public function getTypes()
     {
         return [
-            'storeVolume' => 'string',
+            'volume' => 'string',
             'imageMaxSize' => 'string',
             'imageAllowFiles' => 'string',
             'videoMaxSize' => 'string',
@@ -77,8 +77,8 @@ class AttachmentSetting extends Model
     public function rules()
     {
         return [
-            [['storeVolume', 'storeUrl', 'imageMaxSize', 'imageAllowFiles', 'videoMaxSize', 'videoAllowFiles', 'fileMaxSize', 'fileAllowFiles'], 'string'],
-            ['storeVolume', 'default', 'value' => 'attachment'],
+            [['volume', 'imageMaxSize', 'imageAllowFiles', 'videoMaxSize', 'videoAllowFiles', 'fileMaxSize', 'fileAllowFiles'], 'string'],
+            ['volume', 'default', 'value' => 'attachment'],
             ['imageMaxSize', 'default', 'value' => '2M'],
             ['imageAllowFiles', 'default', 'value' => 'png,jpg,jpeg,gif,bmp'],
             ['videoMaxSize', 'default', 'value' => '100M'],
@@ -94,7 +94,7 @@ class AttachmentSetting extends Model
     public function attributeLabels()
     {
         return [
-            'storeVolume' => Yii::t('yuncms', 'Store Volume'),
+            'volume' => Yii::t('yuncms', 'Store Volume'),
             'imageMaxSize' => Yii::t('yuncms', 'Image Max Size'),
             'imageAllowFiles' => Yii::t('yuncms', 'Image Allow Files'),
             'videoMaxSize' => Yii::t('yuncms', 'Video Max Size'),

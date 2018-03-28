@@ -9,8 +9,8 @@ namespace yuncms\models;
 
 use Yii;
 use yii\db\BaseActiveRecord;
-use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\behaviors\AttributeBehavior;
 use yuncms\behaviors\IpBehavior;
 use yuncms\db\ActiveRecord;
 use yuncms\user\models\User;
@@ -65,6 +65,15 @@ class Attachment extends ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => 'ip'
                 ]
             ],
+            [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'user_id'
+                ],
+                'value' => function ($event) {
+                    return Yii::$app->user->id;
+                }
+            ],
         ];
     }
 
@@ -80,6 +89,7 @@ class Attachment extends ActiveRecord
             'original_name' => Yii::t('yuncms', 'Original FileName'),
             'size' => Yii::t('yuncms', 'File Size'),
             'type' => Yii::t('yuncms', 'File Type'),
+            'volume' => Yii::t('yuncms', 'Volume'),
             'path' => Yii::t('yuncms', 'Path'),
             'ip' => Yii::t('yuncms', 'User Ip'),
             'created_at' => Yii::t('yuncms', 'Created At'),
