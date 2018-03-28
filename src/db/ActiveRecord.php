@@ -8,6 +8,7 @@
 namespace yuncms\db;
 
 use Yii;
+use yuncms\db\jobs\CreateActiveRecordJob;
 use yuncms\db\jobs\DeleteActiveRecordJob;
 use yuncms\db\jobs\DeleteAllActiveRecordJob;
 use yuncms\db\jobs\updateActiveRecordAllCountersJob;
@@ -38,6 +39,30 @@ class ActiveRecord extends \yii\db\ActiveRecord
             return $model;
         }
         return null;
+    }
+
+    /**
+     * 快速创建实例
+     * @param array $attributes
+     * @param boolean $runValidation
+     * @return bool|ActiveRecord
+     */
+    public static function createAsync(array $attributes, $runValidation = true)
+    {
+        if ($runValidation) {
+            $model = new static();
+            $model->loadDefaultValues();
+            $model->load($attributes, '');
+            if (!$model->validate()) {
+                return $model;
+            }
+        }
+        Yii::$app->queue->push(new CreateActiveRecordJob([
+            'modelClass' => get_called_class(),
+            'attributes' => $attributes,
+            'runValidation' => $runValidation
+        ]));
+        return true;
     }
 
     /**
