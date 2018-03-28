@@ -8,7 +8,28 @@
 namespace yuncms\admin\controllers;
 
 
-class VolumesController
-{
+use Yii;
+use yuncms\web\Controller;
 
+/**
+ * Class VolumesController
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
+class VolumesController extends Controller
+{
+    /**
+     * Shows the asset volume list.
+     *
+     * @return Response
+     */
+    public function actionIndex(): Response
+    {
+        $variables = [];
+        $variables['volumes'] = Yii::$app->getFilesystem()->getFilesystems();
+
+        print_r($variables);exit;
+        return $this->renderTemplate('settings/assets/volumes/_index', $variables);
+    }
 }
