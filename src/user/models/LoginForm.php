@@ -121,7 +121,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            UserLoginHistory::create(['user_id' => $this->user->getId(), 'ip' => Yii::$app->request->userIP]);
+            UserLoginHistory::createAsync(['user_id' => $this->user->getId(), 'ip' => Yii::$app->request->userIP]);
             return Yii::$app->user->login($this->user, $this->rememberMe ? Yii::$app->settings->get('rememberFor', 'user') : 0);
         } else {
             return false;
