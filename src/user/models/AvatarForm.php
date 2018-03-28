@@ -11,6 +11,7 @@ use Yii;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
 use yuncms\base\Model;
+use yuncms\Constants;
 use yuncms\helpers\PathHelper;
 
 /**
@@ -74,10 +75,10 @@ class AvatarForm extends Model
     {
         if ($this->validate()) {
             $user = $this->getUser();
-            $volume = Yii::$app->getFilesystem()->get(Yii::$app->settings->get('avatarVolume','user'));
+            $volume = Yii::$app->getFilesystem()->get(Yii::$app->settings->get(Constants::USER_AVATAR_VOLUME));
             $avatarPath = PathHelper::getAvatarPath($user->id);
             $originalImage = $avatarPath . '_avatar.jpg';
-            
+
             //保存原图
             Image::crop($this->file->tempName, $this->width, $this->height, [$this->x, $this->y])->save($originalImage, ['quality' => 100]);
             //缩放
