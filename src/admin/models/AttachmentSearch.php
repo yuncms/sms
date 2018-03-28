@@ -4,11 +4,11 @@ namespace yuncms\admin\models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
-use yuncms\base\Model;
+use yii\base\Model;
 use yuncms\models\Attachment;
 
 /**
- * AttachmentSearch represents the model behind the search form about `yuncms\attachment\models\Attachment`.
+ * AttachmentSearch represents the model behind the search form about `yuncms\models\Attachment`.
  */
 class AttachmentSearch extends Attachment
 {
