@@ -7,7 +7,7 @@ use yii\db\Migration;
  */
 class m180305_014442_create_queue_table extends Migration
 {
-    public $tableName = '{{%queue}}';
+    public $tableName = '{{%queue_job}}';
 
     /**
      * {@inheritdoc}
