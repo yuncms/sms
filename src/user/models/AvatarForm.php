@@ -11,6 +11,7 @@ use Yii;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
 use yuncms\base\Model;
+use yuncms\helpers\PathHelper;
 
 /**
  * Class PortraitForm
@@ -67,14 +68,16 @@ class AvatarForm extends Model
      * 保存头像
      *
      * @return boolean
+     * @throws \yii\base\InvalidConfigException
      */
     public function save()
     {
         if ($this->validate()) {
             $user = $this->getUser();
-
-            $avatarPath = $this->getAvatarPath($user->id);
+            $volume = Yii::$app->getFilesystem()->get(Yii::$app->settings->get('avatarVolume','user'));
+            $avatarPath = PathHelper::getAvatarPath($user->id);
             $originalImage = $avatarPath . '_avatar.jpg';
+            
             //保存原图
             Image::crop($this->file->tempName, $this->width, $this->height, [$this->x, $this->y])->save($originalImage, ['quality' => 100]);
             //缩放
