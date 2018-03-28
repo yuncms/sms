@@ -47,6 +47,7 @@ class LoginForm extends Model
         return [
             [
                 'class' => LoginAttemptBehavior::class,
+                'usernameAttribute' => 'login'
             ],
         ];
     }

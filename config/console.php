@@ -12,6 +12,7 @@ $migrationPaths = array_merge(
         //'@yii/rbac/migrations',
         '@yii/i18n/migrations',
         '@yuncms/admin/migrations',
+        '@yuncms/user/migrations',
     ]
 );
 
