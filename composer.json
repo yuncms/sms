@@ -44,8 +44,7 @@
     "yiisoft/yii2-redis": "~2.0.0",
     "yii2tech/ar-position": "~1.0",
     "2amigos/qrcode-library": "~1.1.2",
-    "xutl/yii2-wechat": "~2.0.0",
-    "zendframework/zend-feed": "~2.9.0"
+    "xutl/yii2-wechat": "~2.0.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~7.0",
