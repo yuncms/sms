@@ -9,11 +9,9 @@ namespace yuncms\user\models;
 
 use Yii;
 use yii\imagine\Image;
-use yii\web\UploadedFile;
 use yuncms\base\Model;
+use yuncms\web\UploadedFile;
 use yuncms\helpers\AvatarHelper;
-use yuncms\helpers\FileHelper;
-use yuncms\helpers\PathHelper;
 
 /**
  * Class PortraitForm
@@ -84,8 +82,6 @@ class AvatarForm extends Model
         if ($this->validate()) {
             $user = $this->getUser();
             if(AvatarHelper::save($user, $this->getOriginalImage())){
-                $user->avatar = true;
-                $user->save();
                 return true;
             } else {
                 return false;
