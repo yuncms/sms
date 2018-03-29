@@ -11,6 +11,7 @@ use Yii;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
 use yuncms\base\Model;
+use yuncms\helpers\AvatarHelper;
 use yuncms\helpers\FileHelper;
 use yuncms\helpers\PathHelper;
 
@@ -41,15 +42,6 @@ class AvatarForm extends Model
 
     /** @var User */
     private $_user;
-
-    /**
-     * @var array 头像尺寸
-     */
-    private $_avatarSize = [
-        'big' => 200,
-        'middle' => 128,
-        'small' => 48
-    ];
 
     /**
      * @var string
@@ -91,17 +83,13 @@ class AvatarForm extends Model
     {
         if ($this->validate()) {
             $user = $this->getUser();
-            $volume = Yii::$app->getFilesystem()->get(Yii::$app->settings->get('avatarVolume', 'user'));
-            $avatarPath = PathHelper::getAvatarPath($user->id);
-            foreach ($this->_avatarSize as $size => $value) {
-                $tempFile = Yii::$app->getPath()->getTempPath() . DIRECTORY_SEPARATOR . $user->id . '_avatar_' . $size . '.jpg';
-                Image::thumbnail($this->getOriginalImage(), $value, $value)->save($tempFile, ['quality' => 100]);
-                $currentAvatarPath = $avatarPath . "_avatar_{$size}.jpg";
-                $volume->write($currentAvatarPath, FileHelper::readAndDelete($tempFile));
+            if(AvatarHelper::save($user, $this->getOriginalImage())){
+                $user->avatar = true;
+                $user->save();
+                return true;
+            } else {
+                return false;
             }
-            $user->avatar = true;
-            $user->save();
-            return true;
         }
         return false;
     }

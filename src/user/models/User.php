@@ -9,6 +9,7 @@ namespace yuncms\user\models;
 
 use Yii;
 use yii\helpers\Url;
+use yuncms\helpers\AvatarHelper;
 use yuncms\models\BaseUser;
 use yuncms\assets\UserAsset;
 use yuncms\db\ActiveRecord;
@@ -210,19 +211,7 @@ class User extends BaseUser
      */
     public function getAvatar($size = self::AVATAR_MIDDLE)
     {
-        $size = in_array($size, [self::AVATAR_BIG, self::AVATAR_MIDDLE, self::AVATAR_SMALL]) ? $size : self::AVATAR_BIG;
-        if ($this->getIsAvatar()) {
-            $avatarFileName = "_avatar_{$size}.jpg";
-            return $this->getAvatarUrl($this->id) . $avatarFileName . '?_t=' . $this->updated_at;
-        } else {
-            $avatarUrl = "/img/no_avatar_{$size}.gif";
-            if (Yii::getAlias('@webroot', false)) {
-                $baseUrl = UserAsset::register(Yii::$app->view)->baseUrl;
-                return Url::to($baseUrl . $avatarUrl, true);
-            } else {
-                return '';
-            }
-        }
+        return AvatarHelper::getAvatarPath();
     }
 
     /**

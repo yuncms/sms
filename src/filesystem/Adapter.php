@@ -80,6 +80,21 @@ abstract class Adapter extends Component
     abstract protected function prepareAdapter();
 
     /**
+     * 获取Web访问Url
+     * @param string $file
+     * @return string
+     * @throws InvalidConfigException
+     */
+    public function getUrl($file)
+    {
+        if ($this->url !== null) {
+            return $this->getRootUrl() . $file;
+        } else {
+            throw new InvalidConfigException('The "url" property must be set.');
+        }
+    }
+
+    /**
      * Returns the URL to the source, if it’s accessible via HTTP traffic.
      *
      * @return string|false The root URL, or `false` if there isn’t one
