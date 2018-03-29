@@ -7,7 +7,12 @@
 
 namespace yuncms\helpers;
 
-
+/**
+ * Class PathHelper
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class PathHelper
 {
     /**

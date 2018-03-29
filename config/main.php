@@ -41,6 +41,9 @@ return [
             'class' => yuncms\components\Settings::class,
             'frontCache' => 'cache'
         ],
+        'path' => [
+            'class' => yuncms\services\Path::class,
+        ],
         'filesystem' => [
             'class' => yuncms\filesystem\FilesystemManager::class,
             'filesystems' => [
