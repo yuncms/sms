@@ -124,6 +124,17 @@ class Attachment extends ActiveRecord
     }
 
     /**
+     * 保存前修正附件路径
+     * @param bool $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        $this->path = str_replace('\\', '/', $this->path);
+        return parent::beforeSave($insert);
+    }
+
+    /**
      * 附件删除
      * @return mixed
      */

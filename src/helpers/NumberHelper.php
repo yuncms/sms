@@ -10,7 +10,7 @@ namespace yuncms\helpers;
 
 use Yii;
 
-class Number
+class NumberHelper
 {
     /**
      * Returns the "word" version of a number
