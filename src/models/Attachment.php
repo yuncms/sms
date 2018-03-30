@@ -123,7 +123,7 @@ class Attachment extends ActiveRecord
      */
     public function getUrl()
     {
-        return UploadedFile::getVolume()->getRootUrl() . '/' . $this->path;
+        return UploadedFile::getVolume()->getUrl($this->path);
     }
 
     /**
