@@ -44,7 +44,6 @@ return [
                 'GET ping' => 'health/ping',
             ],
         ],
-
     ],
     'modules' => [
         'user' => [

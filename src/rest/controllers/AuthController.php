@@ -39,21 +39,20 @@ class AuthController extends Controller
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
             /**
              * Returns an access token.
              */
-            'token' => [
-                'class' => Token::class,
-            ],
+            'token' => Token::class,
             /**
              * Returns an access token.
              */
-            'qrcode' => [
-                'class' => QRCode::class,
-            ],
+            'qrcode' => QRCode::class,
         ];
     }
 

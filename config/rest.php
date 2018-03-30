@@ -11,6 +11,7 @@ return [
     ],
     'controllerMap' => [
         'auth' => 'yuncms\rest\controllers\AuthController',
+        'user' => 'yuncms\rest\controllers\UserController',
         'health' => 'yuncms\web\controllers\HealthController'
     ],
     'components' => [

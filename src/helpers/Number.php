@@ -22,15 +22,15 @@ class Number
     public static function word(int $num): string
     {
         $numberWordMap = [
-            1 => Yii::t('yuncms', 'one'),
-            2 => Yii::t('yuncms', 'two'),
-            3 => Yii::t('yuncms', 'three'),
-            4 => Yii::t('yuncms', 'four'),
-            5 => Yii::t('yuncms', 'five'),
-            6 => Yii::t('yuncms', 'six'),
-            7 => Yii::t('yuncms', 'seven'),
-            8 => Yii::t('yuncms', 'eight'),
-            9 => Yii::t('yuncms', 'nine')
+            1 => Yii::t('yuncms', 'One'),
+            2 => Yii::t('yuncms', 'Two'),
+            3 => Yii::t('yuncms', 'Three'),
+            4 => Yii::t('yuncms', 'Four'),
+            5 => Yii::t('yuncms', 'Five'),
+            6 => Yii::t('yuncms', 'Six'),
+            7 => Yii::t('yuncms', 'Seven'),
+            8 => Yii::t('yuncms', 'Eight'),
+            9 => Yii::t('yuncms', 'Nine')
         ];
 
         if (isset($numberWordMap[$num])) {
