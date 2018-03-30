@@ -7,8 +7,10 @@
 
 namespace yuncms\web;
 
+use League\Flysystem\AdapterInterface;
 use League\Flysystem\Filesystem;
 use Yii;
+use yii\base\Exception;
 use yii\httpclient\Client;
 use yii\validators\UrlValidator;
 use yuncms\filesystem\Adapter;
@@ -37,8 +39,7 @@ class UploadedFile extends \yii\web\UploadedFile
     {
         $fileData = base64_decode($base64Data);
         $baseName = basename($fileName);
-        $tempFilename = uniqid(pathinfo($baseName, PATHINFO_FILENAME), true) . '.' . pathinfo($baseName, PATHINFO_EXTENSION);
-        $tempPath = Yii::$app->getPath()->getTempPath() . DIRECTORY_SEPARATOR . $tempFilename;
+        $tempPath = FileHelper::getTempFilePath($baseName);
         file_put_contents($tempPath, $fileData);
         return new static([
             'isUploadedFile' => false,
@@ -68,8 +69,7 @@ class UploadedFile extends \yii\web\UploadedFile
                 return null;
             } else {
                 $baseName = basename($url);
-                $tempFilename = uniqid(pathinfo($baseName, PATHINFO_FILENAME), true) . '.' . pathinfo($baseName, PATHINFO_EXTENSION);
-                $tempPath = Yii::$app->getPath()->getTempPath() . DIRECTORY_SEPARATOR . $tempFilename;
+                $tempPath = FileHelper::getTempFilePath($baseName);
                 file_put_contents($tempPath, $response->content);
                 return new static([
                     'isUploadedFile' => false,
@@ -128,19 +128,23 @@ class UploadedFile extends \yii\web\UploadedFile
      * @throws \League\Flysystem\FileExistsException
      * @throws \yii\base\ErrorException
      * @throws \yii\base\InvalidConfigException
+     * @throws \yii\base\Exception
      */
     public function save()
     {
         $filePath = $this->getRename();
         if (!self::getVolume()->has($filePath)) {
+            $type = $this->getMimeType();
             $fileContent = FileHelper::readAndDelete($this->tempName);
-            self::getVolume()->write($filePath, $fileContent);
+            self::getVolume()->write($filePath, $fileContent, [
+                'visibility' => AdapterInterface::VISIBILITY_PRIVATE
+            ]);
             $model = new Attachment([
                 'filename' => basename($filePath),
                 'original_name' => $this->name,
                 'path' => $filePath,
                 'size' => $this->size,
-                'type' => $this->getMimeType(),
+                'type' => $type,
             ]);
             if ($model->save()) {
                 return $model;
@@ -173,11 +177,12 @@ class UploadedFile extends \yii\web\UploadedFile
         if ($this->error != UPLOAD_ERR_OK) {
             return false;
         }
-        $tempFilename = uniqid(pathinfo($this->name, PATHINFO_FILENAME), true) . '.' . pathinfo($this->name, PATHINFO_EXTENSION);
-        $tempPath = Yii::$app->getPath()->getTempPath() . DIRECTORY_SEPARATOR . $tempFilename;
+        $tempPath = FileHelper::getTempFilePath($this->name);
         if (!$this->saveAs($tempPath, $deleteTempFile)) {
             return false;
         }
         return $tempPath;
     }
+
+
 }

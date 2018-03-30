@@ -18,6 +18,34 @@ use League\Flysystem\Cached\CachedAdapter;
 /**
  * Class Filesystem
  *
+ * @method getAdapter()
+ * @method  has($path)
+ * @method write($path, $contents, array $config = [])
+ * @method writeStream($path, $resource, array $config = [])
+ * @method put($path, $contents, array $config = [])
+ * @method putStream($path, $resource, array $config = [])
+ * @method readAndDelete($path)
+ * @method update($path, $contents, array $config = [])
+ * @method updateStream($path, $resource, array $config = [])
+ * @method read($path)
+ * @method readStream($path)
+ * @method rename($path, $newpath)
+ * @method copy($path, $newpath)
+ * @method delete($path)
+ * @method deleteDir($dirname)
+ * @method createDir($dirname, array $config = [])
+ * @method listContents($directory = '', $recursive = false)
+ * @method getMimetype($path)
+ * @method getTimestamp($path)
+ * @method getVisibility($path)
+ * @method getSize($path)
+ * @method setVisibility($path, $visibility)
+ * @method getMetadata($path)
+ * @method get($path, Handler $handler = null)
+ * @method assertPresent($path)
+ * @method assertAbsent($path)
+ *
+ *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */

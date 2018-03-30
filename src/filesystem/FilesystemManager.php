@@ -97,7 +97,7 @@ class FilesystemManager extends Component
      *
      * @param string $id filesystem ID (e.g. `db`).
      * @param bool $throwException whether to throw an exception if `$id` is not registered with the locator before.
-     * @return Adapter|Filesystem|object|null the filesystem of the specified ID. If `$throwException` is false and `$id`
+     * @return Adapter|object|null the filesystem of the specified ID. If `$throwException` is false and `$id`
      * is not registered before, null will be returned.
      * @throws InvalidConfigException if `$id` refers to a nonexistent filesystem ID
      * @see has()

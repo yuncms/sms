@@ -44,6 +44,7 @@ class AvatarHelper
      * @param string $originalImage
      * @return bool
      * @throws \League\Flysystem\FileExistsException
+     * @throws \League\Flysystem\FileNotFoundException
      * @throws \yii\base\ErrorException
      * @throws \yii\base\Exception
      * @throws \yii\base\InvalidConfigException

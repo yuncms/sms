@@ -9,6 +9,7 @@ namespace yuncms\helpers;
 
 use Yii;
 use yii\base\ErrorException;
+use yii\base\Exception;
 use yii\base\InvalidArgumentException;
 
 /**
@@ -23,6 +24,17 @@ class FileHelper extends \yii\helpers\FileHelper
      * @var string the path (or alias) of a PHP file containing MIME type information.
      */
     public static $mimeMagicFile = '@yuncms/helpers/mimeTypes.php';
+
+    /**
+     * 根据文件名生成一个临时文件名
+     * @param string $path
+     * @return string
+     * @throws Exception
+     */
+    public static function getTempFilePath($path)
+    {
+        return Yii::$app->getPath()->getTempPath() . DIRECTORY_SEPARATOR . uniqid(pathinfo($path, PATHINFO_FILENAME), true) . '.' . FileHelper::extension($path);
+    }
 
     /**
      * 读取并删除文件
@@ -147,7 +159,7 @@ class FileHelper extends \yii\helpers\FileHelper
      * @param  string $directory
      * @return bool
      * @throws \yii\base\ErrorException
-     * @throws \yii\base\Exception
+     * @throws Exception
      */
     public static function cleanDirectory(string $directory): bool
     {

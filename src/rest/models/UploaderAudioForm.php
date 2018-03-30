@@ -48,20 +48,24 @@ class UploaderAudioForm extends Model
     /**
      * 保存图片
      * @return boolean
+     * @throws \yii\base\Exception
      */
     public function save()
     {
         if ($this->validate() && $this->file instanceof UploadedFile) {
             try {
-                $uploader = $this->file->save();
-                $this->file = $uploader->getUrl();
-                return true;
+                if (($uploader = $this->file->save()) != false) {
+                    $this->file = $uploader->getUrl();
+                    return true;
+                } else {
+                    $this->addError('file', 'File storage failed.');
+                }
             } catch (FileExistsException $e) {
-                $this->addError('file',$e->getMessage());
+                $this->addError('file', $e->getMessage());
             } catch (ErrorException $e) {
-                $this->addError('file',$e->getMessage());
+                $this->addError('file', $e->getMessage());
             } catch (InvalidConfigException $e) {
-                $this->addError('file',$e->getMessage());
+                $this->addError('file', $e->getMessage());
             }
         }
         return false;
