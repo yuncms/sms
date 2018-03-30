@@ -15,9 +15,9 @@ use yii\web\ServerErrorHttpException;
 use yuncms\oauth2\GrantType;
 use yuncms\oauth2\models\Oauth2AccessToken;
 use yuncms\oauth2\models\Oauth2RefreshToken;
-use yuncms\user\jobs\SocialAvatarDownloadJob;
 use yuncms\user\models\User;
 use yuncms\user\models\UserSocialAccount;
+use yuncms\jobs\SocialAvatarDownloadJob;
 
 /**
  * For example, the client makes the following HTTP request using

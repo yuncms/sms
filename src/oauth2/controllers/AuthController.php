@@ -112,7 +112,7 @@ class AuthController extends Controller
         }
         if ($account->user instanceof Yii::$app->user->id) {
             if ($account->user->isBlocked) {
-                Yii::$app->session->setFlash('danger', Yii::t('oauth2', 'Your account has been blocked.'));
+                Yii::$app->session->setFlash('danger', Yii::t('yuncms', 'Your account has been blocked.'));
                 $this->action->successUrl = Url::to(['/oauth2/auth/authorize']);
             } else {
                 Yii::$app->user->login($account->user, $this->rememberFor);

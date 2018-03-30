@@ -87,6 +87,7 @@ class ClientController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @param $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -128,6 +129,7 @@ class ClientController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @param $id
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
