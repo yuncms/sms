@@ -12,6 +12,7 @@ use yuncms\db\ActiveRecord;
 use yuncms\helpers\PasswordHelper;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\NotifiableTrait;
+use yuncms\oauth2\OAuth2IdentityInterface;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -40,10 +41,9 @@ use yuncms\notifications\NotifiableTrait;
  * @property-read boolean $isBlocked 账户是否锁定
  * @property-read bool $isMobileConfirmed 是否已经手机激活
  * @property-read bool $isEmailConfirmed 是否已经邮箱激活
-
  *
  */
-class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInterface, NotifiableInterface
+class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInterface, NotifiableInterface, OAuth2IdentityInterface
 {
     use NotifiableTrait;
 
@@ -380,6 +380,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInter
 
     /**
      * @inheritdoc
+     * @throws \yii\base\Exception
      */
     public function beforeSave($insert)
     {

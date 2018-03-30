@@ -42,9 +42,9 @@ class Controller extends \yii\rest\Controller
             'class' => CompositeAuth::class,
             'authMethods' => [
                 HttpBasicAuth::class,
-                HttpBearerAuth::class,
-                HttpHeaderAuth::class,
-                QueryParamAuth::class,
+                //HttpBearerAuth::class,
+                //HttpHeaderAuth::class,
+                //QueryParamAuth::class,
                 OAuth2TokenAuth::class,
             ],
         ];
