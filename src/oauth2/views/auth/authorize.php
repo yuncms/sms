@@ -1,11 +1,12 @@
 <?php
 /* @var $this \yii\web\View */
 /* @var $content string */
-use yii\helpers\Html;
+
 use yii\bootstrap\ActiveForm;
-use yuncms\user\frontend\widgets\Connect;
 use yii\web\YiiAsset;
 use yii\bootstrap\BootstrapPluginAsset;
+use yuncms\helpers\Html;
+use yuncms\user\frontend\widgets\Connect;
 
 YiiAsset::register($this);
 BootstrapPluginAsset::register($this);
@@ -41,7 +42,7 @@ if (!empty($this->title)) {
 
 <div class="modal-header">
     <h2 class="modal-title">
-        <?= Yii::t('oauth2', 'Sign in with your {siteName} account',['siteName'=>Yii::$app->name]) ?>
+        <?= Yii::t('yuncms', 'Sign in with your {siteName} account',['siteName'=>Yii::$app->name]) ?>
     </h2>
 </div>
 <div class="modal-body">
@@ -49,10 +50,10 @@ if (!empty($this->title)) {
         <div class="col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
             <?= $form->field($model, 'login', ['inputOptions' => ['autofocus' => 'autofocus',]]) ?>
             <?= $form->field($model, 'password')->passwordInput() ?>
-            <?= Html::submitButton(Yii::t('oauth2', 'Login'), ['class' => 'btn btn-primary btn-block  mt-10']) ?>
+            <?= Html::submitButton(Yii::t('yuncms', 'Login'), ['class' => 'btn btn-primary btn-block  mt-10']) ?>
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 mt-10">
-            <div style="margin-top: 15px;"><?= Yii::t('oauth2', 'Quick login') ?></div>
+            <div style="margin-top: 15px;"><?= Yii::t('yuncms', 'Quick login') ?></div>
             <div class="row">
                 <div class="col-md-12" style="margin-top: 15px;">
                     <?= Connect::widget([

@@ -9,10 +9,10 @@ namespace yuncms\rest\controllers;
 
 use Yii;
 use yuncms\web\Controller;
-use yuncms\oauth2\actions\QRCode;
 use yuncms\oauth2\actions\Token;
+use yuncms\oauth2\actions\QRCode;
 use yuncms\filters\OAuth2Authorize;
-use yuncms\oauth2\frontend\models\LoginForm;
+use yuncms\user\models\LoginForm;
 
 /**
  * OAuth2 认证
@@ -21,8 +21,14 @@ use yuncms\oauth2\frontend\models\LoginForm;
  */
 class AuthController extends Controller
 {
+    /**
+     * @var bool
+     */
     public $enableCsrfValidation = false;
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
