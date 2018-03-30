@@ -65,7 +65,7 @@ class AuthController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if ($this->isOauthRequest) {
-                $this->finishAuthorization();
+                return $this->finishAuthorization();
             } else {
                 return $this->goBack();
             }

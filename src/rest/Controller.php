@@ -41,7 +41,7 @@ class Controller extends \yii\rest\Controller
         $behaviors['authenticator'] = [
             'class' => CompositeAuth::class,
             'authMethods' => [
-                HttpBasicAuth::class,
+                //HttpBasicAuth::class,
                 //HttpBearerAuth::class,
                 //HttpHeaderAuth::class,
                 //QueryParamAuth::class,
