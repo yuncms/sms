@@ -51,9 +51,12 @@ class UploaderFileForm extends Model
     {
         if ($this->validate() && $this->file instanceof UploadedFile) {
             try {
-                $uploader = $this->file->save();
-                $this->file = $uploader->getUrl();
-                return true;
+                if (($uploader = $this->file->save()) != false) {
+                    $this->file = $uploader->getUrl();
+                    return true;
+                } else {
+                    $this->addError('file', 'File storage failed.');
+                }
             } catch (FileExistsException $e) {
                 $this->addError('file',$e->getMessage());
             } catch (ErrorException $e) {

@@ -48,7 +48,6 @@ class UploaderAudioForm extends Model
     /**
      * 保存图片
      * @return boolean
-     * @throws \yii\base\Exception
      */
     public function save()
     {
@@ -58,7 +57,7 @@ class UploaderAudioForm extends Model
                     $this->file = $uploader->getUrl();
                     return true;
                 } else {
-                    $this->addError('file', 'File storage failed.');
+                    $this->addError('file', 'Audio file storage failed.');
                 }
             } catch (FileExistsException $e) {
                 $this->addError('file', $e->getMessage());

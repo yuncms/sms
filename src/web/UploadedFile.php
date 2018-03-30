@@ -7,15 +7,13 @@
 
 namespace yuncms\web;
 
-use League\Flysystem\AdapterInterface;
-use League\Flysystem\Filesystem;
 use Yii;
-use yii\base\Exception;
 use yii\httpclient\Client;
 use yii\validators\UrlValidator;
 use yuncms\filesystem\Adapter;
 use yuncms\helpers\FileHelper;
 use yuncms\models\Attachment;
+use League\Flysystem\AdapterInterface;
 
 /**
  * Class UploadedFile
@@ -125,10 +123,8 @@ class UploadedFile extends \yii\web\UploadedFile
     /**
      * 保存上传文件到模型
      * @return bool|Attachment
-     * @throws \League\Flysystem\FileExistsException
      * @throws \yii\base\ErrorException
      * @throws \yii\base\InvalidConfigException
-     * @throws \yii\base\Exception
      */
     public function save()
     {
@@ -154,8 +150,8 @@ class UploadedFile extends \yii\web\UploadedFile
     }
 
     /**
-     * 获取头像存储卷
-     * @return Adapter|Filesystem
+     * 获取存储卷
+     * @return Adapter
      * @throws \yii\base\InvalidConfigException
      */
     public static function getVolume()
@@ -183,6 +179,4 @@ class UploadedFile extends \yii\web\UploadedFile
         }
         return $tempPath;
     }
-
-
 }

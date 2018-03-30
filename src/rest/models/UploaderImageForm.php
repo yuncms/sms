@@ -46,15 +46,17 @@ class UploaderImageForm extends Model
     /**
      * 保存图片
      * @return boolean
-     * @throws \yii\base\Exception
      */
     public function save()
     {
         if ($this->validate() && $this->file instanceof UploadedFile) {
             try {
-                $uploader = $this->file->save();
-                $this->file = $uploader->getUrl();
-                return true;
+                if (($uploader = $this->file->save()) != false) {
+                    $this->file = $uploader->getUrl();
+                    return true;
+                } else {
+                    $this->addError('file', 'Image storage failed.');
+                }
             } catch (FileExistsException $e) {
                 $this->addError('file', $e->getMessage());
             } catch (ErrorException $e) {

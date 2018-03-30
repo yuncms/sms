@@ -13,7 +13,6 @@ use yii\imagine\Image;
 use yuncms\assets\UserAsset;
 use yuncms\filesystem\Adapter;
 use yuncms\user\models\User;
-use League\Flysystem\Filesystem;
 use League\Flysystem\AdapterInterface;
 
 /**
@@ -63,11 +62,9 @@ class AvatarHelper
      * @param User $user
      * @param string $originalImage
      * @return bool
-     * @throws \League\Flysystem\FileExistsException
      * @throws \yii\base\ErrorException
      * @throws \yii\base\Exception
      * @throws \yii\base\InvalidConfigException
-     * @throws \League\Flysystem\FileNotFoundException
      */
     public static function save(User $user, $originalImage): bool
     {
@@ -142,7 +139,7 @@ class AvatarHelper
 
     /**
      * 获取头像存储卷
-     * @return Adapter|Filesystem
+     * @return Adapter
      * @throws \yii\base\InvalidConfigException
      */
     public static function getVolume()
