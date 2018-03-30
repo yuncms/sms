@@ -36,6 +36,7 @@ class LocalAdapter extends Adapter
 
     /**
      * @inheritdoc
+     * @throws \yii\base\Exception
      */
     public function init()
     {

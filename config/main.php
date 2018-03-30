@@ -47,16 +47,16 @@ return [
         'filesystem' => [
             'class' => yuncms\filesystem\FilesystemManager::class,
             'filesystems' => [
-                'local' => [
+                'local' => [//本地私密存储
                     'class' => yuncms\filesystem\adapters\LocalAdapter::class,
                     'path' => '@root/storage/local'
                 ],
-                'avatar' => [
+                'avatar' => [//头像
                     'class' => yuncms\filesystem\adapters\LocalAdapter::class,
                     'path' => '@root/storage/avatar',
                     'url' => '@web/avatar'
                 ],
-                'attachment' => [
+                'attachment' => [//附件上传
                     'class' => yuncms\filesystem\adapters\LocalAdapter::class,
                     'path' => '@root/storage/attachment',
                     'url' => '@web/uploadfiles'
