@@ -1,9 +1,9 @@
 <?php
-use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yuncms\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model yuncms\oauth2\models\Client */
+/* @var $model yuncms\oauth2\models\OAuth2Client */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

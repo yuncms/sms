@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\oauth2\frontend\controllers;
+namespace yuncms\oauth2\controllers;
 
 use Yii;
 use yii\filters\VerbFilter;

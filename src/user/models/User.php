@@ -79,7 +79,7 @@ class User extends BaseUser
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-        return ArrayHelper::merge($behaviors,[
+        return ArrayHelper::merge($behaviors, [
             'taggable' => [
                 'class' => TaggableBehavior::class,
                 'tagValuesAsArray' => true,
@@ -113,7 +113,7 @@ class User extends BaseUser
      */
     public function rules()
     {
-        return ArrayHelper::merge(parent::rules(),[
+        return ArrayHelper::merge(parent::rules(), [
             // nickname rules
             'nicknameRequired' => ['nickname', 'required', 'on' => [self::SCENARIO_EMAIL_REGISTER, self::SCENARIO_CONNECT]],
             // email rules
@@ -208,10 +208,11 @@ class User extends BaseUser
      * 获取头像Url
      * @param string $size
      * @return string
+     * @throws \yii\base\InvalidConfigException
      */
     public function getAvatar($size = self::AVATAR_MIDDLE)
     {
-        return AvatarHelper::getAvatarPath();
+        return AvatarHelper::getAvatar($this, $size);
     }
 
     /**

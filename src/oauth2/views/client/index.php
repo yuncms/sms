@@ -1,24 +1,24 @@
 <?php
 use yii\helpers\Url;
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yuncms\helpers\Html;
 
 /*
  * @var yii\web\View $this
  */
 
-$this->title = Yii::t('oauth2', 'App Manage');
+$this->title = Yii::t('yuncms', 'App Manage');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
     <div class="col-md-2">
-        <?= $this->render('@yuncms/user/frontend/views/_profile_menu') ?>
+        <?= $this->render('@yuncms/user/views/_profile_menu') ?>
     </div>
     <div class="col-md-10">
-        <h2 class="h3 profile-title"><?= Yii::t('oauth2', 'Apps') ?>
+        <h2 class="h3 profile-title"><?= Yii::t('yuncms', 'Apps') ?>
             <div class="pull-right">
-                <a class="btn btn-primary" href="<?= Url::to(['create']) ?>"><?= Yii::t('oauth2', 'Create') ?></a>
+                <a class="btn btn-primary" href="<?= Url::to(['create']) ?>"><?= Yii::t('yuncms', 'Create') ?></a>
             </div>
         </h2>
         <div class="row">
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'layout' => "{items}\n{pager}",
                     'columns' => [
                         [
-                            'label' => Yii::t('oauth2', 'App Name'),
+                            'label' => Yii::t('yuncms', 'App Name'),
                             'value' => function ($model) {
                                 return Html::a(Html::encode($model->name), ['/oauth2/client/view', 'id' => $model->client_id]);
                             },
