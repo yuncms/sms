@@ -14,9 +14,16 @@ use yuncms\oauth2\GrantType;
 use yuncms\oauth2\Exception;
 
 /**
- *
+ * 获取 OAth2 令牌 action
+ * ```php
+ * public function actions()
+ * {
+ *     return [
+ *         'token' => ['class' => 'yuncms\oauth2\actions\Token'],
+ *     ];
+ * }
+ * ```
  * @author Andrey Borodulin
- *
  */
 class Token extends Action
 {

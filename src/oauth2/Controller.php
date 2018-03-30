@@ -5,13 +5,8 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\rest;
+namespace yuncms\oauth2;
 
-use yii\filters\auth\CompositeAuth;
-use yii\filters\auth\HttpBasicAuth;
-use yii\filters\auth\HttpBearerAuth;
-use yii\filters\auth\HttpHeaderAuth;
-use yii\filters\auth\QueryParamAuth;
 use yuncms\filters\auth\OAuth2TokenAuth;
 
 /**
@@ -30,14 +25,7 @@ class Controller extends \yii\rest\Controller
     {
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-            'class' => CompositeAuth::class,
-            'authMethods' => [
-                HttpBasicAuth::class,
-                HttpBearerAuth::class,
-                HttpHeaderAuth::class,
-                QueryParamAuth::class,
-                OAuth2TokenAuth::class,
-            ],
+            'class' => OAuth2TokenAuth::class,
         ];
         return $behaviors;
     }

@@ -9,35 +9,36 @@ namespace yuncms\oauth2\actions;
 
 use Yii;
 use yii\base\Action;
-use yii\web\Response;
 
 /**
+ *  获取 二维码 action
+ * ```php
+ * public function actions()
+ * {
+ *     return [
+ *         'qrcode' => ['class' => 'yuncms\oauth2\actions\QRCode'],
+ *     ];
+ * }
+ * ```
  *
  * @author XuTongle
- *
  */
 class QRCode extends Action
 {
     const CACHE_PREFIX = 'oauth2.qr.code.login.';
 
     /**
-     * Format of response
-     * @var string
-     */
-    public $format = Response::FORMAT_JSON;
-
-    /**
      * 初始化
      */
     public function init()
     {
-        Yii::$app->response->format = $this->format;
         $this->controller->enableCsrfValidation = false;
     }
 
     /**
      * run
      * @param string $code
+     * @return mixed
      * @throws \yii\base\Exception
      */
     public function run($code = null)
@@ -51,6 +52,6 @@ class QRCode extends Action
                 'msg' => Yii::t('yuncms', 'Please use App Scan QR code to login.'),
             ];
         }, 120);
-        Yii::$app->response->data = $attributes;
+        return $attributes;
     }
 }
