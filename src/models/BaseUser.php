@@ -401,6 +401,8 @@ class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInter
         return true;
     }
 
+    /////////// RateLimitInterface /////////////////////
+
     /**
      * Returns the maximum number of allowed requests and the window size.
      * @param \yii\web\Request $request the current request
@@ -410,7 +412,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInter
      */
     public function getRateLimit($request, $action)
     {
-        $rateLimit = Yii::$app->settings->get('user.requestRateLimit', 60);
+        $rateLimit = Yii::$app->settings->get('requestRateLimit', 'user', 60);
         return [$rateLimit, 60];
     }
 
@@ -428,7 +430,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInter
         if ($allowance && $allowanceUpdatedAt) {
             return [$allowance, $allowanceUpdatedAt];
         } else {
-            return [Yii::$app->settings->get('user.requestRateLimit', 60), time()];
+            return [Yii::$app->settings->get('requestRateLimit', 'user', 60), time()];
         }
     }
 

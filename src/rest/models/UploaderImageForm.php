@@ -55,11 +55,11 @@ class UploaderImageForm extends Model
                 $this->file = $uploader->getUrl();
                 return true;
             } catch (FileExistsException $e) {
-                $this->addError($e->getMessage());
+                $this->addError('file', $e->getMessage());
             } catch (ErrorException $e) {
-                $this->addError($e->getMessage());
+                $this->addError('file', $e->getMessage());
             } catch (InvalidConfigException $e) {
-                $this->addError($e->getMessage());
+                $this->addError('file', $e->getMessage());
             }
         }
         return false;
