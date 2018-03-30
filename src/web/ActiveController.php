@@ -6,6 +6,7 @@
  */
 
 namespace yuncms\web;
+
 use yii\base\InvalidConfigException;
 use yii\db\ActiveRecordInterface;
 use yii\web\NotFoundHttpException;
