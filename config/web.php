@@ -49,6 +49,9 @@ return [
     'modules' => [
         'user' => [
             'class' => yuncms\user\Module::class
+        ],
+        'oauth2' => [
+            'class' => yuncms\oauth2\Module::class
         ]
     ]
 ];

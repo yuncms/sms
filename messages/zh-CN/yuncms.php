@@ -155,8 +155,6 @@ return [
     '{attribute} Do not meet the rules.' => '',
     '{attribute} isn’t a valid hex color value.' => '',
     '{attribute} isn’t a valid isbn number.' => '',
-    'Avatar Path' => '@@头像保存路径@@',
-    'Avatar Url' => '@@头像Url@@',
     'A confirmation message has been sent to your new email address' => '激活链接已发送到您的新的电子邮件地址.',
     'A message has been sent to your email address. It contains a confirmation link that you must click to complete registration.' => '邮件已发送到您的邮箱。请单击激活链接完成激活。',
     'A password will be generated automatically if not provided' => '如果你想要自动生成的密码，请将此输入框留空',
