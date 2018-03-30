@@ -32,11 +32,57 @@ class UserController extends Controller
     protected function verbs()
     {
         return [
+            'extra' => ['GET'],
+            'social' => ['GET'],
+            'me' => ['GET'],
             'register' => ['POST'],
             'mobile-register' => ['POST'],
             'email-register' => ['POST'],
             'password' => ['POST'],
             'recovery' => ['POST'],
+            'avatar' => ['POST'],
+        ];
+    }
+
+    /**
+     * 读取用户扩展数据
+     * @return array
+     */
+    public function actionExtra()
+    {
+        /** @var \yuncms\user\models\User $user */
+        $user = Yii::$app->user->identity;
+        return $user->extra->toArray();
+    }
+
+    /**
+     * 获取我绑定的社交媒体账户
+     * @return \yuncms\user\models\UserSocialAccount[]
+     */
+    public function actionSocial()
+    {
+        /** @var \yuncms\user\models\User $user */
+        $user = Yii::$app->user->identity;
+        return $user->getSocialAccounts();
+    }
+
+    /**
+     * 获取个人基本资料
+     * @return array
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function actionMe()
+    {
+        /** @var \yuncms\user\models\User $user */
+        $user = Yii::$app->user->identity;
+        return [
+            'id' => $user->id,
+            'username' => $user->username,
+            'nickname' => $user->nickname,
+            'email' => $user->email,
+            'mobile' => $user->mobile,
+            'mobile_confirmed_at' => $user->mobile_confirmed_at,
+            'faceUrl' => $user->getAvatar(),
         ];
     }
 
