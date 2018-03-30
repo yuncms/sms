@@ -91,7 +91,9 @@ class Response extends \yii\web\Response
      */
     public function startBuffering($content)
     {
-        $this->getHeaders()->set('X-Accel-Buffering', 'no');
+        $this->getHeaders()
+            ->set('Surrogate-Control','BigPipe/1.0')
+            ->set('X-Accel-Buffering', 'no');
         $this->data = $content;
         $this->send();
     }
