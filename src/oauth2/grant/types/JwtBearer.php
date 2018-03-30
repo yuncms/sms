@@ -1,0 +1,25 @@
+<?php
+/**
+ * @link https://github.com/borodulin/yii2-oauth2-server
+ * @copyright Copyright (c) 2015 Andrey Borodulin
+ * @license https://github.com/borodulin/yii2-oauth2-server/blob/master/LICENSE
+ */
+
+namespace yuncms\oauth2\grant\types;
+
+
+use yuncms\oauth2\GrantType;
+
+/**
+ *
+ * @link http://tools.ietf.org/html/draft-ietf-oauth-jwt-bearer-04#section-4
+ *
+ * @author Andrey Borodulin
+ */
+class JwtBearer extends GrantType
+{
+    function getResponseData()
+    {
+        // TODO: Implement getResponseData() method.
+    }
+}

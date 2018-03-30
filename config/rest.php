@@ -14,7 +14,7 @@ return [
     ],
     'components' => [
         'cache' => [
-            'keyPrefix' => 'rest',       //前缀
+            'keyPrefix' => 'rest',//前缀
         ],
         'request' => [
             'class' => yuncms\web\Request::class,
