@@ -7,6 +7,10 @@
 
 namespace yuncms\helpers;
 
+use Yii;
+use yii\base\ErrorException;
+use yii\base\InvalidArgumentException;
+
 /**
  * Class FileHelper
  *
@@ -21,6 +25,23 @@ class FileHelper extends \yii\helpers\FileHelper
     public static $mimeMagicFile = '@yuncms/helpers/mimeTypes.php';
 
     /**
+     * 读取并删除文件
+     * @param string $path
+     * @return bool|string
+     * @throws ErrorException
+     */
+    public static function readAndDelete($path)
+    {
+        $path = self::normalizePath($path);
+        $contents = file_get_contents($path);
+        if ($contents === false) {
+            return false;
+        }
+        self::removeFile($path);
+        return $contents;
+    }
+
+    /**
      * Checks if given fileName has a extension
      *
      * @param string $fileName the filename
@@ -29,17 +50,6 @@ class FileHelper extends \yii\helpers\FileHelper
     public static function hasExtension(string $fileName): bool
     {
         return (strpos($fileName, ".") !== false);
-    }
-
-    /**
-     * Determine if a file exists.
-     *
-     * @param  string $path
-     * @return bool
-     */
-    public static function exists(string $path): bool
-    {
-        return file_exists($path);
     }
 
     /**
@@ -70,72 +80,23 @@ class FileHelper extends \yii\helpers\FileHelper
     /**
      * Delete a file.
      *
-     * @param  string $path
-     * @return bool
+     * @param string $file
+     * @throws ErrorException
      */
-    public static function delete(string $path): bool
+    public static function removeFile(string $file)
     {
-        if (static::exists($path)) {
-            return @unlink($path);
+        // Copied from [[removeDirectory()]]
+        try {
+            unlink($file);
+        } catch (ErrorException $e) {
+            if (DIRECTORY_SEPARATOR === '\\') {
+                // last resort measure for Windows
+                $lines = [];
+                exec("DEL /F/Q \"$file\"", $lines, $deleteError);
+            } else {
+                throw $e;
+            }
         }
-        return false;
-    }
-
-    /**
-     * 移动文件到新位置
-     *
-     * @param  string $path 原始路径
-     * @param  string $target 新路径
-     * @return bool true on success or false on failure.
-     */
-    public static function move(string $path, string $target): bool
-    {
-        return rename($path, $target);
-    }
-
-    /**
-     * 复制文件到新位置
-     *
-     * @param  string $path 原始路径
-     * @param  string $target 新路径
-     * @return bool true on success or false on failure.
-     */
-    public static function copy(string $path, string $target): bool
-    {
-        return copy($path, $target);
-    }
-
-    /**
-     * Get the file type of a given file.
-     *
-     * @param  string $path
-     * @return string
-     */
-    public static function type(string $path): string
-    {
-        return filetype($path);
-    }
-
-    /**
-     * Get the file size of a given file.
-     *
-     * @param  string $path
-     * @return int
-     */
-    public static function size(string $path): int
-    {
-        return filesize($path);
-    }
-
-    /**
-     * 获取文件的最后修改时间
-     *
-     * @param  string $path
-     * @return int
-     */
-    public static function lastModified(string $path): int
-    {
-        return filemtime($path);
     }
 
     /**
@@ -195,6 +156,44 @@ class FileHelper extends \yii\helpers\FileHelper
     }
 
     /**
+     * Sanitizes a filename.
+     *
+     * @param string $filename the filename to sanitize
+     * @param array $options options for sanitization. Valid options are:
+     *
+     * - `asciiOnly`: bool, whether only ASCII characters should be allowed. Defaults to false.
+     * - `separator`: string|null, the separator character to use in place of whitespace. defaults to '-'. If set to null, whitespace will be preserved.
+     *
+     * @return string The cleansed filename
+     */
+    public static function sanitizeFilename(string $filename, array $options = []): string
+    {
+        $asciiOnly = $options['asciiOnly'] ?? false;
+        $separator = array_key_exists('separator', $options) ? $options['separator'] : '-';
+        $disallowedChars = ['â€”', 'â€“', '&#8216;', '&#8217;', '&#8220;', '&#8221;', '&#8211;', '&#8212;',
+            '+', '%', '^', '~', '?', '[', ']', '/', '\\', '=', '<', '>', ':', ';', ',', '\'',
+            '"', '&', '$', '#', '*', '(', ')', '|', '~', '`', '!', '{', '}'
+        ];
+
+        // Replace any control characters in the name with a space.
+        $filename = preg_replace("/\\x{00a0}/iu", ' ', $filename);
+
+        // Strip any characters not allowed.
+        $filename = str_replace($disallowedChars, '', strip_tags($filename));
+
+        if ($separator !== null) {
+            $filename = preg_replace('/(\s|' . preg_quote($separator, '/') . ')+/u', $separator, $filename);
+        }
+
+        // Nuke any trailing or leading .-_
+        $filename = trim($filename, '.-_');
+
+        $filename = $asciiOnly ? StringHelper::toAscii($filename) : $filename;
+
+        return $filename;
+    }
+
+    /**
      * Returns whether the file path is an absolute path.
      *
      * @param string $path A file path
@@ -207,7 +206,75 @@ class FileHelper extends \yii\helpers\FileHelper
                 && ':' === $path[1]
                 && strspn($path, '/\\', 2, 1)
             )
-            || null !== parse_url($path, PHP_URL_SCHEME)
-            ;
+            || null !== parse_url($path, PHP_URL_SCHEME);
+    }
+
+    /**
+     * Returns whether a given directory is empty (has no files) recursively.
+     *
+     * @param string $dir the directory to be checked
+     * @return bool whether the directory is empty
+     * @throws InvalidArgumentException if the dir is invalid
+     * @throws ErrorException in case of failure
+     */
+    public static function isDirectoryEmpty(string $dir): bool
+    {
+        if (!is_dir($dir)) {
+            throw new InvalidArgumentException("The dir argument must be a directory: $dir");
+        }
+
+        if (!($handle = opendir($dir))) {
+            throw new ErrorException("Unable to open the directory: $dir");
+        }
+
+        // It's empty until we find a file
+        $empty = true;
+
+        while (($file = readdir($handle)) !== false) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+            $path = $dir . DIRECTORY_SEPARATOR . $file;
+            if (is_file($path) || !static::isDirectoryEmpty($path)) {
+                $empty = false;
+                break;
+            }
+        }
+
+        closedir($handle);
+
+        return $empty;
+    }
+
+    /**
+     * Tests whether a file/directory is writable.
+     *
+     * @param string $path the file/directory path to test
+     *
+     * @return bool whether the path is writable
+     * @throws ErrorException in case of failure
+     */
+    public static function isWritable(string $path): bool
+    {
+        // If it's a directory, test on a temp sub file
+        if (is_dir($path)) {
+            return static::isWritable($path . DIRECTORY_SEPARATOR . uniqid('test_writable', true) . '.tmp');
+        }
+
+        // Remember whether the file already existed
+        $exists = file_exists($path);
+
+        if (($f = @fopen($path, 'ab')) === false) {
+            return false;
+        }
+
+        @fclose($f);
+
+        // Delete the file if it didn't exist already
+        if (!$exists) {
+            static::removeFile($path);
+        }
+
+        return true;
     }
 }

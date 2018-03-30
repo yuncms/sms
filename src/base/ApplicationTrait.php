@@ -11,6 +11,7 @@ use yii\base\Application;
 use yii\web\UrlManager;
 use yuncms\notifications\NotificationManager;
 use yuncms\payment\PaymentManager;
+use yuncms\services\Path;
 use yuncms\sms\Sms;
 
 /**
@@ -27,10 +28,20 @@ use yuncms\sms\Sms;
  * @property \yuncms\payment\PaymentManager $payment the payment connection.
  * @property \yuncms\mq\BaseMessageQueue $messageQueue the message queue connection.
  * @property \yuncms\sms\Sms $sms the sms connection.
- * @property \yii\web\UrlManager $frontUrlManager the frontUrlManager connection.
+ * @property \yii\web\UrlManager $frontUrlManager the frontUrlManager component.
+ * @property \yuncms\services\Path $path the path component.
  */
 trait ApplicationTrait
 {
+    /**
+     * Returns the path component.
+     * @return Path the path component.
+     */
+    public function getPath(): Path
+    {
+        return $this->get('path');
+    }
+
     /**
      * Returns the sms component.
      * @return UrlManager the frontUrlManager component.

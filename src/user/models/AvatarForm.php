@@ -9,8 +9,9 @@ namespace yuncms\user\models;
 
 use Yii;
 use yii\imagine\Image;
-use yii\web\UploadedFile;
 use yuncms\base\Model;
+use yuncms\web\UploadedFile;
+use yuncms\helpers\AvatarHelper;
 
 /**
  * Class PortraitForm
@@ -41,6 +42,11 @@ class AvatarForm extends Model
     private $_user;
 
     /**
+     * @var string
+     */
+    private $_originalImage;
+
+    /**
      * @inheritdoc
      */
     public function rules()
@@ -67,23 +73,19 @@ class AvatarForm extends Model
      * 保存头像
      *
      * @return boolean
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\ErrorException
      */
     public function save()
     {
         if ($this->validate()) {
             $user = $this->getUser();
-
-            $avatarPath = $this->getAvatarPath($user->id);
-            $originalImage = $avatarPath . '_avatar.jpg';
-            //保存原图
-            Image::crop($this->file->tempName, $this->width, $this->height, [$this->x, $this->y])->save($originalImage, ['quality' => 100]);
-            //缩放
-            Image::thumbnail($originalImage, 200, 200)->save($avatarPath . '_avatar_big.jpg', ['quality' => 100]);
-            Image::thumbnail($avatarPath . '_avatar_big.jpg', 128, 128)->save($avatarPath . '_avatar_middle.jpg', ['quality' => 100]);
-            Image::thumbnail($avatarPath . '_avatar_big.jpg', 48, 48)->save($avatarPath . '_avatar_small.jpg', ['quality' => 100]);
-            $user->avatar = true;
-            $user->save();
-            return true;
+            if(AvatarHelper::save($user, $this->getOriginalImage())){
+                return true;
+            } else {
+                return false;
+            }
         }
         return false;
     }
@@ -99,9 +101,37 @@ class AvatarForm extends Model
         return $this->_user;
     }
 
+    /**
+     * 获取原图路径
+     * @return string
+     * @throws \yii\base\Exception
+     */
+    public function getOriginalImage()
+    {
+        if ($this->_originalImage == null) {
+            $this->_originalImage = Yii::$app->getPath()->getTempPath() . DIRECTORY_SEPARATOR . $this->getUser()->id . '_avatar.jpg';
+        }
+        return $this->_originalImage;
+    }
+
+    /**
+     * 验证前 处理上传
+     * @return bool
+     */
     public function beforeValidate()
     {
         $this->file = UploadedFile::getInstance($this, 'file');
         return parent::beforeValidate();
+    }
+
+    /**
+     * 验证后保存原图
+     * @throws \yii\base\Exception
+     */
+    public function afterValidate()
+    {
+        //保存原图
+        Image::crop($this->file->tempName, $this->width, $this->height, [$this->x, $this->y])->save($this->getOriginalImage(), ['quality' => 100]);
+        parent::afterValidate();
     }
 }

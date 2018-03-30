@@ -43,6 +43,9 @@ class LocalAdapter extends Adapter
             throw new InvalidConfigException('The "path" property must be set.');
         }
         $this->path = Yii::getAlias($this->path);
+        if (!is_dir($this->path)) {
+            FileHelper::createDirectory($this->path);
+        }
         parent::init();
     }
 

@@ -98,8 +98,7 @@ class UserSettings extends Model
      */
     const STRATEGY_SECURE = 2;
 
-    public $avatarPath;
-    public $avatarUrl;
+    public $avatarVolume;
 
     /**
      * 定义字段类型
@@ -123,8 +122,7 @@ class UserSettings extends Model
             'recoverWithin' => 'integer',
             'cost' => 'integer',
             'requestRateLimit' => 'integer',
-            'avatarPath' => 'string',
-            'avatarUrl' => 'string',
+            'avatarVolume' => 'string',
         ];
     }
 
@@ -168,10 +166,9 @@ class UserSettings extends Model
             ['cost', 'default', 'value' => 10],
             ['requestRateLimit', 'default', 'value' => 60],
 
-            [['avatarPath', 'avatarUrl'], 'string'],
+            [['avatarVolume'], 'string'],
 
-            ['avatarPath', 'default', 'value' => '@root/uploads/avatar'],
-            ['avatarUrl', 'default', 'value' => '@web/uploads/avatar'],
+            ['avatarVolume', 'default', 'value' => 'avatar'],
 
         ];
     }
@@ -196,8 +193,7 @@ class UserSettings extends Model
             'recoverWithin' => Yii::t('yuncms', 'Recover Within'),
             'cost' => Yii::t('yuncms', 'Cost'),
             'requestRateLimit'=>Yii::t('yuncms', 'Request Rate Limit'),
-            'avatarPath' => Yii::t('yuncms', 'Avatar Path'),
-            'avatarUrl' => Yii::t('yuncms', 'Avatar Url'),
+            'avatarVolume' => Yii::t('yuncms', 'Avatar Volume'),
         ];
     }
 

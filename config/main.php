@@ -41,8 +41,25 @@ return [
             'class' => yuncms\components\Settings::class,
             'frontCache' => 'cache'
         ],
+        'path' => [
+            'class' => yuncms\services\Path::class,
+        ],
         'filesystem' => [
             'class' => yuncms\filesystem\FilesystemManager::class,
+            'filesystems' => [
+                'local' => [
+                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
+                    'path' => '@root/storage/local'
+                ],
+                'avatar' => [
+                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
+                    'path' => '@root/storage/avatar'
+                ],
+                'attachment' => [
+                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
+                    'path' => '@root/storage/attachment'
+                ],
+            ],
         ],
         'payment' => [
             'class' => yuncms\payment\PaymentManager::class,
