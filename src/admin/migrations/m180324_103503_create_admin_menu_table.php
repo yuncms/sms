@@ -89,7 +89,7 @@ class m180324_103503_create_admin_menu_table extends Migration
         $this->insert($this->tableName, ['name' => '附件管理', 'parent' => 8, 'route' => '/admin/attachment/index', 'icon' => 'fa-cog', 'sort' => NULL, 'data' => NULL]);
 
         //OAuth2
-        $this->insert($this->tableName, ['name' => 'OAuth2 管理', 'parent' => 8, 'route' => '/admin/oauth2/index', 'icon' => 'fa fa-apple', 'sort' => NULL, 'data' => NULL]);
+        $this->insert($this->tableName, ['name' => 'App管理', 'parent' => 8, 'route' => '/admin/oauth2/index', 'icon' => 'fa fa-apple', 'sort' => NULL, 'data' => NULL]);
         $id = (new Query())->select(['id'])->from($this->tableName)->where(['name' => 'App管理', 'parent' => 8])->scalar($this->getDb());
         $this->batchInsert($this->tableName, ['name', 'parent', 'route', 'visible', 'sort'], [
             ['App查看', $id, '/admin/oauth2/view', 0, NULL],

@@ -13,6 +13,7 @@ $migrationPaths = array_merge(
         '@yii/i18n/migrations',
         '@yuncms/admin/migrations',
         '@yuncms/user/migrations',
+        '@yuncms/oauth2/migrations',
     ]
 );
 

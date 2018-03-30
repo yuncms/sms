@@ -10,6 +10,7 @@ return [
         'log', 'queue',
     ],
     'controllerMap' => [
+        'auth' => 'yuncms\rest\controllers\AuthController',
         'health' => 'yuncms\web\controllers\HealthController'
     ],
     'components' => [

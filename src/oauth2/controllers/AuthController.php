@@ -8,15 +8,20 @@
 namespace yuncms\oauth2\controllers;
 
 use Yii;
+use yii\authclient\ClientInterface;
+use yii\base\InvalidConfigException;
 use yii\helpers\Url;
+use yuncms\filters\OAuth2Authorize;
 use yuncms\web\Controller;
 use yuncms\user\models\LoginForm;
 use yuncms\user\models\UserSocialAccount;
+use yuncms\oauth2\actions\Token;
+use yii\authclient\AuthAction;
 
 /**
  * Oauth2 登录控制器
- * @package yuncms\oauth2\controllers
- * @property bool isOauthRequest
+ * @property bool $isOauthRequest
+ * @property AuthAction $action
  * @method finishAuthorization()
  */
 class AuthController extends Controller
@@ -28,7 +33,7 @@ class AuthController extends Controller
     {
         return [
             'oauth2Auth' => [
-                'class' => 'yuncms\oauth2\filters\Authorize',
+                'class' => OAuth2Authorize::class,
                 'only' => ['authorize'],
             ],
         ];
@@ -41,14 +46,14 @@ class AuthController extends Controller
              * Returns an access token.
              */
             'token' => [
-                'class' => 'yuncms\oauth2\actions\Token',
+                'class' => Token::class,
             ],
             /**
              * OPTIONAL
              * Third party oauth providers also can be used.
              */
             'back' => [
-                'class' => 'yii\authclient\AuthAction',
+                'class' => AuthAction::class,
                 'successCallback' => [$this, 'successCallback'],
             ],
         ];
@@ -96,9 +101,10 @@ class AuthController extends Controller
     /**
      * OPTIONAL
      * Third party oauth callback sample
-     * @param \yii\authclient\OAuth2 $client
+     * @param ClientInterface $client
+     * @throws InvalidConfigException
      */
-    public function successCallback($client)
+    public function successCallback(ClientInterface $client)
     {
         $account = UserSocialAccount::find()->byClient($client)->one();
         if ($account === null) {
