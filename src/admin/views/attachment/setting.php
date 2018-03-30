@@ -5,7 +5,6 @@ use yuncms\admin\widgets\Box;
 use yuncms\admin\widgets\Toolbar;
 use yuncms\admin\widgets\Alert;
 use yuncms\admin\widgets\ActiveForm;
-use yuncms\admin\models\AttachmentSetting;
 
 /* @var $this yii\web\View */
 /* @var $model yuncms\admin\models\AttachmentSetting */

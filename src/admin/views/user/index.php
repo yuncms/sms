@@ -1,7 +1,7 @@
 <?php
 use yii\web\View;
-use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
+use yuncms\grid\GridView;
 use yuncms\helpers\Html;
 use yuncms\admin\widgets\Box;
 use yuncms\admin\widgets\Toolbar;

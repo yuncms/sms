@@ -5,31 +5,16 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\admin\widgets;
+namespace yuncms\grid;
 
 /**
- * Class ActiveForm
+ * Class GridView
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class ActiveForm extends \yii\bootstrap\ActiveForm
+class GridView extends \yii\grid\GridView
 {
-    /**
-     * @var string the default field class name when calling [[field()]] to create a new field.
-     * @see fieldConfig
-     */
-    public $fieldClass = 'yuncms\admin\widgets\ActiveField';
-
-    /**
-     * @inheritdoc
-     * @return \yii\bootstrap\ActiveField|ActiveField
-     */
-    public function field($model, $attribute, $options = [])
-    {
-        return parent::field($model, $attribute, $options);
-    }
-
     /**
      * Creates a widget instance and runs it.
      * The widget rendering result is returned by this method.

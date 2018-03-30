@@ -1,7 +1,7 @@
 <?php
 
 use yii\widgets\Pjax;
-use yii\grid\GridView;
+use yuncms\grid\GridView;
 use yuncms\helpers\Html;
 use yuncms\admin\widgets\Box;
 use yuncms\admin\widgets\Toolbar;

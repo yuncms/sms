@@ -1,6 +1,5 @@
 <?php
 use yuncms\admin\widgets\ActiveForm;
-
 /*
  * @var yii\web\View $this
  * @var yuncms\user\models\User $user

@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use yuncms\helpers\Html;
 use yuncms\rbac\RouteRule;
 use yuncms\admin\widgets\ActiveForm;
 

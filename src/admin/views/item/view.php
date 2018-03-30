@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Json;
-use yii\widgets\DetailView;
+use yuncms\helpers\Json;
+use yuncms\widgets\DetailView;
 use yuncms\helpers\Html;
 use yuncms\admin\widgets\Box;
 use yuncms\admin\widgets\Toolbar;

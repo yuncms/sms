@@ -4,7 +4,7 @@
 /* @var $content string */
 
 use yii\helpers\Url;
-use yii\helpers\Html;
+use yuncms\helpers\Html;
 use yuncms\admin\models\Admin;
 use yuncms\assets\InspiniaAsset;
 

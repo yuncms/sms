@@ -1,16 +1,14 @@
 <?php
 use yii\web\View;
-use yii\helpers\Url;
-
-use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yuncms\grid\GridView;
 use yuncms\helpers\Html;
 use yuncms\admin\widgets\Box;
 use yuncms\admin\widgets\Toolbar;
 use yuncms\admin\widgets\Alert;
 
 /* @var $this yii\web\View */
-/* @var $searchModel yuncms\attachment\backend\models\AttachmentSearch */
+/* @var $searchModel yuncms\admin\models\AttachmentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('yuncms', 'Manage Attachment');

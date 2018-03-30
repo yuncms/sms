@@ -1,6 +1,6 @@
 <?php
 use yuncms\helpers\Html;
-use yii\widgets\Breadcrumbs;
+use yuncms\widgets\Breadcrumbs;
 ?>
 
 <?php if (isset($this->params['breadcrumbs']) && $this->params['breadcrumbs'] != false): ?>

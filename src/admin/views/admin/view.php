@@ -1,11 +1,10 @@
 <?php
-
-use yii\widgets\DetailView;
 use yuncms\helpers\Html;
 use yuncms\admin\widgets\Box;
 use yuncms\admin\widgets\Toolbar;
 use yuncms\admin\widgets\Alert;
 use yuncms\admin\models\Admin;
+use yuncms\widgets\DetailView;
 
 /* @var \yii\web\View $this */
 /* @var \yuncms\admin\models\Admin $model */
