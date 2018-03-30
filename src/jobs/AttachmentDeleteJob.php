@@ -5,12 +5,11 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\attachment\jobs;
+namespace yuncms\jobs;
 
 use Yii;
 use yii\base\BaseObject;
 use yii\queue\RetryableJobInterface;
-use yii\base\Exception;
 use League\Flysystem\Filesystem;
 use yuncms\filesystem\Adapter;
 

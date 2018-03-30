@@ -124,6 +124,7 @@ class UploadedFile extends \yii\web\UploadedFile
 
     /**
      * 保存上传文件到模型
+     * @return bool|Attachment
      * @throws \League\Flysystem\FileExistsException
      * @throws \yii\base\ErrorException
      * @throws \yii\base\InvalidConfigException
@@ -134,16 +135,18 @@ class UploadedFile extends \yii\web\UploadedFile
         if (!self::getVolume()->has($filePath)) {
             $fileContent = FileHelper::readAndDelete($this->tempName);
             self::getVolume()->write($filePath, $fileContent);
-            return Attachment::create([
+            $model = new Attachment([
                 'filename' => basename($filePath),
                 'original_name' => $this->name,
                 'path' => $filePath,
                 'size' => $this->size,
                 'type' => $this->getMimeType(),
             ]);
-        } else {
-            return false;
+            if ($model->save()) {
+                return $model;
+            }
         }
+        return false;
     }
 
     /**

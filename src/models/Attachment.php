@@ -11,9 +11,11 @@ use Yii;
 use yii\db\BaseActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\AttributeBehavior;
+use yuncms\jobs\AttachmentDeleteJob;
 use yuncms\behaviors\IpBehavior;
 use yuncms\db\ActiveRecord;
 use yuncms\user\models\User;
+use yuncms\web\UploadedFile;
 
 /**
  * Class Attachment
@@ -117,10 +119,11 @@ class Attachment extends ActiveRecord
 
     /**
      * 获取访问Url
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUrl()
     {
-        return $this->getSetting('storeUrl') . '/' . $this->path;
+        return UploadedFile::getVolume()->getRootUrl() . '/' . $this->path;
     }
 
     /**
@@ -140,9 +143,8 @@ class Attachment extends ActiveRecord
      */
     public function afterDelete()
     {
-        $path = $this->getSetting('storePath') . DIRECTORY_SEPARATOR . $this->path;
         Yii::$app->queue->push(new AttachmentDeleteJob([
-            'path' => $path
+            'path' => $this->path
         ]));
         return parent::afterDelete();
     }

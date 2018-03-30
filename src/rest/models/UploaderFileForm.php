@@ -8,10 +8,12 @@
 namespace yuncms\rest\models;
 
 use Yii;
+use yii\base\ErrorException;
+use yii\base\InvalidConfigException;
 use yii\base\Model;
-use yii\helpers\ArrayHelper;
-use yii\web\UploadedFile;
-use yuncms\attachment\components\Uploader;
+use yuncms\web\UploadedFile;
+use yuncms\helpers\ArrayHelper;
+use League\Flysystem\FileExistsException;
 
 /**
  * Class UploaderFileForm
@@ -43,19 +45,24 @@ class UploaderFileForm extends Model
 
     /**
      * 保存图片
-     * @return boolean
+     * @return bool
      */
     public function save()
     {
         if ($this->validate() && $this->file instanceof UploadedFile) {
-            $uploader = new Uploader();
-            $uploader->up($this->file);
-            $fileInfo = $uploader->getFileInfo();
-            $this->file = $fileInfo['url'];
-            return true;
-        } else {
-            return false;
+            try {
+                $uploader = $this->file->save();
+                $this->file = $uploader->getUrl();
+                return true;
+            } catch (FileExistsException $e) {
+                $this->addError($e->getMessage());
+            } catch (ErrorException $e) {
+                $this->addError($e->getMessage());
+            } catch (InvalidConfigException $e) {
+                $this->addError($e->getMessage());
+            }
         }
+        return false;
     }
 
     public function beforeValidate()
