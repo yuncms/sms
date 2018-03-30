@@ -140,6 +140,6 @@ class AvatarHelper
      */
     public static function getVolume()
     {
-        return Yii::$app->getFilesystem()->get(Yii::$app->settings->get('avatarVolume', 'user'));
+        return Yii::$app->getFilesystem()->get(Yii::$app->settings->get('avatarVolume', 'user','avatar'));
     }
 }

@@ -53,7 +53,8 @@ return [
                 ],
                 'avatar' => [
                     'class' => yuncms\filesystem\adapters\LocalAdapter::class,
-                    'path' => '@root/storage/avatar'
+                    'path' => '@root/storage/avatar',
+                    'url' => '@web/avatar'
                 ],
                 'attachment' => [
                     'class' => yuncms\filesystem\adapters\LocalAdapter::class,
