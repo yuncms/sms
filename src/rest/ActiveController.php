@@ -7,6 +7,7 @@
 
 namespace yuncms\rest;
 
+use yii\rest\Serializer;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\auth\HttpBearerAuth;
@@ -22,6 +23,14 @@ use yuncms\filters\auth\OAuth2TokenAuth;
  */
 class ActiveController extends \yii\rest\ActiveController
 {
+    /**
+     * @var string|array the configuration for creating the serializer that formats the response data.
+     */
+    public $serializer = [
+        'class' => Serializer::class,
+        'collectionEnvelope' => 'items',
+    ];
+
     /**
      * 初始化 API 控制器验证
      * @return array
