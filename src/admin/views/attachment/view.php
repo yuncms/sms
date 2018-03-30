@@ -1,13 +1,12 @@
 <?php
-
-use yii\widgets\DetailView;
 use yuncms\helpers\Html;
 use yuncms\admin\widgets\Box;
 use yuncms\admin\widgets\Toolbar;
 use yuncms\admin\widgets\Alert;
+use yuncms\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model yuncms\attachment\models\Attachment */
+/* @var $model yuncms\models\Attachment */
 
 $this->title = $model->filename;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Manage Attachment'), 'url' => ['index']];
@@ -53,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'original_name',
                     'size',
                     'type',
-                    'path',
+                    'url:image',
                     'ip',
                     'created_at:datetime',
                 ],
