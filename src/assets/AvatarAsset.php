@@ -17,15 +17,20 @@ use yii\web\AssetBundle;
  */
 class AvatarAsset extends AssetBundle
 {
-    public $sourcePath = '@yuncms/user/frontend/views/assets';
+    /**
+     * @inherit
+     */
+    public $sourcePath = '@vendor/yuncms/framework/resources/assets/yuncms-user/dist';
 
     public $css = [
         'css/cropper.css',
-        'css/user.css'
     ];
 
     public $js = [
-        'js/cropper.js',
-        'js/user.js',
+        'js/cropper.min.js',
+    ];
+
+    public $depends = [
+        'yuncms\assets\CropperAsset',
     ];
 }

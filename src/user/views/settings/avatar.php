@@ -1,15 +1,15 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yuncms\assets\AvatarAsset;
 use yuncms\assets\FontAwesomeAsset;
-use yuncms\assets\CropperAsset;
 
 /*
  * @var \yii\web\View $this
  * @var \yuncms\user\frontend\models\AvatarForm $model
  */
 FontAwesomeAsset::register($this);
-CropperAsset::register($this);
+AvatarAsset::register($this);
 $this->title = Yii::t('yuncms', 'My Avatar');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
