@@ -9,6 +9,9 @@ namespace yuncms\rest\controllers;
 
 use Yii;
 use yuncms\web\Controller;
+use yuncms\oauth2\actions\QRCode;
+use yuncms\oauth2\actions\Token;
+use yuncms\filters\OAuth2Authorize;
 use yuncms\oauth2\frontend\models\LoginForm;
 
 /**
@@ -24,7 +27,7 @@ class AuthController extends Controller
     {
         return [
             'oauth2Auth' => [
-                'class' => 'yuncms\oauth2\filters\Authorize',
+                'class' => OAuth2Authorize::class,
                 'only' => ['authorize'],
             ],
         ];
@@ -37,13 +40,13 @@ class AuthController extends Controller
              * Returns an access token.
              */
             'token' => [
-                'class' => 'yuncms\oauth2\actions\Token',
+                'class' => Token::class,
             ],
             /**
              * Returns an access token.
              */
             'qrcode' => [
-                'class' => 'yuncms\oauth2\actions\QRCode',
+                'class' => QRCode::class,
             ],
         ];
     }
