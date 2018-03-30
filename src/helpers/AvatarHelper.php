@@ -8,6 +8,9 @@
 namespace yuncms\helpers;
 
 use Yii;
+use yii\base\ErrorException;
+use yii\base\Exception;
+use yii\base\InvalidConfigException;
 use yii\helpers\Url;
 use yii\imagine\Image;
 use yuncms\assets\UserAsset;
@@ -62,25 +65,31 @@ class AvatarHelper
      * @param User $user
      * @param string $originalImage
      * @return bool
-     * @throws \yii\base\ErrorException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
      */
     public static function save(User $user, $originalImage): bool
     {
         $avatarPath = AvatarHelper::getAvatarPath($user->id);
         foreach (self::$avatarSize as $size => $value) {
-            $tempFile = Yii::$app->getPath()->getTempPath() . DIRECTORY_SEPARATOR . $user->id . '_avatar_' . $size . '.jpg';
-            Image::thumbnail($originalImage, $value, $value)->save($tempFile, ['quality' => 100]);
-            $currentAvatarPath = $avatarPath . "_avatar_{$size}.jpg";
-            if (self::getVolume()->has($currentAvatarPath)) {
-                self::getVolume()->delete($currentAvatarPath);
+            try {
+                $tempFile = Yii::$app->getPath()->getTempPath() . DIRECTORY_SEPARATOR . $user->id . '_avatar_' . $size . '.jpg';
+                Image::thumbnail($originalImage, $value, $value)->save($tempFile, ['quality' => 100]);
+                $currentAvatarPath = $avatarPath . "_avatar_{$size}.jpg";
+                if (self::getVolume()->has($currentAvatarPath)) {
+                    self::getVolume()->delete($currentAvatarPath);
+                }
+                self::getVolume()->write($currentAvatarPath, FileHelper::readAndDelete($tempFile), [
+                    'visibility' => AdapterInterface::VISIBILITY_PRIVATE
+                ]);
+                return (bool)$user->updateAttributes(['avatar' => true]);
+            } catch (Exception $e) {
+
+            } catch (InvalidConfigException $e) {
+
+            } catch (ErrorException $e) {
+
             }
-            self::getVolume()->write($currentAvatarPath, FileHelper::readAndDelete($tempFile), [
-                'visibility' => AdapterInterface::VISIBILITY_PRIVATE
-            ]);
         }
-        return (bool)$user->updateAttributes(['avatar' => true]);
+        return false;
     }
 
     /**
@@ -94,7 +103,7 @@ class AvatarHelper
     {
         $user = User::findOne(['id' => $userId]);
         if ($user) {
-            return self::getAvatar($user);
+            return self::getAvatar($user, $size);
         }
         return '';
     }

@@ -57,7 +57,7 @@ class UploaderAudioForm extends Model
                     $this->file = $uploader->getUrl();
                     return true;
                 } else {
-                    $this->addError('file', 'Audio file storage failed.');
+                    $this->addError('file', Yii::t('yuncms', 'Audio file storage failed.'));
                 }
             } catch (FileExistsException $e) {
                 $this->addError('file', $e->getMessage());

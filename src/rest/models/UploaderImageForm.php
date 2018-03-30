@@ -55,7 +55,7 @@ class UploaderImageForm extends Model
                     $this->file = $uploader->getUrl();
                     return true;
                 } else {
-                    $this->addError('file', 'Image storage failed.');
+                    $this->addError('file', Yii::t('yuncms', 'Image storage failed.'));
                 }
             } catch (FileExistsException $e) {
                 $this->addError('file', $e->getMessage());

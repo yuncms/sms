@@ -11,6 +11,7 @@ use Yii;
 use yii\helpers\Url;
 use yii\web\ServerErrorHttpException;
 use yuncms\rest\Controller;
+use yuncms\rest\models\AvatarForm;
 use yuncms\rest\models\UserSettingsForm;
 use yuncms\rest\models\UserRecoveryForm;
 use yuncms\rest\models\UserRegistrationForm;
@@ -135,6 +136,25 @@ class UserController extends Controller
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
         if ($model->resetPassword()) {
             Yii::$app->getResponse()->setStatusCode(200);
+        } elseif (!$model->hasErrors()) {
+            throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+        }
+        return $model;
+    }
+
+    /**
+     * 上传头像
+     * @return AvatarForm|bool
+     * @throws ServerErrorHttpException
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function actionAvatar()
+    {
+        $model = new AvatarForm();
+        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+        if (($user = $model->save()) != false) {
+            Yii::$app->getResponse()->setStatusCode(200);
+            return $user;
         } elseif (!$model->hasErrors()) {
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }

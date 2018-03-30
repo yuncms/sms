@@ -55,14 +55,14 @@ class UploaderFileForm extends Model
                     $this->file = $uploader->getUrl();
                     return true;
                 } else {
-                    $this->addError('file', 'File storage failed.');
+                    $this->addError('file', Yii::t('yuncms', 'File storage failed.'));
                 }
             } catch (FileExistsException $e) {
-                $this->addError('file',$e->getMessage());
+                $this->addError('file', $e->getMessage());
             } catch (ErrorException $e) {
-                $this->addError('file',$e->getMessage());
+                $this->addError('file', $e->getMessage());
             } catch (InvalidConfigException $e) {
-                $this->addError('file',$e->getMessage());
+                $this->addError('file', $e->getMessage());
             }
         }
         return false;
