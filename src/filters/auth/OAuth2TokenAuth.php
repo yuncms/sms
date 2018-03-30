@@ -65,7 +65,7 @@ class OAuth2TokenAuth extends AuthMethod
         $identityClass = is_null($this->identityClass) ? $user->identityClass : $this->identityClass;
         $identity = $identityClass::findIdentity($accessToken->user_id);
         if (empty($identity)) {
-            throw new UnauthorizedHttpException(Yii::t('oauth2', 'User is not found.'));
+            throw new UnauthorizedHttpException(Yii::t('yuncms', 'User is not found.'));
         }
         $user->setIdentity($identity);
         return $identity;
