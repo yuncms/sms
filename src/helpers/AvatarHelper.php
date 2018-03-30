@@ -7,14 +7,14 @@
 
 namespace yuncms\helpers;
 
-use League\Flysystem\Filesystem;
 use Yii;
 use yii\helpers\Url;
 use yii\imagine\Image;
-use yii\web\NotFoundHttpException;
 use yuncms\assets\UserAsset;
 use yuncms\filesystem\Adapter;
 use yuncms\user\models\User;
+use League\Flysystem\Filesystem;
+use League\Flysystem\AdapterInterface;
 
 /**
  * 用户头像助手
@@ -66,6 +66,7 @@ class AvatarHelper
      * @throws \yii\base\ErrorException
      * @throws \yii\base\Exception
      * @throws \yii\base\InvalidConfigException
+     * @throws \League\Flysystem\FileNotFoundException
      */
     public static function save(User $user, $originalImage): bool
     {
@@ -74,7 +75,12 @@ class AvatarHelper
             $tempFile = Yii::$app->getPath()->getTempPath() . DIRECTORY_SEPARATOR . $user->id . '_avatar_' . $size . '.jpg';
             Image::thumbnail($originalImage, $value, $value)->save($tempFile, ['quality' => 100]);
             $currentAvatarPath = $avatarPath . "_avatar_{$size}.jpg";
-            self::getVolume()->write($currentAvatarPath, FileHelper::readAndDelete($tempFile));
+            if (self::getVolume()->has($currentAvatarPath)) {
+                self::getVolume()->delete($currentAvatarPath);
+            }
+            self::getVolume()->write($currentAvatarPath, FileHelper::readAndDelete($tempFile), [
+                'visibility' => AdapterInterface::VISIBILITY_PRIVATE
+            ]);
         }
         return (bool)$user->updateAttributes(['avatar' => true]);
     }
@@ -140,6 +146,6 @@ class AvatarHelper
      */
     public static function getVolume()
     {
-        return Yii::$app->getFilesystem()->get(Yii::$app->settings->get('avatarVolume', 'user','avatar'));
+        return Yii::$app->getFilesystem()->get(Yii::$app->settings->get('avatarVolume', 'user', 'avatar'));
     }
 }

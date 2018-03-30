@@ -58,7 +58,8 @@ return [
                 ],
                 'attachment' => [
                     'class' => yuncms\filesystem\adapters\LocalAdapter::class,
-                    'path' => '@root/storage/attachment'
+                    'path' => '@root/storage/attachment',
+                    'url' => '@web/uploadfiles'
                 ],
             ],
         ],
