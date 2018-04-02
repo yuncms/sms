@@ -40,7 +40,7 @@ class AvatarForm extends Model
     {
         return [
             [['file'], 'required'],
-            [['file'], 'file', 'extensions' => 'gif, jpg, png', 'maxSize' => 1024 * 1024 * 2, 'tooBig' => Yii::t('user', 'File has to be smaller than 2MB')],
+            [['file'], 'file', 'extensions' => 'gif, jpg, png', 'maxSize' => 1024 * 1024 * 2, 'tooBig' => Yii::t('yuncms', 'File has to be smaller than 2MB')],
         ];
     }
 

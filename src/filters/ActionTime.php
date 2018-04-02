@@ -13,23 +13,32 @@ use yii\base\ActionFilter;
 /**
  * Class ActionTimeFilter
  */
-class ActionTimeFilter extends ActionFilter
+class ActionTime extends ActionFilter
 {
     /**
      * @var mixed
      */
     private $_startTime;
 
+    /**
+     * @param \yii\base\Action $action
+     * @return bool
+     */
     public function beforeAction($action)
     {
         $this->_startTime = microtime(true);
         return parent::beforeAction($action);
     }
 
+    /**
+     * @param \yii\base\Action $action
+     * @param mixed $result
+     * @return mixed
+     */
     public function afterAction($action, $result)
     {
         $time = microtime(true) - $this->_startTime;
-        Yii::trace("Action '{$action->uniqueId}' spent $time second.");
+        Yii::debug("Action '{$action->uniqueId}' spent $time second.");
         return parent::afterAction($action, $result);
     }
 }
