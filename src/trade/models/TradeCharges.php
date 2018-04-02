@@ -3,7 +3,9 @@
 namespace yuncms\trade\models;
 
 use Yii;
+use yii\behaviors\AttributeBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Query;
 use yuncms\behaviors\IpBehavior;
 use yuncms\db\ActiveRecord;
 use yuncms\helpers\ArrayHelper;
@@ -52,6 +54,15 @@ class TradeCharges extends ActiveRecord
     {
         $behaviors = parent::behaviors();
         return ArrayHelper::merge($behaviors, [
+            'id' => [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'id',
+                ],
+                'value' => function ($event) {
+                    return $event->sender->generateId();
+                }
+            ],
             'timestamp' => [
                 'class' => TimestampBehavior::class,
                 'attributes' => [
@@ -125,5 +136,23 @@ class TradeCharges extends ActiveRecord
     public static function find()
     {
         return new TradeChargesQuery(get_called_class());
+    }
+
+    /**
+     * 生成交易流水号
+     * @return string
+     */
+    protected function generateId()
+    {
+        $i = rand(0, 9999);
+        do {
+            if (9999 == $i) {
+                $i = 0;
+            }
+            $i++;
+            $id = time() . str_pad($i, 4, '0', STR_PAD_LEFT);
+            $row = (new Query())->from(static::tableName())->where(['id' => $id])->exists();
+        } while ($row);
+        return $id;
     }
 }

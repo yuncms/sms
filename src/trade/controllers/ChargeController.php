@@ -54,7 +54,7 @@ class ChargeController extends Controller
             }
         } catch (NotFoundHttpException $e) {
             Yii::$app->getSession()->setFlash('error', $e->getMessage());
-            return $this->redirect(['/trade/trade/create']);
+            return $this->redirect(['/trade/charge/create']);
         }
     }
 

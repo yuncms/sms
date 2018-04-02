@@ -21,7 +21,7 @@ class m180315_104011_create_trade_charges_table extends Migration
         }
 
         $this->createTable($this->tableName, [
-            'id' => $this->primaryKey()->unsigned(),
+            'id' => $this->string(50)->notNull()->comment('ID'),
             'paid' => $this->boolean()->defaultValue(false),//boolean 是否已付款
             'refunded' => $this->boolean()->defaultValue(false),//boolean 是否存在退款信息
             'reversed' => $this->boolean()->defaultValue(false),//boolean 订单是否撤销
