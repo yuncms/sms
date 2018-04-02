@@ -7,11 +7,13 @@
 
 namespace yuncms\widgets;
 
+use Yii;
 use yii\helpers\Url;
 use yii\base\Arrayable;
 use yii\jui\JuiAsset;
 use yii\web\JsExpression;
 use yii\widgets\InputWidget;
+use yuncms\assets\UploadAsset;
 use yuncms\helpers\ArrayHelper;
 use yuncms\helpers\Html;
 use yuncms\helpers\Json;
@@ -92,8 +94,8 @@ class MultipleUpload extends InputWidget
         }
         if (empty($this->url)) {
             if ($this->onlyImage === false) {
-                $this->url = $this->multiple ? ['/attachment/upload/files-upload'] : ['/attachment/upload/file-upload'];
-                $fileAllowFiles = $this->getModule()->fileAllowFiles;
+                $this->url = $this->multiple ? ['/upload/files-upload'] : ['/upload/file-upload'];
+                $fileAllowFiles = Yii::$app->getSettings()->get('fileAllowFiles','attachment');
                 $regExp = '/(\.|\/)(';
                 $extensions = explode(',', $fileAllowFiles);
                 foreach ($extensions as $extension) {
@@ -104,7 +106,7 @@ class MultipleUpload extends InputWidget
                 // $this->acceptFileTypes = 'application/*, text/*';
                 $this->clientOptions['acceptFileTypes'] = new JsExpression($regExp);
             } else {
-                $this->url = $this->multiple ? ['/attachment/upload/images-upload'] : ['/attachment/upload/image-upload'];
+                $this->url = $this->multiple ? ['/upload/images-upload'] : ['/upload/image-upload'];
                 //$this->acceptFileTypes = 'image/*';
                 $this->acceptFileTypes = 'image/png, image/jpg, image/jpeg, image/gif';
                 $this->clientOptions['acceptFileTypes'] = new JsExpression('/(\.|\/)(gif|jpe?g|png)$/i');
@@ -190,7 +192,7 @@ class MultipleUpload extends InputWidget
     public function registerClientScript()
     {
         Html::addCssClass($this->wrapperOptions, "upload-kit");
-        AttachmentUploadAsset::register($this->getView());
+        UploadAsset::register($this->getView());
         if ($this->sortable) {
             JuiAsset::register($this->getView());
         }
