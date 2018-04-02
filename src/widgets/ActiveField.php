@@ -29,7 +29,6 @@ class ActiveField extends \yii\bootstrap\ActiveField
             'class' => 'filestyle',
             'data' => [
                 'buttonText' => Yii::t('yuncms', 'Choose file'),
-                //'size' => 'lg'
             ]
         ], $options);
         return parent::fileInput($options);

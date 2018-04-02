@@ -7,7 +7,12 @@
 
 namespace yuncms\widgets;
 
-
+/**
+ * Class Breadcrumbs
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class Breadcrumbs extends \yii\widgets\Breadcrumbs
 {
     /**

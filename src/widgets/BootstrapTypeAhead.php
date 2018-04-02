@@ -8,7 +8,7 @@ namespace yuncms\widgets;
 
 use yii\helpers\Json;
 use yii\widgets\InputWidget;
-use yii\helpers\Html;
+use yuncms\helpers\Html;
 
 /**
  * TypeAhead renders a Twitter typeahead Bootstrap plugin.

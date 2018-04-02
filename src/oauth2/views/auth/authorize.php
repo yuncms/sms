@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 use yii\web\YiiAsset;
 use yii\bootstrap\BootstrapPluginAsset;
 use yuncms\helpers\Html;
-use yuncms\user\frontend\widgets\Connect;
+use yuncms\user\widgets\Connect;
 
 YiiAsset::register($this);
 BootstrapPluginAsset::register($this);

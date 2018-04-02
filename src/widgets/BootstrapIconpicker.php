@@ -22,6 +22,7 @@ class BootstrapIconpicker extends InputWidget
     /**
      * {@inheritDoc}
      * @see \yii\base\Object::init()
+     * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {

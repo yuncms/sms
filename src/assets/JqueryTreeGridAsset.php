@@ -1,5 +1,5 @@
 <?php
-namespace yuncms\widgets;
+namespace yuncms\assets;
 
 use yii\web\AssetBundle;
 

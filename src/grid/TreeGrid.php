@@ -11,7 +11,7 @@ use yii\i18n\Formatter;
 use yuncms\helpers\Html;
 use yuncms\helpers\Json;
 use yuncms\helpers\ArrayHelper;
-use yuncms\widgets\JqueryTreeGridAsset;
+use yuncms\assets\JqueryTreeGridAsset;
 
 /**
  * TreeGrid renders a jQuery TreeGrid component.

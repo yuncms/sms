@@ -48,7 +48,7 @@ class TradeCharges extends ActiveRecord
     {
         return [
             [['paid', 'refunded', 'reversed', 'amount', 'amount_settle', 'time_paid', 'time_expire', 'time_settle', 'amount_refunded'], 'integer'],
-            [['channel', 'order_no', 'client_ip', 'amount', 'amount_settle', 'currency', 'subject', 'body', 'amount_refunded'], 'required'],
+            [['channel',  'amount','currency', 'subject', 'body'], 'required'],
             [['metadata'], 'string'],
             [['channel'], 'string', 'max' => 50],
             [['order_no', 'failure_code', 'failure_msg', 'description'], 'string', 'max' => 255],
