@@ -5,7 +5,8 @@ return [
         'log', 'queue',
     ],
     'controllerMap' => [
-        'health' => 'yuncms\web\controllers\HealthController'
+        'health' => 'yuncms\web\controllers\HealthController',
+        'upload' => 'yuncms\web\controllers\UploadController'
     ],
     'components' => [
         'cache' => [

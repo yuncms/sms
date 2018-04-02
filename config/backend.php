@@ -9,7 +9,8 @@ return [
     'layout' => '@yuncms/admin/views/layouts/main',
     //'defaultRoute' => 'dashboard',
     'controllerMap' => [
-        'health' => 'yuncms\web\controllers\HealthController'
+        'health' => 'yuncms\web\controllers\HealthController',
+        'upload' => 'yuncms\web\controllers\UploadController'
     ],
     'components' => [
         'request' => [
