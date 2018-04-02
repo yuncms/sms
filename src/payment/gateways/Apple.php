@@ -7,6 +7,14 @@
 
 namespace yuncms\payment\gateways;
 
+use yuncms\payment\Gateway;
+
+/**
+ * Class Apple
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class Apple extends Gateway
 {
 

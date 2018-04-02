@@ -9,6 +9,7 @@ namespace yuncms\payment\gateways;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yuncms\payment\Gateway;
 
 /**
  * Class Alipay

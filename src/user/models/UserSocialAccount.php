@@ -4,6 +4,7 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\user\models;
 
 use Yii;
@@ -129,11 +130,26 @@ class UserSocialAccount extends ActiveRecord
     }
 
     /**
+     * 通过用户ID查询用户微信绑定信息
+     * @param int $userId
+     * @param string $provider
+     * @return null|array
+     */
+    public static function findProviderDataByUserId($userId, $provider)
+    {
+        $weChat = static::findOne(['user_id' => $userId, 'provider' => $provider]);
+        if ($weChat) {
+            return $weChat->getDecodedData();
+        }
+        return null;
+    }
+
+    /**
      * @param BaseClientInterface $client
      * @return object|UserSocialAccount
      * @throws \yii\base\InvalidConfigException
      */
-    public static function create(BaseClientInterface $client)
+    public static function createClient(BaseClientInterface $client)
     {
         /** @var UserSocialAccount $account */
         $account = Yii::createObject([
@@ -212,11 +228,9 @@ class UserSocialAccount extends ActiveRecord
     protected static function fetchUser(UserSocialAccount $account)
     {
         $user = User::findByEmail($account->email);
-
         if (null !== $user) {
             return $user;
         }
-
         /** @var \yuncms\user\models\User $user */
         $user = Yii::createObject([
             'class' => User::class,
@@ -232,8 +246,7 @@ class UserSocialAccount extends ActiveRecord
         if (!$user->validate(['nickname'])) {
             $account->username = null;
         }
-
-        return $user->create() ? $user : false;
+        return $user->createUser() ? $user : false;
     }
 
     /**

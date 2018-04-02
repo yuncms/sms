@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\payment\gateways;
+namespace yuncms\payment;
 
 use Yii;
 use yii\base\Component;

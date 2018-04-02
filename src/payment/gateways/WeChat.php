@@ -12,6 +12,7 @@ use yii\base\Exception;
 use yii\base\InvalidConfigException;
 use yii\httpclient\Client;
 use yuncms\payment\exceptions\PaymentException;
+use yuncms\payment\Gateway;
 use yuncms\web\Request;
 use yuncms\base\HasHttpRequest;
 use yuncms\payment\contracts\ChargeInterface;
@@ -153,17 +154,6 @@ class WeChat extends Gateway
         } else {
             throw new Exception ('Http request failed.');
         }
-    }
-
-    /**
-     * 统一下单(公众号，扫码，APP，刷卡等支付均走这个方法)
-     * @param Trade $trade
-     * @return mixed
-     * @throws \yii\base\Exception
-     */
-    public function unifiedOrder(Trade $trade)
-    {
-
     }
 
     /**
