@@ -4,9 +4,9 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         watch: {
-            inspinia_js: {
-                files: ['resources/assets/cp/src/js/*.js'],
-                tasks: ['uglify:inspinia_js']
+            cp_js: {
+                files: ['resources/assets/cp/js/*.js'],
+                tasks: ['uglify:cp_js']
             },
             other_js: {
                 files: ['resources/assets/*/dist/*.js', '!resources/assets/*/dist/*.min.js'],
@@ -36,9 +36,9 @@ module.exports = function (grunt) {
                 screwIE8: true,
                 mangle: false
             },
-            inspinia_js: {
-                src: 'resources/assets/inspinia/dist/js/inspinia.js',
-                dest: 'resources/assets/inspinia/dist/js/inspinia.min.js'
+            cp_js: {
+                src: 'resources/assets/cp/js/inspinia.js',
+                dest: 'resources/assets/cp/js/inspinia.min.js'
             },
             other_js: {//批量压缩其他JS
                 expand: true,

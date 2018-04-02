@@ -20,7 +20,7 @@ class InspiniaAsset extends AssetBundle
     /**
      * @inherit
      */
-    public $sourcePath = '@vendor/yuncms/framework/resources/assets/inspinia/dist';
+    public $sourcePath = '@vendor/yuncms/framework/resources/assets/inspinia';
 
     public $css = [
         'css/inspinia.css'
