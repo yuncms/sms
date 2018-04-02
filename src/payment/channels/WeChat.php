@@ -196,15 +196,7 @@ class WeChat extends Channel
         }
     }
 
-    /**
-     *
-     */
-    protected function getHttpClient()
-    {
-        $this->requestConfig['format'] = Client::FORMAT_XML;
-        $this->responseConfig['format'] = Client::FORMAT_XML;
-        $this->on(Client::EVENT_BEFORE_SEND, [$this, 'RequestEvent']);
-    }
+
 
     /**
      * 服务端通知
@@ -259,22 +251,31 @@ class WeChat extends Channel
      */
     protected function generateSignature(array $params)
     {
+        if ($this->signType == self::SIGNATURE_METHOD_MD5) {
+            $sign = md5($this->getSignatureContent($params));
+        } elseif ($this->signType == self::SIGNATURE_METHOD_SHA256) {
+            $sign = hash_hmac('sha256', $this->getSignatureContent($params), $this->apiKey);
+        } else {
+            throw new InvalidConfigException ('This encryption is not supported');
+        }
+        return strtoupper($sign);
+    }
+
+    /**
+     * 获取签名数据
+     * @param array $toBeSigned
+     * @return string
+     */
+    protected function getSignatureContent(array $toBeSigned)
+    {
         $bizParameters = [];
-        foreach ($params as $k => $v) {
+        foreach ($toBeSigned as $k => $v) {
             if ($k != "sign" && $v != "" && !is_array($v)) {
                 $bizParameters[$k] = $v;
             }
         }
         ksort($bizParameters);
-        $bizString = urldecode(http_build_query($bizParameters) . '&key=' . $this->apiKey);
-        if ($this->signType == self::SIGNATURE_METHOD_MD5) {
-            $sign = md5($bizString);
-        } elseif ($this->signType == self::SIGNATURE_METHOD_SHA256) {
-            $sign = hash_hmac('sha256', $bizString, $this->apiKey);
-        } else {
-            throw new InvalidConfigException ('This encryption is not supported');
-        }
-        return strtoupper($sign);
+        return urldecode(http_build_query($bizParameters) . '&key=' . $this->apiKey);
     }
 
     /**
@@ -287,6 +288,4 @@ class WeChat extends Channel
         libxml_disable_entity_loader(true);
         return json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
     }
-
-
 }

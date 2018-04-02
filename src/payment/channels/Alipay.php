@@ -9,6 +9,9 @@ namespace yuncms\payment\channels;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yuncms\base\HasHttpRequest;
+use yuncms\helpers\ArrayHelper;
+use yuncms\helpers\Json;
 use yuncms\payment\Channel;
 
 /**
@@ -19,6 +22,8 @@ use yuncms\payment\Channel;
  */
 class Alipay extends Channel
 {
+    use HasHttpRequest;
+
     const SIGNATURE_METHOD_RSA = 'RSA';
     const SIGNATURE_METHOD_RSA2 = 'RSA2';
 
@@ -45,7 +50,7 @@ class Alipay extends Channel
     /**
      * @var string 网关地址
      */
-    public $baseUrl = 'https://openapi.alipay.com';
+    public $baseUrl = 'https://openapi.alipay.com/gateway.do';
 
     /**
      * 初始化
@@ -118,5 +123,69 @@ class Alipay extends Channel
         return Yii::t('yuncms', 'Alipay');
     }
 
+    /**
+     * 生成签名
+     * @param array $params
+     * @return string
+     * @throws InvalidConfigException
+     */
+    public function generateSignature(array $params)
+    {
+        //签名
+        $sign = '';
+        if ($this->signType == self::SIGNATURE_METHOD_RSA2) {
+            $sign = openssl_sign($this->getSignatureContent($params), $sign, $this->privateKey, OPENSSL_ALGO_SHA256) ? base64_encode($sign) : null;
+        } elseif ($this->signType == self::SIGNATURE_METHOD_RSA) {
+            $sign = openssl_sign($this->getSignatureContent($params), $sign, $this->privateKey, OPENSSL_ALGO_SHA1) ? base64_encode($sign) : null;
+        } else {
+            throw new InvalidConfigException ('This encryption is not supported');
+        }
+        return $sign;
+    }
 
+    /**
+     * 发情请求
+     * @param array $params
+     * @return array
+     * @throws InvalidConfigException
+     */
+    public function sendRequest($params = [])
+    {
+        $defaultParams = [
+            'app_id' => $this->appId,
+            'format' => 'JSON',
+            'charset' => 'utf-8',
+            'sign_type' => $this->signType,
+            'timestamp' => date('Y-m-d H:i:s'),
+            'version' => '1.0',
+        ];
+        $params = ArrayHelper::merge($defaultParams, $params);
+        $params['biz_content'] = Json::encode($params['biz_content']);
+        $params['sign'] = $this->generateSignature($params);
+        $result = $this->post($this->baseUrl, $params);
+        return $result;
+    }
+
+    /**
+     * 数据签名处理
+     * @param array $toBeSigned
+     * @param bool $verify
+     * @return bool|string
+     */
+    protected function getSignatureContent(array $toBeSigned, $verify = false)
+    {
+        ksort($toBeSigned);
+        $stringToBeSigned = '';
+        foreach ($toBeSigned as $k => $v) {
+            if ($verify && $k != 'sign' && $k != 'sign_type') {
+                $stringToBeSigned .= $k . '=' . $v . '&';
+            }
+            if (!$verify && $v !== '' && !is_null($v) && $k != 'sign' && '@' != substr($v, 0, 1)) {
+                $stringToBeSigned .= $k . '=' . $v . '&';
+            }
+        }
+        $stringToBeSigned = substr($stringToBeSigned, 0, -1);
+        unset($k, $v);
+        return $stringToBeSigned;
+    }
 }

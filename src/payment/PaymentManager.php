@@ -21,24 +21,24 @@ use yii\base\InvalidConfigException;
 class PaymentManager extends Component
 {
     /**
-     * @var array gateway parameters (name => value).
+     * @var array channel parameters (name => value).
      */
     public $params = [];
 
     /**
-     * @var array shared gateway instances indexed by their IDs
+     * @var array shared channel instances indexed by their IDs
      */
-    private $_gateways = [];
+    private $_channels = [];
 
     /**
-     * @var array gateway definitions indexed by their IDs
+     * @var array channel definitions indexed by their IDs
      */
     private $_definitions = [];
 
     /**
      * Getter magic method.
-     * This method is overridden to support accessing gateways like reading properties.
-     * @param string $name gateway or property name
+     * This method is overridden to support accessing channels like reading properties.
+     * @param string $name channel or property name
      * @return mixed the named property value
      * @throws InvalidConfigException
      * @throws \yii\base\UnknownPropertyException
@@ -54,7 +54,7 @@ class PaymentManager extends Component
 
     /**
      * Checks if a property value is null.
-     * This method overrides the parent implementation by checking if the named gateway is loaded.
+     * This method overrides the parent implementation by checking if the named channel is loaded.
      * @param string $name the property name or the event name
      * @return bool whether the property value is null
      */
@@ -68,57 +68,54 @@ class PaymentManager extends Component
     }
 
     /**
-     * Returns a value indicating whether the locator has the specified gateway definition or has instantiated the gateway.
+     * Returns a value indicating whether the locator has the specified channel definition or has instantiated the channel.
      * This method may return different results depending on the value of `$checkInstance`.
      *
      * - If `$checkInstance` is false (default), the method will return a value indicating whether the locator has the specified
-     *   gateway definition.
+     *   channel definition.
      * - If `$checkInstance` is true, the method will return a value indicating whether the locator has
-     *   instantiated the specified gateway.
+     *   instantiated the specified channel.
      *
-     * @param string $id gateway ID (e.g. `local`).
-     * @param bool $checkInstance whether the method should check if the gateway is shared and instantiated.
-     * @return bool whether the locator has the specified gateway definition or has instantiated the gateway.
+     * @param string $id channel ID (e.g. `local`).
+     * @param bool $checkInstance whether the method should check if the channel is shared and instantiated.
+     * @return bool whether the locator has the specified channel definition or has instantiated the channel.
      * @see set()
      */
     public function has($id, $checkInstance = false)
     {
-        return $checkInstance ? isset($this->_gateways[$id]) : isset($this->_definitions[$id]);
+        return $checkInstance ? isset($this->_channels[$id]) : isset($this->_definitions[$id]);
     }
 
     /**
-     * Returns the gateway instance with the specified ID.
+     * Returns the channel instance with the specified ID.
      *
-     * @param string $id gateway ID (e.g. `db`).
+     * @param string $id channel ID (e.g. `db`).
      * @param bool $throwException whether to throw an exception if `$id` is not registered with the locator before.
-     * @return object|null the gateway of the specified ID. If `$throwException` is false and `$id`
+     * @return object|null the channel of the specified ID. If `$throwException` is false and `$id`
      * is not registered before, null will be returned.
-     * @throws InvalidConfigException if `$id` refers to a nonexistent gateway ID
+     * @throws InvalidConfigException if `$id` refers to a nonexistent channel ID
      * @see has()
      * @see set()
      */
     public function get($id, $throwException = true)
     {
-        if (isset($this->_gateways[$id])) {
-            return $this->_gateways[$id];
+        if (isset($this->_channels[$id])) {
+            return $this->_channels[$id];
         }
-
         if (isset($this->_definitions[$id])) {
             $definition = $this->_definitions[$id];
             if (is_object($definition) && !$definition instanceof Closure) {
-                return $this->_gateways[$id] = $definition;
+                return $this->_channels[$id] = $definition;
             }
-
-            return $this->_gateways[$id] = Yii::createObject($definition);
+            return $this->_channels[$id] = Yii::createObject($definition);
         } elseif ($throwException) {
-            throw new InvalidConfigException("Unknown gateway ID: $id");
+            throw new InvalidConfigException("Unknown channel ID: $id");
         }
-
         return null;
     }
 
     /**
-     * Registers a gateway definition with this locator.
+     * Registers a channel definition with this locator.
      *
      * For example,
      *
@@ -162,7 +159,7 @@ class PaymentManager extends Component
      */
     public function set($id, $definition)
     {
-        unset($this->_gateways[$id]);
+        unset($this->_channels[$id]);
 
         if ($definition === null) {
             unset($this->_definitions[$id]);
@@ -177,60 +174,60 @@ class PaymentManager extends Component
             if (isset($definition['class'])) {
                 $this->_definitions[$id] = $definition;
             } else {
-                throw new InvalidConfigException("The configuration for the \"$id\" gateway must contain a \"class\" element.");
+                throw new InvalidConfigException("The configuration for the \"$id\" channel must contain a \"class\" element.");
             }
         } else {
-            throw new InvalidConfigException("Unexpected configuration type for the \"$id\" gateway: " . gettype($definition));
+            throw new InvalidConfigException("Unexpected configuration type for the \"$id\" channel: " . gettype($definition));
         }
     }
 
     /**
-     * Removes the gateway from the locator.
-     * @param string $id the gateway ID
+     * Removes the channel from the locator.
+     * @param string $id the channel ID
      */
     public function clear($id)
     {
-        unset($this->_definitions[$id], $this->_gateways[$id]);
+        unset($this->_definitions[$id], $this->_channels[$id]);
     }
 
     /**
-     * Returns the list of the gateway definitions or the loaded gateway instances.
-     * @param bool $returnDefinitions whether to return gateway definitions instead of the loaded gateway instances.
-     * @return array the list of the gateway definitions or the loaded gateway instances (ID => definition or instance).
+     * Returns the list of the channel definitions or the loaded channel instances.
+     * @param bool $returnDefinitions whether to return channel definitions instead of the loaded channel instances.
+     * @return array the list of the channel definitions or the loaded channel instances (ID => definition or instance).
      */
-    public function getGateways($returnDefinitions = true)
+    public function getChannels($returnDefinitions = true)
     {
-        return $returnDefinitions ? $this->_definitions : $this->_gateways;
+        return $returnDefinitions ? $this->_definitions : $this->_channels;
     }
 
     /**
-     * Registers a set of gateway definitions in this locator.
+     * Registers a set of channel definitions in this locator.
      *
      * This is the bulk version of [[set()]]. The parameter should be an array
-     * whose keys are gateway IDs and values the corresponding gateway definitions.
+     * whose keys are channel IDs and values the corresponding channel definitions.
      *
-     * For more details on how to specify gateway IDs and definitions, please refer to [[set()]].
+     * For more details on how to specify channel IDs and definitions, please refer to [[set()]].
      *
-     * If a gateway definition with the same ID already exists, it will be overwritten.
+     * If a channel definition with the same ID already exists, it will be overwritten.
      *
-     * The following is an example for registering two gateway definitions:
+     * The following is an example for registering two channel definitions:
      *
      * ```php
      * [
      *     'local' => [
-     *         'class' => 'yuncms\payment\gateways\LocalAdapter',
+     *         'class' => 'yuncms\payment\channels\LocalAdapter',
      *         'path' => '@root/storage',
      *     ],
      * ]
      * ```
      *
-     * @param array $gateways gateway definitions or instances
+     * @param array $channels channel definitions or instances
      * @throws InvalidConfigException
      */
-    public function setGateways($gateways)
+    public function setChannels($channels)
     {
-        foreach ($gateways as $id => $gateway) {
-            $this->set($id, $gateway);
+        foreach ($channels as $id => $channel) {
+            $this->set($id, $channel);
         }
     }
 }

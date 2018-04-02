@@ -21,6 +21,11 @@ use yuncms\web\Response;
  */
 class ChargeController extends Controller
 {
+    public function actionTest()
+    {
+        $c = Yii::$app->getPayment()->get('alipay');
+        print_r($c);
+    }
 
     /**
      * 创建支付单
