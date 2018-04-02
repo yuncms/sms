@@ -24,6 +24,7 @@ var staticDeps = [
     { srcGlob: 'node_modules/bootstrap/dist/fonts/*', dest: libPath+'bootstrap/fonts' },
     { srcGlob: 'node_modules/bootstrap-iconpicker/bootstrap-iconpicker/css/*', dest: libPath+'bootstrap-iconpicker/css' },
     { srcGlob: 'node_modules/jquery-treegrid/css/*', dest: libPath+'jquery-treegrid/css' },
+    { srcGlob: 'node_modules/jquery-treegrid/img/*', dest: libPath+'jquery-treegrid/img' },
     { srcGlob: 'node_modules/font-awesome/css/*', dest: libPath+'font-awesome/css' },
     { srcGlob: 'node_modules/font-awesome/fonts/*', dest: libPath+'font-awesome/fonts' },
     { srcGlob: 'node_modules/cropper/dist/*', dest: libPath+'cropper' },
