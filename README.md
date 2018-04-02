@@ -1,5 +1,7 @@
 # framework
 
+YUNCMS 底层框架，基于 YII2 二次封装。
+
 [![License](https://poser.pugx.org/yuncms/framework/license.svg)](https://packagist.org/packages/yuncms/framework)
 [![Latest Stable Version](https://poser.pugx.org/yuncms/framework/v/stable.png)](https://packagist.org/packages/yuncms/framework)
 [![Total Downloads](https://poser.pugx.org/yuncms/framework/downloads.png)](https://packagist.org/packages/yuncms/framework)
