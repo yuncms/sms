@@ -3,7 +3,10 @@
 namespace yuncms\trade\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yuncms\behaviors\IpBehavior;
 use yuncms\db\ActiveRecord;
+use yuncms\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%trade_charges}}".
@@ -42,13 +45,36 @@ class TradeCharges extends ActiveRecord
     }
 
     /**
+     * 定义行为
+     * @return array
+     */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        return ArrayHelper::merge($behaviors, [
+            'timestamp' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
+                ],
+            ],
+            'client_id' => [
+                'class' => IpBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['client_ip']
+                ],
+            ]
+        ]);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
             [['paid', 'refunded', 'reversed', 'amount', 'amount_settle', 'time_paid', 'time_expire', 'time_settle', 'amount_refunded'], 'integer'],
-            [['channel',  'amount','currency', 'subject', 'body'], 'required'],
+            [['channel', 'order_no', 'amount', 'currency', 'subject', 'body'], 'required'],
             [['metadata'], 'string'],
             [['channel'], 'string', 'max' => 50],
             [['order_no', 'failure_code', 'failure_msg', 'description'], 'string', 'max' => 255],

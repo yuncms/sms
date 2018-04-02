@@ -8,10 +8,8 @@
 namespace yuncms\user\models;
 
 use Yii;
-use yii\helpers\Url;
 use yuncms\helpers\AvatarHelper;
 use yuncms\models\BaseUser;
-use yuncms\assets\UserAsset;
 use yuncms\db\ActiveRecord;
 use yuncms\helpers\ArrayHelper;
 use yuncms\helpers\PasswordHelper;
@@ -58,11 +56,6 @@ class User extends BaseUser
     const SCENARIO_SETTINGS = 'settings';//更新
     const SCENARIO_CONNECT = 'connect';//账户链接或自动注册新用户
     const SCENARIO_PASSWORD = 'password';
-
-    //头像
-    const AVATAR_BIG = 'big';
-    const AVATAR_MIDDLE = 'middle';
-    const AVATAR_SMALL = 'small';
 
     /**
      * @var UserProfile|null
@@ -210,7 +203,7 @@ class User extends BaseUser
      * @return string
      * @throws \yii\base\InvalidConfigException
      */
-    public function getAvatar($size = self::AVATAR_MIDDLE)
+    public function getAvatar($size = AvatarHelper::AVATAR_MIDDLE)
     {
         return AvatarHelper::getAvatar($this, $size);
     }
