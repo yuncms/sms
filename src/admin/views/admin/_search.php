@@ -16,11 +16,7 @@ use yuncms\admin\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id', [
-        'inputOptions' => [
-            'placeholder' => $model->getAttributeLabel('id'),
-        ],
-    ]) ?>
+    <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'username', [
         'inputOptions' => [

@@ -33,6 +33,9 @@ class ActiveForm extends \yii\bootstrap\ActiveForm
      */
     public function field($model, $attribute, $options = [])
     {
+        if ($this->layout == 'inline' && !isset($options['inputOptions']['placeholder'])) {
+            $options['inputOptions']['placeholder'] = $model->getAttributeLabel($attribute);
+        }
         return parent::field($model, $attribute, $options);
     }
 
