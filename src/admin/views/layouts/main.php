@@ -5,10 +5,9 @@
 
 use yii\helpers\Url;
 use yuncms\helpers\Html;
-use yuncms\admin\models\Admin;
-use yuncms\assets\InspiniaAsset;
+use yuncms\assets\CPAsset;
 
-$assetBundle = InspiniaAsset::register($this);
+$assetBundle = CPAsset::register($this);
 
 $this->title = 'Manage Center';
 ?>

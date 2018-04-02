@@ -15,12 +15,12 @@ use yii\web\AssetBundle;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class InspiniaAsset extends AssetBundle
+class CPAsset extends AssetBundle
 {
     /**
      * @inherit
      */
-    public $sourcePath = '@vendor/yuncms/framework/resources/assets/inspinia';
+    public $sourcePath = '@vendor/yuncms/framework/resources/assets/cp';
 
     public $css = [
         'css/inspinia.css'

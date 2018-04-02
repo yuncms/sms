@@ -34,6 +34,6 @@ class SwitcheryAsset extends AssetBundle
     ];
 
     public $depends = [
-        'yuncms\assets\InspiniaAsset'
+        'yuncms\assets\CPAsset'
     ];
 }

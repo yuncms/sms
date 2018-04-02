@@ -2,14 +2,14 @@
 
 use yii\captcha\Captcha;
 use yuncms\helpers\Html;
-use yuncms\assets\InspiniaAsset;
+use yuncms\assets\CPAsset;
 use yuncms\admin\widgets\ActiveForm;
 
 /* @var \yii\web\View $this */
 /* @var ActiveForm $form */
 /* @var \yuncms\admin\models\LoginForm $model */
 
-$asset = InspiniaAsset::register($this);
+$asset = CPAsset::register($this);
 $this->title = Yii::$app->name . ' - ' . Yii::t('yuncms', 'Sign in');
 
 //Meta
