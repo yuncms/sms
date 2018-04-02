@@ -10,6 +10,7 @@ namespace yuncms\components;
 use Yii;
 use yii\base\Component;
 use yii\caching\Cache;
+use yuncms\base\SettingInterface;
 
 /**
  * @author Aris Karageorgos <aris@phe.me>
@@ -23,7 +24,7 @@ class Settings extends Component
 
     /**
      * Model to for storing and retrieving settings
-     * @var \yuncms\models\SettingInterface
+     * @var SettingInterface
      */
     protected $model;
 
@@ -63,6 +64,7 @@ class Settings extends Component
 
     /**
      * Initialize the component
+     * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {
@@ -139,10 +141,10 @@ class Settings extends Component
      * @param mixed $value
      * @param null|string $section
      * @param null|string $type
-     * @return boolean
+     * @return bool
      * @throws \yii\base\InvalidConfigException
      */
-    public function set($key, $value, $section = null, $type = null)
+    public function set($key, $value, $section = null, $type = null): bool
     {
         if (is_null($section)) {
             $pieces = explode('.', $key);
