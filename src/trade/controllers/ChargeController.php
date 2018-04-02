@@ -11,6 +11,7 @@ use Yii;
 use yii\web\NotFoundHttpException;
 use yuncms\trade\models\TradeCharges;
 use yuncms\web\Controller;
+use yuncms\web\Response;
 
 /**
  * Class PayController
@@ -20,15 +21,63 @@ use yuncms\web\Controller;
  */
 class ChargeController extends Controller
 {
+
+    /**
+     * 创建支付单
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
-
+        $model = new TradeCharges();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['/trade/charge/pay', 'id' => $model->id]);
+        }
+        return $this->render('create', ['model' => $model]);
     }
 
+    /**
+     * WEB付款
+     * @param int $id
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function actionPay($id)
+    {
+        try {
+            $charge = $this->findModel($id);
+            $paymentParams = [];
+            Yii::$app->payment->get($charge->gateway)->payment($trade, $paymentParams);
+            if (Yii::$app->request->isAjax) {
+                return $this->renderPartial('pay', ['trade' => $trade, 'paymentParams' => $paymentParams]);
+            } else {
+                return $this->render('pay', ['trade' => $trade, 'paymentParams' => $paymentParams]);
+            }
+        } catch (NotFoundHttpException $e) {
+            Yii::$app->getSession()->setFlash('error', $e->getMessage());
+            return $this->redirect(['/trade/trade/create']);
+        }
+    }
 
     public function actionView()
     {
 
+    }
+
+    /**
+     * 交易查询
+     * @param string $id
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionQuery($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $charge = $this->findModel($id);
+        if ($charge->state == TradeCharges::STATE_SUCCESS) {
+            return ['state' => 'success'];
+        } else {
+            return ['state' => 'pending'];
+        }
     }
 
     /**
