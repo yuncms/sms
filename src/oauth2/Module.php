@@ -7,7 +7,6 @@
 
 namespace yuncms\oauth2;
 
-use Yii;
 
 /**
  * Class Module
@@ -15,7 +14,7 @@ use Yii;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Module extends \yii\base\Module
+class Module extends \yuncms\base\Module
 {
     public $defaultRoute = 'client';
 

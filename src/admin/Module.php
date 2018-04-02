@@ -13,7 +13,7 @@ namespace yuncms\admin;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Module extends \yii\base\Module
+class Module extends \yuncms\base\Module
 {
 
 }
