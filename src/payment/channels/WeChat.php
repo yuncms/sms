@@ -109,6 +109,46 @@ class WeChat extends Channel
     }
 
     /**
+     * 初始化私钥
+     * @throws InvalidConfigException
+     */
+    protected function initPrivateKey()
+    {
+        $privateKey = Yii::getAlias($this->privateKey);
+        if (!is_file ($privateKey)) {
+            $privateKey = "-----BEGIN RSA PRIVATE KEY-----\n" .
+                wordwrap($this->privateKey, 64, "\n", true) .
+                "\n-----END RSA PRIVATE KEY-----";
+        } else {
+            $privateKey = "file://" . Yii::getAlias($this->privateKey);
+        }
+        $this->privateKey = openssl_pkey_get_private($privateKey);
+        if ($this->privateKey === false) {
+            throw new InvalidConfigException(openssl_error_string());
+        }
+    }
+
+    /**
+     * 初始化公钥
+     * @throws InvalidConfigException
+     */
+    protected function initPublicKey()
+    {
+        $publicKey = Yii::getAlias($this->publicKey);
+        if (!is_file($publicKey)) {
+            $publicKey = "-----BEGIN PUBLIC KEY-----\n" .
+                wordwrap($this->publicKey, 64, "\n", true) .
+                "\n-----END PUBLIC KEY-----";
+        } else {
+            $publicKey = "file://" . $publicKey;
+        }
+        $this->publicKey = openssl_pkey_get_public($publicKey);
+        if ($this->publicKey === false) {
+            throw new InvalidConfigException(openssl_error_string());
+        }
+    }
+
+    /**
      * @return string
      */
     public function getTitle()
@@ -248,37 +288,5 @@ class WeChat extends Channel
         return json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
     }
 
-    /**
-     * 初始化私钥
-     * @throws InvalidConfigException
-     */
-    protected function initPrivateKey()
-    {
-        if (!empty ($this->privateKey)) {
-            $privateKey = Yii::getAlias($this->privateKey);
-            $this->privateKey = openssl_pkey_get_private("file://" . $privateKey);
-            if ($this->privateKey === false) {
-                throw new InvalidConfigException(openssl_error_string());
-            }
-        } else {
-            throw new InvalidConfigException ('The "privateKey" property must be set.');
-        }
-    }
 
-    /**
-     * 初始化公钥
-     * @throws InvalidConfigException
-     */
-    protected function initPublicKey()
-    {
-        if (!empty ($this->publicKey)) {
-            $publicKey = Yii::getAlias($this->publicKey);
-            $this->publicKey = openssl_pkey_get_public("file://" . $publicKey);
-            if ($this->publicKey === false) {
-                throw new InvalidConfigException(openssl_error_string());
-            }
-        } else {
-            throw new InvalidConfigException ('The "publicKey" property must be set.');
-        }
-    }
 }

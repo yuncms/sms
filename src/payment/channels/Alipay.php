@@ -71,20 +71,19 @@ class Alipay extends Channel
     }
 
     /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return Yii::t('yuncms', 'Alipay');
-    }
-
-    /**
      * 初始化私钥
      * @throws InvalidConfigException
      */
     protected function initPrivateKey()
     {
-        $privateKey = "file://" . Yii::getAlias($this->privateKey);
+        $privateKey = Yii::getAlias($this->privateKey);
+        if (!is_file($privateKey)) {
+            $privateKey = "-----BEGIN RSA PRIVATE KEY-----\n" .
+                wordwrap($this->privateKey, 64, "\n", true) .
+                "\n-----END RSA PRIVATE KEY-----";
+        } else {
+            $privateKey = "file://" . $privateKey;
+        }
         $this->privateKey = openssl_pkey_get_private($privateKey);
         if ($this->privateKey === false) {
             throw new InvalidConfigException(openssl_error_string());
@@ -97,10 +96,27 @@ class Alipay extends Channel
      */
     protected function initPublicKey()
     {
-        $publicKey = "file://" . Yii::getAlias($this->publicKey);
+        $publicKey = Yii::getAlias($this->publicKey);
+        if (!is_file($publicKey)) {
+            $publicKey = "-----BEGIN PUBLIC KEY-----\n" .
+                wordwrap($this->publicKey, 64, "\n", true) .
+                "\n-----END PUBLIC KEY-----";
+        } else {
+            $publicKey = "file://" . $publicKey;
+        }
         $this->publicKey = openssl_pkey_get_public($publicKey);
         if ($this->publicKey === false) {
             throw new InvalidConfigException(openssl_error_string());
         }
     }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return Yii::t('yuncms', 'Alipay');
+    }
+
+
 }
