@@ -51,6 +51,9 @@ return [
         ],
         'oauth2' => [
             'class' => yuncms\oauth2\Module::class
+        ],
+        'trade' => [
+            'class' => yuncms\trade\Module::class
         ]
     ]
 ];
