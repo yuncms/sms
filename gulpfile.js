@@ -31,7 +31,12 @@ var staticDeps = [
     { srcGlob: 'node_modules/pace-progress/*', dest: libPath+'pace' },
     { srcGlob: 'node_modules/jquery-slimscroll/*', dest: libPath+'jquery-slimscroll' },
     { srcGlob: 'node_modules/bootstrap-filestyle/src/*', dest: libPath+'bootstrap-filestyle' },
-    { srcGlob: 'node_modules/animate.css/*', dest: libPath+'animate.css' }
+    { srcGlob: 'node_modules/animate.css/*', dest: libPath+'animate.css' },
+    { srcGlob: 'node_modules/blueimp-canvas-to-blob/js/*', dest: libPath+'blueimp-canvas-to-blob' },
+    { srcGlob: 'node_modules/blueimp-tmpl/js/*', dest: libPath+'blueimp-tmpl' },
+    { srcGlob: 'node_modules/blueimp-file-upload/js/*', dest: libPath+'blueimp-file-upload/js' },
+    { srcGlob: 'node_modules/blueimp-file-upload/css/*', dest: libPath+'blueimp-file-upload/css' },
+    { srcGlob: 'node_modules/blueimp-load-image/js/*', dest: libPath+'blueimp-load-image' }
 ];
 
 gulp.task('deps', function() {
