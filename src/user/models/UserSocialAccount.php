@@ -174,7 +174,6 @@ class UserSocialAccount extends ActiveRecord
         return $account;
     }
 
-
     /**
      * Tries to find an account and then connect that account with current user.
      *
