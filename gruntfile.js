@@ -1,19 +1,16 @@
+'use strict';
 module.exports = function (grunt) {
     // Project Configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         watch: {
-            inspiniajs: {
-                files: ['resources/assets/inspinia/src/js/*.js'],
-                tasks: ['concat', 'uglify:inspiniajs']
+            inspinia_js: {
+                files: ['resources/assets/cp/src/js/*.js'],
+                tasks: ['uglify:inspinia_js']
             },
-            userjs: {
-                files: ['resources/assets/yuncms-user/src/js/*.js'],
-                tasks: [ 'uglify:userjs']
-            },
-            otherjs: {
+            other_js: {
                 files: ['resources/assets/*/dist/*.js', '!resources/assets/*/dist/*.min.js'],
-                tasks: ['uglify:otherjs']
+                tasks: ['uglify:other_js']
             }
         },
         postcss: {
@@ -32,36 +29,18 @@ module.exports = function (grunt) {
                 dest: 'resources/assets'
             }
         },
-        concat: {
-            inspiniajs: {
-                options: {
-                    banner: '/*! <%= pkg.name %> <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-                },
-                src: [
-                    'resources/assets/inspinia/src/js/inspinia.js'
-                ],
-                dest: 'resources/assets/inspinia/dist/js/inspinia.js'
-            }
-        },
         uglify: {
             options: {
                 sourceMap: true,
                 preserveComments: 'some',
-                screwIE8: true
+                screwIE8: true,
+                mangle: false
             },
-            inspiniajs: {
+            inspinia_js: {
                 src: 'resources/assets/inspinia/dist/js/inspinia.js',
                 dest: 'resources/assets/inspinia/dist/js/inspinia.min.js'
             },
-            userjs: {
-                src: 'resources/assets/yuncms-user/src/js/user.js',
-                dest: 'resources/assets/yuncms-user/dist/js/user.min.js'
-            },
-            usercropperjs: {
-                src: 'resources/assets/yuncms-user/src/js/cropper.js',
-                dest: 'resources/assets/yuncms-user/dist/js/cropper.min.js'
-            },
-            otherjs: {
+            other_js: {//批量压缩其他JS
                 expand: true,
                 cwd: 'resources/assets',
                 src: ['*/dist/*.js', '!*/dist/*.min.js', '!tests/dist/tests.js'],
@@ -85,17 +64,13 @@ module.exports = function (grunt) {
                 '-W061': true
             },
             beforeconcat: [
-                'gruntfile.js',
+                'Gruntfile.js',
                 'resources/assets/**/*.js',
                 '!resources/assets/**/*.min.js',
-                '!resources/assets/inspinia/dist/js/inspinia.js',
-                '!resources/assets/yuncms-user/src/js/user.js',
-                '!resources/assets/yuncms-user/src/js/cropper.js'
+                '!resources/assets/inspinia/dist/js/inspinia.js'
             ],
             afterconcat: [
-                'resources/assets/inspinia/dist/js/inspinia.js',
-                'resources/assets/yuncms-user/dist/js/user.js',
-                'resources/assets/yuncms-user/dist/js/cropper.js'
+                'resources/assets/inspinia/dist/js/inspinia.js'
             ]
         }
     });

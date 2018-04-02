@@ -7,8 +7,29 @@
 
 namespace yuncms\assets;
 
+use yii\web\AssetBundle;
 
-class UploadAsset
+/**
+ * Class UploadAsset
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
+class UploadAsset extends AssetBundle
 {
+    public $sourcePath = '@vendor/yuncms/framework/resources/assets/yuncms-upload';
 
+    public $css = [
+        'css/upload.css'
+    ];
+
+    public $js = [
+        'js/upload.js'
+    ];
+
+    public $depends = [
+        'yii\web\JqueryAsset',
+        'yii\bootstrap\BootstrapAsset',
+        'yuncms\assets\BlueimpFileUploadAsset'
+    ];
 }

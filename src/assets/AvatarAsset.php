@@ -20,14 +20,14 @@ class AvatarAsset extends AssetBundle
     /**
      * @inherit
      */
-    public $sourcePath = '@vendor/yuncms/framework/resources/assets/yuncms-user/dist';
+    public $sourcePath = '@vendor/yuncms/framework/resources/assets/yuncms-user';
 
     public $css = [
         'css/cropper.css',
     ];
 
     public $js = [
-        'js/cropper.min.js',
+        'js/cropper.js',
     ];
 
     public $depends = [
