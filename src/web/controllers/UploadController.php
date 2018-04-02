@@ -28,7 +28,6 @@ class UploadController extends Controller
                     [
                         'allow' => true,
                         'actions' => [
-                            'upload', 'um-upload', 'editor-md', 'dialog', 'multiple-upload',
                             'file-upload', 'files-upload', 'image-upload', 'images-upload',
                         ],
                         'roles' => ['@'],
@@ -46,22 +45,22 @@ class UploadController extends Controller
     {
         return [
             'file-upload' => [
-                'class' => 'xutl\fileupload\UploadAction',
+                'class' => 'yuncms\actions\UploadAction',
                 'multiple' => false,
                 'onlyImage' => false,
             ],
             'files-upload' => [
-                'class' => 'xutl\fileupload\UploadAction',
+                'class' => 'yuncms\actions\UploadAction',
                 'multiple' => true,
                 'onlyImage' => false,
             ],
             'image-upload' => [
-                'class' => 'xutl\fileupload\UploadAction',
+                'class' => 'yuncms\actions\UploadAction',
                 'multiple' => false,
                 'onlyImage' => true,
             ],
             'images-upload' => [
-                'class' => 'xutl\fileupload\UploadAction',
+                'class' => 'yuncms\actions\UploadAction',
                 'multiple' => true,
                 'onlyImage' => true,
             ],
