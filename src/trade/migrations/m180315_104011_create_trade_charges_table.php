@@ -37,11 +37,11 @@ class m180315_104011_create_trade_charges_table extends Migration
             'time_expire' => $this->unixTimestamp(),//订单失效时间
             'transaction_no' => $this->string(64),//支付渠道返回的交易流水号。
             //'refunds',//退款详情列表
-            'amount_refunded' => $this->unsignedInteger()->notNull(),//已退款总金额，单位为对应币种的最小货币单位，例如：人民币为分。
+            'amount_refunded' => $this->unsignedInteger()->notNull()->defaultValue(0),//已退款总金额，单位为对应币种的最小货币单位，例如：人民币为分。
             'failure_code' => $this->string(),//订单的错误码
             'failure_msg' => $this->string(),//订单的错误消息的描述。
             'metadata' => $this->text(),
-           // 'credential',//支付凭证，用于客户端发起支付。
+            // 'credential',//支付凭证，用于客户端发起支付。
             'description' => $this->string(255),//订单附加说明，最多 255 个 Unicode 字符。
             'created_at' => $this->unixTimestamp(),
         ], $tableOptions);

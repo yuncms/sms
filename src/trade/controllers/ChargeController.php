@@ -46,7 +46,7 @@ class ChargeController extends Controller
         try {
             $charge = $this->findModel($id);
             $paymentParams = [];
-            Yii::$app->payment->get($charge->gateway)->payment($trade, $paymentParams);
+            Yii::$app->payment->get($charge->channel)->payment($trade, $paymentParams);
             if (Yii::$app->request->isAjax) {
                 return $this->renderPartial('pay', ['trade' => $trade, 'paymentParams' => $paymentParams]);
             } else {

@@ -73,7 +73,7 @@ class TradeCharges extends ActiveRecord
     public function rules()
     {
         return [
-            [['paid', 'refunded', 'reversed', 'amount', 'amount_settle', 'time_paid', 'time_expire', 'time_settle', 'amount_refunded'], 'integer'],
+            [['paid', 'refunded', 'reversed', 'amount', 'time_paid', 'time_expire', 'amount_refunded'], 'integer'],
             [['channel', 'order_no', 'amount', 'currency', 'subject', 'body'], 'required'],
             [['metadata'], 'string'],
             [['channel'], 'string', 'max' => 50],
@@ -82,6 +82,7 @@ class TradeCharges extends ActiveRecord
             [['currency'], 'string', 'max' => 3],
             [['subject'], 'string', 'max' => 32],
             [['body'], 'string', 'max' => 128],
+            ['amount_refunded', 'default', 'value' => 0],
             [['transaction_no'], 'string', 'max' => 64],
         ];
     }
