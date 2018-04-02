@@ -54,7 +54,7 @@ class ActiveField extends \yii\bootstrap\ActiveField
     /**
      * 显示文件上传窗口
      * @param array $options
-     * @return $this
+     * @return \yii\bootstrap\ActiveField|ActiveField
      */
     public function fileInput($options = [])
     {
@@ -74,7 +74,7 @@ class ActiveField extends \yii\bootstrap\ActiveField
      * @param array $items
      * @param array $options
      * @param bool $generateDefault
-     * @return $this
+     * @return \yii\bootstrap\ActiveField|ActiveField
      */
     public function dropDownList($items, $options = [], $generateDefault = true)
     {
@@ -86,7 +86,7 @@ class ActiveField extends \yii\bootstrap\ActiveField
 
     /**
      * @param array $options
-     * @return $this he field object itself.
+     * @return \yii\bootstrap\ActiveField|ActiveField
      */
     public function textarea($options = [])
     {

@@ -16,29 +16,13 @@ use yuncms\admin\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id', [
-        'inputOptions' => [
-            'placeholder' => $model->getAttributeLabel('id'),
-        ],
-    ]) ?>
+    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'username', [
-        'inputOptions' => [
-            'placeholder' => $model->getAttributeLabel('username'),
-        ],
-    ]) ?>
+    <?= $form->field($model, 'username') ?>
 
-    <?= $form->field($model, 'mobile', [
-        'inputOptions' => [
-            'placeholder' => $model->getAttributeLabel('mobile'),
-        ],
-    ]) ?>
+    <?= $form->field($model, 'mobile') ?>
 
-    <?= $form->field($model, 'email', [
-        'inputOptions' => [
-            'placeholder' => $model->getAttributeLabel('email'),
-        ],
-    ]) ?>
+    <?= $form->field($model, 'email') ?>
 
     <?php // echo $form->field($model, 'updated_at') ?>
 
