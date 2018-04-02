@@ -5,11 +5,11 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\payment\gateways;
+namespace yuncms\payment\channels;
 
 use Yii;
 use yii\base\InvalidConfigException;
-use yuncms\payment\Gateway;
+use yuncms\payment\Channel;
 
 /**
  * Class Alipay
@@ -17,7 +17,7 @@ use yuncms\payment\Gateway;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Alipay extends Gateway
+class Alipay extends Channel
 {
     const SIGNATURE_METHOD_RSA = 'RSA';
     const SIGNATURE_METHOD_RSA2 = 'RSA2';

@@ -5,9 +5,9 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\payment\gateways;
+namespace yuncms\payment\channels;
 
-use yuncms\payment\Gateway;
+use yuncms\payment\Channel;
 
 /**
  * Class Apple
@@ -15,7 +15,7 @@ use yuncms\payment\Gateway;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Apple extends Gateway
+class Apple extends Channel
 {
 
 }

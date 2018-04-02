@@ -14,7 +14,7 @@ use yuncms\helpers\StringHelper;
  * Trait GatewayTrait
  * @package yuncms\payment\traits
  */
-trait GatewayTrait
+trait ChannelTrait
 {
     /**
      * @var string gateway service id.

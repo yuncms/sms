@@ -77,13 +77,13 @@ class ChargeController extends Controller
 
     /**
      * 获取支付单号
-     * @param int $id
+     * @param string $id
      * @return TradeCharges
      * @throws NotFoundHttpException
      */
     public function findModel($id)
     {
-        if (($model = TradeCharges::findOne($id)) !== null) {
+        if (($model = TradeCharges::findOne(['id' => $id])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException(Yii::t('yuncms', 'The requested trade does not exist.'));

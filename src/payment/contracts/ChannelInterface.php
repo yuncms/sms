@@ -9,7 +9,7 @@ namespace yuncms\payment\contracts;
 /**
  * GatewayInterface declares basic interface all Gateway clients should follow.
  */
-interface GatewayInterface
+interface ChannelInterface
 {
     /**
      * @param string $id service id.

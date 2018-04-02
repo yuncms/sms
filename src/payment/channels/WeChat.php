@@ -5,14 +5,14 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\payment\gateways;
+namespace yuncms\payment\channels;
 
 use Yii;
 use yii\base\Exception;
 use yii\base\InvalidConfigException;
 use yii\httpclient\Client;
 use yuncms\payment\exceptions\PaymentException;
-use yuncms\payment\Gateway;
+use yuncms\payment\Channel;
 use yuncms\web\Request;
 use yuncms\base\HasHttpRequest;
 use yuncms\payment\contracts\ChargeInterface;
@@ -23,7 +23,7 @@ use yuncms\payment\contracts\ChargeInterface;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class WeChat extends Gateway
+class WeChat extends Channel
 {
     use HasHttpRequest;
 

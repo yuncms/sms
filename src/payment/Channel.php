@@ -9,8 +9,8 @@ namespace yuncms\payment;
 
 use Yii;
 use yii\base\Component;
-use yuncms\payment\contracts\GatewayInterface;
-use yuncms\payment\traits\GatewayTrait;
+use yuncms\payment\contracts\ChannelInterface;
+use yuncms\payment\traits\ChannelTrait;
 
 /**
  * Class Gateway
@@ -18,9 +18,9 @@ use yuncms\payment\traits\GatewayTrait;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Gateway extends Component implements GatewayInterface
+abstract class Channel extends Component implements ChannelInterface
 {
-    use GatewayTrait;
+    use ChannelTrait;
 
     //连接超时
     const DEFAULT_TIMEOUT = 5.0;
