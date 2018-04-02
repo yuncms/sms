@@ -46,11 +46,11 @@ class ChargeController extends Controller
         try {
             $charge = $this->findModel($id);
             $paymentParams = [];
-            Yii::$app->payment->get($charge->channel)->payment($trade, $paymentParams);
+            Yii::$app->payment->get($charge->channel)->payment($charge, $paymentParams);
             if (Yii::$app->request->isAjax) {
-                return $this->renderPartial('pay', ['trade' => $trade, 'paymentParams' => $paymentParams]);
+                return $this->renderPartial('pay', ['charge' => $charge, 'paymentParams' => $paymentParams]);
             } else {
-                return $this->render('pay', ['trade' => $trade, 'paymentParams' => $paymentParams]);
+                return $this->render('pay', ['charge' => $charge, 'paymentParams' => $paymentParams]);
             }
         } catch (NotFoundHttpException $e) {
             Yii::$app->getSession()->setFlash('error', $e->getMessage());
@@ -66,18 +66,13 @@ class ChargeController extends Controller
     /**
      * 交易查询
      * @param string $id
-     * @return array
+     * @return TradeCharges
      * @throws NotFoundHttpException
      */
     public function actionQuery($id)
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $charge = $this->findModel($id);
-        if ($charge->state == TradeCharges::STATE_SUCCESS) {
-            return ['state' => 'success'];
-        } else {
-            return ['state' => 'pending'];
-        }
+        return $this->findModel($id);
     }
 
     /**
