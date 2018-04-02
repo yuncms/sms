@@ -10,7 +10,7 @@ use yuncms\admin\widgets\Alert;
 
 /* @var \yii\web\View $this */
 /* @var \yii\data\ActiveDataProvider $dataProvider */
-/* @var \yuncms\admin\models\AdminMenuSearch $searchModel */
+/* @var \yuncms\admin\models\AdminMenu $searchModel */
 
 $this->title = Yii::t('yuncms', 'Manage Menu');
 $this->params['breadcrumbs'][] = $this->title;

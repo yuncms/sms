@@ -21,7 +21,7 @@ class m180315_104011_create_trade_charges_table extends Migration
         }
 
         $this->createTable($this->tableName, [
-            'id' => $this->bigPrimaryKey(),
+            'id' => $this->primaryKey()->unsigned(),
             'paid' => $this->boolean()->defaultValue(false),//boolean 是否已付款
             'refunded' => $this->boolean()->defaultValue(false),//boolean 是否存在退款信息
             'reversed' => $this->boolean()->defaultValue(false),//boolean 订单是否撤销
@@ -33,7 +33,7 @@ class m180315_104011_create_trade_charges_table extends Migration
             'currency' => $this->string(3)->notNull(),//3 位 ISO 货币代码，人民币为  cny 。
             'subject' => $this->string(32)->notNull(),//商品标题，该参数最长为 32 个 Unicode 字符
             'body' => $this->string(128)->notNull(),//商品描述信息，该参数最长为 128 个 Unicode 字符
-            //'extra',
+            //'extra',//特定渠道发起交易时需要的额外参数，以及部分渠道支付成功返回的额外参数
             'time_paid' => $this->unixTimestamp(),//订单支付完成时的 Unix 时间戳。（银联支付成功时间为接收异步通知的时间）
             'time_expire' => $this->unixTimestamp(),//订单失效时间
             'time_settle' => $this->unixTimestamp(),//订单清算时间，用 Unix 时间戳表示。（暂不生效）
@@ -42,8 +42,8 @@ class m180315_104011_create_trade_charges_table extends Migration
             'amount_refunded' => $this->unsignedInteger()->notNull(),//已退款总金额，单位为对应币种的最小货币单位，例如：人民币为分。
             'failure_code' => $this->string(),//订单的错误码
             'failure_msg' => $this->string(),//订单的错误消息的描述。
-            'metadata',
-            //'credential',
+            'metadata' => $this->text(),
+           // 'credential',//支付凭证，用于客户端发起支付。
             'description' => $this->string(255),//订单附加说明，最多 255 个 Unicode 字符。
             'created_at' => $this->unixTimestamp(),
         ], $tableOptions);

@@ -14,6 +14,7 @@ $migrationPaths = array_merge(
         '@yuncms/admin/migrations',
         '@yuncms/user/migrations',
         '@yuncms/oauth2/migrations',
+        '@yuncms/trade/migrations',
     ]
 );
 

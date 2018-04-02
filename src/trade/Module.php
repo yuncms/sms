@@ -5,18 +5,15 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\payment\models;
-
-
-use yuncms\db\ActiveRecord;
+namespace yuncms\trade;
 
 /**
- * Class Withdrawal
+ * Class Module
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Withdrawal extends ActiveRecord
+class Module extends \yuncms\base\Module
 {
 
 }

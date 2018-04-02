@@ -29,13 +29,16 @@ class m180315_104659_create_trade_refunds_table extends Migration
             'failure_code' => $this->string(),//退款的错误码，详见 错误 中的错误码。
             'failure_msg' => $this->string(),//退款消息的描述。
             //'metadata',
-            'charge_id' => $this->unsignedBigInteger()->notNull(),//支付  charge 对象的  id
-            'charge_order_no',//商户订单号，这边返回的是  charge 对象中的  order_no 参数。
+            'charge_id' => $this->unsignedInteger()->notNull(),//支付  charge 对象的  id
+            'charge_order_no' => $this->string(64),//商户订单号，这边返回的是  charge 对象中的  order_no 参数。
             'transaction_no' => $this->string(64),//支付渠道返回的交易流水号，部分渠道返回该字段为空。
             'funding_source' => $this->string(20),//微信及 QQ 类退款资金来源。取值范围： unsettled_funds ：使用未结算资金退款； recharge_funds ：微信-使用可用余额退款，QQ-使用可用现金账户资金退款。注：默认值  unsettled_funds ，该参数对于微信渠道的退款来说仅适用于微信老资金流商户使用，包括  wx 、 wx_pub 、 wx_pub_qr 、 wx_lite 、 wx_wap 、 wx_pub_scan 六个渠道；新资金流退款资金默认从基本账户中扣除。该参数仅在请求退款，传入该字段时返回。
             //'extra',
             'created_at' => $this->unixTimestamp(),
         ], $tableOptions);
+
+        $this->addForeignKey('trade_refunds_fk_1', $this->tableName, 'charge_id', '{{%trade_charges}}', 'id', 'CASCADE', 'RESTRICT');
+
     }
 
     /**
