@@ -39,3 +39,8 @@ to the `require` section of your composer.json.
 0 0 1 1 *
 
 ```
+
+## License
+
+This is released under the LGPL-3.0 License. See the bundled [LICENSE.md](LICENSE.md)
+for details.
