@@ -37,7 +37,11 @@ var staticDeps = [
     { srcGlob: 'node_modules/blueimp-file-upload/js/*', dest: libPath+'blueimp-file-upload/js' },
     { srcGlob: 'node_modules/blueimp-file-upload/js/vendor/*', dest: libPath+'blueimp-file-upload/js/vendor' },
     { srcGlob: 'node_modules/blueimp-file-upload/css/*', dest: libPath+'blueimp-file-upload/css' },
-    { srcGlob: 'node_modules/blueimp-load-image/js/*', dest: libPath+'blueimp-load-image' }
+    { srcGlob: 'node_modules/blueimp-load-image/js/*', dest: libPath+'blueimp-load-image' },
+    { srcGlob: 'node_modules/components-jqueryui/*', dest: libPath+'jquery-ui' },
+    { srcGlob: 'node_modules/components-jqueryui/*/*', dest: libPath+'jquery-ui' },
+    { srcGlob: 'node_modules/components-jqueryui/*/*/*', dest: libPath+'jquery-ui' },
+    { srcGlob: 'node_modules/components-jqueryui/*/*/*/*', dest: libPath+'jquery-ui' }
 ];
 
 gulp.task('deps', function() {
