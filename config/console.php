@@ -31,6 +31,9 @@ return [
         'user' => [
             'class' => yuncms\console\controllers\UserController::class,
         ],
+        'oauth2' => [
+            'class' => yuncms\console\controllers\OAuth2Controller::class,
+        ],
         'migrate' => [
             'class' => yuncms\console\controllers\MigrateController::class,
             'templateFile' => '@yuncms/console/views/migrate/migration.php',
