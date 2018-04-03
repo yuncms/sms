@@ -63,9 +63,6 @@ return [
                 ],
             ],
         ],
-        'payment' => [
-            'class' => yuncms\payment\PaymentManager::class,
-        ],
         'notification' => [
             'class' => yuncms\notifications\NotificationManager::class,
         ],
