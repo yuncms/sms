@@ -27,6 +27,7 @@ use yuncms\notifications\NotificationTrait;
  * @property ActiveRecord $source
  *
  * @property User $user
+ *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
