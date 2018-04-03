@@ -28,6 +28,7 @@ class m180223_102927Create_user_extra_table extends Migration
             'views' => $this->counter()->comment('Views'),
             'supports' => $this->counter()->comment('Supports'),
             'followers' => $this->counter()->comment('Followers'),
+            'collections' => $this->counter()->comment('Collections'),
         ], $tableOptions);
         $this->addPrimaryKey('{{%user_extra_pk}}', $this->tableName, 'user_id');
         $this->addForeignKey('{{%user_extra_fk_1}}', $this->tableName, 'user_id', '{{%user}}', 'id', 'CASCADE', 'RESTRICT');
