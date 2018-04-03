@@ -17,9 +17,6 @@ $migrationPaths = array_merge(
 );
 
 return [
-    'bootstrap' => [
-        'log', 'queue',
-    ],
     'components' => [
         'cache' => [
             'keyPrefix' => 'rest',       //前缀

@@ -3,6 +3,9 @@
 return [
     'name' => 'YUNCMS',
     'sourceLanguage' => 'en-US',
+    'bootstrap' => [
+        'log', 'queue',
+    ],
     'components' => [
         'formatter' => [
             'class' => yii\i18n\Formatter::class,

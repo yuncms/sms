@@ -6,9 +6,6 @@
  */
 
 return [
-    'bootstrap' => [
-        'log', 'queue',
-    ],
     'controllerMap' => [
         'auth' => 'yuncms\rest\controllers\AuthController',
         'user' => 'yuncms\rest\controllers\UserController',

@@ -60,13 +60,13 @@ trait ApplicationTrait
         return $this->get('sms');
     }
 
-    /**
-     * @return \yuncms\payment\PaymentManager
-     */
-    public function getPayment(): PaymentManager
-    {
-        return $this->get('payment');
-    }
+//    /**
+//     * @return \yuncms\payment\PaymentManager
+//     */
+//    public function getPayment(): PaymentManager
+//    {
+//        return $this->get('payment');
+//    }
 
     /**
      * Returns the message queue component.

@@ -1,8 +1,5 @@
 <?php
 return [
-    'bootstrap' => [
-        'log', 'queue',
-    ],
     'controllerMap' => [
         'health' => 'yuncms\web\controllers\HealthController',
         'upload' => 'yuncms\web\controllers\UploadController'

@@ -3,7 +3,7 @@
 use yuncms\db\Migration;
 
 /**
- * Handles the creation of table `collection`.
+ * Handles the creation of table `user_collection`.
  */
 class m180403_060007_create_user_collection_table extends Migration
 {
