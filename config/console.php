@@ -3,7 +3,6 @@
 $migrationPaths = array_merge(
     [
         '@app/migrations',
-        '@vendor/yuncms/framework/migrations',
         //'@yii/caching/migrations',
         //'@yii/log/migrations',
         '@yii/web/migrations',
