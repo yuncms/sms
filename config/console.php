@@ -1,7 +1,6 @@
 <?php
 
 $migrationPaths = array_merge(
-    require(__DIR__ . '/../../migrations.php'),
     [
         '@app/migrations',
         '@vendor/yuncms/framework/migrations',
@@ -13,8 +12,8 @@ $migrationPaths = array_merge(
         '@yuncms/admin/migrations',
         '@yuncms/user/migrations',
         '@yuncms/oauth2/migrations',
-
-    ]
+    ],
+    require(__DIR__ . '/../../migrations.php')
 );
 
 return [

@@ -94,6 +94,24 @@ abstract class BaseMessageQueue extends Component implements MessageQueueInterfa
     }
 
     /**
+     * 订阅主题
+     * @param string $endpoint
+     * @param string $subscriptionName
+     * @param $filterTag
+     * @param $notifyStrategy
+     * @param $notifyContentFormat
+     */
+    public function Subscription($endpoint, $subscriptionName, $filterTag, $notifyStrategy = 'EXPONENTIAL_DECAY_RETRY', $notifyContentFormat = 'JSON')
+    {
+
+    }
+
+    public function Unsubscribe($subscriptionName)
+    {
+
+    }
+
+    /**
      * Sends the given message queue message.
      * This method will log a message about the message queue being sent.
      * If [[useFileTransport]] is true, it will save the message queue as a file under [[fileTransportPath]].
