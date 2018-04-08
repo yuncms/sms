@@ -7,6 +7,9 @@
 
 namespace yuncms\i18n;
 
+use Yii;
+use yuncms\helpers\ArrayHelper;
+
 /**
  * Class I18N
  *
@@ -21,12 +24,25 @@ class I18N extends \yii\i18n\I18N
     public function init()
     {
         parent::init();
+        $this->initTranslations();
         if (!isset($this->translations['yuncms']) && !isset($this->translations['yuncms*'])) {
             $this->translations['yuncms'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
                 'sourceLanguage' => 'en-US',
                 'basePath' => '@vendor/yuncms/framework/messages',
             ];
+        }
+    }
+
+    /**
+     * 处理默认翻译清单
+     */
+    public function initTranslations()
+    {
+        $manifestFile = Yii::getAlias('@vendor/yuncms/translates.php');
+        if (is_file($manifestFile)) {
+            $manifest = require($manifestFile);
+            $this->translations = ArrayHelper::merge($manifest, $this->translations);
         }
     }
 }
