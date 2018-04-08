@@ -96,6 +96,6 @@ class Application extends \yii\web\Application
         Yii::setAlias('@bower/punycode', $this->getVendorPath() . '/yuncms/framework/resources/lib/punycode');
         Yii::setAlias('@bower/yii2-pjax', $this->getVendorPath() . '/yuncms/framework/resources/lib/yii2-pjax');
         Yii::setAlias('@bower/font-awesome', $this->getVendorPath() . '/yuncms/framework/resources/lib/font-awesome');
-        Yii::setAlias('@bower/jquery-ui', $this->getVendorPath() . '/yuncms/framework/resources/assets/jquery-ui');
+        Yii::setAlias('@bower/jquery-ui', $this->getVendorPath() . '/yuncms/framework/resources/lib/jquery-ui');
     }
 }
