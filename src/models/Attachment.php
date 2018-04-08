@@ -72,7 +72,7 @@ class Attachment extends ActiveRecord
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => 'user_id'
                 ],
-                'value' => function ($event) {
+                'value' => function () {
                     return Yii::$app->user->id;
                 }
             ],

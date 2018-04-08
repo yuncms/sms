@@ -8,7 +8,7 @@ namespace yuncms\helpers;
 
 use Yii;
 use yii\caching\TagDependency;
-use yuncms\web\User;
+use yii\web\User;
 
 /**
  * Class RBACHelper

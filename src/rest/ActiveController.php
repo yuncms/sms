@@ -7,12 +7,14 @@
 
 namespace yuncms\rest;
 
+use Yii;
 use yii\rest\Serializer;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\auth\HttpHeaderAuth;
 use yii\filters\auth\QueryParamAuth;
+use yii\web\ForbiddenHttpException;
 use yuncms\filters\auth\OAuth2TokenAuth;
 
 /**
@@ -49,5 +51,26 @@ class ActiveController extends \yii\rest\ActiveController
             ],
         ];
         return $behaviors;
+    }
+
+    /**
+     * 检查当前用户的权限
+     *
+     * This method should be overridden to check whether the current user has the privilege
+     * to run the specified action against the specified data model.
+     * If the user does not have access, a [[ForbiddenHttpException]] should be thrown.
+     *
+     * @param string $action the ID of the action to be executed
+     * @param object $model the model to be accessed. If null, it means no specific model is being accessed.
+     * @param array $params additional parameters
+     * @throws ForbiddenHttpException if the user does not have access
+     */
+    public function checkAccess($action, $model = null, $params = [])
+    {
+        if ($action === 'update' || $action === 'delete') {
+            if ($model && $model->user_id !== Yii::$app->user->id) {
+                throw new ForbiddenHttpException(sprintf('You can only %s data that you\'ve created.', $action));
+            }
+        }
     }
 }

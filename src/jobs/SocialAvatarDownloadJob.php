@@ -8,10 +8,8 @@
 namespace yuncms\jobs;
 
 use yii\base\BaseObject;
-use yii\imagine\Image;
 use yii\queue\RetryableJobInterface;
 use yuncms\helpers\AvatarHelper;
-use yuncms\helpers\FileHelper;
 use yuncms\user\models\User;
 
 /**
@@ -36,10 +34,6 @@ class SocialAvatarDownloadJob extends BaseObject implements RetryableJobInterfac
     /**
      * 下载头像并保存
      * @param \yii\queue\Queue $queue
-     * @throws \League\Flysystem\FileExistsException
-     * @throws \yii\base\ErrorException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
      */
     public function execute($queue)
     {

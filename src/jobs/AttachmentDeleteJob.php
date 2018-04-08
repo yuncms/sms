@@ -25,7 +25,6 @@ class AttachmentDeleteJob extends BaseObject implements RetryableJobInterface
 
     /**
      * @param $queue
-     * @throws \League\Flysystem\FileNotFoundException
      * @throws \yii\base\InvalidConfigException
      */
     public function execute($queue)

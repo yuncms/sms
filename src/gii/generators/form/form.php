@@ -11,7 +11,7 @@ echo "<?php\n";
 
 use Yii;
 use yii\widgets\ActiveForm;
-use yuncms\helpers\Url;
+use yii\helpers\Url;
 use yuncms\helpers\Html;
 
 /* @var $this yii\web\View */

@@ -21,6 +21,7 @@ class ChunkUploader
      * @param UploadedFile $uploadedFile
      * @param string $path path to write chunks to
      * @returns boolean true if file upload is complete, or false if there are more chunks
+     * @return bool
      * @throws Exception
      */
     public static function process($uploadedFile, $path)

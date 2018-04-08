@@ -7,9 +7,14 @@
 
 namespace yuncms\helpers;
 
-
 use Yii;
 
+/**
+ * 文件上传助手
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class UploadHelper
 {
     /**

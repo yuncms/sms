@@ -73,7 +73,6 @@ class UserController extends Controller
      * 获取个人基本资料
      * @return array
      * @throws NotFoundHttpException
-     * @throws \yii\base\InvalidConfigException
      */
     public function actionMe()
     {
