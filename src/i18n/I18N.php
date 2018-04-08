@@ -25,6 +25,11 @@ class I18N extends \yii\i18n\I18N
     {
         parent::init();
         $this->initTranslations();
+        $this->initFrameworkTranslation();
+    }
+
+    public function initFrameworkTranslation()
+    {
         if (!isset($this->translations['yuncms']) && !isset($this->translations['yuncms*'])) {
             $this->translations['yuncms'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
