@@ -202,7 +202,7 @@ class FilesystemManager extends Component
     /**
      * 获取磁盘
      * @param string|null $filesystem
-     * @return \League\Flysystem\Filesystem
+     * @return object|Adapter
      * @throws InvalidConfigException
      */
     public function disk($filesystem = null)

@@ -10,7 +10,6 @@ namespace yuncms\base;
 use yii\base\Application;
 use yii\web\UrlManager;
 use yuncms\notifications\NotificationManager;
-use yuncms\payment\PaymentManager;
 use yuncms\services\Path;
 use yuncms\sms\Sms;
 
@@ -25,7 +24,6 @@ use yuncms\sms\Sms;
  * @property \yuncms\filesystem\FilesystemManager $filesystem The filesystem component
  * @property \yuncms\broadcast\BaseBroadcast $broadcast The broadcast component
  * @property \yuncms\notifications\NotificationManager $notification the notification connection.
- * @property \yuncms\payment\PaymentManager $payment the payment connection.
  * @property \yuncms\mq\BaseMessageQueue $messageQueue the message queue connection.
  * @property \yuncms\sms\Sms $sms the sms connection.
  * @property \yii\web\UrlManager $frontUrlManager the frontUrlManager component.

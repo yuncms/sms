@@ -15,7 +15,6 @@ use yii\web\User;
 use yii\web\ForbiddenHttpException;
 use yuncms\helpers\RBACHelper;
 
-
 /**
  * Access Control Filter (ACF) is a simple authorization method that is best used by applications that only need some simple access control.
  * As its name indicates, ACF is an action filter that can be attached to a controller or a module as a behavior.
@@ -71,6 +70,8 @@ class BackendAccessControl extends ActionFilter
 
     /**
      * @inheritdoc
+     * @throws \yii\base\InvalidConfigException
+     * @throws ForbiddenHttpException
      */
     public function beforeAction($action)
     {
@@ -101,6 +102,7 @@ class BackendAccessControl extends ActionFilter
 
     /**
      * @inheritdoc
+     * @throws \yii\base\InvalidConfigException
      */
     protected function isActive($action)
     {

@@ -9,6 +9,8 @@ namespace yuncms\base;
 
 /**
  * Trait RequestTrait
+ *
+ * @property \yuncms\web\Request|\yuncms\console\Request $this
  * @package yuncms\base
  */
 trait RequestTrait
@@ -20,7 +22,6 @@ trait RequestTrait
      */
     public function getScriptFilename(): string
     {
-        /** @var $this \yuncms\web\Request|\yuncms\console\Request */
         return basename($this->getScriptFile());
     }
 }
