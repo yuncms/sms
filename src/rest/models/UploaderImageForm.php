@@ -7,13 +7,13 @@
 
 namespace yuncms\rest\models;
 
-use League\Flysystem\FileExistsException;
 use Yii;
 use yii\base\ErrorException;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yuncms\web\UploadedFile;
 use yuncms\helpers\ArrayHelper;
+use League\Flysystem\FileExistsException;
 
 /**
  * 图像上传模型

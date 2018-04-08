@@ -9,14 +9,17 @@ namespace yuncms\rest\controllers;
 
 use Yii;
 use yii\helpers\Url;
+use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 use yuncms\rest\Controller;
 use yuncms\rest\models\AvatarForm;
+use yuncms\rest\models\User;
 use yuncms\rest\models\UserSettingsForm;
 use yuncms\rest\models\UserRecoveryForm;
 use yuncms\rest\models\UserRegistrationForm;
 use yuncms\rest\models\UserEmailRegistrationForm;
 use yuncms\rest\models\UserMobileRegistrationForm;
+use yuncms\rest\models\UserBindMobileForm;
 
 /**
  * 用户接口
@@ -47,34 +50,34 @@ class UserController extends Controller
     /**
      * 读取用户扩展数据
      * @return array
+     * @throws NotFoundHttpException
      */
     public function actionExtra()
     {
-        /** @var \yuncms\user\models\User $user */
-        $user = Yii::$app->user->identity;
+        $user = $this->findModel(Yii::$app->user->id);
         return $user->extra->toArray();
     }
 
     /**
      * 获取我绑定的社交媒体账户
      * @return \yuncms\user\models\UserSocialAccount[]
+     * @throws NotFoundHttpException
      */
     public function actionSocial()
     {
-        /** @var \yuncms\user\models\User $user */
-        $user = Yii::$app->user->identity;
+        $user = $this->findModel(Yii::$app->user->id);
         return $user->getSocialAccounts();
     }
 
     /**
      * 获取个人基本资料
      * @return array
+     * @throws NotFoundHttpException
      * @throws \yii\base\InvalidConfigException
      */
     public function actionMe()
     {
-        /** @var \yuncms\user\models\User $user */
-        $user = Yii::$app->user->identity;
+        $user = $this->findModel(Yii::$app->user->id);
         return [
             'id' => $user->id,
             'username' => $user->username,
@@ -82,7 +85,7 @@ class UserController extends Controller
             'email' => $user->email,
             'mobile' => $user->mobile,
             'mobile_confirmed_at' => $user->mobile_confirmed_at,
-            'faceUrl' => $user->getAvatar(),
+            'faceUrl' => $user->faceUrl,
         ];
     }
 
@@ -205,5 +208,39 @@ class UserController extends Controller
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
         return $model;
+    }
+
+    /**
+     * 绑定手机号
+     * @return bool|User|UserBindMobileForm
+     * @throws ServerErrorHttpException
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function actionBindMobile()
+    {
+        $model = new UserBindMobileForm();
+        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+        if (($user = $model->bind()) != false) {
+            Yii::$app->getResponse()->setStatusCode(200);
+            return $user;
+        } elseif (!$model->hasErrors()) {
+            throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+        }
+        return $model;
+    }
+
+    /**
+     * 获取模型
+     * @param int $id
+     * @return User
+     * @throws NotFoundHttpException
+     */
+    protected function findModel($id)
+    {
+        if (($model = User::findOne($id)) != null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException("Object not found: $id");
+        }
     }
 }

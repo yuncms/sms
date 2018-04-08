@@ -12,11 +12,9 @@ use yuncms\base\Model;
 use yuncms\validators\MobileValidator;
 
 /**
- * Model for collecting data on password recovery.
- *
- * @property \yuncms\user\Module $module
+ * 绑定手机号
  */
-class UserRecoveryForm extends Model
+class UserBindMobileForm extends Model
 {
     /**
      * @var string
@@ -29,25 +27,9 @@ class UserRecoveryForm extends Model
     public $verifyCode;
 
     /**
-     * @var string
-     */
-    public $password;
-
-    /**
      * @var User
      */
     protected $user;
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'email' => Yii::t('yuncms', 'Email'),
-            'password' => Yii::t('yuncms', 'Password')
-        ];
-    }
 
     /**
      * @inheritdoc
@@ -58,10 +40,7 @@ class UserRecoveryForm extends Model
             'mobileTrim' => ['mobile', 'filter', 'filter' => 'trim'],
             'mobileRequired' => ['mobile', 'required'],
             'mobilePattern' => ['mobile', MobileValidator::class],
-            'mobileExist' => ['mobile', 'exist', 'targetClass' => User::class, 'message' => Yii::t('yuncms', 'There is no user with this mobile')],
-
-            'passwordRequired' => ['password', 'required'],
-            'passwordLength' => ['password', 'string', 'min' => 6],
+            'mobileUnique' => ['mobile', 'unique', 'targetClass' => User::class, 'message' => Yii::t('yuncms', 'There is no user with this mobile')],
 
             // verifyCode needs to be entered correctly
             'verifyCodeRequired' => ['verifyCode', 'required'],
@@ -76,15 +55,25 @@ class UserRecoveryForm extends Model
     }
 
     /**
-     * 重置密码
-     * @return boolean
-     * @throws \yii\base\Exception
+     * @inheritdoc
      */
-    public function resetPassword()
+    public function attributeLabels()
+    {
+        return [
+            'mobile' => Yii::t('yuncms', 'Mobile'),
+            'verifyCode' => Yii::t('yuncms', 'verifyCode')
+        ];
+    }
+
+    /**
+     * 绑定手机
+     * @return bool|User
+     */
+    public function bind()
     {
         if ($this->validate() && ($user = $this->getUser()) != null) {
-            $user->resetPassword($this->password);
-            return true;
+            $user->updateAttributes(['mobile' => $this->mobile]);
+            return $user;
         }
         return false;
     }
@@ -94,14 +83,6 @@ class UserRecoveryForm extends Model
      */
     public function getUser()
     {
-        return User::findByMobile($this->mobile);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function formName()
-    {
-        return 'recovery-form';
+        return User::findOne(Yii::$app->user->getId());
     }
 }

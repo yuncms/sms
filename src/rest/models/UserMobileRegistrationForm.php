@@ -9,8 +9,7 @@ namespace yuncms\rest\models;
 
 use Yii;
 use yii\base\Model;
-use yuncms\user\models\User;
-use yuncms\core\validators\MobileValidator;
+use yuncms\validators\MobileValidator;
 
 /**
  * Registration form collects user input on registration process, validates it and creates new User model.

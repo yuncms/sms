@@ -9,7 +9,6 @@ namespace yuncms\rest\models;
 
 use Yii;
 use yuncms\base\Model;
-use yuncms\user\models\User;
 
 /**
  * SettingsForm gets user's username, email and password and changes them.

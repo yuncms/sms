@@ -27,6 +27,7 @@ use creocoder\taggable\TaggableBehavior;
  * @method ActiveRecord hasTagValues($values)
  *
  * @property integer $avatar
+ * @property-read string $faceUrl 头像Url
  * @property-read bool $isAvatar 是否有头像
  *
  * Defined relations:
