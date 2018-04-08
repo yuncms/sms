@@ -8,6 +8,7 @@
 namespace yuncms\widgets;
 
 use Yii;
+use yuncms\assets\BootstrapFileStyleAsset;
 use yuncms\helpers\ArrayHelper;
 
 /**
@@ -31,6 +32,7 @@ class ActiveField extends \yii\bootstrap\ActiveField
                 'buttonText' => Yii::t('yuncms', 'Choose file'),
             ]
         ], $options);
+        BootstrapFileStyleAsset::register(Yii::$app->view);
         return parent::fileInput($options);
     }
 
