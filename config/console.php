@@ -1,21 +1,6 @@
 <?php
 
-$migrationPaths = array_merge(
-    [
-        '@app/migrations',
-        //'@yii/caching/migrations',
-        //'@yii/log/migrations',
-        '@yii/web/migrations',
-        //'@yii/rbac/migrations',
-        '@yii/i18n/migrations',
-        '@yuncms/admin/migrations',
-        '@yuncms/user/migrations',
-        '@yuncms/oauth2/migrations',
-    ],
-    require(__DIR__ . '/../../migrations.php')
-);
-
-return [
+$config = [
     'components' => [
         'cache' => [
             'keyPrefix' => 'rest',       //前缀
@@ -44,7 +29,11 @@ return [
                 'drop_column' => '@yuncms/console/views/migrate/dropColumnMigration.php',
                 'create_junction' => '@yuncms/console/views/migrate/createTableMigration.php',
             ],
-            'migrationPath' => $migrationPaths,
         ],
     ],
 ];
+
+return yii\helpers\ArrayHelper::merge(
+    require(__DIR__ . '/main.php'),
+    $config
+);

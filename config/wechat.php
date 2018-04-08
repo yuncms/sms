@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-return [
+$config = [
     'controllerMap' => [
         'health' => 'yuncms\web\controllers\HealthController',
         'upload' => 'yuncms\web\controllers\UploadController'
@@ -43,3 +43,8 @@ return [
         ],
     ]
 ];
+
+return yii\helpers\ArrayHelper::merge(
+    require(__DIR__ . '/main.php'),
+    $config
+);

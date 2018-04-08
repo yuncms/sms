@@ -31,5 +31,11 @@ class Bootstrap implements BootstrapInterface
 
         //设置前台URL
         $app->frontUrlManager->baseUrl = Yii::$app->settings->get('url', 'system');
+
+        $manifestFile = Yii::getAlias('@vendor/yuncms/backend.php');
+        if (is_file($manifestFile)) {
+            $manifests = require($manifestFile);
+            $app->setModules($manifests);
+        }
     }
 }

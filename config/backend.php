@@ -4,7 +4,7 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
-return [
+$config = [
     'bootstrap' => ['yuncms\admin\Bootstrap'],
     'layout' => '@yuncms/admin/views/layouts/main',
     //'defaultRoute' => 'dashboard',
@@ -56,3 +56,8 @@ return [
         ]
     ]
 ];
+
+return yii\helpers\ArrayHelper::merge(
+    require(__DIR__ . '/main.php'),
+    $config
+);

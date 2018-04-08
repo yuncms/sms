@@ -102,8 +102,7 @@
   },
   "extra": {
     "yuncms": {
-      "id": "framework",
-      "migrationPath": "@vendor/yuncms/framework/migrations"
+      "id": "framework"
     },
     "branch-alias": {
       "dev-master": "1.0-dev"

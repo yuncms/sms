@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-return [
+$config = [
     'controllerMap' => [
         'auth' => 'yuncms\rest\controllers\AuthController',
         'user' => 'yuncms\rest\controllers\UserController',
@@ -48,3 +48,8 @@ return [
         ],
     ]
 ];
+
+return yii\helpers\ArrayHelper::merge(
+    require(__DIR__ . '/main.php'),
+    $config
+);
