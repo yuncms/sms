@@ -199,6 +199,16 @@ class User extends BaseUser
 
     /**
      * 获取头像Url
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function faceUrl()
+    {
+        return AvatarHelper::getAvatar($this, AvatarHelper::AVATAR_MIDDLE);
+    }
+
+    /**
+     * 获取头像Url
      * @param string $size
      * @return string
      * @throws \yii\base\InvalidConfigException
