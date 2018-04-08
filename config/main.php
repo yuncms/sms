@@ -28,13 +28,7 @@ return [
             'class' => yii\authclient\Collection::class,
         ],
         'i18n' => [
-            'translations' => [
-                'yuncms' => [
-                    'class' => yii\i18n\PhpMessageSource::class,
-                    'basePath' => '@vendor/yuncms/framework/messages',
-                    'sourceLanguage' => 'en-US',
-                ],
-            ]
+            'class' => yuncms\i18n\I18N::class,
         ],
         'mailer' => [
             'class' => yii\swiftmailer\Mailer::class,
