@@ -58,7 +58,7 @@ use yuncms\helpers\ArrayHelper;
  * @property-read boolean $isPublished 是否发布
 <?php endif; ?>
  */
-class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') ?><?php if(isset($labels['status'])): ?> implements ScanInterface<?php endif; ?>
+class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') ?>
 {
 
     //场景定义
@@ -232,38 +232,6 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') ?>
     public function isPublished()
     {
         return $this->status == static::STATUS_PUBLISHED;
-    }
-
-    /**
-     * 机器审核
-     * @param int $id model id
-     * @param string $suggestion the ID to be looked for
-     * @return void
-     */
-    public static function review($id, $suggestion)
-    {
-        if (($model = static::findOne($id)) != null) {
-            if ($suggestion == 'pass') {
-                $model->setPublished();
-            } elseif ($suggestion == 'block') {
-                $model->setRejected('');
-            } elseif ($suggestion == 'review') { //人工审核，不做处理
-                return;
-            }
-        }
-    }
-
-    /**
-     * 获取待审
-     * @param int $id
-     * @return string 待审核的内容字符串
-     */
-    public static function findReview($id)
-    {
-        if (($model = static::findOne($id)) != null) {
-            return $model->content;
-        }
-        return null;
     }
 
     /**

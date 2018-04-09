@@ -21,35 +21,10 @@ use Yii;
 /**
  * <?= $generator->moduleID ?> module definition class
  */
-class <?= $className ?> extends \yii\base\Module
+class <?= $className ?> extends \yuncms\base\Module
 {
     /**
      * @inheritdoc
      */
     public $controllerNamespace = '<?= $generator->getControllerNamespace() ?>';
-
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        parent::init();
-        $this->registerTranslations();
-
-        // custom initialization code goes here
-    }
-
-    /**
-     * register translations
-     * @return void
-     */
-    public function registerTranslations()
-    {
-        Yii::$app->i18n->translations['<?= $generator->moduleID ?>*'] = [
-            'class' => 'yii\i18n\PhpMessageSource',
-            'sourceLanguage' => 'en-US',
-            'basePath' => __DIR__ . '/messages',
-        ];
-    }
-
 }
