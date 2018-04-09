@@ -11,6 +11,7 @@ use Yii;
 use yuncms\helpers\AvatarHelper;
 use yuncms\models\BaseUser;
 use yuncms\db\ActiveRecord;
+use yuncms\tag\models\Tag;
 use yuncms\helpers\ArrayHelper;
 use yuncms\helpers\PasswordHelper;
 use creocoder\taggable\TaggableBehavior;
