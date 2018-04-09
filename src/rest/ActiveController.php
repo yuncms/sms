@@ -34,6 +34,17 @@ class ActiveController extends \yii\rest\ActiveController
     ];
 
     /**
+     * @var array 认证方法
+     */
+    public $authMethods = [
+        HttpBasicAuth::class,
+        HttpBearerAuth::class,
+        HttpHeaderAuth::class,
+        QueryParamAuth::class,
+        OAuth2TokenAuth::class,
+    ];
+
+    /**
      * 初始化 API 控制器验证
      * @return array
      */
@@ -42,13 +53,7 @@ class ActiveController extends \yii\rest\ActiveController
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => CompositeAuth::class,
-            'authMethods' => [
-                //HttpBasicAuth::class,
-                //HttpBearerAuth::class,
-                //HttpHeaderAuth::class,
-                //QueryParamAuth::class,
-                OAuth2TokenAuth::class,
-            ],
+            'authMethods' => $this->authMethods,
         ];
         return $behaviors;
     }
