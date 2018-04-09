@@ -203,7 +203,7 @@ class User extends BaseUser
      * @return string
      * @throws \yii\base\InvalidConfigException
      */
-    public function faceUrl()
+    public function getFaceUrl()
     {
         return AvatarHelper::getAvatar($this, AvatarHelper::AVATAR_MIDDLE);
     }
