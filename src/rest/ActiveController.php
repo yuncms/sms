@@ -8,6 +8,8 @@
 namespace yuncms\rest;
 
 use Yii;
+use yii\data\ActiveDataProvider;
+use yii\rest\IndexAction;
 use yii\rest\Serializer;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
@@ -56,6 +58,46 @@ class ActiveController extends \yii\rest\ActiveController
             'authMethods' => $this->authMethods,
         ];
         return $behaviors;
+    }
+
+    /**
+     * 定义操作
+     * @return array
+     */
+    public function actions()
+    {
+        $actions = parent::actions();
+        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
+        return $actions;
+    }
+
+    /**
+     * Prepares the data provider that should return the requested collection of the models.
+     *
+     * @param IndexAction $action
+     * @param mixed $filter
+     * @return ActiveDataProvider
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function prepareDataProvider(IndexAction $action, $filter)
+    {
+        /* @var $modelClass \yii\db\BaseActiveRecord */
+        $modelClass = $this->modelClass;
+
+        $query = $modelClass::find();
+        if (!empty($filter)) {
+            $query->andWhere($filter);
+        }
+        return Yii::createObject([
+            'class' => ActiveDataProvider::class,
+            'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'created_at' => SORT_DESC,
+                    'id' => SORT_ASC,
+                ]
+            ],
+        ]);
     }
 
     /**
