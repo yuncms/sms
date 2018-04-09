@@ -33,18 +33,18 @@ if (!isset($this->params['noPadding'])) {
                     <?= Toolbar::widget(['items' => [
                         [
                             'label' => Yii::t('yuncms', 'Manage User'),
-                            'url' => ['/user/user/index'],
+                            'url' => ['/admin/user/index'],
                         ],
                         [
                             'label' => Yii::t('yuncms', 'Create User'),
-                            'url' => ['/user/user/create'],
+                            'url' => ['/admin/user/create'],
                         ],
-                        ['label' => Yii::t('yuncms', 'Account details'), 'url' => ['/user/user/update', 'id' => $model->id]],
-                        ['label' => Yii::t('yuncms', 'Profile details'), 'url' => ['/user/user/update-profile', 'id' => $model->id]],
-                        ['label' => Yii::t('yuncms', 'Information'), 'url' => ['/user/user/view', 'id' => $model->id]],
+                        ['label' => Yii::t('yuncms', 'Account details'), 'url' => ['/admin/user/update', 'id' => $model->id]],
+                        ['label' => Yii::t('yuncms', 'Profile details'), 'url' => ['/admin/user/update-profile', 'id' => $model->id]],
+                        ['label' => Yii::t('yuncms', 'Information'), 'url' => ['/admin/user/view', 'id' => $model->id]],
                         [
                             'label' => Yii::t('yuncms', 'Email Confirm'),
-                            'url' => ['/user/user/confirm', 'id' => $model->id],
+                            'url' => ['/admin/user/confirm', 'id' => $model->id],
                             'visible' => !$model->isEmailConfirmed,
                             'options' => [
                                 'class'=>'btn btn-sm',
@@ -54,7 +54,7 @@ if (!isset($this->params['noPadding'])) {
                         ],
                         [
                             'label' => Yii::t('yuncms', 'Mobile Confirm'),
-                            'url' => ['/user/user/confirm', 'id' => $model->id],
+                            'url' => ['/admin/user/confirm', 'id' => $model->id],
                             'visible' => !$model->isMobileConfirmed,
                             'options' => [
                                 'class'=>'btn btn-sm',
@@ -64,7 +64,7 @@ if (!isset($this->params['noPadding'])) {
                         ],
                         [
                             'label' => Yii::t('yuncms', 'Block'),
-                            'url' => ['/user/user/block', 'id' => $model->id],
+                            'url' => ['/admin/user/block', 'id' => $model->id],
                             'visible' => !$model->isBlocked,
                             'options' => [
                                 'class'=>'btn btn-sm',
@@ -84,7 +84,7 @@ if (!isset($this->params['noPadding'])) {
                         ],
                         [
                             'label' => Yii::t('yuncms', 'Delete'),
-                            'url' => ['/user/user/delete', 'id' => $model->id],
+                            'url' => ['/admin/user/delete', 'id' => $model->id],
                             'options' => [
                                 'class'=>'btn btn-sm',
                                 'data-method' => 'post',
