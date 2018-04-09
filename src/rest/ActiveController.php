@@ -38,7 +38,7 @@ class ActiveController extends \yii\rest\ActiveController
      */
     public $authMethods = [
         HttpBasicAuth::class,
-        HttpBearerAuth::class,
+        //HttpBearerAuth::class,
         HttpHeaderAuth::class,
         QueryParamAuth::class,
         OAuth2TokenAuth::class,

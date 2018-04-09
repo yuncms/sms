@@ -9,6 +9,7 @@ $config = [
     'controllerMap' => [
         'auth' => 'yuncms\rest\controllers\AuthController',
         'user' => 'yuncms\rest\controllers\UserController',
+        'sms' => 'yuncms\rest\controllers\SmsController',
         'uploader' => 'yuncms\rest\controllers\UploaderController',
         'health' => 'yuncms\web\controllers\HealthController'
     ],

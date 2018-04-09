@@ -55,7 +55,7 @@ class CaptchaJob extends BaseObject implements RetryableJobInterface
         } catch (InvalidConfigException $e) {
 
         } catch (NoGatewayAvailableException $e) {
-            
+
         }
     }
 

@@ -14,6 +14,7 @@ use yii\filters\auth\HttpBearerAuth;
 use yii\filters\auth\HttpHeaderAuth;
 use yii\filters\auth\QueryParamAuth;
 use yuncms\filters\auth\OAuth2TokenAuth;
+use yuncms\helpers\ArrayHelper;
 
 /**
  * Class Controller
@@ -36,7 +37,7 @@ class Controller extends \yii\rest\Controller
      */
     public $authMethods = [
         HttpBasicAuth::class,
-        HttpBearerAuth::class,
+        //HttpBearerAuth::class,
         HttpHeaderAuth::class,
         QueryParamAuth::class,
         OAuth2TokenAuth::class,
