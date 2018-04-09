@@ -9,7 +9,9 @@ namespace yuncms\sms\jobs;
 
 use Yii;
 use yii\base\BaseObject;
+use yii\base\InvalidConfigException;
 use yii\queue\RetryableJobInterface;
+use yuncms\sms\exceptions\NoGatewayAvailableException;
 
 /**
  * Class CaptchaJob
@@ -44,11 +46,17 @@ class CaptchaJob extends BaseObject implements RetryableJobInterface
      */
     public function execute($queue)
     {
-        Yii::$app->sms->send($this->mobile, [
-            'content' => $this->getContent(),
-            'template' => $this->getTemplate(),
-            'data' => $this->getTemplateParam()
-        ]);
+        try {
+            Yii::$app->sms->send($this->mobile, [
+                'content' => $this->getContent(),
+                'template' => $this->getTemplate(),
+                'data' => $this->getTemplateParam()
+            ]);
+        } catch (InvalidConfigException $e) {
+
+        } catch (NoGatewayAvailableException $e) {
+            
+        }
     }
 
     /**

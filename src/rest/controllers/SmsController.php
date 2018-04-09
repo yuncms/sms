@@ -23,7 +23,7 @@ class SmsController extends Controller
         return [
             'verify-code' => [
                 'class' => 'yuncms\sms\captcha\CaptchaAction',
-                'sendJobClass' => 'common\jobs\SmsCodeJob',
+                'sendJobClass' => 'yuncms\sms\jobs\CaptchaJob',
                 'minLength' => 5,
                 'maxLength' => 7,
                 'fixedVerifyCode' => YII_ENV_TEST ? '12345' : null,
