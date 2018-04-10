@@ -20,6 +20,7 @@ use yuncms\rest\models\UserRegistrationForm;
 use yuncms\rest\models\UserEmailRegistrationForm;
 use yuncms\rest\models\UserMobileRegistrationForm;
 use yuncms\rest\models\UserBindMobileForm;
+use yuncms\user\models\UserProfile;
 
 /**
  * 用户接口
@@ -36,7 +37,7 @@ class UserController extends Controller
     {
         return [
             'extra' => ['GET'],
-            'profile' => ['GET'],
+            'profile' => ['GET', 'PUT', 'PATCH'],
             'social' => ['GET'],
             'me' => ['GET'],
             'register' => ['POST'],
@@ -60,14 +61,25 @@ class UserController extends Controller
     }
 
     /**
-     * 读取用户扩展数据
-     * @return array
+     * 获取个人扩展资料
+     * @return UserProfile
      * @throws NotFoundHttpException
+     * @throws ServerErrorHttpException
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionProfile()
     {
-        $user = $this->findModel(Yii::$app->user->id);
-        return $user->profile->toArray();
+        if (($model = UserProfile::findOne(['user_id' => Yii::$app->user->identity->getId()])) !== null) {
+            if (!Yii::$app->request->isGet) {
+                $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+                if ($model->save() === false && !$model->hasErrors()) {
+                    throw new ServerErrorHttpException('Failed to update the object for unknown reason.');
+                }
+            }
+            return $model;
+        } else {
+            throw new NotFoundHttpException ('User not found.');
+        }
     }
 
     /**
