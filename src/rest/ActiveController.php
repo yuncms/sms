@@ -116,7 +116,7 @@ class ActiveController extends \yii\rest\ActiveController
     {
         if ($action === 'update' || $action === 'delete') {
             if ($model && $model->user_id !== Yii::$app->user->id) {
-                throw new ForbiddenHttpException(sprintf('You can only %s data that you\'ve created.', $action));
+                throw new ForbiddenHttpException('You do not have permission to perform this operation.');
             }
         }
     }

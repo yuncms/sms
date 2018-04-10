@@ -36,6 +36,7 @@ class UserController extends Controller
     {
         return [
             'extra' => ['GET'],
+            'profile' => ['GET'],
             'social' => ['GET'],
             'me' => ['GET'],
             'register' => ['POST'],
@@ -56,6 +57,17 @@ class UserController extends Controller
     {
         $user = $this->findModel(Yii::$app->user->id);
         return $user->extra->toArray();
+    }
+
+    /**
+     * 读取用户扩展数据
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionProfile()
+    {
+        $user = $this->findModel(Yii::$app->user->id);
+        return $user->profile->toArray();
     }
 
     /**
