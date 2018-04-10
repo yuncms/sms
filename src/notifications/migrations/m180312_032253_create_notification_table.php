@@ -20,6 +20,21 @@ class m180312_032253_create_notification_table extends Migration
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8mb4 COLLATE  utf8mb4_general_ci ENGINE=InnoDB';
         }
+        $this->createTable($this->tableName, [
+            'id' => $this->bigPrimaryKey()->unsigned()->comment('Id'),
+            'user_id' => $this->integer()->unsigned()->comment('User Id'),
+            'category' => $this->string(64)->notNull()->comment('Category'),
+            'action' => $this->string(32)->comment('Action'),
+            'message' => $this->string(255)->comment('Message'),
+            'route' => $this->string(255)->comment('Route'),
+            'is_seen' => $this->boolean()->defaultValue(false)->comment('Seen'),
+            'is_read' => $this->boolean()->defaultValue(false)->comment('Read'),
+            'is_pending' => $this->boolean()->defaultValue(false)->comment('Read'),
+            'created_at' => $this->integer()->unsigned()->notNull()->comment('Created At'),
+            'published' => '',
+        ], $tableOptions);
+        $this->createIndex('notification_index', $this->tableName, ['user_id', 'seen']);
+        $this->addForeignKey('notification_fk_1', $this->tableName, 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
 
         /**
          * nid: { type: String, unique: true },
@@ -38,15 +53,6 @@ class m180312_032253_create_notification_table extends Migration
          * source: { type: Entity },
          * target: { type: Entity }
          * }
-         */
-
-        /**
-         *  $table->uuid('id')->primary();
-         * $table->string('type');
-         * $table->morphs('notifiable');
-         * $table->text('data');
-         * $table->timestamp('read_at')->nullable();
-         * $table->timestamps();
          */
         $this->createTable($this->tableName, [
             'id' => $this->uuid()->comment('Id'),
