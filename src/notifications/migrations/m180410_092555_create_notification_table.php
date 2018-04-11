@@ -25,19 +25,20 @@ class m180410_092555_create_notification_table extends Migration
         // https://segmentfault.com/q/1010000000672529/a-1020000000679702
         $this->createTable($this->tableName, [
             'id' => $this->bigPrimaryKey()->unsigned()->comment('Id'),
-            'user_id' => $this->integer()->unsigned()->comment('User Id'),
-            'verb',
-            'template',
-            'is_read',
-            'is_pending',
-            'sender',
-            'receiver',
-            'data' => [],
+            'verb' => $this->string(32)->comment('Verb'),//活动图片
+            'template' => $this->string()->comment('Template'),//通知类型
+            'is_read' => $this->boolean()->defaultValue(false)->comment('Read'),
+            'is_pending' => $this->boolean()->defaultValue(false)->comment('Pending'),
+            'sender_id' => $this->integer()->unsigned()->comment('Sender Id'),
+            'sender_class' => $this->string()->comment('Sender Class'),
+            'receiver' => $this->string()->comment('Receiver'),
             'publish_at' => $this->integer()->unsigned()->notNull()->comment('Publish At'),
+            'entity' => $this->string()->comment('Entity'),//任务对象
+            'source' => $this->string()->comment('Source'),//原有任务对象
+            'target' => $this->string()->comment('Target'),//目标对象
         ], $tableOptions);
 
-        $this->createIndex('notification_index', $this->tableName, ['user_id', 'seen']);
-        $this->addForeignKey('notification_fk_1', $this->tableName, 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
+        $this->createIndex('notification_index', $this->tableName, ['sender_id', 'sender_class']);
     }
 
     /**
