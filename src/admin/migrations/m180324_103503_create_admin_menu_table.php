@@ -61,7 +61,7 @@ class m180324_103503_create_admin_menu_table extends Migration
             [50, '用户管理', 5, '/admin/user/index', 'fa-user', 2, NULL],
             [51, '角色管理', 5, '/admin/user-role/index', 'fa-group', 3, NULL],
             [52, '权限管理', 5, '/admin/user-permission/index', 'fa-certificate', 4, NULL],
-            [53, '路由管理', 5, '/admin/user-route/index', 'fa-cloud', 5, NULL],
+            //[53, '路由管理', 5, '/admin/user-route/index', 'fa-cloud', 5, NULL],
             [54, '规则管理', 5, '/admin/user-rule/index', 'fa-key', 6, NULL],
             // [40, '地区管理', 3, '/area/index', 'fa-globe', 1, NULL],
             //[43, '敏感词管理', 3, '/admin/ban-word/index', 'fa-exclamation-triangle', 2, NULL],
