@@ -18,7 +18,7 @@
 class Yii extends \yii\BaseYii
 {
     /**
-     * @var yii\base\Application|yii\web\Application|yii\console\Application|yuncms\console\Application|yuncms\web\Application the application instance
+     * @var yii\base\Application|yii\web\Application|yii\console\Application|yuncms\console\Application|yuncms\web\Application|yuncms\admin\Application the application instance
      */
     public static $app;
 }

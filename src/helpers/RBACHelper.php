@@ -26,7 +26,7 @@ class RBACHelper
     {
         if (self::$_routes === null) {
             self::$_routes = [];
-            $manager = Yii::$app->getAuthManager();
+            $manager = self::getAuthManager();
             foreach ($manager->getPermissions() as $item) {
                 if ($item->name[0] === '/') {
                     self::$_routes[$item->name] = $item->name;
@@ -39,7 +39,7 @@ class RBACHelper
     /**
      * @return \yii\rbac\ManagerInterface|\yuncms\rbac\DbManager
      */
-    protected static function getAuthManager()
+    public static function getAuthManager()
     {
         return Yii::$app->getAuthManager();
     }

@@ -29,6 +29,15 @@ $config = [
             'assignmentTable' => '{{%admin_auth_assignment}}',
             'ruleTable' => '{{%admin_auth_rule}}'
         ],
+        'userAuthManager' => [
+            'class' => yuncms\rbac\DbManager::class,
+            'cache' => 'cache',
+            'cacheTag' => 'user.rbac',
+            'itemTable' => '{{%user_auth_item}}',
+            'itemChildTable' => '{{%user_auth_item_child}}',
+            'assignmentTable' => '{{%user_auth_assignment}}',
+            'ruleTable' => '{{%user_auth_rule}}'
+        ],
         'user' => [
             'identityClass' => yuncms\admin\models\Admin::class,
             'enableAutoLogin' => true,

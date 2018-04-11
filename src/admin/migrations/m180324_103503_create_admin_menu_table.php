@@ -58,7 +58,11 @@ class m180324_103503_create_admin_menu_table extends Migration
             [28, '菜单管理', 2, '/admin/menu/index', 'fa-wrench', 7, NULL],
             [29, '附件设置', 2, '/admin/attachment/setting', 'fa-cog', 8, NULL],
 
-            [30, '用户管理', 5, '/admin/user/index', 'fa-user', 2, NULL],
+            [50, '用户管理', 5, '/admin/user/index', 'fa-user', 2, NULL],
+            [51, '角色管理', 5, '/admin/user-role/index', 'fa-group', 3, NULL],
+            [52, '权限管理', 5, '/admin/user-permission/index', 'fa-certificate', 4, NULL],
+            [53, '路由管理', 5, '/admin/user-route/index', 'fa-cloud', 5, NULL],
+            [54, '规则管理', 5, '/admin/user-rule/index', 'fa-key', 6, NULL],
             // [40, '地区管理', 3, '/area/index', 'fa-globe', 1, NULL],
             //[43, '敏感词管理', 3, '/admin/ban-word/index', 'fa-exclamation-triangle', 2, NULL],
         ]);
@@ -66,6 +70,7 @@ class m180324_103503_create_admin_menu_table extends Migration
         //隐藏的子菜单[隐藏的子菜单不设置id字段，使用自增]//从10000开始
         $this->batchInsert($this->tableName, ['id', 'name', 'parent', 'route', 'visible', 'sort'], [
             [10000, '管理员查看', 22, '/admin/admin/view', 0, NULL],
+
         ]);
         $this->batchInsert($this->tableName, ['name', 'parent', 'route', 'visible', 'sort'], [
             ['更新管理员', 22, '/admin/admin/update', 0, NULL], ['授权设置', 22, '/admin/assignment/view', 0, NULL],
@@ -79,15 +84,20 @@ class m180324_103503_create_admin_menu_table extends Migration
         ]);
 
         $this->batchInsert($this->tableName, ['name', 'parent', 'route', 'visible', 'sort'], [
-            ['用户设置', 30, '/admin/user/settings', 0, NULL],
-            ['新建用户', 30, '/admin/user/create', 0, NULL],
-            ['用户查看', 30, '/admin/user/view', 0, NULL],
-            ['用户修改', 30, '/admin/user/update-profile', 0, NULL],
-            ['账户详情', 30, '/admin/user/update', 0, NULL],
+            ['用户设置', 50, '/admin/user/settings', 0, NULL],
+            ['新建用户', 50, '/admin/user/create', 0, NULL],
+            ['用户查看', 50, '/admin/user/view', 0, NULL],
+            ['用户修改', 50, '/admin/user/update-profile', 0, NULL],
+            ['账户详情', 50, '/admin/user/update', 0, NULL],
+
+            //['授权设置', 52, '/admin/user-assignment/view', 0, NULL],
+            ['角色查看', 51, '/admin/user-role/view', 0, NULL], ['创建角色', 51, '/admin/user-role/create', 0, NULL], ['更新角色', 51, '/admin/user-role/update', 0, NULL],
+            ['权限查看', 52, '/admin/user-permission/view', 0, NULL], ['创建权限', 52, '/admin/user-permission/create', 0, NULL], ['更新权限', 52, '/admin/user-permission/update', 0, NULL],
+            ['路由查看', 53, '/admin/user-route/view', 0, NULL], ['创建路由', 53, '/admin/user-route/create', 0, NULL], ['规则查看', 54, '/admin/user-rule/view', 0, NULL], ['创建规则', 54, '/admin/user-rule/create', 0, NULL], ['更新规则', 54, '/admin/user-rule/update', 0, NULL],
         ]);
 
-        $this->insert($this->tableName, ['name' => '附件管理', 'parent' => 8, 'route' => '/admin/attachment/index', 'icon' => 'fa-cog', 'sort' => NULL, 'data' => NULL]);
 
+        $this->insert($this->tableName, ['name' => '附件管理', 'parent' => 8, 'route' => '/admin/attachment/index', 'icon' => 'fa-cog', 'sort' => NULL, 'data' => NULL]);
 
         //OAuth2
         $this->insert($this->tableName, ['name' => 'App管理', 'parent' => 8, 'route' => '/admin/oauth2/index', 'icon' => 'fa fa-apple', 'sort' => NULL, 'data' => NULL]);
@@ -96,26 +106,7 @@ class m180324_103503_create_admin_menu_table extends Migration
             ['App查看', $id, '/admin/oauth2/view', 0, NULL],
         ]);
 
-        $this->insert($this->tableName, ['name' => '支付管理', 'parent' => 7, 'route' => '/admin/charge/index', 'icon' => 'fa-rmb', 'sort' => NULL, 'data' => NULL]);
-        $id = (new Query())->select(['id'])->from($this->tableName)->where(['name' => '支付管理', 'parent' => 7])->scalar($this->getDb());
-        $this->batchInsert($this->tableName, ['name', 'parent', 'route', 'visible', 'sort'], [
-            ['支付查看', $id, '/admin/charge/view', 0, NULL],
-            ['更新支付', $id, '/admin/charge/update', 0, NULL],
-        ]);
 
-        $this->insert($this->tableName, ['name' => '退款管理', 'parent' => 7, 'route' => '/admin/refund/index', 'icon' => 'fa-rmb', 'sort' => NULL, 'data' => NULL]);
-        $id = (new Query())->select(['id'])->from($this->tableName)->where(['name' => '退款管理', 'parent' => 7])->scalar($this->getDb());
-        $this->batchInsert($this->tableName, ['name', 'parent', 'route', 'visible', 'sort'], [
-            ['退款查看', $id, '/admin/refund/view', 0, NULL],
-            ['更新退款', $id, '/admin/refund/update', 0, NULL],
-        ]);
-
-        $this->insert($this->tableName, ['name' => '提现管理', 'parent' => 7, 'route' => '/admin/withdrawal/index', 'icon' => 'fa-rmb', 'sort' => NULL, 'data' => NULL]);
-        $id = (new Query())->select(['id'])->from($this->tableName)->where(['name' => '提现管理', 'parent' => 7])->scalar($this->getDb());
-        $this->batchInsert($this->tableName, ['name', 'parent', 'route', 'visible', 'sort'], [
-            ['提现查看', $id, '/admin/withdrawal/view', 0, NULL],
-            ['更新提现', $id, '/admin/withdrawal/update', 0, NULL],
-        ]);
     }
 
     /**

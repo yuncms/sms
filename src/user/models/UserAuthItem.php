@@ -5,13 +5,13 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\admin\models;
+namespace yuncms\user\models;
 
 use Yii;
 use yii\rbac\Item;
 use yii\helpers\Json;
 use yuncms\base\Model;
-use yuncms\helpers\RBACHelper;
+use yuncms\helpers\UserRBACHelper;
 
 /**
  * This is the model class for table "tbl_auth_item".
@@ -29,7 +29,7 @@ use yuncms\helpers\RBACHelper;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class AdminAuthItem extends Model
+class UserAuthItem extends Model
 {
     public $name;
     public $type;
@@ -79,14 +79,19 @@ class AdminAuthItem extends Model
 
     /**
      * @return \yii\rbac\ManagerInterface|\yuncms\rbac\DbManager
+     * @throws \yii\base\InvalidConfigException
      */
     public static function getAuthManager()
     {
+        if (Yii::$app instanceof \yuncms\admin\Application) {
+            return Yii::$app->getUserAuthManager();
+        }
         return Yii::$app->getAuthManager();
     }
 
     /**
      * Check role is unique
+     * @throws \yii\base\InvalidConfigException
      */
     public function checkUnique()
     {
@@ -104,6 +109,7 @@ class AdminAuthItem extends Model
 
     /**
      * Check for rule
+     * @throws \yii\base\InvalidConfigException
      */
     public function checkRule()
     {
@@ -150,6 +156,7 @@ class AdminAuthItem extends Model
      * Find role
      * @param string $id
      * @return null|\self
+     * @throws \yii\base\InvalidConfigException
      */
     public static function find($id)
     {
@@ -189,7 +196,7 @@ class AdminAuthItem extends Model
             } else {
                 $manager->update($oldName, $this->_item);
             }
-            RBACHelper::invalidate();
+            UserRBACHelper::invalidate();
             return true;
         } else {
             return false;
@@ -200,6 +207,7 @@ class AdminAuthItem extends Model
      * Adds an item as a child of another item.
      * @param array $items
      * @return integer
+     * @throws \yii\base\InvalidConfigException
      */
     public function addChildren($items)
     {
@@ -220,7 +228,7 @@ class AdminAuthItem extends Model
             }
         }
         if ($success > 0) {
-            RBACHelper::invalidate();
+            UserRBACHelper::invalidate();
         }
         return $success;
     }
@@ -229,6 +237,7 @@ class AdminAuthItem extends Model
      * Remove an item as a child of another item.
      * @param array $items
      * @return integer
+     * @throws \yii\base\InvalidConfigException
      */
     public function removeChildren($items)
     {
@@ -249,17 +258,18 @@ class AdminAuthItem extends Model
             }
         }
         if ($success > 0) {
-            RBACHelper::invalidate();
+            UserRBACHelper::invalidate();
         }
         return $success;
     }
 
     /**
      * @return array
+     * @throws \yii\base\InvalidConfigException
      */
     public function getItems()
     {
-        $manager = Yii::$app->getAuthManager();
+        $manager = self::getAuthManager();
         $avaliable = [];
         if ($this->type == Item::TYPE_ROLE) {
             foreach (array_keys($manager->getRoles()) as $name) {
