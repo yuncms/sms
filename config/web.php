@@ -9,6 +9,15 @@ $config = [
         'cache' => [
             'keyPrefix' => 'web',       //前缀
         ],
+        'authManager' => [
+            'class' => yuncms\rbac\DbManager::class,
+            'cache' => 'cache',
+            'cacheTag' => 'user.rbac',
+            'itemTable' => '{{%user_auth_item}}',
+            'itemChildTable' => '{{%user_auth_item_child}}',
+            'assignmentTable' => '{{%user_auth_assignment}}',
+            'ruleTable' => '{{%user_auth_rule}}'
+        ],
         'user' => [
             'identityClass' => yuncms\user\models\User::class,
             'enableAutoLogin' => true,
