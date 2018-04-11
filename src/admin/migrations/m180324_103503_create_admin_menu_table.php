@@ -94,7 +94,7 @@ class m180324_103503_create_admin_menu_table extends Migration
             //['授权设置', 52, '/admin/user-assignment/view', 0, NULL],
             ['角色查看', 51, '/admin/user-role/view', 0, NULL], ['创建角色', 51, '/admin/user-role/create', 0, NULL], ['更新角色', 51, '/admin/user-role/update', 0, NULL],
             ['权限查看', 52, '/admin/user-permission/view', 0, NULL], ['创建权限', 52, '/admin/user-permission/create', 0, NULL], ['更新权限', 52, '/admin/user-permission/update', 0, NULL],
-            //['路由查看', 53, '/admin/user-route/view', 0, NULL], ['创建路由', 53, '/admin/user-route/create', 0, NULL],
+            ['路由查看', 53, '/admin/user-route/view', 0, NULL], ['创建路由', 53, '/admin/user-route/create', 0, NULL],
             ['规则查看', 54, '/admin/user-rule/view', 0, NULL], ['创建规则', 54, '/admin/user-rule/create', 0, NULL], ['更新规则', 54, '/admin/user-rule/update', 0, NULL],
         ]);
 
