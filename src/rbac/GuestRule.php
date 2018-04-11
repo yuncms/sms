@@ -19,10 +19,12 @@ use yii\rbac\Rule;
  */
 class GuestRule extends Rule
 {
+    const RULE_NAME = 'guest_rule';
+
     /**
      * @inheritdoc
      */
-    public $name = 'guest_rule';
+    public $name = self::RULE_NAME;
 
     /**
      * Executes the rule.
