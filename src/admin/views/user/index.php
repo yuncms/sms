@@ -1,4 +1,6 @@
 <?php
+
+use yii\helpers\Url;
 use yii\web\View;
 use yii\data\ActiveDataProvider;
 use yuncms\grid\GridView;
@@ -129,7 +131,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw',
                     ],
                     [
-                        'class' => 'yii\grid\ActionColumn',
+                        'class' => 'yuncms\grid\ActionColumn',
+                        'template' => '{assignment} {view} {update} {delete}',
+                        'buttons' => ['assignment' => function ($url, $model, $key) {
+                            return Html::a('<span class="glyphicon glyphicon-dashboard"></span>',
+                                Url::toRoute(['user-assignment/view', 'id' => $model->id]), [
+                                    'title' => Yii::t('yuncms', 'Assignment'),
+                                    'aria-label' => Yii::t('yuncms', 'Assignment'),
+                                    'data-pjax' => '0',
+                                ]);
+                        }]
                     ],
                 ]
             ]); ?>

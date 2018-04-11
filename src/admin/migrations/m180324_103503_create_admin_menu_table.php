@@ -89,6 +89,7 @@ class m180324_103503_create_admin_menu_table extends Migration
             ['用户查看', 50, '/admin/user/view', 0, NULL],
             ['用户修改', 50, '/admin/user/update-profile', 0, NULL],
             ['账户详情', 50, '/admin/user/update', 0, NULL],
+            ['权限分配', 50, '/admin/user-assignment/view', 0, NULL],
 
             //['授权设置', 52, '/admin/user-assignment/view', 0, NULL],
             ['角色查看', 51, '/admin/user-role/view', 0, NULL], ['创建角色', 51, '/admin/user-role/create', 0, NULL], ['更新角色', 51, '/admin/user-role/update', 0, NULL],

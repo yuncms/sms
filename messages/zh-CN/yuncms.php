@@ -17,6 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Roles' => '角色',
+    'Permission' => '权限',
+    'Routes' => '路由',
     'Active' => '活跃',
     'App Key' => '',
     'App Secret' => '',

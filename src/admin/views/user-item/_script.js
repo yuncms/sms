@@ -33,9 +33,9 @@ function search(target) {
     var q = $('.search[data-target="' + target + '"]').val();
 
     var groups = {
-        role: [$('<optgroup label="Roles">'), false],
-        permission: [$('<optgroup label="Permission">'), false],
-        route: [$('<optgroup label="Routes">'), false],
+        role: [$('<optgroup label="<?=Yii::t('yuncms','Roles')?>">'), false],
+        permission: [$('<optgroup label="<?=Yii::t('yuncms','Permission')?>">'), false],
+        route: [$('<optgroup label="<?=Yii::t('yuncms','Routes')?>">'), false],
     };
     $.each(_opts.items[target], function (name, group) {
         if (name.indexOf(q) >= 0) {
