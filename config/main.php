@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'id' => 'yuncms',
     'name' => 'YUNCMS',
     'sourceLanguage' => 'en-US',
     'bootstrap' => [
@@ -38,7 +39,12 @@ return [
             'class' => yuncms\components\Settings::class,
             'frontCache' => 'cache'
         ],
-        'authManager' => [
+        'snowflake' => [
+            'class' => yuncms\base\Snowflake::class,
+            'workerId' => 0,
+            'dataCenterId' => 0,
+        ],
+        'authManager' => [//前端RBAC
             'class' => yuncms\rbac\DbManager::class,
             'cache' => 'cache',
             'cacheTag' => 'user.rbac',
@@ -71,16 +77,10 @@ return [
         ],
         'notificationManager' => [
             'class' => yuncms\notifications\NotificationManager::class,
-            
         ],
         'sms' => [
             'class' => yuncms\sms\Sms::class,
             'defaultStrategy' => yuncms\sms\strategies\OrderStrategy::class
-        ],
-        'snowflake' => [
-            'class' => yuncms\base\Snowflake::class,
-            'workerId' => 0,
-            'dataCenterId' => 0,
         ],
     ]
 ];
