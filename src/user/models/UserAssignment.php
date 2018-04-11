@@ -42,10 +42,11 @@ class UserAssignment extends BaseObject
      * Grands a roles from a user.
      * @param array $items
      * @return integer number of successful grand
+     * @throws \yii\base\InvalidConfigException
      */
     public function assign($items)
     {
-        $manager = Yii::$app->getAuthManager();
+        $manager = UserRBACHelper::getAuthManager();
         $success = 0;
         foreach ($items as $name) {
             try {
@@ -65,10 +66,11 @@ class UserAssignment extends BaseObject
      * Revokes a roles from a user.
      * @param array $items
      * @return integer number of successful revoke
+     * @throws \yii\base\InvalidConfigException
      */
     public function revoke($items)
     {
-        $manager = Yii::$app->getAuthManager();
+        $manager = UserRBACHelper::getAuthManager();
         $success = 0;
         foreach ($items as $name) {
             try {
