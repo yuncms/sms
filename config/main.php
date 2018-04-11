@@ -69,8 +69,9 @@ return [
                 ],
             ],
         ],
-        'notification' => [
+        'notificationManager' => [
             'class' => yuncms\notifications\NotificationManager::class,
+            
         ],
         'sms' => [
             'class' => yuncms\sms\Sms::class,

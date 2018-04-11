@@ -23,7 +23,7 @@ use yuncms\sms\Sms;
  * @property \yii\redis\Connection $redis The redis component
  * @property \yuncms\filesystem\FilesystemManager $filesystem The filesystem component
  * @property \yuncms\broadcast\BaseBroadcast $broadcast The broadcast component
- * @property \yuncms\notifications\NotificationManager $notification the notification connection.
+ * @property \yuncms\notifications\NotificationManager $notificationManager the notificationManager connection.
  * @property \yuncms\mq\BaseMessageQueue $messageQueue the message queue connection.
  * @property \yuncms\sms\Sms $sms the sms connection.
  * @property \yii\web\UrlManager $frontUrlManager the frontUrlManager component.
@@ -106,9 +106,9 @@ trait ApplicationTrait
      * Returns the notifications component.
      * @return \yuncms\notifications\NotificationManager the notifications connection.
      */
-    public function getNotifications(): NotificationManager
+    public function getNotificationManager(): NotificationManager
     {
-        return $this->get('notification');
+        return $this->get('notificationManager');
     }
 
     /**

@@ -28,13 +28,13 @@ use yuncms\notifications\contracts\NotificationInterface;
  *                     'from' => 'admin@example.com',
  *                 ],
  *                 'aliyunCloudPushChannel' => [
- *                     'class' => 'yuncms\notifications\channels\AliyunCloudPushChannel',
+ *                     'class' => 'yuncms\notifications\channels\CloudPushChannel',
  *                     'appKey' => 'abcd'
  *                 ],
  *                 'jPush' => [
  *                     'class' => 'yuncms\notifications\channels\JPushChannel',
  *                 ],
- * '               sms' => [
+ *                  'sms' => [
  *                     'class' => 'yuncms\notifications\channels\SmsChannel',
  *                 ],
  *             ],
