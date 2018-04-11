@@ -4,14 +4,14 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
-namespace yuncms\admin\models;
+namespace yuncms\user\models;
 
 use Yii;
 use Exception;
 use yii\base\BaseObject;
 use yii\helpers\VarDumper;
 use yii\caching\TagDependency;
-use yuncms\helpers\RBACHelper;
+use yuncms\helpers\UserRBACHelper;
 use yuncms\rbac\RouteRule;
 
 /**
@@ -20,18 +20,19 @@ use yuncms\rbac\RouteRule;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class AdminRoute extends BaseObject
+class UserRoute extends BaseObject
 {
-    const CACHE_TAG = 'admin.route';
+    const CACHE_TAG = 'user.route';
 
     /**
      * Assign or remove items
      * @param array $routes
      * @return void
+     * @throws \yii\base\InvalidConfigException
      */
     public function addNew($routes)
     {
-        $manager = RBACHelper::getAuthManager();
+        $manager = UserRBACHelper::getAuthManager();
         foreach ($routes as $route) {
             try {
                 $r = explode('&', $route);
@@ -58,17 +59,18 @@ class AdminRoute extends BaseObject
                 Yii::error($exc->getMessage(), __METHOD__);
             }
         }
-        RBACHelper::invalidate();
+        UserRBACHelper::invalidate();
     }
 
     /**
      * Assign or remove items
      * @param array $routes
      * @return void
+     * @throws \yii\base\InvalidConfigException
      */
     public function remove($routes)
     {
-        $manager = RBACHelper::getAuthManager();
+        $manager = UserRBACHelper::getAuthManager();
         foreach ($routes as $route) {
             try {
                 $item = $manager->createPermission('/' . trim($route, '/'));
@@ -77,16 +79,17 @@ class AdminRoute extends BaseObject
                 Yii::error($exc->getMessage(), __METHOD__);
             }
         }
-        RBACHelper::invalidate();
+        UserRBACHelper::invalidate();
     }
 
     /**
      * Get avaliable and assigned routes
      * @return array
+     * @throws \yii\base\InvalidConfigException
      */
     public function getRoutes()
     {
-        $manager = RBACHelper::getAuthManager();
+        $manager = UserRBACHelper::getAuthManager();
         $routes = $this->getAppRoutes();
         $exists = [];
         foreach (array_keys($manager->getPermissions()) as $name) {
@@ -106,6 +109,7 @@ class AdminRoute extends BaseObject
      * Get list of application routes
      * @param string $module
      * @return array
+     * @throws \yii\base\InvalidConfigException
      */
     public function getAppRoutes($module = null)
     {
@@ -118,7 +122,7 @@ class AdminRoute extends BaseObject
         if (($result = Yii::$app->cache->get($key)) === false) {
             $result = [];
             $this->getRouteRecrusive($module, $result);
-            Yii::$app->cache->set($key, $result, RBACHelper::getAuthManager()->cacheDuration, new TagDependency([
+            Yii::$app->cache->set($key, $result, UserRBACHelper::getAuthManager()->cacheDuration, new TagDependency([
                 'tags' => self::CACHE_TAG,
             ]));
         }
@@ -162,7 +166,6 @@ class AdminRoute extends BaseObject
      * @param string $namespace
      * @param string $prefix
      * @param mixed $result
-     * @return mixed
      */
     protected function getControllerFiles($module, $namespace, $prefix, &$result)
     {
@@ -263,8 +266,8 @@ class AdminRoute extends BaseObject
      */
     protected function setDefaultRule()
     {
-        if (RBACHelper::getAuthManager()->getRule(RouteRule::RULE_NAME) === null) {
-            RBACHelper::getAuthManager()->add(new RouteRule());
+        if (UserRBACHelper::getAuthManager()->getRule(RouteRule::RULE_NAME) === null) {
+            UserRBACHelper::getAuthManager()->add(new RouteRule());
         }
     }
 }
