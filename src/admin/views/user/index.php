@@ -9,7 +9,6 @@ use yuncms\admin\widgets\Box;
 use yuncms\admin\widgets\Toolbar;
 use yuncms\admin\widgets\Alert;
 use yuncms\admin\models\UserSearch;
-use yuncms\user\models\Authentication;
 
 /**
  * @var View $this
@@ -77,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'registration_ip',
                         'value' => function ($model) {
                             return $model->registration_ip == null
-                                ? '<span class="not-set">' . Yii::t('app', '(not set)') . '</span>'
+                                ? '<span class="not-set">' . Yii::t('yii', '(not set)') . '</span>'
                                 : $model->registration_ip;
                         },
                         'format' => 'html',
