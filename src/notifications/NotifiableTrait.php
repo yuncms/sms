@@ -63,7 +63,7 @@ trait NotifiableTrait
             return $this->{$method}();
         }
         switch ($channel) {
-            case 'aliyunCloudPush':
+            case 'cloudPush':
                 return $this->id;
             case 'mail':
                 return $this->email;

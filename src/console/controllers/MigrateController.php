@@ -49,6 +49,7 @@ class MigrateController extends \yii\console\controllers\MigrateController
         '@yuncms/admin/migrations',
         '@yuncms/user/migrations',
         '@yuncms/oauth2/migrations',
+        '@yuncms/notifications/migrations',
     ];
 
     /**

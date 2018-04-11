@@ -31,7 +31,7 @@ class m180410_092555_create_notification_table extends Migration
             'is_pending' => $this->boolean()->defaultValue(false)->comment('Pending'),
             'sender_id' => $this->integer()->unsigned()->comment('Sender Id'),
             'sender_class' => $this->string()->comment('Sender Class'),
-            'receiver' => $this->string()->comment('Receiver'),
+            'receiver' => $this->string()->comment('Receiver'),//接收器
             'publish_at' => $this->integer()->unsigned()->notNull()->comment('Publish At'),
             'entity' => $this->string()->comment('Entity'),//任务对象
             'source' => $this->string()->comment('Source'),//原有任务对象

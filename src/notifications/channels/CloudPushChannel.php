@@ -14,7 +14,7 @@ use yuncms\helpers\Json;
 use yuncms\notifications\contracts\ChannelInterface;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\contracts\NotificationInterface;
-use yuncms\notifications\messages\AliyunCloudPushMessage;
+use yuncms\notifications\messages\CloudPushMessage;
 use xutl\aliyun\Aliyun;
 
 /**
@@ -23,7 +23,7 @@ use xutl\aliyun\Aliyun;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class AliyunCloudPushChannel extends Component implements ChannelInterface
+class CloudPushChannel extends Component implements ChannelInterface
 {
     /**
      * @var string|Aliyun
@@ -47,12 +47,11 @@ class AliyunCloudPushChannel extends Component implements ChannelInterface
     /**
      * @param NotifiableInterface $recipient
      * @param NotificationInterface $notification
-     * @throws \yii\base\InvalidConfigException
      */
     public function send(NotifiableInterface $recipient, NotificationInterface $notification)
     {
         /**
-         * @var $message AliyunCloudPushMessage
+         * @var $message CloudPushMessage
          */
         $message = $notification->exportFor('aliyunCloudPush');
         $appRecipient = $recipient->routeNotificationFor('aliyunCloudPush');

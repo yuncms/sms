@@ -12,8 +12,8 @@ use yii\base\InvalidConfigException;
 use yuncms\notifications\contracts\ChannelInterface;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\contracts\NotificationInterface;
-use JPush\Client as JPush;
 use yuncms\notifications\messages\JPushMessage;
+use JPush\Client as JPush;
 
 /**
  * 极光推送
