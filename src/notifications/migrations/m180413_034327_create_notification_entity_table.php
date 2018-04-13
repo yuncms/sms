@@ -3,14 +3,14 @@
 use yuncms\db\Migration;
 
 /**
- * Handles the creation of table `notification_data`.
+ * Handles the creation of table `notification_entity`.
  */
-class m180413_034327_create_notification_data_table extends Migration
+class m180413_034327_create_notification_entity_table extends Migration
 {
     /**
      * @var string The table name.
      */
-    public $tableName = '{{%notification_data}}';
+    public $tableName = '{{%notification_entity}}';
 
     /**
      * {@inheritdoc}
