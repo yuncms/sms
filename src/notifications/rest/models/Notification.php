@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\framework\notifications\rest\models;
+namespace yuncms\notifications\rest\models;
 
 use yuncms\rest\models\User;
 

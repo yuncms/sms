@@ -17,7 +17,7 @@ use yuncms\user\models\User;
  * @property int $is_pending Pending
  * @property int $sender_id Sender Id
  * @property string $sender_class Sender Class
- * @property string $receiver Receiver
+ * @property string $receiver_id Receiver
  * @property int $publish_at Publish At
  * @property int $entity_id Entity
  * @property int $source_id Source
@@ -25,6 +25,7 @@ use yuncms\user\models\User;
  */
 class Notification extends ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -100,7 +101,7 @@ class Notification extends ActiveRecord
      */
     public static function setReadAll($userId)
     {
-        return self::updateAll(['is_read' => true], ['receiver' => $userId]);
+        return self::updateAll(['is_read' => true], ['receiver_id' => $userId]);
     }
 
     /**
@@ -109,7 +110,7 @@ class Notification extends ActiveRecord
      */
     public function getReceiver()
     {
-        return $this->hasOne(User::class, ['id' => 'receiver']);
+        return $this->hasOne(User::class, ['id' => 'receiver_id']);
     }
 
     /**
