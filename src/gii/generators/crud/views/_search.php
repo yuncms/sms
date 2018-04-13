@@ -9,8 +9,8 @@ use yii\helpers\StringHelper;
 echo "<?php\n";
 ?>
 
-use yii\helpers\Html;
-use xutl\inspinia\ActiveForm;
+use yuncms\helpers\Html;
+use yuncms\admin\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->searchModelClass, '\\') ?> */
@@ -36,8 +36,8 @@ foreach ($generator->getColumnNames() as $attribute) {
 }
 ?>
     <div class="form-group">
-        <?= "<?= " ?>Html::submitButton(<?= $generator->generateString('Search');?>, ['class' => 'btn btn-primary']) ?>
-        <?= "<?= " ?>Html::resetButton(<?= $generator->generateString('Reset');?>, ['class' => 'btn btn-default']) ?>
+        <?= "<?= " ?>Html::submitButton(Yii::t('yuncms', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= "<?= " ?>Html::resetButton(Yii::t('yuncms', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?= "<?php " ?>ActiveForm::end(); ?>

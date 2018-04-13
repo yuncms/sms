@@ -54,7 +54,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                     'batch-delete' => ['POST'],
@@ -114,7 +114,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             return ActiveForm::validate($model);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', <?= $generator->generateString('Create success.');?>);
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Create success.'));
             return $this->redirect(['view', <?= $urlParams ?>]);
         } else {
             return $this->render('create', [
@@ -128,6 +128,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      * If update is successful, the browser will be redirected to the 'view' page.
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionUpdate(<?= $actionParams ?>)
     {
@@ -137,7 +138,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             return ActiveForm::validate($model);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', <?= $generator->generateString('Update success.');?>);
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Update success.'));
             return $this->redirect(['view', <?= $urlParams ?>]);
         } else {
             return $this->render('update', [
@@ -151,17 +152,23 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
      * @return mixed
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete(<?= $actionParams ?>)
     {
         $this->findModel(<?= $actionParams ?>)->delete();
-        Yii::$app->getSession()->setFlash('success', <?= $generator->generateString('Delete success.');?>);
+        Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Delete success.'));
         return $this->redirect(['index']);
     }
      /**
       * Batch Delete existing <?= $modelClass ?> model.
       * If deletion is successful, the browser will be redirected to the 'index' page.
       * @return mixed
+      * @throws NotFoundHttpException
+      * @throws \Throwable
+      * @throws \yii\db\StaleObjectException
       */
     public function actionBatchDelete()
     {
@@ -170,9 +177,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 $model = $this->findModel($id);
                 $model->delete();
             }
-            Yii::$app->getSession()->setFlash('success', <?= $generator->generateString('Delete success.');?>);
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Delete success.'));
         } else {
-            Yii::$app->getSession()->setFlash('success', <?= $generator->generateString('Delete failed.');?>);
+            Yii::$app->getSession()->setFlash('success', Yii::t('yuncms', 'Delete failed.'));
         }
         return $this->redirect(['index']);
     }

@@ -48,7 +48,7 @@ class ActiveField extends \yii\bootstrap\ActiveField
         }
         $this->parts['{img}'] = Html::img($src, $options);
         BootstrapFileStyleAsset::register($this->form->view);
-        return parent::fileInput($options).Plupload::widget(['url'=>'url']);
+        return parent::fileInput($options) . Plupload::widget(['url' => 'url']);
     }
 
     /**
@@ -68,6 +68,20 @@ class ActiveField extends \yii\bootstrap\ActiveField
         BootstrapFileStyleAsset::register($this->form->view);
         return parent::fileInput($options);
     }
+
+    /**
+     * 显示布尔选项
+     * @param array $options
+     * @return \yii\bootstrap\ActiveField|ActiveField
+     */
+    public function boolean($options = [])
+    {
+        return parent::radioList([
+            '1' => Yii::t('yii', 'Yes'),
+            '0' => Yii::t('yii', 'No')
+        ], $options);
+    }
+
 
     /**
      * 显示下拉

@@ -11,11 +11,11 @@ $urlParams = $generator->generateUrlParams();
 echo "<?php\n";
 ?>
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
-use xutl\inspinia\Box;
-use xutl\inspinia\Toolbar;
-use xutl\inspinia\Alert;
+use yuncms\helpers\Html;
+use yuncms\widgets\DetailView;
+use yuncms\admin\widgets\Box;
+use yuncms\admin\widgets\Toolbar;
+use yuncms\admin\widgets\Alert;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */

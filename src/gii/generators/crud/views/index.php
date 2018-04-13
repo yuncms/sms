@@ -13,11 +13,11 @@ echo "<?php\n";
 ?>
 use yii\web\View;
 use yii\helpers\Url;
-use yii\helpers\Html;
-use xutl\inspinia\Box;
-use xutl\inspinia\Toolbar;
-use xutl\inspinia\Alert;
-use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
+use yuncms\helpers\Html;
+use yuncms\admin\widgets\Box;
+use yuncms\admin\widgets\Toolbar;
+use yuncms\admin\widgets\Alert;
+use <?= $generator->indexWidgetType === 'grid' ? "yuncms\\grid\\GridView" : "yuncms\\widgets\\ListView" ?>;
 <?= $generator->enablePjax ? 'use yii\widgets\Pjax;' : '' ?>
 
 /* @var $this yii\web\View */
@@ -27,7 +27,7 @@ use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\w
 $this->title = <?= $generator->generateString('Manage ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>;
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs("jQuery(\"#batch_deletion\").on(\"click\", function () {
-    yii.confirm('" . Yii::t('app', 'Are you sure you want to delete this item?')."',function(){
+    yii.confirm('" . Yii::t('yuncms', 'Are you sure you want to delete this item?')."',function(){
         var ids = jQuery('#gridview').yiiGridView(\"getSelectedRows\");
         jQuery.post(\"/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/batch-delete\",{ids:ids});
     });
@@ -101,8 +101,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 }
 ?>
                     [
-                        'class' => 'yii\grid\ActionColumn',
-                        'header' => <?= $generator->generateString('Operation');?>,
+                        'class' => 'yuncms\grid\ActionColumn',
                         'template' => '{view} {update} {delete}',
                         //'buttons' => [
                         //    'update' => function ($url, $model, $key) {
