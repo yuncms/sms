@@ -10,8 +10,8 @@ use yii\filters\RateLimitInterface;
 use yii\behaviors\TimestampBehavior;
 use yuncms\db\ActiveRecord;
 use yuncms\helpers\PasswordHelper;
-use yuncms\notifications\contracts\NotifiableInterface;
-use yuncms\notifications\NotifiableTrait;
+use yuncms\notifications\contracts\RecipientInterface;
+use yuncms\notifications\ReceiverTrait;
 use yuncms\oauth2\OAuth2IdentityInterface;
 
 /**
@@ -43,9 +43,9 @@ use yuncms\oauth2\OAuth2IdentityInterface;
  * @property-read bool $isEmailConfirmed 是否已经邮箱激活
  *
  */
-class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInterface, NotifiableInterface, OAuth2IdentityInterface
+class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInterface, RecipientInterface, OAuth2IdentityInterface
 {
-    use NotifiableTrait;
+    use ReceiverTrait;
 
     // following constants are used on secured email changing process
     const OLD_EMAIL_CONFIRMED = 0b1;
@@ -455,7 +455,7 @@ class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInter
      */
     public function viaChannels()
     {
-        return ['mail', 'sms'];
+        return ['mail', 'sms', 'web'];
     }
 
     /**

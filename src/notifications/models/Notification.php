@@ -22,7 +22,7 @@ use yuncms\db\ActiveRecord;
  * @property string $source Source
  * @property string $target Target
  */
-class Notification extends \yuncms\db\ActiveRecord
+class Notification extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -89,6 +89,21 @@ class Notification extends \yuncms\db\ActiveRecord
     public function getSender()
     {
         return $this->hasOne($this->sender_class, ['id' => 'sender_id']);
+    }
+
+    public function getEntity()
+    {
+
+    }
+
+    public function getSource()
+    {
+
+    }
+
+    public function getTarget()
+    {
+
     }
 
     /**

@@ -11,7 +11,7 @@ use yii\base\Component;
 use yii\di\Instance;
 use yii\mail\MailerInterface;
 use yuncms\notifications\contracts\ChannelInterface;
-use yuncms\notifications\contracts\NotifiableInterface;
+use yuncms\notifications\contracts\RecipientInterface;
 use yuncms\notifications\contracts\NotificationInterface;
 use yuncms\notifications\messages\MailMessage;
 
@@ -44,10 +44,10 @@ class MailChannel extends Component implements ChannelInterface
     }
 
     /**
-     * @param NotifiableInterface $recipient
+     * @param RecipientInterface $recipient
      * @param NotificationInterface $notification
      */
-    public function send(NotifiableInterface $recipient, NotificationInterface $notification)
+    public function send(RecipientInterface $recipient, NotificationInterface $notification)
     {
         /**
          * @var $message MailMessage

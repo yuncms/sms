@@ -11,7 +11,7 @@ namespace yuncms\notifications\contracts;
  * Interface NotifiableInterface
  * @package yuncms\notifications\contracts
  */
-interface NotifiableInterface
+interface RecipientInterface
 {
     /**
      * 确定通知是否可以发送给可通知实体。

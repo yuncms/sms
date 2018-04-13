@@ -16,7 +16,7 @@ use yuncms\notifications\contracts\NotificationInterface;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-trait NotifiableTrait
+trait ReceiverTrait
 {
     /**
      * 确定通知实体是否应通过签入通知设置来接收通知。

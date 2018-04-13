@@ -33,9 +33,9 @@ class m180410_092555_create_notification_table extends Migration
             'sender_class' => $this->string()->comment('Sender Class'),//发送者模型
             'receiver' => $this->string()->comment('Receiver'),//接收器
             'publish_at' => $this->integer()->unsigned()->notNull()->comment('Publish At'),//发送时间
-            'entity' => $this->text()->comment('Entity'),//任务对象
-            'source' => $this->text()->comment('Source'),//原有任务对象
-            'target' => $this->text()->comment('Target'),//目标对象
+            'entity_id' => $this->unsignedInteger()->comment('Entity'),//任务对象
+            'source_id' => $this->unsignedInteger()->comment('Source'),//原有任务对象
+            'target_id' => $this->unsignedInteger()->comment('Target'),//目标对象
         ], $tableOptions);
 
         $this->createIndex('notification_index', $this->tableName, ['sender_id', 'sender_class']);

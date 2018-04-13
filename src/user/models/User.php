@@ -36,7 +36,7 @@ use creocoder\taggable\TaggableBehavior;
  * @property UserLoginHistory[] $userLoginHistories
  * @property UserProfile $profile
  * @property UserSocialAccount[] $socialAccounts
- * @property Tag[] $tags
+ * @property \yuncms\tag\models\Tag[] $tags
  * @property UserToken[] $userTokens
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
