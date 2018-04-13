@@ -8,10 +8,10 @@
 namespace yuncms\user\models;
 
 use Yii;
+use yii\base\Exception;
 use yuncms\helpers\AvatarHelper;
 use yuncms\models\BaseUser;
 use yuncms\db\ActiveRecord;
-use yuncms\tag\models\Tag;
 use yuncms\helpers\ArrayHelper;
 use yuncms\helpers\PasswordHelper;
 use creocoder\taggable\TaggableBehavior;
@@ -176,10 +176,15 @@ class User extends BaseUser
 
     /**
      * @return \yii\db\ActiveQuery
+     * @throws Exception
      */
     public function getTags()
     {
-        return $this->hasMany(Tag::class, ['id' => 'tag_id'])->viaTable('{{%user_tag}}', ['user_id' => 'id']);
+        if (class_exists('\yuncms\tag\models\Tag')) {
+            return $this->hasMany(\yuncms\tag\models\Tag::class, ['id' => 'tag_id'])->viaTable('{{%user_tag}}', ['user_id' => 'id']);
+        } else {
+            throw new Exception('Please install tag module first.');
+        }
     }
 
     /**
