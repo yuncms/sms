@@ -15,6 +15,7 @@ use yuncms\db\jobs\updateActiveRecordAllCountersJob;
 use yuncms\db\jobs\UpdateActiveRecordAllJob;
 use yuncms\db\jobs\UpdateActiveRecordAttributesJob;
 use yuncms\db\jobs\UpdateActiveRecordCountersJob;
+use yuncms\helpers\Json;
 
 /**
  * Class ActiveRecord
@@ -24,6 +25,29 @@ use yuncms\db\jobs\UpdateActiveRecordCountersJob;
  */
 class ActiveRecord extends \yii\db\ActiveRecord
 {
+    /**
+     * Converts the model into an json.
+     *
+     * This method will first identify which fields to be included in the resulting array by calling [[resolveFields()]].
+     * If the model implements the [[Linkable]] interface, the resulting json will also have a `_link` element
+     * which refers to a list of links as specified by the interface.
+     *
+     * @param array $fields the fields being requested.
+     * If empty or if it contains '*', all fields as specified by [[fields()]] will be returned.
+     * Fields can be nested, separated with dots (.). e.g.: item.field.sub-field
+     * `$recursive` must be true for nested fields to be extracted. If `$recursive` is false, only the root fields will be extracted.
+     * @param array $expand the additional fields being requested for exporting. Only fields declared in [[extraFields()]]
+     * will be considered.
+     * Expand can also be nested, separated with dots (.). e.g.: item.expand1.expand2
+     * `$recursive` must be true for nested expands to be extracted. If `$recursive` is false, only the root expands will be extracted.
+     * @param bool $recursive whether to recursively return array representation of embedded objects.
+     * @return string the json representation of the object
+     */
+    public function toJson(array $fields = [], array $expand = [], $recursive = true)
+    {
+        return Json::encode($this->toArray($fields, $expand, $recursive));
+    }
+
     /**
      * 快速创建实例
      * @param array $attributes
