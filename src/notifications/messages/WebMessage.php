@@ -7,8 +7,13 @@
 
 namespace yuncms\notifications\messages;
 
-
-class WebMessage
+/**
+ * Class WebMessage
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
+class WebMessage extends BaseMessage
 {
 
 }

@@ -8,7 +8,7 @@
 namespace yuncms\notifications\messages;
 
 use yii\base\BaseObject;
-use yii\base\Model;
+use yuncms\notifications\contracts\ChannelInterface;
 
 /**
  * Class BaseMessage
@@ -16,7 +16,7 @@ use yii\base\Model;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class BaseMessage extends Model
+class BaseMessage extends BaseObject
 {
     /**
      * The title of the notification.
@@ -25,8 +25,82 @@ class BaseMessage extends Model
     public $title;
 
     /**
-     * The notification's message body
+     * @var string The notification's message body
+     */
+    protected $content;
+
+    /**
      * @var string
      */
-    public $body;
+    protected $template;
+
+    /**
+     * @var array
+     */
+    protected $data = [];
+
+    /**
+     * Return message content.
+     *
+     * @param ChannelInterface $channel
+     *
+     * @return string
+     */
+    public function getContent(ChannelInterface $channel = null)
+    {
+        return $this->content;
+    }
+
+    /**
+     * Return the template id of message.
+     *
+     * @param ChannelInterface $channel
+     *
+     * @return string
+     */
+    public function getTemplate(ChannelInterface $channel = null)
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param mixed $content
+     * @return $this
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * @param mixed $template
+     * @return $this
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+        return $this;
+    }
+
+    /**
+     * @param ChannelInterface $channel
+     *
+     * @return array
+     */
+    public function getData(ChannelInterface $channel = null)
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return $this
+     */
+    public function setData(array $data)
+    {
+        $this->data = $data;
+        return $this;
+    }
 }

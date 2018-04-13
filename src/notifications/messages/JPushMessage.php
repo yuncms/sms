@@ -20,14 +20,4 @@ class JPushMessage extends BaseMessage
      */
     public $extParameters;
 
-    /**
-     * @return array
-     */
-    public function rules()
-    {
-        return [
-            'titleRequired' => ['title', 'required'],
-            'bodyRequired' => ['body', 'required'],
-        ];
-    }
 }
