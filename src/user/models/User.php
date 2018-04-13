@@ -188,6 +188,46 @@ class User extends BaseUser
     }
 
     /**
+     * 获取我的收藏
+     * 一对多关系
+     */
+    public function getCollections()
+    {
+        return $this->hasMany(UserCollection::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * 是否已经收藏过Model和ID
+     * @param string $modelClass
+     * @param int $modelId
+     * @return bool
+     */
+    public function isCollected($modelClass, $modelId)
+    {
+        return $this->getCollections()->andWhere(['model_class' => $modelClass, 'model_id' => $modelId])->exists();
+    }
+
+    /**
+     * 获取我的收藏
+     * 一对多关系
+     */
+    public function getSupports()
+    {
+        return $this->hasMany(UserSupport::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * 是否已经赞过Model和ID
+     * @param string $modelClass
+     * @param int $modelId
+     * @return bool
+     */
+    public function isSupport($modelClass, $modelId)
+    {
+        return $this->getSupports()->andWhere(['model_class' => $modelClass, 'model_id' => $modelId])->exists();
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getTokens()
