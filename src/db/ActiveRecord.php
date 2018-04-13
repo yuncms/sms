@@ -49,6 +49,31 @@ class ActiveRecord extends \yii\db\ActiveRecord
     }
 
     /**
+     * 从序列化后的类名和主键获取模型实例
+     * @param string $serialize
+     * @return null|static
+     */
+    public static function getUnSerialize($serialize)
+    {
+        $serialize = Json::decode($serialize);
+        $modelClass = $serialize['modelClass'];
+        /** @var ActiveRecord $modelClass */
+        return $modelClass::findOne($serialize['condition']);
+    }
+
+    /**
+     * 获取序列化后的类名和主键
+     * @return string
+     */
+    public function getSerialize()
+    {
+        return Json::encode([
+            'modelClass' => get_called_class(),
+            'condition' => $this->getPrimaryKey(true),
+        ]);
+    }
+
+    /**
      * 快速创建实例
      * @param array $attributes
      * @param boolean $runValidation
