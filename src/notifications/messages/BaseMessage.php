@@ -19,10 +19,15 @@ use yuncms\notifications\contracts\ChannelInterface;
 class BaseMessage extends BaseObject
 {
     /**
+     * @var array custom module parameters (name => value).
+     */
+    public $params = [];
+
+    /**
      * The title of the notification.
      * @var string
      */
-    public $title;
+    protected $title;
 
     /**
      * @var string The notification's message body
@@ -38,6 +43,24 @@ class BaseMessage extends BaseObject
      * @var array
      */
     protected $data = [];
+
+    /**
+     * Return message content.
+     *
+     * @param ChannelInterface $channel
+     *
+     * @return string
+     */
+    public function getTitle(ChannelInterface $channel = null)
+    {
+        return $this->title;
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
 
     /**
      * Return message content.
