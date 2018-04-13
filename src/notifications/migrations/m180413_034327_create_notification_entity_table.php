@@ -25,8 +25,8 @@ class m180413_034327_create_notification_entity_table extends Migration
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey()->unsigned(),
             'type' => $this->string(20),
-            'entity _id' => $this->unsignedInteger()->notNull(),
-            'entity _class' => $this->string()->notNull(),
+            'entity_id' => $this->unsignedInteger()->notNull(),
+            'entity_class' => $this->string()->notNull(),
         ], $tableOptions);
     }
 

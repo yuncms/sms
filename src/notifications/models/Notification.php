@@ -18,9 +18,9 @@ use yuncms\db\ActiveRecord;
  * @property string $sender_class Sender Class
  * @property string $receiver Receiver
  * @property int $publish_at Publish At
- * @property string $entity Entity
- * @property string $source Source
- * @property string $target Target
+ * @property int $entity_id Entity
+ * @property int $source_id Source
+ * @property int $target_id Target
  */
 class Notification extends ActiveRecord
 {
@@ -54,9 +54,10 @@ class Notification extends ActiveRecord
     public function rules()
     {
         return [
-            [['sender_id'], 'integer'],
+            [['sender_id', 'publish_at', 'entity_id', 'source_id', 'target_id'], 'integer'],
+            [['publish_at'], 'required'],
             [['verb'], 'string', 'max' => 32],
-            [['template', 'sender_class', 'receiver', 'entity', 'source', 'target'], 'string', 'max' => 255],
+            [['template', 'sender_class', 'receiver'], 'string', 'max' => 255],
             [['is_read', 'is_pending'], 'string', 'max' => 1],
         ];
     }
@@ -76,9 +77,9 @@ class Notification extends ActiveRecord
             'sender_class' => Yii::t('yuncms', 'Sender Class'),
             'receiver' => Yii::t('yuncms', 'Receiver'),
             'publish_at' => Yii::t('yuncms', 'Publish At'),
-            'entity' => Yii::t('yuncms', 'Entity'),
-            'source' => Yii::t('yuncms', 'Source'),
-            'target' => Yii::t('yuncms', 'Target'),
+            'entity_id' => Yii::t('yuncms', 'Entity'),
+            'source_id' => Yii::t('yuncms', 'Source'),
+            'target_id' => Yii::t('yuncms', 'Target'),
         ];
     }
 
@@ -91,19 +92,30 @@ class Notification extends ActiveRecord
         return $this->hasOne($this->sender_class, ['id' => 'sender_id']);
     }
 
+    /**
+     * 获取任务对象实体
+     * @return \yii\db\ActiveQuery
+     */
     public function getEntity()
     {
-
+        return $this->hasOne(NotificationEntity::class, ['id' => 'entity_id']);
     }
 
+    /**
+     * 获取原有任务对象实体
+     * @return \yii\db\ActiveQuery
+     */
     public function getSource()
     {
-
+        return $this->hasOne(NotificationEntity::class, ['id' => 'source_id']);
     }
 
+    /**
+     * 获取目标对象实体
+     */
     public function getTarget()
     {
-
+        return $this->hasOne(NotificationEntity::class, ['id' => 'target_id']);
     }
 
     /**
