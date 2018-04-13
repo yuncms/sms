@@ -61,6 +61,44 @@ class ActiveRecord extends \yii\db\ActiveRecord
     }
 
     /**
+     * 异步更新属性
+     * @param array $attributes
+     * @return int|void
+     */
+    public function updateAttributesAsync($attributes)
+    {
+        Yii::$app->queue->push(new UpdateActiveRecordAttributesJob([
+            'modelClass' => get_called_class(),
+            'condition' => $this->getPrimaryKey(true),
+            'attributes' => $attributes,
+        ]));
+    }
+
+    /**
+     * 异步更新计数器
+     * @param $counters
+     */
+    public function updateCountersAsync($counters)
+    {
+        Yii::$app->queue->push(new UpdateActiveRecordCountersJob([
+            'modelClass' => get_called_class(),
+            'condition' => $this->getPrimaryKey(true),
+            'counters' => $counters,
+        ]));
+    }
+
+    /**
+     * 异步删除
+     */
+    public function deleteAsync()
+    {
+        Yii::$app->queue->push(new DeleteActiveRecordJob([
+            'modelClass' => get_called_class(),
+            'condition' => $this->getPrimaryKey(true)
+        ]));
+    }
+
+    /**
      * 从序列化后的类名和主键获取模型实例
      * @param string $serialize
      * @return ActiveRecord
@@ -112,44 +150,6 @@ class ActiveRecord extends \yii\db\ActiveRecord
             'runValidation' => $runValidation
         ]));
         return true;
-    }
-
-    /**
-     * 异步更新属性
-     * @param array $attributes
-     * @return int|void
-     */
-    public function updateAttributesAsync($attributes)
-    {
-        Yii::$app->queue->push(new UpdateActiveRecordAttributesJob([
-            'modelClass' => get_called_class(),
-            'condition' => $this->getPrimaryKey(true),
-            'attributes' => $attributes,
-        ]));
-    }
-
-    /**
-     * 异步更新计数器
-     * @param $counters
-     */
-    public function updateCountersAsync($counters)
-    {
-        Yii::$app->queue->push(new UpdateActiveRecordCountersJob([
-            'modelClass' => get_called_class(),
-            'condition' => $this->getPrimaryKey(true),
-            'counters' => $counters,
-        ]));
-    }
-
-    /**
-     * 异步删除
-     */
-    public function deleteAsync()
-    {
-        Yii::$app->queue->push(new DeleteActiveRecordJob([
-            'modelClass' => get_called_class(),
-            'condition' => $this->getPrimaryKey(true)
-        ]));
     }
 
     /**
