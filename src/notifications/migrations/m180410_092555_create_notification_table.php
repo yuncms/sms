@@ -31,11 +31,11 @@ class m180410_092555_create_notification_table extends Migration
             'is_pending' => $this->boolean()->defaultValue(false)->comment('Pending'),//是否已经推送
             'sender_id' => $this->integer()->unsigned()->comment('Sender Id'),//发送者ID
             'sender_class' => $this->string()->comment('Sender Class'),//发送者模型
-            'receiver' => $this->string()->comment('Receiver'),//接收器
-            'publish_at' => $this->integer()->unsigned()->notNull()->comment('Publish At'),//发送时间
             'entity_id' => $this->unsignedInteger()->comment('Entity'),//任务对象
             'source_id' => $this->unsignedInteger()->comment('Source'),//原有任务对象
             'target_id' => $this->unsignedInteger()->comment('Target'),//目标对象
+            'receiver' => $this->string()->comment('Receiver'),//接收器
+            'publish_at' => $this->integer()->unsigned()->notNull()->comment('Publish At'),//发送时间
         ], $tableOptions);
 
         $this->createIndex('notification_index', $this->tableName, ['sender_id', 'sender_class']);

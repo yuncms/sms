@@ -5,6 +5,7 @@ namespace yuncms\notifications\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yuncms\db\ActiveRecord;
+use yuncms\user\models\User;
 
 /**
  * This is the model class for table "{{%notification}}".
@@ -81,6 +82,34 @@ class Notification extends ActiveRecord
             'source_id' => Yii::t('yuncms', 'Source'),
             'target_id' => Yii::t('yuncms', 'Target'),
         ];
+    }
+
+    /**
+     * 是否已读
+     * @return bool
+     */
+    public function getIsRead()
+    {
+        return (bool)$this->is_read;
+    }
+
+    /**
+     * 设置指定用户为全部已读
+     * @param int $userId
+     * @return int
+     */
+    public static function setReadAll($userId)
+    {
+        return self::updateAll(['is_read' => true], ['receiver' => $userId]);
+    }
+
+    /**
+     * 获取接收者实例
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReceiver()
+    {
+        return $this->hasOne(User::class, ['id' => 'receiver']);
     }
 
     /**
