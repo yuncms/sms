@@ -24,7 +24,7 @@ class LocalAdapter extends Adapter
     /**
      * @var string
      */
-    public $path;
+    public $path = '@root/storage';
 
     /**
      * @inheritdoc
