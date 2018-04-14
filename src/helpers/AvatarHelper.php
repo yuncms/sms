@@ -10,7 +10,6 @@ namespace yuncms\helpers;
 use Yii;
 use yii\base\ErrorException;
 use yii\base\Exception;
-use yii\base\InvalidConfigException;
 use yii\helpers\Url;
 use yii\imagine\Image;
 use yuncms\assets\UserAsset;
@@ -45,6 +44,8 @@ class AvatarHelper
      * @param int $userId
      * @param string $originalImage
      * @return bool
+     * @throws ErrorException
+     * @throws Exception
      */
     public static function saveById($userId, $originalImage): bool
     {
@@ -60,6 +61,8 @@ class AvatarHelper
      * @param User $user
      * @param string $originalImage
      * @return bool
+     * @throws ErrorException
+     * @throws Exception
      */
     public static function save(User $user, $originalImage): bool
     {
@@ -77,11 +80,7 @@ class AvatarHelper
                 ]);
                 return (bool)$user->updateAttributes(['avatar' => true]);
             } catch (Exception $e) {
-
-            } catch (InvalidConfigException $e) {
-
-            } catch (ErrorException $e) {
-
+                throw $e;
             }
         }
         return false;
