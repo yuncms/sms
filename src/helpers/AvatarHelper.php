@@ -78,12 +78,11 @@ class AvatarHelper
                 self::getVolume()->write($currentAvatarPath, FileHelper::readAndDelete($tempFile), [
                     'visibility' => AdapterInterface::VISIBILITY_PRIVATE
                 ]);
-                return (bool)$user->updateAttributes(['avatar' => true]);
             } catch (Exception $e) {
                 throw $e;
             }
         }
-        return false;
+        return (bool)$user->updateAttributes(['avatar' => true]);
     }
 
     /**
