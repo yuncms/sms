@@ -82,7 +82,9 @@ class AvatarForm extends Model
     public function afterValidate()
     {
         //保存原图
-        $this->_originalImage = $this->file->saveAsTempFile();
+        if (($this->_originalImage = $this->file->saveAsTempFile()) == false) {
+            $this->addError('file', Yii::t('yuncms', 'Failed to save the image.'));
+        }
         parent::afterValidate();
     }
 
