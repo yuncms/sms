@@ -5,20 +5,20 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\db\jobs;
+namespace yuncms\sphinx\jobs;
 
 use yii\base\BaseObject;
 use yii\queue\Queue;
-use yuncms\db\ActiveRecord;
 use yii\queue\RetryableJobInterface;
+use yuncms\sphinx\ActiveRecord;
 
 /**
- * Class updateActiveRecordAllCountersJob
+ * Class CreateActiveRecordJob
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class UpdateActiveRecordAllCountersJob extends BaseObject implements RetryableJobInterface
+class CreateActiveRecordJob extends BaseObject implements RetryableJobInterface
 {
     /**
      * @var string
@@ -26,19 +26,14 @@ class UpdateActiveRecordAllCountersJob extends BaseObject implements RetryableJo
     public $modelClass;
 
     /**
-     * @var array|string 查询条件
-     */
-    public $condition;
-
-    /**
      * @var array
      */
-    public $counters;
+    public $attributes;
 
     /**
-     * @var array the parameters (name => value) to be bound to the query.
+     * @var bool 是否执行属性验证
      */
-    public $params = [];
+    public $runValidation = true;
 
     /**
      * @param Queue $queue which pushed and is handling the job
@@ -47,7 +42,7 @@ class UpdateActiveRecordAllCountersJob extends BaseObject implements RetryableJo
     {
         /** @var ActiveRecord $class */
         $class = $this->modelClass;
-        $class::updateAllCounters($this->counters, $this->condition, $this->params);
+        $class::create($this->attributes,$this->runValidation);
     }
 
     /**

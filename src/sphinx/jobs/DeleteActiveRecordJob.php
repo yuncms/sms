@@ -5,20 +5,21 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\db\jobs;
+namespace yuncms\sphinx\jobs;
 
 use yii\base\BaseObject;
+use yii\db\StaleObjectException;
 use yii\queue\Queue;
-use yuncms\db\ActiveRecord;
 use yii\queue\RetryableJobInterface;
+use yuncms\sphinx\ActiveRecord;
 
 /**
- * Class updateActiveRecordAllCountersJob
+ * Class DeleteActiveRecordJob
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class UpdateActiveRecordAllCountersJob extends BaseObject implements RetryableJobInterface
+class DeleteActiveRecordJob extends BaseObject implements RetryableJobInterface
 {
     /**
      * @var string
@@ -26,28 +27,30 @@ class UpdateActiveRecordAllCountersJob extends BaseObject implements RetryableJo
     public $modelClass;
 
     /**
-     * @var array|string 查询条件
+     * @var array 查询条件
      */
     public $condition;
 
     /**
-     * @var array
-     */
-    public $counters;
-
-    /**
-     * @var array the parameters (name => value) to be bound to the query.
-     */
-    public $params = [];
-
-    /**
      * @param Queue $queue which pushed and is handling the job
+     * @throws StaleObjectException
+     * @throws \Exception
+     * @throws \Throwable
      */
     public function execute($queue)
     {
+        $this->getModel()->delete();
+    }
+
+    /**
+     * 获取模型实例
+     * @return ActiveRecord|null
+     */
+    public function getModel()
+    {
         /** @var ActiveRecord $class */
         $class = $this->modelClass;
-        $class::updateAllCounters($this->counters, $this->condition, $this->params);
+        return $class::findOne($this->condition);
     }
 
     /**
