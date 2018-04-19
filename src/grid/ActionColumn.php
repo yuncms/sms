@@ -10,6 +10,12 @@ namespace yuncms\grid;
 
 use Yii;
 
+/**
+ * Class ActionColumn
+ *
+ * @author Tongle Xu <xutongle@gmail.com>
+ * @since 3.0
+ */
 class ActionColumn extends \yii\grid\ActionColumn
 {
     /**
