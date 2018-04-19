@@ -9,6 +9,7 @@ namespace yuncms\grid;
 
 
 use Yii;
+use yuncms\helpers\Html;
 
 /**
  * Class ActionColumn
@@ -30,4 +31,21 @@ class ActionColumn extends \yii\grid\ActionColumn
         }
     }
 
+    /**
+     * Initializes the default button rendering callbacks.
+     */
+    protected function initDefaultButtons()
+    {
+        $this->initDefaultButton('view', 'eye-open',[
+            'class' => 'btn btn-sm btn-primary',
+        ]);
+        $this->initDefaultButton('update', 'pencil',[
+            'class' => 'btn btn-sm btn-warning',
+        ]);
+        $this->initDefaultButton('delete', 'trash', [
+            'class' => 'btn btn-sm btn-danger',
+            'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+            'data-method' => 'post',
+        ]);
+    }
 }
