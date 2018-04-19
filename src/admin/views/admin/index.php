@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'created_at:datetime',
                     'updated_at:datetime',
                     [
-                        'class' => 'yii\grid\ActionColumn',
+                        'class' => 'yuncms\grid\ActionColumn',
                         'header' => Yii::t('yuncms', 'Operation'),
                         'template' => '{assignment} {view} {update} {delete}',
                         'buttons' => ['assignment' => function ($url, $model, $key) {

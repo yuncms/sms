@@ -63,8 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'sort'
                     ],
                     [
-                        'class' => 'yii\grid\ActionColumn',
-                        'header' => Yii::t('yuncms', 'Operation'),
+                        'class' => 'yuncms\grid\ActionColumn',
                         'template' => '{add} {view} {update} {delete}',
                         'buttons' => ['add' => function ($url, $model, $key) {
                             return Html::a('<span class="fa fa-plus"></span>',
@@ -72,6 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'title' => Yii::t('yuncms', 'Add subMenu'),
                                     'aria-label' => Yii::t('yuncms', 'Add subMenu'),
                                     'data-pjax' => '0',
+                                    'class' => 'btn btn-sm btn-default',
                                 ]);
                         }]
                     ]

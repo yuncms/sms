@@ -80,7 +80,7 @@ unset($rules[RouteRule::RULE_NAME]);
                         'attribute' => 'description',
                         'label' => Yii::t('yuncms', 'Role Description'),
                     ],
-                    ['class' => 'yii\grid\ActionColumn',],
+                    ['class' => 'yuncms\grid\ActionColumn',],
                 ],
             ])
             ?>

@@ -74,8 +74,7 @@ $this->registerJs("jQuery(\"#batch_deletion\").on(\"click\", function () {
                     'created_at:datetime',
                     'updated_at:datetime',
                     [
-                        'class' => 'yii\grid\ActionColumn',
-                        'header' => Yii::t('yuncms', 'Operation'),
+                        'class' => 'yuncms\grid\ActionColumn',
                         'template' => '{view} {update} {delete}',
                         //'buttons' => [
                         //    'update' => function ($url, $model, $key) {

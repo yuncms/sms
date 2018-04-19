@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'name',
                         'label' => Yii::t('yuncms', 'Rule Name'),
                     ],
-                    ['class' => 'yii\grid\ActionColumn', 'header' => Yii::t('yuncms', 'Operation')],
+                    ['class' => 'yuncms\grid\ActionColumn'],
                 ],
             ]);
             ?>
