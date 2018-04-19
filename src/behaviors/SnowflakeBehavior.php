@@ -47,6 +47,7 @@ class SnowflakeBehavior extends AttributeBehavior
 
     /**
      * @inheritdoc
+     * @throws InvalidConfigException
      */
     public function init()
     {
@@ -73,6 +74,7 @@ class SnowflakeBehavior extends AttributeBehavior
 
     /**
      * @inheritdoc
+     * @throws \yii\base\Exception
      */
     protected function getValue($event)
     {

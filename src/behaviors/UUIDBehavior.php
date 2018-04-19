@@ -87,6 +87,7 @@ class UUIDBehavior extends AttributeBehavior
 
     /**
      * {@inheritdoc}
+     * @throws \Exception
      */
     protected function getValue($event)
     {
