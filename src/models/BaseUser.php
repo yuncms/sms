@@ -3,6 +3,7 @@
 namespace yuncms\models;
 
 use Yii;
+use yii\base\Exception;
 use yii\db\Query;
 use yii\helpers\Inflector;
 use yii\web\IdentityInterface;
@@ -279,21 +280,29 @@ class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInter
     /**
      * 创建 "记住我" 身份验证Key
      * @return void
-     * @throws \yii\base\Exception
+     * @throws Exception
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        try {
+            $this->auth_key = Yii::$app->security->generateRandomString(32);
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     /**
      * 创建 "记住我" 身份验证Key
      * @return void
-     * @throws \yii\base\Exception
+     * @throws Exception
      */
     public function generateAccessToken()
     {
-        $this->access_token = Yii::$app->security->generateRandomString();
+        try {
+            $this->access_token = Yii::$app->security->generateRandomString(32);
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -325,21 +334,27 @@ class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInter
      *
      * @param string $password
      * @return boolean
-     * @throws \yii\base\Exception
      */
     public function resetPassword($password)
     {
-        return (bool)$this->updateAttributes(['password_hash' => PasswordHelper::hash($password)]);
+        try {
+            return (bool)$this->updateAttributes(['password_hash' => PasswordHelper::hash($password)]);
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     /**
      * 锁定用户
      * @return boolean
-     * @throws \yii\base\Exception
      */
     public function block()
     {
-        return (bool)$this->updateAttributes(['blocked_at' => time(), 'auth_key' => Yii::$app->security->generateRandomString()]);
+        try {
+            return (bool)$this->updateAttributes(['blocked_at' => time(), 'auth_key' => Yii::$app->security->generateRandomString()]);
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     /**
