@@ -5,10 +5,11 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\db\jobs;
+namespace yuncms\redis\jobs;
 
 use yii\base\BaseObject;
-use yuncms\db\ActiveRecord;
+use yii\queue\Queue;
+use yuncms\redis\ActiveRecord;
 use yii\queue\RetryableJobInterface;
 
 /**
@@ -35,18 +36,13 @@ class UpdateActiveRecordAllCountersJob extends BaseObject implements RetryableJo
     public $counters;
 
     /**
-     * @var array the parameters (name => value) to be bound to the query.
-     */
-    public $params = [];
-
-    /**
      * @param Queue $queue which pushed and is handling the job
      */
     public function execute($queue)
     {
         /** @var ActiveRecord $class */
         $class = $this->modelClass;
-        $class::updateAllCounters($this->counters, $this->condition, $this->params);
+        $class::updateAllCounters($this->counters, $this->condition);
     }
 
     /**

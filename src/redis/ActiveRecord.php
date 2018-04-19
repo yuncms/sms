@@ -5,17 +5,17 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\db;
+namespace yuncms\redis;
 
 use Yii;
-use yuncms\db\jobs\CreateActiveRecordJob;
-use yuncms\db\jobs\DeleteActiveRecordJob;
-use yuncms\db\jobs\DeleteAllActiveRecordJob;
-use yuncms\db\jobs\UpdateActiveRecordAllCountersJob;
-use yuncms\db\jobs\UpdateActiveRecordAllJob;
-use yuncms\db\jobs\UpdateActiveRecordAttributesJob;
-use yuncms\db\jobs\UpdateActiveRecordCountersJob;
 use yuncms\helpers\Json;
+use yuncms\redis\jobs\CreateActiveRecordJob;
+use yuncms\redis\jobs\DeleteActiveRecordJob;
+use yuncms\redis\jobs\DeleteAllActiveRecordJob;
+use yuncms\redis\jobs\updateActiveRecordAllCountersJob;
+use yuncms\redis\jobs\UpdateActiveRecordAllJob;
+use yuncms\redis\jobs\UpdateActiveRecordAttributesJob;
+use yuncms\redis\jobs\UpdateActiveRecordCountersJob;
 
 /**
  * Class ActiveRecord
@@ -23,7 +23,7 @@ use yuncms\helpers\Json;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class ActiveRecord extends \yii\db\ActiveRecord
+class ActiveRecord extends \yii\redis\ActiveRecord
 {
     /**
      * Converts the model into an json.
@@ -86,6 +86,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
         ]));
     }
 
+
     /**
      * 快速创建实例
      * @param array $attributes
@@ -95,7 +96,6 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public static function create(array $attributes, $runValidation = true)
     {
         $model = new static();
-        $model->loadDefaultValues();
         $model->load($attributes, '');
         if ($model->save($runValidation)) {
             return $model;
@@ -113,7 +113,6 @@ class ActiveRecord extends \yii\db\ActiveRecord
     {
         if ($runValidation) {
             $model = new static();
-            $model->loadDefaultValues();
             $model->load($attributes, '');
             if (!$model->validate()) {
                 return $model;
@@ -131,15 +130,13 @@ class ActiveRecord extends \yii\db\ActiveRecord
      * 异步更新全表
      * @param array $attributes
      * @param string|array $condition
-     * @param array $params the parameters (name => value) to be bound to the query.
      */
-    public static function updateAllAsync($attributes, $condition = '', $params = [])
+    public static function updateAllAsync($attributes, $condition = '')
     {
         Yii::$app->queue->push(new UpdateActiveRecordAllJob([
             'modelClass' => get_called_class(),
             'condition' => $condition,
-            'attributes' => $attributes,
-            'params' => $params
+            'attributes' => $attributes
         ]));
     }
 
@@ -147,29 +144,25 @@ class ActiveRecord extends \yii\db\ActiveRecord
      * 异步更新计数器
      * @param array $counters
      * @param string $condition
-     * @param array $params the parameters (name => value) to be bound to the query.
      */
-    public static function updateAllCountersAsync($counters, $condition = '', $params = [])
+    public static function updateAllCountersAsync($counters, $condition = '')
     {
-        Yii::$app->queue->push(new UpdateActiveRecordAllCountersJob([
+        Yii::$app->queue->push(new updateActiveRecordAllCountersJob([
             'modelClass' => get_called_class(),
             'condition' => $condition,
             'counters' => $counters,
-            'params' => $params
         ]));
     }
 
     /**
      * 异步删除
      * @param string|array $condition
-     * @param array $params
      */
-    public static function deleteAllAsync($condition = null, $params = [])
+    public function deleteAllAsync($condition = null)
     {
         Yii::$app->queue->push(new DeleteAllActiveRecordJob([
             'modelClass' => get_called_class(),
-            'condition' => $condition,
-            'params' => $params
+            'condition' => $condition
         ]));
     }
 }
