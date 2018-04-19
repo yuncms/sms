@@ -36,10 +36,10 @@ class ActionColumn extends \yii\grid\ActionColumn
      */
     protected function initDefaultButtons()
     {
-        $this->initDefaultButton('view', 'eye-open',[
+        $this->initDefaultButton('view', 'eye-open', [
             'class' => 'btn btn-sm btn-primary',
         ]);
-        $this->initDefaultButton('update', 'pencil',[
+        $this->initDefaultButton('update', 'pencil', [
             'class' => 'btn btn-sm btn-warning',
         ]);
         $this->initDefaultButton('delete', 'trash', [

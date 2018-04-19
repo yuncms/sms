@@ -138,6 +138,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'title' => Yii::t('yuncms', 'Assignment'),
                                     'aria-label' => Yii::t('yuncms', 'Assignment'),
                                     'data-pjax' => '0',
+                                    'class' => 'btn btn-sm btn-default',
                                 ]);
                         }]
                     ],
