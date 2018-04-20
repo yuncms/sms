@@ -65,7 +65,7 @@ class ActiveField extends \yii\bootstrap\ActiveField
     public function dropDownList($items, $options = [], $generateDefault = true)
     {
         if ($generateDefault === true && !isset($options['prompt'])) {
-            $options['prompt'] = yii::t('yuncms', 'Please select');
+            $options['prompt'] = Yii::t('yuncms', 'Please select');
         }
         return parent::dropDownList($items, $options);
     }
