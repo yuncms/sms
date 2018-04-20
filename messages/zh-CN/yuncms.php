@@ -25,6 +25,7 @@ return [
     'App Secret' => '',
     'Auth Key' => '',
     'Aws S3' => '',
+    'Please select' => '请选择',
     'Choose file' => '选择文件',
     'Client Id' => '',
     'Code' => '',
