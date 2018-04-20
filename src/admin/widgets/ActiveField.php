@@ -23,34 +23,6 @@ class ActiveField extends \yii\bootstrap\ActiveField
         'class' => 'form-group'
     ];
 
-    public function imgInput($options = [])
-    {
-        $this->template = "{label}\n<div class=\"image\">{input}{img}\n{error}</div>\n{hint}";
-        $value = Html::getAttributeValue($this->model, $this->attribute);
-        if ($value) {
-            $src = Yii::$app->getModule('attachment')->getUrl($value);
-        } else {
-            $src = Yii::$app->getModule('attachment')->getUrl('/images/none.jpg');
-        }
-        $this->parts['{img}'] = Html::img($src, $options);
-        BootstrapFileStyleAsset::register($this->form->view);
-        return parent::fileInput($options);
-    }
-
-    public function ajaxUploadInput($options = [])
-    {
-        $this->template = "{label}\n<div class=\"image\">{input}{img}\n{error}</div>\n{hint}";
-        $value = Html::getAttributeValue($this->model, $this->attribute);
-        if ($value) {
-            $src = Yii::$app->getModule('attachment')->getUrl($value);
-        } else {
-            $src = Yii::$app->getModule('attachment')->getUrl('/images/none.jpg');
-        }
-        $this->parts['{img}'] = Html::img($src, $options);
-        BootstrapFileStyleAsset::register($this->form->view);
-        return parent::fileInput($options) . Plupload::widget(['url' => 'url']);
-    }
-
     /**
      * 显示文件上传窗口
      * @param array $options
@@ -93,7 +65,7 @@ class ActiveField extends \yii\bootstrap\ActiveField
     public function dropDownList($items, $options = [], $generateDefault = true)
     {
         if ($generateDefault === true && !isset($options['prompt'])) {
-            $options['prompt'] = yii::t('app', 'Please select');
+            $options['prompt'] = yii::t('yuncms', 'Please select');
         }
         return parent::dropDownList($items, $options);
     }
