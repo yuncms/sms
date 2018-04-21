@@ -30,6 +30,9 @@ class m180223_102734Create_user_table extends Migration
             'unconfirmed_email' => $this->string(150)->comment('Unconfirmed Email'),
             'unconfirmed_mobile' => $this->string(11)->comment('Unconfirmed Mobile'),
             'registration_ip' => $this->string()->comment('Registration Ip'),
+            'identified' => $this->boolean()->defaultValue(false)->comment('Identified'),//是否经过实名认证
+            'available_balance' => $this->decimal(12, 2)->defaultValue('0.00'),//可用余额
+            'withdrawable_balance' => $this->decimal(12, 2)->defaultValue('0.00'),//可提现余额
             'flags' => $this->integer()->defaultValue(0)->comment('Flags'),
             'email_confirmed_at' => $this->unixTimestamp()->comment('Email Confirmed At'),
             'mobile_confirmed_at' => $this->unixTimestamp()->comment('Mobile Confirmed At'),
