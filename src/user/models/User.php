@@ -19,6 +19,11 @@ use creocoder\taggable\TaggableBehavior;
 /**
  * This is the model class for table "{{%user}}".
  *
+ * @property float $available_balance 可用余额，可用于消费。
+ * @property float $withdrawable_balance 可提现余额，可用于消费、提现、转账等。
+ * @property integer $avatar
+ * @property boolean $identified 是否经过实名认证
+ *
  * Magic methods:
  * @method ActiveRecord getTagValues($asArray = null)
  * @method ActiveRecord setTagValues($values)
@@ -27,7 +32,6 @@ use creocoder\taggable\TaggableBehavior;
  * @method ActiveRecord removeAllTagValues()
  * @method ActiveRecord hasTagValues($values)
  *
- * @property integer $avatar
  * @property-read string $faceUrl 头像Url
  * @property-read bool $isAvatar 是否有头像
  *
