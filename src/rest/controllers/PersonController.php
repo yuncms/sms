@@ -23,10 +23,10 @@ use yuncms\rest\models\UserBindMobileForm;
 use yuncms\user\models\UserProfile;
 
 /**
- * 用户接口
- * @package api\modules\v1\controllers
+ * 个人接口
+ * @package yuncms\rest\controllers
  */
-class UserController extends Controller
+class PersonController extends Controller
 {
     /**
      * Declares the allowed HTTP verbs.
@@ -109,6 +109,8 @@ class UserController extends Controller
             'mobile' => $user->mobile,
             'mobile_confirmed_at' => $user->mobile_confirmed_at,
             'faceUrl' => $user->faceUrl,
+            'available_balance' => $user->available_balance,
+            'balance' => $user->balance
         ];
     }
 

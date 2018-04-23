@@ -22,7 +22,7 @@ use yuncms\admin\widgets\Alert;
 $this->title = <?= $generator->generateString('Update '.Inflector::camel2words(StringHelper::basename($generator->modelClass)))?> . ': ' . $model-><?= $generator->getNameAttribute() ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString('Manage ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model-><?= $generator->getNameAttribute() ?>, 'url' => ['view', <?= $urlParams ?>]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('yuncms', 'Update');
 ?>
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">

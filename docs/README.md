@@ -15,3 +15,4 @@
 ## 开发文档
 
 - [广播](tutorial-broadcast.md) 发送广播消息。
+- [Gii](tutorial-gii.md) 使用 Gii 生成模型等文件。

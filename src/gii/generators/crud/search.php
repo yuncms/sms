@@ -27,7 +27,7 @@ namespace <?= StringHelper::dirname(ltrim($generator->searchModelClass, '\\')) ?
 use Yii;
 use yii\data\ActiveDataProvider;
 use <?= ltrim($generator->modelClass, '\\') . (isset($modelAlias) ? " as $modelAlias" : "") ?>;
-use yuncms\base\Model;
+use yii\base\Model;
 
 /**
  * <?= $searchModelClass ?> represents the model behind the search form about `<?= $generator->modelClass ?>`.
@@ -69,6 +69,12 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'created_at' => SORT_DESC,
+                    'id' => SORT_ASC,
+                ]
+            ],
         ]);
 
         $this->load($params);
