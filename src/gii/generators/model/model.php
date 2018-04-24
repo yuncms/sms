@@ -24,7 +24,6 @@ use yii\db\Connection;
 <?php if(isset($labels['slug']) || isset($labels['uuid'])): ?>
 use yii\helpers\Inflector;
 <?php endif; ?>
-
 use yii\caching\DbDependency;
 use yii\caching\ChainedDependency;
 <?php if(isset($labels['created_at'])): ?>

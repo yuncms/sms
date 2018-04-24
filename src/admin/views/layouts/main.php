@@ -1,15 +1,18 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use yii\helpers\Url;
 use yuncms\helpers\Html;
 use yuncms\assets\CPAsset;
 
+
+
 $assetBundle = CPAsset::register($this);
 
-$this->title = 'Manage Center';
+$this->title = Yii::t('yuncms', 'Manage Center');
 ?>
 <?php $this->beginPage() ?><!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">
@@ -42,7 +45,8 @@ $this->title = 'Manage Center';
 
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message">Welcome <?=Yii::$app->user->identity->username?>.</span>
+                            <span class="m-r-sm text-muted welcome-message">Welcome <?= Yii::$app->user->identity->username ?>
+                                .</span>
                         </li>
                         <li>
                             <?= Html::a('<i class="fa fa-sign-out"></i>' . Yii::t('yuncms', 'Logout'), Url::to(['/admin/security/logout']), [

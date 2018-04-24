@@ -11,6 +11,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yuncms\user\models\User;
+use Carbon\Carbon;
 
 /**
  * UserSearch represents the model behind the search form about User.
@@ -76,8 +77,8 @@ class UserSearch extends Model
         ]);
 
         if ($this->created_at !== null) {
-            $date = strtotime($this->created_at);
-            $query->andWhere(['between', 'created_at', $date, $date + 3600 * 24]);
+            $date = Carbon::parse($this->created_at);
+            $query->andWhere(['between', 'created_at', $date->timestamp, $date->addDays(1)->timestamp]);
         }
 
         $query->andFilterWhere(['like', 'username', $this->username])

@@ -7,6 +7,7 @@
 
 namespace yuncms\admin\models;
 
+use Carbon\Carbon;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -62,9 +63,17 @@ class AdminSearch extends Admin
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
+
+        if ($this->created_at !== null) {
+            $date = Carbon::parse($this->created_at);
+            $query->andWhere(['between', 'created_at', $date->timestamp, $date->addDays(1)->timestamp]);
+        }
+
+        if ($this->updated_at !== null) {
+            $date = Carbon::parse($this->updated_at);
+            $query->andWhere(['between', 'updated_at', $date->timestamp, $date->addDays(1)->timestamp]);
+        }
 
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'email', $this->email])
