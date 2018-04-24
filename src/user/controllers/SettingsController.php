@@ -16,7 +16,7 @@ use yuncms\web\Response;
 use yuncms\web\Controller;
 use yuncms\admin\models\UserSettings;
 use yuncms\tag\models\Tag;
-use yuncms\user\models\Settings;
+use yuncms\models\Settings;
 use yuncms\user\models\User;
 use yuncms\user\models\UserProfile;
 use yuncms\user\models\UserSocialAccount;
@@ -80,6 +80,11 @@ class SettingsController extends Controller
     /**
      * Show portrait setting form
      * @return \yii\web\Response|string
+     * @throws \League\Flysystem\FileExistsException
+     * @throws \League\Flysystem\FileNotFoundException
+     * @throws \yii\base\ErrorException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionAvatar()
     {
@@ -148,14 +153,11 @@ class SettingsController extends Controller
      *
      * @return string
      * @throws NotFoundHttpException
-     * @throws \Exception
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
      */
     public function actionConfirm($id, $code)
     {
         $user = User::findOne($id);
-        if ($user === null || $this->getSetting('emailChangeStrategy') == UserSettings::STRATEGY_INSECURE) {
+        if ($user === null || Yii::$app->settings->get('emailChangeStrategy','user') == UserSettings::STRATEGY_INSECURE) {
             throw new NotFoundHttpException();
         }
         $user->attemptEmailChange($code);

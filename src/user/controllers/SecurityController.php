@@ -24,6 +24,7 @@ use yuncms\user\models\LoginForm;
  * Controller that manages user authentication process.
  *
  * @property Module $module
+ * @property AuthAction $action
  */
 class SecurityController extends Controller
 {
@@ -119,7 +120,6 @@ class SecurityController extends Controller
      *
      * @param ClientInterface $client
      * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
      */
     public function authenticate(ClientInterface $client)
     {

@@ -152,7 +152,7 @@ class RegistrationController extends Controller
         if ($user === null || Yii::$app->settings->get('enableConfirmation','user') == false) {
             return $this->goBack();
         }
-        $user->attemptConfirmation($code);
+        $user->attemptEmailConfirmation($code);
         return $this->redirect(['/user/settings/profile']);
     }
 

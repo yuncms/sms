@@ -73,6 +73,8 @@ class RecoveryController extends Controller
      * @param int $id
      * @param string $code
      * @return array|string|Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionReset($id, $code)
     {
