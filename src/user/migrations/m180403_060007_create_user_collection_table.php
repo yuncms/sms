@@ -10,7 +10,7 @@ class m180403_060007_create_user_collection_table extends Migration
     /**
      * @var string The table name.
      */
-    public $tableName = '{{%collection}}';
+    public $tableName = '{{%user_collections}}';
 
     /**
      * {@inheritdoc}
