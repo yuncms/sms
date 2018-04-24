@@ -47,7 +47,7 @@ $config = [
                 'GET ping' => 'health/ping',
             ],
         ],
-    ]
+    ],
 ];
 
 return yii\helpers\ArrayHelper::merge(

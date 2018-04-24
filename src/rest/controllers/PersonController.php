@@ -8,7 +8,9 @@
 namespace yuncms\rest\controllers;
 
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\helpers\Url;
+use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 use yuncms\rest\Controller;
@@ -46,6 +48,7 @@ class PersonController extends Controller
             'password' => ['POST'],
             'recovery' => ['POST'],
             'avatar' => ['POST'],
+            'authentication' => ['POST', 'GET'],
         ];
     }
 
@@ -252,6 +255,37 @@ class PersonController extends Controller
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }
         return $model;
+    }
+
+    /**
+     * 实名认证
+     * @return \yuncms\authentication\rest\models\Authentication
+     * @throws MethodNotAllowedHttpException
+     * @throws ServerErrorHttpException
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function actionAuthentication()
+    {
+        if (!class_exists('yuncms\authentication\rest\models\Authentication')) {
+            throw new InvalidConfigException('No authentication module installed.');
+        } else {
+            if (Yii::$app->request->isPost) {
+                $model = \yuncms\authentication\rest\models\Authentication::findByUserId(Yii::$app->user->getId());
+                $model->scenario = \yuncms\authentication\rest\models\Authentication::SCENARIO_UPDATE;
+                $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+                if (($model->save()) != false) {
+                    $response = Yii::$app->getResponse();
+                    $response->setStatusCode(201);
+                    return $model;
+                } elseif (!$model->hasErrors()) {
+                    throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+                }
+                return $model;
+            } else if (Yii::$app->request->isGet) {
+                return \yuncms\authentication\rest\models\Authentication::findByUserId(Yii::$app->user->getId());
+            }
+            throw new MethodNotAllowedHttpException();
+        }
     }
 
     /**

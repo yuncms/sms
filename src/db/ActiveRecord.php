@@ -90,7 +90,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
      * 快速创建实例
      * @param array $attributes
      * @param boolean $runValidation
-     * @return null|ActiveRecord
+     * @return ActiveRecord
      */
     public static function create(array $attributes, $runValidation = true)
     {
