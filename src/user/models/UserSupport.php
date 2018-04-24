@@ -37,7 +37,7 @@ class UserSupport extends ActiveRecord implements NotificationInterface
      */
     public static function tableName()
     {
-        return '{{%support}}';
+        return '{{%user_support}}';
     }
 
     /**
