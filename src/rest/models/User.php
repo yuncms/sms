@@ -29,6 +29,7 @@ class User extends \yuncms\user\models\User
             'faceUrl' => function () {
                 return $this->getAvatar(AvatarHelper::AVATAR_MIDDLE);
             },
+            'identified',
             "created_datetime" => function () {
                 return gmdate(DATE_ISO8601, $this->created_at);
             },

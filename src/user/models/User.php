@@ -184,7 +184,7 @@ class User extends BaseUser
      */
     public function getTags()
     {
-        if (class_exists('\yuncms\tag\models\Tag')) {
+        if (class_exists('yuncms\tag\models\Tag')) {
             return $this->hasMany(\yuncms\tag\models\Tag::class, ['id' => 'tag_id'])->viaTable('{{%user_tag}}', ['user_id' => 'id']);
         } else {
             throw new Exception('Please install tag module first.');
@@ -194,10 +194,15 @@ class User extends BaseUser
     /**
      * 获取我的收藏
      * 一对多关系
+     * @throws Exception
      */
     public function getCollections()
     {
-        return $this->hasMany(UserCollection::class, ['user_id' => 'id']);
+        if (class_exists('yuncms\collection\models\Collection')) {
+            return $this->hasMany(\yuncms\collection\models\Collection::class, ['user_id' => 'id']);
+        } else {
+            throw new Exception('Please install tag module first.');
+        }
     }
 
     /**
@@ -205,6 +210,7 @@ class User extends BaseUser
      * @param string $modelClass
      * @param int $modelId
      * @return bool
+     * @throws Exception
      */
     public function isCollected($modelClass, $modelId)
     {
