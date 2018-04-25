@@ -201,7 +201,7 @@ class User extends BaseUser
         if (class_exists('yuncms\collection\models\Collection')) {
             return $this->hasMany(\yuncms\collection\models\Collection::class, ['user_id' => 'id']);
         } else {
-            throw new Exception('Please install tag module first.');
+            throw new Exception('Please install collection module first.');
         }
     }
 
@@ -220,10 +220,15 @@ class User extends BaseUser
     /**
      * 获取我的收藏
      * 一对多关系
+     * @throws Exception
      */
     public function getSupports()
     {
-        return $this->hasMany(UserSupport::class, ['user_id' => 'id']);
+        if (class_exists('yuncms\support\models\Support')) {
+            return $this->hasMany(\yuncms\support\models\Support::class, ['user_id' => 'id']);
+        } else {
+            throw new Exception('Please install support module first.');
+        }
     }
 
     /**
@@ -231,6 +236,7 @@ class User extends BaseUser
      * @param string $modelClass
      * @param int $modelId
      * @return bool
+     * @throws Exception
      */
     public function isSupport($modelClass, $modelId)
     {
