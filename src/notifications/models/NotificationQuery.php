@@ -22,6 +22,15 @@ class NotificationQuery extends ActiveQuery
     }*/
 
     /**
+     * 返回未读通知
+     * @return $this
+     */
+    public function pending()
+    {
+        return $this->andWhere(['is_read' => false]);
+    }
+
+    /**
      * @inheritdoc
      * @return Notification[]|array
      */

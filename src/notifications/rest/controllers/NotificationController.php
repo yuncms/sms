@@ -71,7 +71,7 @@ class NotificationController extends Controller
     public function actionUnreadNotifications()
     {
         $total = Notification::getDb()->cache(function ($db) {
-            return Notification::find()->where(['receiver_id' => Yii::$app->user->id, 'is_read' => false])->count();
+            return Notification::find()->where(['user_id' => Yii::$app->user->id])->pending()->count();
         }, 60);
         return ['total' => $total];
     }
