@@ -4,24 +4,27 @@ namespace yuncms\notifications\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\BaseActiveRecord;
+use yuncms\behaviors\JsonBehavior;
 use yuncms\db\ActiveRecord;
 use yuncms\user\models\User;
+use yuncms\validators\JsonValidator;
 
 /**
  * This is the model class for table "{{%notification}}".
  *
- * @property string $id Id
- * @property string $verb Verb
- * @property string $template Template
- * @property int $is_read Read
- * @property int $is_pending Pending
- * @property int $sender_id Sender Id
- * @property string $sender_class Sender Class
- * @property string $receiver_id Receiver
- * @property int $publish_at Publish At
- * @property int $entity_id Entity
- * @property int $source_id Source
- * @property int $target_id Target
+ * @property string $id
+ * @property integer $user_id
+ * @property string $verb
+ * @property string $template
+ * @property integer $is_read
+ * @property integer $is_pending
+ * @property string $entity
+ * @property integer $publish_at
+ *
+ * @property User $user
+ *
+ * @property-read boolean $isAuthor 是否是作者
  */
 class Notification extends ActiveRecord
 {
@@ -40,14 +43,18 @@ class Notification extends ActiveRecord
      */
     public function behaviors()
     {
-        return [
-            [
-                'class' => TimestampBehavior::class,
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['publish_at'],
-                ],
+        $behaviors = parent::behaviors();
+        $behaviors['timestamp'] = [
+            'class' => TimestampBehavior::class,
+            'attributes' => [
+                BaseActiveRecord::EVENT_BEFORE_INSERT => ['publish_at'],
             ],
         ];
+        $behaviors['entity'] = [
+            'class' => JsonBehavior::class,
+            'attributes' => ['entity'],
+        ];
+        return $behaviors;
     }
 
     /**
@@ -56,11 +63,14 @@ class Notification extends ActiveRecord
     public function rules()
     {
         return [
-            [['sender_id', 'publish_at', 'entity_id', 'source_id', 'target_id'], 'integer'],
-            [['publish_at'], 'required'],
+            [['user_id', 'verb', 'template', 'entity'], 'required'],
+            [['user_id'], 'integer'],
             [['verb'], 'string', 'max' => 32],
-            [['template', 'sender_class', 'receiver'], 'string', 'max' => 255],
-            [['is_read', 'is_pending'], 'string', 'max' => 1],
+            [['template'], 'string', 'max' => 255],
+            [['is_read', 'is_pending'], 'boolean'],
+            [['is_read', 'is_pending'], 'default', 'value' => false],
+            [['entity'], JsonValidator::class],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -71,81 +81,22 @@ class Notification extends ActiveRecord
     {
         return [
             'id' => Yii::t('yuncms', 'Id'),
+            'user_id' => Yii::t('yuncms', 'User Id'),
             'verb' => Yii::t('yuncms', 'Verb'),
             'template' => Yii::t('yuncms', 'Template'),
             'is_read' => Yii::t('yuncms', 'Read'),
             'is_pending' => Yii::t('yuncms', 'Pending'),
-            'sender_id' => Yii::t('yuncms', 'Sender Id'),
-            'sender_class' => Yii::t('yuncms', 'Sender Class'),
-            'receiver' => Yii::t('yuncms', 'Receiver'),
+            'entity' => Yii::t('yuncms', 'Entity'),
             'publish_at' => Yii::t('yuncms', 'Publish At'),
-            'entity_id' => Yii::t('yuncms', 'Entity'),
-            'source_id' => Yii::t('yuncms', 'Source'),
-            'target_id' => Yii::t('yuncms', 'Target'),
         ];
     }
 
     /**
-     * 是否已读
-     * @return bool
-     */
-    public function getIsRead()
-    {
-        return (bool)$this->is_read;
-    }
-
-    /**
-     * 设置指定用户为全部已读
-     * @param int $userId
-     * @return int
-     */
-    public static function setReadAll($userId)
-    {
-        return self::updateAll(['is_read' => true], ['receiver_id' => $userId]);
-    }
-
-    /**
-     * 获取接收者实例
      * @return \yii\db\ActiveQuery
      */
-    public function getReceiver()
+    public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'receiver_id']);
-    }
-
-    /**
-     * 获取发送者
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSender()
-    {
-        return $this->hasOne($this->sender_class, ['id' => 'sender_id']);
-    }
-
-    /**
-     * 获取任务对象实体
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEntity()
-    {
-        return $this->hasOne(NotificationEntity::class, ['id' => 'entity_id']);
-    }
-
-    /**
-     * 获取原有任务对象实体
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSource()
-    {
-        return $this->hasOne(NotificationEntity::class, ['id' => 'source_id']);
-    }
-
-    /**
-     * 获取目标对象实体
-     */
-    public function getTarget()
-    {
-        return $this->hasOne(NotificationEntity::class, ['id' => 'target_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     /**

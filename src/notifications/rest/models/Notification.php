@@ -21,34 +21,8 @@ class Notification extends \yuncms\notifications\models\Notification
      * 获取接收者实例
      * @return \yii\db\ActiveQuery
      */
-    public function getReceiver()
+    public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'receiver']);
-    }
-
-    /**
-     * 获取任务对象实体
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEntity()
-    {
-        return $this->hasOne(NotificationEntity::class, ['id' => 'entity_id']);
-    }
-
-    /**
-     * 获取原有任务对象实体
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSource()
-    {
-        return $this->hasOne(NotificationEntity::class, ['id' => 'source_id']);
-    }
-
-    /**
-     * 获取目标对象实体
-     */
-    public function getTarget()
-    {
-        return $this->hasOne(NotificationEntity::class, ['id' => 'target_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

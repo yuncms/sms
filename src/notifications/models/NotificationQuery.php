@@ -2,16 +2,23 @@
 
 namespace yuncms\notifications\models;
 
+use yii\db\ActiveQuery;
+
 /**
  * This is the ActiveQuery class for [[Notification]].
  *
  * @see Notification
  */
-class NotificationQuery extends \yii\db\ActiveQuery
+class NotificationQuery extends ActiveQuery
 {
     /*public function active()
     {
         return $this->andWhere('[[status]]=1');
+    }*/
+
+    /*public function active()
+    {
+        return $this->andWhere(['status' => Notification::STATUS_PUBLISHED]);
     }*/
 
     /**
