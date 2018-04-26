@@ -4,6 +4,7 @@ namespace yuncms\notifications\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yuncms\base\JsonObject;
 use yuncms\behaviors\JsonBehavior;
 use yuncms\db\ActiveRecord;
 use yuncms\validators\JsonValidator;
@@ -13,12 +14,14 @@ use yuncms\validators\JsonValidator;
  *
  * @property string $id
  * @property string $verb
+ * @property string $template
  * @property integer $notifiable_id
  * @property string $notifiable_class
- * @property string $data
+ * @property JsonObject $data
  * @property integer $read_at
  * @property integer $created_at
  * @property integer $updated_at
+ * @property-read string $content
  */
 class DatabaseNotification extends ActiveRecord
 {
@@ -78,6 +81,20 @@ class DatabaseNotification extends ActiveRecord
             'created_at' => Yii::t('yuncms', 'Created At'),
             'updated_at' => Yii::t('yuncms', 'Updated At'),
         ];
+    }
+
+    /**
+     * 获取详细内容
+     * @return string
+     */
+    public function getContent()
+    {
+        $params = $this->data->toArray();
+        $p = [];
+        foreach ($params as $name => $value) {
+            $p['{' . $name . '}'] = $value;
+        }
+        return strtr($this->template, $p);
     }
 
     /**

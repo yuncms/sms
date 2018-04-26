@@ -15,7 +15,9 @@ use yuncms\db\ActiveRecord;
 use yuncms\helpers\ArrayHelper;
 use yuncms\helpers\PasswordHelper;
 use creocoder\taggable\TaggableBehavior;
+use yuncms\rest\models\User as RESTUser;
 use yuncms\notifications\models\DatabaseNotification;
+use yuncms\notifications\rest\models\DatabaseNotification as RESTDatabaseNotification;
 use yuncms\notifications\Notifiable;
 
 /**
@@ -360,10 +362,17 @@ class User extends BaseUser
      */
     public function getNotifications()
     {
-        return $this->hasMany(DatabaseNotification::class, ['notifiable_id' => 'id'])
-            ->onCondition(['notifiable_class' => self::class])
-            ->select(['id', 'verb', 'template', 'data', 'read_at', 'created_at', 'updated_at'])
-            ->addOrderBy(['created_at' => SORT_DESC]);
+        if ($this instanceof RESTUser) {
+            return $this->hasMany(RESTDatabaseNotification::class, ['notifiable_id' => 'id'])
+                ->onCondition(['notifiable_class' => self::class])
+                //->select(['id', 'verb', 'template', 'data', 'read_at', 'created_at', 'updated_at'])
+                ->addOrderBy(['created_at' => SORT_DESC]);
+        } else {
+            return $this->hasMany(DatabaseNotification::class, ['notifiable_id' => 'id'])
+                ->onCondition(['notifiable_class' => self::class])
+                //->select(['id', 'verb', 'template', 'data', 'read_at', 'created_at', 'updated_at'])
+                ->addOrderBy(['created_at' => SORT_DESC]);
+        }
     }
 
     /**

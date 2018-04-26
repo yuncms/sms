@@ -17,5 +17,21 @@ use yuncms\rest\models\User;
  */
 class DatabaseNotification extends \yuncms\notifications\models\DatabaseNotification
 {
-
+    /**
+     * 返回可访问的字段
+     * @return array
+     */
+    public function fields()
+    {
+        $fields = [
+            'id',
+            'verb',
+            'template',
+            'data',
+            'content',
+            'read_at',
+            'created_at',
+        ];
+        return $fields;
+    }
 }
