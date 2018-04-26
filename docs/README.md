@@ -1,7 +1,5 @@
 ## 用户文档
 
-做一个有思享的人！
-
 - [前端Api](frontend/README.md) 通过配套的App链接到YUNCMS。
 - [API](api/README.md) 通过简单而强大的API自动化YUNCMS。
 
@@ -16,3 +14,4 @@
 
 - [广播](tutorial-broadcast.md) 发送广播消息。
 - [Gii](tutorial-gii.md) 使用 Gii 生成模型等文件。
+- [通知](tutorial-notification.md) 使用 Notification 通过各种传送通道发送通知的方式，包括邮件，屏幕，SMS等。
