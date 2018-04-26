@@ -365,12 +365,10 @@ class User extends BaseUser
         if ($this instanceof RESTUser) {
             return $this->hasMany(RESTDatabaseNotification::class, ['notifiable_id' => 'id'])
                 ->onCondition(['notifiable_class' => self::class])
-                //->select(['id', 'verb', 'template', 'data', 'read_at', 'created_at', 'updated_at'])
                 ->addOrderBy(['created_at' => SORT_DESC]);
         } else {
             return $this->hasMany(DatabaseNotification::class, ['notifiable_id' => 'id'])
                 ->onCondition(['notifiable_class' => self::class])
-                //->select(['id', 'verb', 'template', 'data', 'read_at', 'created_at', 'updated_at'])
                 ->addOrderBy(['created_at' => SORT_DESC]);
         }
     }
