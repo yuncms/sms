@@ -9,6 +9,7 @@ namespace yuncms\notifications\rest\controllers;
 
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
 use yuncms\notifications\rest\models\Notification;
 use yuncms\rest\Controller;
 
@@ -54,6 +55,19 @@ class NotificationController extends Controller
     }
 
     /**
+     * 获取通知详情
+     * @param integer $id
+     * @return Notification
+     * @throws NotFoundHttpException
+     */
+    public function actionView($id)
+    {
+        $model = $this->findModel($id);
+        $model->setRead();
+        return $model;
+    }
+
+    /**
      * 标记通知未已读
      * @return void
      */
@@ -74,5 +88,20 @@ class NotificationController extends Controller
             return Notification::find()->where(['user_id' => Yii::$app->user->id])->pending()->count();
         }, 60);
         return ['total' => $total];
+    }
+
+    /**
+     * 获取通知详情
+     * @param string $id
+     * @return Notification
+     * @throws NotFoundHttpException
+     */
+    public function findModel($id)
+    {
+        if (($model = Notification::findOne(['id' => $id, 'user_id' => Yii::$app->user->id])) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException("Notification not found.");
+        }
     }
 }
