@@ -60,8 +60,8 @@ class CloudPushChannel extends Component implements ChannelInterface
                 'AppKey' => $this->appKey,
                 'Target' => $appRecipient['target'],
                 'TargetValue' => $appRecipient['targetValue'],
-                'Title' => $message->title,
-                'Body' => $message->body,
+                'Title' => $message->getTitle(),
+                'Body' => $message->getContent(),
             ];
             if (!empty($message->extParameters)) {
                 $messageParams['ExtParameters'] = Json::encode($message->extParameters);

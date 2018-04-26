@@ -56,7 +56,7 @@ class MailChannel extends Component implements ChannelInterface
         $this->mailer->compose()
             ->setFrom(isset($message->from) ? $message->from : $this->from)
             ->setTo($recipient->routeNotificationFor('mail'))
-            ->setSubject($message->title)
+            ->setSubject($message->getTitle())
             ->send();
     }
 }
