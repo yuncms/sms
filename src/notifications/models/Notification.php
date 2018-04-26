@@ -23,6 +23,8 @@ use yuncms\validators\JsonValidator;
  * @property integer $publish_at
  *
  * @property User $user
+ * @property-read boolean $isRead
+ * @property-read boolean $isPending
  *
  * @property-read boolean $isAuthor 是否是作者
  */
@@ -97,6 +99,24 @@ class Notification extends ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    /**
+     * 是否已经推送
+     * @return bool
+     */
+    public function getIsPending()
+    {
+        return (bool)$this->is_pending;
+    }
+
+    /**
+     * 是否已读
+     * @return bool
+     */
+    public function getIsRead()
+    {
+        return (bool)$this->is_read;
     }
 
     /**
