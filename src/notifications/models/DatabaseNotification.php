@@ -17,7 +17,7 @@ use yuncms\validators\JsonValidator;
  * @property string $template
  * @property integer $notifiable_id
  * @property string $notifiable_class
- * @property JsonObject $data
+ * @property JsonObject|array $data
  * @property integer $read_at
  * @property integer $created_at
  * @property integer $updated_at
