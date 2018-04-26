@@ -9,6 +9,7 @@ namespace yuncms\rest\models;
 
 use Yii;
 use yuncms\base\Model;
+use yuncms\helpers\PasswordHelper;
 
 /**
  * SettingsForm gets user's username, email and password and changes them.
@@ -17,6 +18,9 @@ use yuncms\base\Model;
  */
 class UserSettingsForm extends Model
 {
+    /** @var string 旧密码 */
+    public $password;
+
     /**
      * @var string
      */
@@ -44,8 +48,25 @@ class UserSettingsForm extends Model
     public function rules()
     {
         return [
+            'passwordValidate' => ['password', 'validatePassword'],
+            'password' => ['password', 'string', 'min' => 6],
             'newPasswordLength' => ['new_password', 'string', 'min' => 6],
         ];
+    }
+
+    /**
+     * Validates the password.
+     * This method serves as the inline validation for password.
+     *
+     * @param string $attribute the attribute currently being validated
+     */
+    public function validatePassword($attribute)
+    {
+        if (!$this->hasErrors()) {
+            if ($this->user === null || !PasswordHelper::validate($this->password, $this->user->password_hash)) {
+                $this->addError($attribute, Yii::t('yuncms', 'Invalid login or password'));
+            }
+        }
     }
 
     /**
@@ -54,16 +75,9 @@ class UserSettingsForm extends Model
     public function attributeLabels()
     {
         return [
+            'password' => Yii::t('yuncms', 'Password'),
             'new_password' => Yii::t('yuncms', 'New password')
         ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function formName()
-    {
-        return 'settings-form';
     }
 
     /**

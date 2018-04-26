@@ -24,7 +24,7 @@ class m180410_092555_create_notification_table extends Migration
         }
         // https://segmentfault.com/q/1010000000672529/a-1020000000679702
         $this->createTable($this->tableName, [
-            'id' => $this->char(36)->notNull()->comment('Id'),//通知ID
+            'id' => $this->char(36)->notNull()->unique()->comment('Id'),//通知ID
             'verb' => $this->string(32),//执行了什么操作
             'template' => $this->string(),//模板
             'notifiable_id' => $this->unsignedInteger()->notNull()->comment('Entity'),//通知实体ID

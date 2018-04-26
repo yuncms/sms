@@ -78,7 +78,6 @@ class UserRecoveryForm extends Model
     /**
      * 重置密码
      * @return boolean
-     * @throws \yii\base\Exception
      */
     public function resetPassword()
     {

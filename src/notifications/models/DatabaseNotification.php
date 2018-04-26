@@ -54,8 +54,9 @@ class DatabaseNotification extends ActiveRecord
     public function rules()
     {
         return [
-            [['template', 'notifiable_id', 'notifiable_class'], 'required'],
+            [['id','template', 'notifiable_id', 'notifiable_class'], 'required'],
             [['notifiable_id', 'read_at'], 'integer'],
+            [['id'], 'string', 'max' => 36],
             [['verb'], 'string', 'max' => 32],
             [['notifiable_class'], 'string', 'max' => 255],
             [['data'], JsonValidator::class],
