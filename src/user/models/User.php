@@ -15,7 +15,7 @@ use yuncms\db\ActiveRecord;
 use yuncms\helpers\ArrayHelper;
 use yuncms\helpers\PasswordHelper;
 use creocoder\taggable\TaggableBehavior;
-use yuncms\notifications\models\Notification;
+use yuncms\notifications\models\DatabaseNotification;
 use yuncms\notifications\Notifiable;
 
 /**
@@ -40,7 +40,7 @@ use yuncms\notifications\Notifiable;
  * Defined relations:
  * @property UserExtra $extra
  * @property UserLoginHistory[] $userLoginHistories
- * @property Notification[] $notifications
+ * @property DatabaseNotification[] $notifications
  * @property UserProfile $profile
  * @property UserSocialAccount[] $socialAccounts
  * @property \yuncms\tag\models\Tag[] $tags
@@ -360,7 +360,7 @@ class User extends BaseUser
      */
     public function getNotifications()
     {
-        return $this->hasMany(Notification::class, ['notifiable_id' => 'id'])->onCondition(['notifiable_class' => 'yuncms\user\models\User'])->addOrderBy(['created_at' => SORT_DESC]);
+        return $this->hasMany(DatabaseNotification::class, ['notifiable_id' => 'id'])->onCondition(['notifiable_class' => self::class])->addOrderBy(['created_at' => SORT_DESC]);
     }
 
     /**

@@ -18,29 +18,6 @@ use yuncms\notifications\models\DatabaseNotification;
 trait RoutesNotifications
 {
     /**
-     * 发送给定的通知。
-     *
-     * @param  mixed $instance
-     * @return void
-     */
-    public function notify($instance)
-    {
-        Yii::$app->notification->send($this, $instance);
-    }
-
-    /**
-     * 立即发送给定的通知。
-     *
-     * @param  mixed $instance
-     * @param  array|null $channels
-     * @return void
-     */
-    public function notifyNow($instance, array $channels = null)
-    {
-        Yii::$app->notification->sendNow($this, $instance, $channels);
-    }
-
-    /**
      * 获取给定驱动程序的通知路由信息。
      *
      * @param  string $driver

@@ -23,7 +23,6 @@ use yuncms\validators\JsonValidator;
 class DatabaseNotification extends ActiveRecord
 {
 
-
     /**
      * @inheritdoc
      */
@@ -55,7 +54,7 @@ class DatabaseNotification extends ActiveRecord
     public function rules()
     {
         return [
-            [['notifiable_id', 'notifiable_class'], 'required'],
+            [['template', 'notifiable_id', 'notifiable_class'], 'required'],
             [['notifiable_id', 'read_at'], 'integer'],
             [['verb'], 'string', 'max' => 32],
             [['notifiable_class'], 'string', 'max' => 255],
@@ -71,8 +70,8 @@ class DatabaseNotification extends ActiveRecord
         return [
             'id' => Yii::t('yuncms', 'Id'),
             'verb' => Yii::t('yuncms', 'Verb'),
-            'notifiable_id' => Yii::t('yuncms', 'Entity'),
-            'notifiable_class' => Yii::t('yuncms', 'Entity'),
+            'notifiable_id' => Yii::t('yuncms', 'Notifiable Id'),
+            'notifiable_class' => Yii::t('yuncms', 'Notifiable Class'),
             'data' => Yii::t('yuncms', 'Data'),
             'read_at' => Yii::t('yuncms', 'Read At'),
             'created_at' => Yii::t('yuncms', 'Created At'),

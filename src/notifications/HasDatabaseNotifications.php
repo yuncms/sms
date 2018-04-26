@@ -8,8 +8,7 @@
 namespace yuncms\notifications;
 
 use yii\db\ActiveQuery;
-use yuncms\db\ActiveRecord;
-use yuncms\notifications\models\Notification;
+use yuncms\notifications\models\DatabaseNotification;
 
 /**
  * Trait HasDatabaseNotifications
@@ -26,7 +25,7 @@ trait HasDatabaseNotifications
      */
     public function getNotifications()
     {
-        return $this->hasMany(Notification::class, ['notifiable_id' => 'id'])->onCondition(['notifiable_class' => get_called_class()])->addOrderBy(['created_at' => SORT_DESC]);
+        return $this->hasMany(DatabaseNotification::class, ['notifiable_id' => 'id'])->onCondition(['notifiable_class' => get_called_class()])->addOrderBy(['created_at' => SORT_DESC]);
     }
 
     /**

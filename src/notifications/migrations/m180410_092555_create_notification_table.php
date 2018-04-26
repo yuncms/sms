@@ -25,10 +25,11 @@ class m180410_092555_create_notification_table extends Migration
         // https://segmentfault.com/q/1010000000672529/a-1020000000679702
         $this->createTable($this->tableName, [
             'id' => $this->char(36)->notNull()->comment('Id'),//通知ID
-            'verb' => $this->string(32),
+            'verb' => $this->string(32),//执行了什么操作
+            'template' => $this->string(),//模板
             'notifiable_id' => $this->unsignedInteger()->notNull()->comment('Entity'),//通知实体ID
             'notifiable_class' => $this->string()->notNull()->comment('Entity'),//通知实体类名
-            'data' => $this->text(),
+            'data' => $this->text(),//通知数据
             'read_at' => $this->unixTimestamp()->comment('Read At'),//阅读时间
             'created_at' => $this->unixTimestamp()->notNull()->comment('Created At'),//创建时间
             'updated_at' => $this->integer(10)->unsigned()->notNull()->comment('Updated At'),//更新时间

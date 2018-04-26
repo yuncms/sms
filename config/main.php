@@ -74,6 +74,11 @@ return [
         ],
         'notification' => [
             'class' => yuncms\notifications\ChannelManager::class,
+            'channels' => [
+                'mail' => [
+                    'class' => yuncms\notifications\channels\MailChannel::class
+                ],
+            ],
         ],
         'sms' => [
             'class' => yuncms\sms\Sms::class,

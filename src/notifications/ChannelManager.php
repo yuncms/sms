@@ -12,6 +12,7 @@ use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yuncms\helpers\StringHelper;
+use yuncms\notifications\channels\MailChannel;
 use yuncms\transaction\contracts\ChannelInterface;
 
 /**
@@ -287,12 +288,12 @@ class ChannelManager extends Component
      */
     protected function sendToNotifiable($notifiable, $id, $notification, $channel)
     {
-        if (! $notification->id) {
+        if (!$notification->id) {
             $notification->id = $id;
         }
-        if (!$notifiable->shouldReceiveNotification($notification)) {
-            return;
-        }
+        //if (!$notifiable->shouldReceiveNotification($notification)) {
+        //    return;
+        //}
         $this->get($channel)->send($notifiable, $notification);
     }
 }
