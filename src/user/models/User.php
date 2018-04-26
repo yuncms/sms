@@ -15,6 +15,8 @@ use yuncms\db\ActiveRecord;
 use yuncms\helpers\ArrayHelper;
 use yuncms\helpers\PasswordHelper;
 use creocoder\taggable\TaggableBehavior;
+use yuncms\notifications\models\Notification;
+use yuncms\notifications\Notifiable;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -38,6 +40,7 @@ use creocoder\taggable\TaggableBehavior;
  * Defined relations:
  * @property UserExtra $extra
  * @property UserLoginHistory[] $userLoginHistories
+ * @property Notification[] $notifications
  * @property UserProfile $profile
  * @property UserSocialAccount[] $socialAccounts
  * @property \yuncms\tag\models\Tag[] $tags
@@ -47,6 +50,8 @@ use creocoder\taggable\TaggableBehavior;
  */
 class User extends BaseUser
 {
+    use Notifiable;
+
     //事件定义
     const BEFORE_CREATE = 'beforeCreate';
     const AFTER_CREATE = 'afterCreate';
@@ -347,6 +352,15 @@ class User extends BaseUser
         }
         $this->trigger(self::AFTER_CREATE);
         return true;
+    }
+
+    /**
+     * Get the entity's notifications.
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNotifications()
+    {
+        return $this->hasMany(Notification::class, ['notifiable_id' => 'id'])->onCondition(['notifiable_class' => 'yuncms\user\models\User'])->addOrderBy(['created_at' => SORT_DESC]);
     }
 
     /**

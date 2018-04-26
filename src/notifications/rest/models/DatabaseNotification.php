@@ -15,14 +15,7 @@ use yuncms\rest\models\User;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class Notification extends \yuncms\notifications\models\Notification
+class DatabaseNotification extends \yuncms\notifications\models\DatabaseNotification
 {
-    /**
-     * 获取接收者实例
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
-    }
+
 }

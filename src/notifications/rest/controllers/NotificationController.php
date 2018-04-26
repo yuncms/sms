@@ -42,7 +42,7 @@ class NotificationController extends Controller
      */
     public function actionIndex()
     {
-        $query = Notification::find()->where(['receiver_id' => Yii::$app->user->getId()]);
+        $query = DatabaseNotification::find()->where(['receiver_id' => Yii::$app->user->getId()]);
         return Yii::createObject([
             'class' => ActiveDataProvider::class,
             'query' => $query,

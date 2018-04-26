@@ -11,8 +11,6 @@ use yii\filters\RateLimitInterface;
 use yii\behaviors\TimestampBehavior;
 use yuncms\db\ActiveRecord;
 use yuncms\helpers\PasswordHelper;
-use yuncms\notifications\contracts\RecipientInterface;
-use yuncms\notifications\ReceiverTrait;
 use yuncms\oauth2\OAuth2IdentityInterface;
 
 /**
@@ -44,10 +42,8 @@ use yuncms\oauth2\OAuth2IdentityInterface;
  * @property-read bool $isEmailConfirmed 是否已经邮箱激活
  *
  */
-class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInterface, RecipientInterface, OAuth2IdentityInterface
+class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInterface, OAuth2IdentityInterface
 {
-    use ReceiverTrait;
-
     // following constants are used on secured email changing process
     const OLD_EMAIL_CONFIRMED = 0b1;
     const NEW_EMAIL_CONFIRMED = 0b10;
@@ -460,46 +456,5 @@ class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInter
     {
         Yii::$app->cache->set($action->controller->id . ':' . $action->id . ':' . $this->id . '_allowance', $allowance, 60);
         Yii::$app->cache->set($action->controller->id . ':' . $action->id . ':' . $this->id . '_allowance_update_at', $timestamp, 60);
-    }
-
-    //////// NotifiableInterface /////////
-    ///
-    /**
-     * 默认通过电子邮件发送通知
-     * @return array
-     */
-    public function viaChannels()
-    {
-        return ['mail', 'sms', 'web'];
-    }
-
-    /**
-     * 获取给定通道的通知路由信息。
-     * @return mixed
-     */
-    public function routeNotificationForMail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * 获取给定通道的通知路由信息。
-     * @return mixed
-     */
-    public function routeNotificationForSms()
-    {
-        return $this->mobile;
-    }
-
-    /**
-     * 获取给定通道的通知路由信息。
-     * @return mixed
-     */
-    public function routeNotificationForApp()
-    {
-        return [
-            'target' => 'ACCOUNT',
-            'targetValue' => $this->id,
-        ];
     }
 }

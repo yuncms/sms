@@ -9,6 +9,7 @@ namespace yuncms\base;
 
 use yii\base\Application;
 use yii\web\UrlManager;
+use yuncms\notifications\ChannelManager;
 use yuncms\notifications\NotificationManager;
 use yuncms\services\Path;
 use yuncms\sms\Sms;
@@ -19,11 +20,10 @@ use yuncms\sms\Sms;
  * @property \yuncms\components\Settings $settings The settings manager component
  * @property \yii\authclient\Collection $authClientCollection The authClient Collection component
  * @property \yii\queue\Queue $queue The queue component
- * @property \yuncms\notifications\NotificationManager $notifications The notifications component
  * @property \yii\redis\Connection $redis The redis component
  * @property \yuncms\filesystem\FilesystemManager $filesystem The filesystem component
  * @property \yuncms\broadcast\BaseBroadcast $broadcast The broadcast component
- * @property \yuncms\notifications\NotificationManager $notificationManager the notificationManager connection.
+ * @property \yuncms\notifications\ChannelManager $notification the notification connection.
  * @property \yuncms\mq\BaseMessageQueue $messageQueue the message queue connection.
  * @property \yuncms\sms\Sms $sms the sms connection.
  * @property \yii\web\UrlManager $frontUrlManager the frontUrlManager component.
@@ -103,12 +103,12 @@ trait ApplicationTrait
     }
 
     /**
-     * Returns the notifications component.
-     * @return \yuncms\notifications\NotificationManager the notifications connection.
+     * Returns the notification component.
+     * @return \yuncms\notifications\ChannelManager the notifications connection.
      */
-    public function getNotificationManager(): NotificationManager
+    public function getNotification(): ChannelManager
     {
-        return $this->get('notificationManager');
+        return $this->get('notification');
     }
 
     /**

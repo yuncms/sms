@@ -11,9 +11,8 @@ use yii\base\Component;
 use yii\di\Instance;
 use yii\mail\MailerInterface;
 use yuncms\notifications\contracts\ChannelInterface;
-use yuncms\notifications\contracts\RecipientInterface;
-use yuncms\notifications\contracts\NotificationInterface;
 use yuncms\notifications\messages\MailMessage;
+use yuncms\notifications\Notification;
 
 /**
  * Class MailChannel
@@ -44,11 +43,40 @@ class MailChannel extends Component implements ChannelInterface
     }
 
     /**
-     * @param RecipientInterface $recipient
-     * @param NotificationInterface $notification
+     * @param mixed $notifiable
+     * @param Notification $notification
+     * @return void
      */
-    public function send(RecipientInterface $recipient, NotificationInterface $notification)
+    public function send($notifiable, Notification $notification)
     {
+        $message = $notification->toMail($notifiable);
+
+        /**
+         * @var $message MailMessage
+         */
+        $message = $notification->exportFor('mail');
+
+        $this->mailer->compose()
+            ->setFrom(isset($message->from) ? $message->from : $this->from)
+            ->setTo($recipient->routeNotificationFor('mail'))
+            ->setSubject($message->title)
+            ->send();
+
+        if (! $notifiable->routeNotificationFor('mail') &&
+            ! $message instanceof Mailable) {
+            return;
+        }
+
+        if ($message instanceof Mailable) {
+            return $message->send($this->mailer);
+        }
+
+        $this->mailer->send(
+            $this->buildView($message),
+            $message->data(),
+            $this->messageBuilder($notifiable, $notification, $message)
+        );
+
         /**
          * @var $message MailMessage
          */
@@ -56,7 +84,7 @@ class MailChannel extends Component implements ChannelInterface
         $this->mailer->compose()
             ->setFrom(isset($message->from) ? $message->from : $this->from)
             ->setTo($recipient->routeNotificationFor('mail'))
-            ->setSubject($message->getTitle())
+            ->setSubject($message->title)
             ->send();
     }
 }

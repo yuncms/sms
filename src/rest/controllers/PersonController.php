@@ -49,6 +49,7 @@ class PersonController extends Controller
             'recovery' => ['POST'],
             'avatar' => ['POST'],
             'authentication' => ['POST', 'GET'],
+            'notifications' => ['GET'],
         ];
     }
 

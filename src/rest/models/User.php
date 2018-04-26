@@ -48,6 +48,6 @@ class User extends \yuncms\user\models\User
      */
     public function extraFields()
     {
-        return ['profile', 'extra', 'loginHistories', 'socialAccounts', 'tags'];
+        return ['profile', 'extra', 'loginHistories', 'socialAccounts', 'notifications'];
     }
 }
