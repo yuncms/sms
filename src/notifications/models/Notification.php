@@ -100,6 +100,25 @@ class Notification extends ActiveRecord
     }
 
     /**
+     * 设置已读状态
+     * @return bool
+     */
+    public function setRead()
+    {
+        return (bool)$this->updateAttributes(['is_read' => true, 'is_pending' => true]);
+    }
+
+    /**
+     * 设置指定用户为全部已读
+     * @param integer $toUserId
+     * @return integer
+     */
+    public static function setReadAll($toUserId)
+    {
+        return self::updateAll(['is_read' => true, 'is_pending' => true], ['user_id' => $toUserId]);
+    }
+
+    /**
      * @inheritdoc
      * @return NotificationQuery the active query used by this AR class.
      */
