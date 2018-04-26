@@ -18,6 +18,38 @@ use yii\db\ColumnSchemaBuilder;
 class Migration extends \yii\db\Migration
 {
     /**
+     * 字符串主键
+     * @param int $length
+     * @return ColumnSchemaBuilder
+     */
+    public function stringPrimaryKey($length = null): ColumnSchemaBuilder
+    {
+        return $this->string($length)->notNull()->unique();
+    }
+
+    /**
+     * Creates a big primary key column.
+     * @param int $length column size or precision definition.
+     * This parameter will be ignored if not supported by the DBMS.
+     * @return ColumnSchemaBuilder the column instance which can be further customized.
+     */
+    public function bigPrimaryKey($length = null): ColumnSchemaBuilder
+    {
+        return parent::bigPrimaryKey($length)->unsigned();
+    }
+
+    /**
+     * Creates a primary key column.
+     * @param int $length column size or precision definition.
+     * This parameter will be ignored if not supported by the DBMS.
+     * @return ColumnSchemaBuilder the column instance which can be further customized.
+     */
+    public function primaryKey($length = null): ColumnSchemaBuilder
+    {
+        return parent::primaryKey($length)->unsigned();
+    }
+
+    /**
      * Shortcut for creating a uuid column
      *
      * @return ColumnSchemaBuilder the column instance which can be further customized.
