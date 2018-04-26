@@ -8,6 +8,7 @@
 namespace yuncms\rest\models;
 
 use yuncms\helpers\AvatarHelper;
+use yuncms\notifications\rest\models\DatabaseNotification;
 
 /**
  * Class User
@@ -41,6 +42,15 @@ class User extends \yuncms\user\models\User
             }
         ];
     }
+
+//    /**
+//     * Get the entity's notifications.
+//     * @return \yii\db\ActiveQuery
+//     */
+//    public function getNotifications()
+//    {
+//        return $this->hasMany(DatabaseNotification::class, ['notifiable_id' => 'id'])->onCondition(['notifiable_class' => self::class])->addOrderBy(['created_at' => SORT_DESC]);
+//    }
 
     /**
      * 扩展字段定义

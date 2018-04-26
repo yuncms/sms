@@ -11,7 +11,8 @@ $config = [
         'person' => 'yuncms\rest\controllers\PersonController',
         'sms' => 'yuncms\rest\controllers\SmsController',
         'uploader' => 'yuncms\rest\controllers\UploaderController',
-        'health' => 'yuncms\web\controllers\HealthController'
+        'health' => 'yuncms\web\controllers\HealthController',
+        'notification' => 'yuncms\rest\controllers\NotificationController',
     ],
     'components' => [
         'cache' => [

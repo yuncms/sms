@@ -360,7 +360,10 @@ class User extends BaseUser
      */
     public function getNotifications()
     {
-        return $this->hasMany(DatabaseNotification::class, ['notifiable_id' => 'id'])->onCondition(['notifiable_class' => self::class])->addOrderBy(['created_at' => SORT_DESC]);
+        return $this->hasMany(DatabaseNotification::class, ['notifiable_id' => 'id'])
+            ->onCondition(['notifiable_class' => self::class])
+            ->select(['id', 'verb', 'template', 'data', 'read_at', 'created_at', 'updated_at'])
+            ->addOrderBy(['created_at' => SORT_DESC]);
     }
 
     /**

@@ -54,7 +54,7 @@ class DatabaseNotification extends ActiveRecord
     public function rules()
     {
         return [
-            [['id','template', 'notifiable_id', 'notifiable_class'], 'required'],
+            [['id', 'template', 'notifiable_id', 'notifiable_class'], 'required'],
             [['notifiable_id', 'read_at'], 'integer'],
             [['id'], 'string', 'max' => 36],
             [['verb'], 'string', 'max' => 32],
@@ -78,6 +78,17 @@ class DatabaseNotification extends ActiveRecord
             'created_at' => Yii::t('yuncms', 'Created At'),
             'updated_at' => Yii::t('yuncms', 'Updated At'),
         ];
+    }
+
+    /**
+     * 获取通知实体实例
+     * @return ActiveRecord
+     */
+    public function getNotifiable()
+    {
+        /** @var ActiveRecord $modelClass */
+        $modelClass = $this->notifiable_class;
+        return $modelClass::findOne($this->notifiable_id);
     }
 
     /**
