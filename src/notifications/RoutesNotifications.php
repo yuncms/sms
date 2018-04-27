@@ -7,9 +7,8 @@
 
 namespace yuncms\notifications;
 
-use Yii;
 use yii\helpers\Inflector;
-use yuncms\notifications\models\DatabaseNotification;
+use yuncms\notifications\contracts\NotificationInterface;
 
 /**
  * Trait RoutesNotificationsTrait
@@ -18,22 +17,56 @@ use yuncms\notifications\models\DatabaseNotification;
 trait RoutesNotifications
 {
     /**
-     * 获取给定驱动程序的通知路由信息。
-     *
-     * @param  string $driver
+     * 确定通知实体是否应通过签入通知设置来接收通知。
+     * @param NotificationInterface $notification
+     * @return bool
+     */
+    public function shouldReceiveNotification(NotificationInterface $notification)
+    {
+        $alias = get_class($notification);
+        if (isset($this->notificationSettings)) {
+            $settings = $this->notificationSettings;
+            if (array_key_exists($alias, $settings)) {
+                if ($settings[$alias] instanceof \Closure) {
+                    return call_user_func($settings[$alias], $notification);
+                }
+                return (bool)$settings[$alias];
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 默认通过电子邮件发送通知
+     * @return array
+     */
+    public function viaChannels()
+    {
+        return ['database', 'mail'];
+    }
+
+    /**
+     * 返回给定通道的通知路由信息。
+     * ```php
+     * public function routeNotificationForMail() {
+     *      return $this->email;
+     * }
+     * ```
+     * @param $channel string
      * @return mixed
      */
-    public function routeNotificationFor($driver)
+    public function routeNotificationFor($channel)
     {
-        if (method_exists($this, $method = 'routeNotificationFor' . Inflector::camelize($driver))) {
+        if (method_exists($this, $method = 'routeNotificationFor' . Inflector::camelize($channel))) {
             return $this->{$method}();
         }
-
-        switch ($driver) {
-            case 'database':
-                return DatabaseNotification::class;
+        switch ($channel) {
+            case 'cloudPush':
+                return $this->id;
             case 'mail':
                 return $this->email;
+            case 'jpush':
+                return $this->id;
             case 'sms':
                 return $this->mobile;
         }

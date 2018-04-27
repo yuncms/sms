@@ -23,6 +23,7 @@ use yuncms\validators\JsonValidator;
  * @property integer $created_at
  * @property integer $updated_at
  * @property-read string $content
+ * @property-read string $relativeTime
  */
 class DatabaseNotification extends ActiveRecord
 {
@@ -96,6 +97,14 @@ class DatabaseNotification extends ActiveRecord
             $p['{' . $name . '}'] = $value;
         }
         return strtr($this->template, $p);
+    }
+
+    /**
+     * @return string 本地化时间
+     */
+    public function getRelativeTime()
+    {
+        return Yii::$app->formatter->asRelativeTime($this->created_at);
     }
 
     /**

@@ -8,10 +8,12 @@
 namespace yuncms\notifications;
 
 use Yii;
+use yii\base\Arrayable;
 use yii\base\BaseObject;
-use yii\helpers\Inflector;
+use yuncms\helpers\ArrayHelper;
+use yuncms\helpers\StringHelper;
 
-class Notification extends BaseObject
+abstract class Notification extends BaseObject implements Arrayable
 {
     /**
      * The unique identifier for the notification.
@@ -23,12 +25,23 @@ class Notification extends BaseObject
     /**
      * @var string
      */
-    public $action;
+    public $verb;
 
     /**
      * @var array 通知数据
      */
     public $data = [];
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+        if (!$this->id) {
+            $this->id = StringHelper::ObjectId();
+        }
+    }
 
     /**
      * Create an instance
@@ -45,22 +58,11 @@ class Notification extends BaseObject
     }
 
     /**
-     * Determines if the notification can be sent.
-     *
-     * @param  Channel $channel
-     * @return bool
-     */
-    public function shouldSend($channel)
-    {
-        return true;
-    }
-
-    /**
      * Gets the notification title
      *
      * @return string
      */
-    abstract public function getTitle();
+    abstract public function getTemplate();
 
     /**
      * Gets the notification description
@@ -95,8 +97,16 @@ class Notification extends BaseObject
     }
 
     /**
+     * 返回写数据库的数组
+     * @return array
+     */
+    public function toDatabase()
+    {
+        return ArrayHelper::toArray($this);
+    }
+
+    /**
      * Sends this notification to all channels
-     * @throws \yii\base\InvalidConfigException
      */
     public function send()
     {

@@ -13,6 +13,8 @@ use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yuncms\helpers\StringHelper;
 use yuncms\notifications\channels\MailChannel;
+use yuncms\notifications\contracts\NotifiableInterface;
+use yuncms\notifications\contracts\NotificationInterface;
 use yuncms\transaction\contracts\ChannelInterface;
 
 /**
@@ -255,45 +257,32 @@ class ChannelManager extends Component
     }
 
     /**
-     * Send a notification to all channels
+     * 通过可用渠道将给定的通知发送给给定的可通知实体。您可以传递数组以便将多个通知发送给多个收件人。
      *
-     * @param array $notifiables
-     * @param Notification $notification
-     * @param array|null $channels
-     * @throws InvalidConfigException
-     * @throws \Exception
-     */
-    public function send($notifiables, $notification, array $channels = null)
-    {
-        foreach ($notifiables as $notifiable) {
-            if (empty($viaChannels = $channels ?: $notification->via($notifiable))) {
-                continue;
-            }
-            $notificationId = StringHelper::UUID();
-            foreach ((array)$viaChannels as $channel) {
-                $this->sendToNotifiable($notifiable, $notificationId, $notification, $channel);
-            }
-        }
-    }
-
-    /**
-     * 通过通道将给定的通知发送给给定的通知。
-     *
-     * @param  mixed $notifiable
-     * @param  string $id
-     * @param  mixed $notification
-     * @param  string $channel
+     * @param NotifiableInterface[]|NotifiableInterface $notifiables 可以收到给定通知的收件人。
+     * @param NotificationInterface[]|NotificationInterface $notifications 应该交付的通知。
      * @return void
      * @throws InvalidConfigException
      */
-    protected function sendToNotifiable($notifiable, $id, $notification, $channel)
+    public function send($notifiables, $notifications)
     {
-        if (!$notification->id) {
-            $notification->id = $id;
+        if (!is_array($notifiables)) {
+            $notifiables = [$notifiables];
         }
-        //if (!$notifiable->shouldReceiveNotification($notification)) {
-        //    return;
-        //}
-        $this->get($channel)->send($notifiable, $notification);
+        if (!is_array($notifications)) {
+            $notifications = [$notifications];
+        }
+        foreach ($notifiables as $notifiable) {
+            $channels = array_intersect($notifiable->viaChannels(), array_keys($this->getChannels(true)));
+            foreach ($notifications as $notification) {
+                if (!$notifiable->shouldReceiveNotification($notification)) {
+                    continue;
+                }
+                $channels = array_intersect($channels, $notification->broadcastOn());
+                foreach ($channels as $channel) {
+                    $this->get($channel)->send($notifiable, $notification);
+                }
+            }
+        }
     }
 }
