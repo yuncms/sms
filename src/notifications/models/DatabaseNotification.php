@@ -11,6 +11,7 @@ use yuncms\validators\JsonValidator;
 
 /**
  * This is the model class for table "{{%notifications}}".
+ * @method touch($attribute) Updates a timestamp attribute to the current timestamp.
  *
  * @property string $id
  * @property string $verb
@@ -95,6 +96,14 @@ class DatabaseNotification extends ActiveRecord
             $p['{' . $name . '}'] = $value;
         }
         return strtr($this->template, $p);
+    }
+
+    /**
+     * 设为已读
+     */
+    public function setRead()
+    {
+        $this->touch('read_at');
     }
 
     /**

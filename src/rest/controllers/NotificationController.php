@@ -35,21 +35,6 @@ class NotificationController extends Controller
     }
 
     /**
-     * 获取用户实例
-     * @param integer $id
-     * @return User
-     * @throws NotFoundHttpException
-     */
-    public function findModel($id)
-    {
-        if (($model = User::findOne(['id' => $id])) != null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException("User not found: $id");
-        }
-    }
-
-    /**
      * 跟用户相关的通知列表
      * @return ActiveDataProvider
      * @throws NotFoundHttpException
@@ -76,13 +61,35 @@ class NotificationController extends Controller
     }
 
     /**
-     * @param integer $id
+     * 查看通知详情
+     * @param string $id
      * @return DatabaseNotification
      * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
         $user = $this->findModel(Yii::$app->user->id);
-        return $user->getNotifications()->andWhere(['id' => $id])->one();
+        /** @var DatabaseNotification $notification */
+        if (($notification = $user->getNotifications()->andWhere(['id' => $id])->one()) != null) {
+            $notification->setRead();
+            return $notification;
+        } else {
+            throw new NotFoundHttpException("Notification not found: $id");
+        }
+    }
+
+    /**
+     * 获取用户实例
+     * @param integer $id
+     * @return User
+     * @throws NotFoundHttpException
+     */
+    public function findModel($id)
+    {
+        if (($model = User::findOne(['id' => $id])) != null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException("User not found: $id");
+        }
     }
 }

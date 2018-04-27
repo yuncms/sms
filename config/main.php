@@ -75,7 +75,7 @@ return [
         'notification' => [
             'class' => yuncms\notifications\ChannelManager::class,
             'channels' => [
-                'mail' => [
+                'mail' => [//默认配置电子邮件渠道
                     'class' => yuncms\notifications\channels\MailChannel::class
                 ],
             ],

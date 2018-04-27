@@ -46,6 +46,12 @@ $config = [
             'class' => yii\web\UrlManager::class,
             'rules' => [
                 'GET ping' => 'health/ping',
+                [
+                    'class' => yii\rest\UrlRule::class,
+                    'controller' => 'notification',
+                    'tokens' => ['{id}' => '<id:[\w+-]+>'],
+                    'only' => ['index', 'view'],
+                ],
             ],
         ],
     ],
