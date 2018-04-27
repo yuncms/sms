@@ -7,6 +7,9 @@
 
 namespace yuncms\helpers;
 
+use Yii;
+use yii\base\Exception;
+use MongoDB\BSON\ObjectId;
 use Stringy\Stringy as BaseStringy;
 
 /**
@@ -841,28 +844,41 @@ class StringHelper extends \yii\helpers\StringHelper
 
 
     /**
-     * 获取一个 长度为24个字符的 对象ID
+     * 获取一个对象ID
      * @return string
-     * @throws \Exception
      */
     public static function ObjectId()
     {
-        if (class_exists('MongoDB\BSON\ObjectId')) {
-            return (new \MongoDB\BSON\ObjectId())->__toString();
+        if (class_exists('MongoDB\BSON\ObjectId')) {//优先使用
+            return (new ObjectId())->__toString();
         } else {
-            return sprintf('%04x%04x%04x%04x%04x%04x',
-                // 32 bits for "time_low"
-                random_int(0, 0xffff), random_int(0, 0xffff),
-                // 16 bits for "time_mid"
-                random_int(0, 0xffff),
-                // 16 bits for "time_hi_and_version", four most significant bits holds version number 4
-                random_int(0, 0x0fff) | 0x4000,
-                // 16 bits, 8 bits for "clk_seq_hi_res", 8 bits for "clk_seq_low", two most significant bits holds zero and
-                // one for variant DCE1.1
-                random_int(0, 0x3fff) | 0x8000,
-                // 16 bits for "node"
-                random_int(0, 0xffff)
-            );
+            try {
+                $bytes = Yii::$app->security->generateRandomKey(32);
+                return substr(bin2hex($bytes), 0, 24);
+            } catch (Exception $e) {
+                try {
+                    return sprintf('%04x%04x%04x%04x%04x%04x',
+                        // 32 bits for "time_low"
+                        random_int(0, 0xffff), random_int(0, 0xffff),
+                        // 16 bits for "time_mid"
+                        random_int(0, 0xffff),
+                        // 16 bits for "time_hi_and_version", four most significant bits holds version number 4
+                        random_int(0, 0x0fff) | 0x4000,
+                        // 16 bits, 8 bits for "clk_seq_hi_res", 8 bits for "clk_seq_low", two most significant bits holds zero and
+                        // one for variant DCE1.1
+                        random_int(0, 0x3fff) | 0x8000,
+                        // 16 bits for "node"
+                        random_int(0, 0xffff)
+                    );
+                } catch (\Exception $e) {
+                    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                    $str = '';
+                    for ($i = 0; $i < 24; $i++) {
+                        $str .= $chars[mt_rand(0, strlen($chars) - 1)];
+                    }
+                    return $str;
+                }
+            }
         }
     }
 
