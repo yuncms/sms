@@ -50,7 +50,10 @@ $config = [
                     'class' => yii\rest\UrlRule::class,
                     'controller' => 'notification',
                     'tokens' => ['{id}' => '<id:[\w+-]+>'],
-                    'only' => ['index', 'view'],
+                    'except' => ['delete', 'create', 'update'],
+                    'extraPatterns' => [
+                        'POST mark-read' => 'mark-read',
+                    ],
                 ],
             ],
         ],
