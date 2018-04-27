@@ -49,7 +49,7 @@ $config = [
                 [
                     'class' => yii\rest\UrlRule::class,
                     'controller' => 'notification',
-                    'tokens' => ['{id}' => '<id:[\w+-]+>'],
+                    'tokens' => ['{id}' => '<id:[\w+]+>'],
                     'except' => ['delete', 'create', 'update'],
                     'extraPatterns' => [
                         'POST mark-read' => 'mark-read',
