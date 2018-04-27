@@ -11,9 +11,11 @@ use yii\filters\RateLimitInterface;
 use yii\behaviors\TimestampBehavior;
 use yuncms\db\ActiveRecord;
 use yuncms\helpers\PasswordHelper;
+use yuncms\notifications\channels\DatabaseChannel;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\Notifiable;
 use yuncms\oauth2\OAuth2IdentityInterface;
+use yuncms\user\models\User;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -463,43 +465,47 @@ class BaseUser extends ActiveRecord implements IdentityInterface, RateLimitInter
     }
 
     //////// NotifiableInterface /////////
-    ///
+
     /**
-     * 默认通过电子邮件发送通知
+     * 默认向用户推送时使用的渠道
      * @return array
      */
     public function viaChannels()
     {
-        return ['mail', 'sms'];
+        return ['database', 'mail', 'sms', 'push', 'wechat', 'alipay', 'dingtalk'];
     }
 
     /**
-     * 获取给定通道的通知路由信息。
+     * 返回给定通道的通知路由信息。
+     * ```php
+     * public function routeNotificationForMail() {
+     *      return $this->email;
+     * }
+     * ```
+     * @param $channel string
      * @return mixed
      */
-    public function routeNotificationForMail()
+    public function routeNotificationFor($channel)
     {
-        return $this->email;
-    }
-
-    /**
-     * 获取给定通道的通知路由信息。
-     * @return mixed
-     */
-    public function routeNotificationForSms()
-    {
-        return $this->mobile;
-    }
-
-    /**
-     * 获取给定通道的通知路由信息。
-     * @return mixed
-     */
-    public function routeNotificationForCloudPush()
-    {
-        return [
-            'target' => 'ACCOUNT',
-            'targetValue' => $this->id,
-        ];
+        if (method_exists($this, $method = 'routeNotificationFor' . Inflector::camelize($channel))) {
+            return $this->{$method}();
+        }
+        switch ($channel) {
+            case 'database':
+                return [
+                    'notifiable_id' => $this->id,
+                    'notifiable_class' => User::class
+                ];
+            case 'cloudPush':
+                return [
+                    'target' => 'ACCOUNT',
+                    'targetValue' => $this->id,
+                ];
+            case 'mail':
+                return $this->email;
+            case 'sms':
+                return $this->mobile;
+        }
+        return false;
     }
 }

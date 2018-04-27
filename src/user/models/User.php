@@ -52,8 +52,6 @@ use yuncms\notifications\Notifiable;
  */
 class User extends BaseUser
 {
-    use Notifiable;
-
     //事件定义
     const BEFORE_CREATE = 'beforeCreate';
     const AFTER_CREATE = 'afterCreate';

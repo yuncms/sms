@@ -18,8 +18,6 @@ use yuncms\notifications\messages\BaseMessage;
  */
 trait NotificationTrait
 {
-    public $id;
-
     /**
      * 确定通知将传送到哪个频道
      * @return array
@@ -62,20 +60,5 @@ trait NotificationTrait
             return $this->{$method}();
         }
         throw new \InvalidArgumentException("Can not find message export for chanel `{$channel}`");
-    }
-
-    /**
-     * 导出数据库消息
-     */
-    public function exportForDatabase()
-    {
-        $className = get_called_class();
-        NotificationModel::create([
-            'user_id' => $notification->getUserId(),
-            'category' => strtolower(substr($className, strrpos($className, '\\') + 1, -12)),
-            'action' => $notification->action,
-            'message' => (string)$notification->getTitle(),
-            'route' => serialize($notification->getRoute()),
-        ]);
     }
 }

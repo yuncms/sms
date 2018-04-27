@@ -11,6 +11,7 @@ use RuntimeException;
 use yuncms\db\ActiveRecord;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\contracts\NotificationInterface;
+use yuncms\notifications\models\DatabaseNotification;
 
 /**
  * Class DatabaseChannel
@@ -30,10 +31,15 @@ class DatabaseChannel
     public function send(NotifiableInterface $notifiable, NotificationInterface $notification)
     {
         /** @var ActiveRecord $modelClass */
-        $modelClass = $notifiable->routeNotificationFor('database');
-        return $modelClass::create([
+        $notifiable = $notifiable->routeNotificationFor('database');
+
+        print_r($notifiable);exit;
+
+        return DatabaseNotification::create([
             'id' => $notification->id,
             'verb' => get_class($notification),
+            'notifiable_id' => $notifiable['notifiable_id'],
+            'notifiable_class' => $notifiable['notifiable_class'],
             'data' => $this->getData($notifiable, $notification),
             'read_at' => null,
         ]);
@@ -42,17 +48,16 @@ class DatabaseChannel
     /**
      * Get the data for the notification.
      *
-     * @param  mixed $notifiable
-     * @param  Notification $notification
+     * @param  NotifiableInterface $notifiable
+     * @param  NotificationInterface $notification
      * @return array
      *
      * @throws \RuntimeException
      */
-    protected function getData($notifiable, NotificationInterface $notification)
+    protected function getData(NotifiableInterface $notifiable, NotificationInterface $notification)
     {
         if (method_exists($notification, 'toDatabase')) {
-            return is_array($data = $notification->toDatabase($notifiable))
-                ? $data : $data->data;
+            return $notification->toDatabase($notifiable);
         }
 
         if (method_exists($notification, 'toArray')) {
