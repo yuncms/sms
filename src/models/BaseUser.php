@@ -11,7 +11,6 @@ use yii\filters\RateLimitInterface;
 use yii\behaviors\TimestampBehavior;
 use yuncms\db\ActiveRecord;
 use yuncms\helpers\PasswordHelper;
-use yuncms\notifications\channels\DatabaseChannel;
 use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\Notifiable;
 use yuncms\oauth2\OAuth2IdentityInterface;

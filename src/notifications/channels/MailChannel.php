@@ -11,6 +11,7 @@ use yii\base\Component;
 use yii\di\Instance;
 use yii\mail\MailerInterface;
 use yuncms\notifications\contracts\ChannelInterface;
+use yuncms\notifications\contracts\NotifiableInterface;
 use yuncms\notifications\messages\MailMessage;
 use yuncms\notifications\Notification;
 
@@ -43,60 +44,19 @@ class MailChannel extends Component implements ChannelInterface
     }
 
     /**
-     * @param mixed $notifiable
+     * @param NotifiableInterface $notifiable
      * @param Notification $notification
      * @return void
      */
-    public function send($notifiable, Notification $notification)
+    public function send(NotifiableInterface $notifiable, Notification $notification)
     {
         /**
          * @var $message MailMessage
          */
-        $message = $notification->exportFor('mail');
-
+        $message = $notification->toMail();
         $this->mailer->compose()
             ->setFrom(isset($message->from) ? $message->from : $this->from)
             ->setTo($notifiable->routeNotificationFor('mail'))
-            ->setSubject($message->title)
-            ->send();
-
-
-
-        $message = $notification->toMail($notifiable);
-
-        /**
-         * @var $message MailMessage
-         */
-        $message = $notification->exportFor('mail');
-
-        $this->mailer->compose()
-            ->setFrom(isset($message->from) ? $message->from : $this->from)
-            ->setTo($recipient->routeNotificationFor('mail'))
-            ->setSubject($message->title)
-            ->send();
-
-        if (! $notifiable->routeNotificationFor('mail') &&
-            ! $message instanceof Mailable) {
-            return;
-        }
-
-        if ($message instanceof Mailable) {
-            return $message->send($this->mailer);
-        }
-
-        $this->mailer->send(
-            $this->buildView($message),
-            $message->data(),
-            $this->messageBuilder($notifiable, $notification, $message)
-        );
-
-        /**
-         * @var $message MailMessage
-         */
-        $message = $notification->exportFor('mail');
-        $this->mailer->compose()
-            ->setFrom(isset($message->from) ? $message->from : $this->from)
-            ->setTo($recipient->routeNotificationFor('mail'))
             ->setSubject($message->title)
             ->send();
     }

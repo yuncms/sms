@@ -7,6 +7,8 @@
 
 namespace yuncms\notifications\contracts;
 
+use yuncms\notifications\Notification;
+
 /**
  * Interface NotifiableInterface
  * @package yuncms\notifications\contracts
@@ -15,10 +17,10 @@ interface NotifiableInterface
 {
     /**
      * 确定通知是否可以发送给可通知实体。
-     * @param NotificationInterface $notification
+     * @param Notification $notification
      * @return bool
      */
-    public function shouldReceiveNotification(NotificationInterface $notification);
+    public function shouldReceiveNotification(Notification $notification);
 
     /**
      * 获取可通知实体应该监听的频道。

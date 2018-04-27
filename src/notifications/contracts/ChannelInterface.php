@@ -7,11 +7,13 @@
 
 namespace yuncms\notifications\contracts;
 
+use yuncms\notifications\Notification;
+
 /**
  * Interface ChannelInterface
  * @package yuncms\notifications\contracts
  */
 interface ChannelInterface
 {
-    public function send(NotifiableInterface $notifiable, NotificationInterface $notification);
+    public function send(NotifiableInterface $notifiable, Notification $notification);
 }

@@ -7,21 +7,35 @@
 
 namespace yuncms\notifications;
 
+use Yii;
 use yii\helpers\Inflector;
-use yuncms\notifications\contracts\NotificationInterface;
+use yuncms\notifications\contracts\NotifiableInterface;
 
 /**
  * Trait RoutesNotificationsTrait
+ * @property NotifiableInterface $this
  * @package yuncms\notifications
  */
 trait RoutesNotifications
 {
     /**
+     * Send the given notification.
+     *
+     * @param  Notification $notification
+     * @return void
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function notify($notification)
+    {
+        Yii::$app->notification->send($this, $notification);
+    }
+
+    /**
      * 确定通知实体是否应通过签入通知设置来接收通知。
-     * @param NotificationInterface $notification
+     * @param Notification $notification
      * @return bool
      */
-    public function shouldReceiveNotification(NotificationInterface $notification)
+    public function shouldReceiveNotification(Notification $notification)
     {
         $alias = get_class($notification);
         if (isset($this->notificationSettings)) {
@@ -65,8 +79,6 @@ trait RoutesNotifications
                 return $this->id;
             case 'mail':
                 return $this->email;
-            case 'jpush':
-                return $this->id;
             case 'sms':
                 return $this->mobile;
         }
