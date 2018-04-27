@@ -61,7 +61,7 @@ class NotificationController extends Controller
     public function actionIndex()
     {
         $user = $this->findModel(Yii::$app->user->id);
-        $query = $user->getNotifications()->orderBy(new Expression("IF(ISNULL(read_at),0,1)"))->addOrderBy(['created_at' => SORT_DESC]);
+        $query = $user->getNotifications()->orderBy(new Expression("IF(ISNULL(read_at),0,1) asc"))->addOrderBy(['created_at' => SORT_DESC]);
         $requestParams = Yii::$app->getRequest()->getBodyParams();
         if (empty($requestParams)) {
             $requestParams = Yii::$app->getRequest()->getQueryParams();
