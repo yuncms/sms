@@ -278,6 +278,7 @@ class ChannelManager extends Component
                 if (!$notifiable->shouldReceiveNotification($notification)) {
                     continue;
                 }
+                $notification->id = StringHelper::ObjectId();
                 $channels = array_intersect($channels, $notification->broadcastOn());
                 foreach ($channels as $channel) {
                     $this->get($channel)->send($notifiable, $notification);
