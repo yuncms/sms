@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace framework\src\models;
+namespace yuncms\models;
 
 use yuncms\db\ActiveRecord;
 

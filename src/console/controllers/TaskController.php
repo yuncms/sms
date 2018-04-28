@@ -7,136 +7,92 @@
 
 namespace yuncms\console\controllers;
 
+
 use Yii;
 use yii\base\Event;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Console;
+use yuncms\models\Task;
 
 /**
  * Class CronController
  *
- * 0/5 * * * * /path/to/yii task/minute >/dev/null 2>&1
- * 30 * * * * /path/to/yii task/hourly >/dev/null 2>&1
- * 00 18 * * * /path/to/yii task/daily >/dev/null 2>&1
- * 00 00 15 * * /path/to/yii task/month >/dev/null 2>&1
+ * * * * * * cd /path/to && ./yii task/index >/dev/null 2>&1
  *
- * @author Tongle Xu <xutongle@gmail.com>
- * @since 3.0
+ * @author jlb
  */
 class TaskController extends Controller
 {
     /**
-     * @event Event 每分钟触发事件
+     * 定时任务入口
+     * @return int Exit code
      */
-    const EVENT_ON_MINUTE_RUN = "minute";
-
-    /**
-     * @event Event 每小时触发事件
-     */
-    const EVENT_ON_HOURLY_RUN = "hourly";
-
-    /**
-     * @event Event 每天触发事件
-     */
-    const EVENT_ON_DAILY_RUN = "daily";
-
-    /**
-     * @event Event 每月触发事件
-     */
-    const EVENT_ON_MONTH_RUN = "month";
-
-    /**
-     * @var string
-     */
-    protected $dateTime;
-
-    /**
-     * @var string 任务配置文件
-     */
-    public $taskFile = '@vendor/yuncms/tasks.php';
-
-    /**
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function init()
+    public function actionIndex()
     {
-        parent::init();
-        $this->dateTime = Yii::$app->formatter->asDatetime(time());
-        $this->taskFile = Yii::getAlias($this->taskFile);
+        $crontab = Task::findAll(['switch' => 1]);
+        $tasks = [];
+
+        foreach ($crontab as $task) {
+
+            // 第一次运行,先计算下次运行时间
+            if (!$task->next_rundate) {
+                $task->next_rundate = $task->getNextRunDate();
+                $task->save(false);
+                continue;
+            }
+
+            // 判断运行时间到了没
+            if ($task->next_rundate <= date('Y-m-d H:i:s')) {
+                $tasks[] = $task;
+            }
+        }
+
+        $this->executeTask($tasks);
+
+        return ExitCode::OK;
     }
 
     /**
-     * 初始化并注册计划任务
+     * @param  array $tasks 任务列表
+     * @author jlb
      */
-    public function initTask()
+    public function executeTask(array $tasks)
     {
-        if (is_file($this->taskFile)) {
-            $tasks = require $this->taskFile;
-            foreach ($tasks as $task) {
-                if (isset($task['class'])) {
-                    Event::on($task['class'], $task['event'], $task['callback']);
-                } else {
-                    Event::on($task[0], $task[1], $task[2]);
+
+        $pool = [];
+        $startExectime = $this->getCurrentTime();
+
+        foreach ($tasks as $task) {
+
+            $pool[] = proc_open("php yii $task->route", [], $pipe);
+        }
+
+        // 回收子进程
+        while (count($pool)) {
+            foreach ($pool as $i => $result) {
+                $etat = proc_get_status($result);
+                if($etat['running'] == FALSE) {
+                    proc_close($result);
+                    unset($pool[$i]);
+                    # 记录任务状态
+                    $tasks[$i]->exectime     = round($this->getCurrentTime() - $startExectime, 2);
+                    $tasks[$i]->last_rundate = date('Y-m-d H:i');
+                    $tasks[$i]->next_rundate = $tasks[$i]->getNextRunDate();
+                    $tasks[$i]->status       = 0;
+                    // 任务出错
+                    if ($etat['exitcode'] !== ExitCode::OK) {
+                        $tasks[$i]->status = 1;
+                    }
+
+                    $tasks[$i]->save(false);
                 }
             }
         }
     }
 
-    /**
-     * Show task configuration.
-     */
-    public function actionShow()
-    {
-        if (is_file($this->taskFile)) {
-            $tasks = require $this->taskFile;
-            print_r($tasks);
-        } else {
-            $this->stdout("Task configuration file does not exist." . PHP_EOL, Console::FG_YELLOW);
-        }
-    }
-
-    /**
-     * Executes minute cron tasks.
-     * @return int
-     */
-    public function actionMinute()
-    {
-        $this->stdout($this->dateTime . " Executing minute tasks." . PHP_EOL, Console::FG_YELLOW);
-        $this->trigger(self::EVENT_ON_MINUTE_RUN);
-        return ExitCode::OK;
-    }
-
-    /**
-     * Executes hourly cron tasks.
-     * @return int
-     */
-    public function actionHourly()
-    {
-        $this->stdout($this->dateTime . " Executing hourly tasks." . PHP_EOL, Console::FG_YELLOW);
-        $this->trigger(self::EVENT_ON_HOURLY_RUN);
-        return ExitCode::OK;
-    }
-
-    /**
-     * Executes daily cron tasks.
-     * @return int
-     */
-    public function actionDaily()
-    {
-        $this->stdout($this->dateTime . " Executing daily tasks." . PHP_EOL, Console::FG_YELLOW);
-        $this->trigger(self::EVENT_ON_DAILY_RUN);
-        return ExitCode::OK;
-    }
-
-    /**
-     * Executes month cron tasks.
-     * @return int
-     */
-    public function actionMonth()
-    {
-        $this->stdout($this->dateTime . " Executing month tasks." . PHP_EOL, Console::FG_YELLOW);
-        $this->trigger(self::EVENT_ON_MONTH_RUN);
-        return ExitCode::OK;
+    private function getCurrentTime ()  {
+        list ($msec, $sec) = explode(" ", microtime());
+        return (float)$msec + (float)$sec;
     }
 }
