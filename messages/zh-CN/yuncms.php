@@ -30,6 +30,8 @@ return [
     'Task Status' => '任务状态',
     'Crontab Str' => '间隔标识',
     'Task Switch' => '任务开关',
+    'Saved' => '已保存',
+    'Normal' => '正常',
     'Format verification failed.' => '格式验证不通过。',
     'Exec Memory' => '上次执行消耗内存',
     'Exec Time' => '上次执行耗时(s)',
@@ -319,7 +321,7 @@ return [
     'Please click the link below to complete your password reset' => '请点击下面的链接完成密码重置',
     'Please enter your email address / phone number.' => '请输入邮箱或手机号',
     'Please fix following errors:' => '请更正下列错误:',
-    'Please select' => '请选择',
+
     'Please use App Scan QR code to login.' => '请使用App扫描二维码登录。',
     'Portrait' => '头像',
     'Privacy Policy' => '隐私政策',

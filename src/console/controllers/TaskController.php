@@ -28,7 +28,7 @@ class TaskController extends Controller
      */
     public function actionRun()
     {
-        $crontab = Task::findAll(['switch' => 1]);
+        $crontab = Task::findAll(['switch' => Task::SWITCH_ACTIVE]);
         $tasks = [];
 
         foreach ($crontab as $task) {

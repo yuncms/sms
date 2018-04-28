@@ -43,11 +43,19 @@ class Task extends ActiveRecord
     {
         return [
             [['name', 'route', 'crontab_str'], 'required'],
-            [['switch', 'status'], 'integer'],
+
+            [['switch', 'status'], 'boolean'],
+
+            [['switch', 'status'], 'default', 'value' => false],
+
             [['last_rundate', 'next_rundate'], 'safe'],
+
             [['execmemory', 'exectime'], 'number'],
+
             [['name', 'crontab_str'], 'string', 'max' => 50],
+
             [['route'], 'string', 'max' => 100],
+
             ['crontab_str', 'crontabValidate'],
         ];
     }

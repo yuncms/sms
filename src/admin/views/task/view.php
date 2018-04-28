@@ -1,6 +1,7 @@
 <?php
 
 use yuncms\helpers\Html;
+use yuncms\models\Task;
 use yuncms\widgets\DetailView;
 use yuncms\admin\widgets\Box;
 use yuncms\admin\widgets\Toolbar;
@@ -61,8 +62,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'name',
                     'route',
                     'crontab_str',
-                    'switch',
-                    'status',
+                    [
+                        'value' => $model->switch == Task::SWITCH_ACTIVE ? Yii::t('yuncms', 'Active') : Yii::t('yuncms', 'Disable'),
+                        'label' => Yii::t('yuncms', 'Task Switch'),
+                    ],
+                    [
+                        'value' => $model->status == Task::STATUS_NORMAL ? Yii::t('yuncms', 'Normal') : Yii::t('yuncms', 'Saved'),
+                        'label' => Yii::t('yuncms', 'Task Status'),
+                    ],
                     'last_rundate',
                     'next_rundate',
                     'execmemory',

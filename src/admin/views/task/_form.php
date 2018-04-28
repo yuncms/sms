@@ -2,6 +2,7 @@
 
 use yuncms\helpers\Html;
 use yuncms\admin\widgets\ActiveForm;
+use yuncms\models\Task;
 
 /* @var \yii\web\View $this */
 /* @var yuncms\models\Task $model */
@@ -19,8 +20,8 @@ use yuncms\admin\widgets\ActiveForm;
 <div class="hr-line-dashed"></div>
 
 <?= $form->field($model, 'switch')->inline(true)->radioList([
-    '0' => Yii::t('yuncms', 'Active'),
-    '1' => Yii::t('yuncms', 'Disable')
+    Task::SWITCH_ACTIVE => Yii::t('yuncms', 'Active'),
+    Task::SWITCH_DISABLE => Yii::t('yuncms', 'Disable')
 ]) ?>
 <div class="hr-line-dashed"></div>
 <div class="form-group">

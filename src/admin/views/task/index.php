@@ -78,11 +78,10 @@ $this->registerJs("jQuery(\"#batch_deletion\").on(\"click\", function () {
                     [
                         'attribute' => 'status',
                         'value' => function ($model) {
-                            return $model->switch == Task::STATUS_NORMAL ? Yii::t('yuncms', 'normal') : Yii::t('yuncms', 'Save');
+                            return $model->status == Task::STATUS_NORMAL ? Yii::t('yuncms', 'Normal') : Yii::t('yuncms', 'Saved');
                         },
                         'label' => Yii::t('yuncms', 'Task Status'),
                     ],
-
                     'last_rundate',
                     'next_rundate',
                     'execmemory',
