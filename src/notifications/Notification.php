@@ -11,11 +11,11 @@ use Yii;
 use yii\base\BaseObject;
 use yuncms\helpers\ArrayHelper;
 use yuncms\helpers\StringHelper;
+use yuncms\notifications\messages\CloudPushMessage;
 
 /**
  * Class Notification
  * @method toMail
- * @method toCloudPush
  * @method toSms
  *
  * @author Tongle Xu <xutongle@gmail.com>
@@ -103,6 +103,34 @@ abstract class Notification extends BaseObject
     public function broadcastOn()
     {
         return [];
+    }
+
+    /**
+     * 推送到数据库
+     * @return array
+     */
+    public function toDatabase()
+    {
+        return [
+            'verb' => $this->verb,
+            'template' => $this->getTemplate(),
+            'data' => $this->getData(),
+        ];
+    }
+
+    /**
+     * 推送到CloudPush 渠道
+     * @return CloudPushMessage
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function toCloudPush()
+    {
+        return Yii::createObject([
+            'class' => CloudPushMessage::class,
+            'title' => $this->getTitle(),
+            'content' => $this->getContent(),
+            'extParameters' => $this->getData()
+        ]);
     }
 
     /**

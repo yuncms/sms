@@ -18,7 +18,6 @@ use creocoder\taggable\TaggableBehavior;
 use yuncms\rest\models\User as RESTUser;
 use yuncms\notifications\models\DatabaseNotification;
 use yuncms\notifications\rest\models\DatabaseNotification as RESTDatabaseNotification;
-use yuncms\notifications\Notifiable;
 
 /**
  * This is the model class for table "{{%user}}".
