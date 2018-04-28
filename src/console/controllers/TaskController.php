@@ -7,12 +7,8 @@
 
 namespace yuncms\console\controllers;
 
-
-use Yii;
-use yii\base\Event;
 use yii\console\Controller;
 use yii\console\ExitCode;
-use yii\helpers\Console;
 use yuncms\models\Task;
 
 /**
@@ -24,11 +20,13 @@ use yuncms\models\Task;
  */
 class TaskController extends Controller
 {
+    public $defaultAction = 'run';
+
     /**
      * 定时任务入口
      * @return int Exit code
      */
-    public function actionIndex()
+    public function actionRun()
     {
         $crontab = Task::findAll(['switch' => 1]);
         $tasks = [];
@@ -72,14 +70,14 @@ class TaskController extends Controller
         while (count($pool)) {
             foreach ($pool as $i => $result) {
                 $etat = proc_get_status($result);
-                if($etat['running'] == FALSE) {
+                if ($etat['running'] == FALSE) {
                     proc_close($result);
                     unset($pool[$i]);
                     # 记录任务状态
-                    $tasks[$i]->exectime     = round($this->getCurrentTime() - $startExectime, 2);
+                    $tasks[$i]->exectime = round($this->getCurrentTime() - $startExectime, 2);
                     $tasks[$i]->last_rundate = date('Y-m-d H:i');
                     $tasks[$i]->next_rundate = $tasks[$i]->getNextRunDate();
-                    $tasks[$i]->status       = 0;
+                    $tasks[$i]->status = 0;
                     // 任务出错
                     if ($etat['exitcode'] !== ExitCode::OK) {
                         $tasks[$i]->status = 1;
@@ -91,7 +89,8 @@ class TaskController extends Controller
         }
     }
 
-    private function getCurrentTime ()  {
+    private function getCurrentTime()
+    {
         list ($msec, $sec) = explode(" ", microtime());
         return (float)$msec + (float)$sec;
     }

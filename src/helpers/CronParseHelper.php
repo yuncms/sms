@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace framework\src\helpers;
+namespace yuncms\helpers;
 
 /**
  * crontab格式解析工具类
