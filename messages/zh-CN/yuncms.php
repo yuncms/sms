@@ -32,6 +32,7 @@ return [
     'Task Switch' => '任务开关',
     'Saved' => '已保存',
     'Normal' => '正常',
+    'Delete Task' => '删除任务',
     'Format verification failed.' => '格式验证不通过。',
     'Exec Memory' => '上次执行消耗内存',
     'Exec Time' => '上次执行耗时(s)',
