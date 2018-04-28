@@ -57,7 +57,7 @@ class m180324_103503_create_admin_menu_table extends Migration
             [27, '规则管理', 2, '/admin/rule/index', 'fa-key', 6, NULL],
             [28, '菜单管理', 2, '/admin/menu/index', 'fa-wrench', 7, NULL],
             [29, '附件设置', 2, '/admin/attachment/setting', 'fa-cog', 8, NULL],
-            [29, '执行计划', 2, '/admin/task/index', 'fa-spinner', 8, NULL],
+            [30, '执行计划', 2, '/admin/task/index', 'fa-spinner', 8, NULL],
 
             [50, '用户管理', 5, '/admin/user/index', 'fa-user', 2, NULL],
             [51, '角色管理', 5, '/admin/user-role/index', 'fa-group', 3, NULL],
