@@ -12,7 +12,12 @@ use yii\base\Action;
 use yii\web\Response;
 use yuncms\oauth2\GrantType;
 use yuncms\oauth2\Exception;
-
+use yuncms\oauth2\grant\types\QRCode;
+use yuncms\oauth2\grant\types\RefreshToken;
+use yuncms\oauth2\grant\types\Authorization;
+use yuncms\oauth2\grant\types\UserCredentials;
+use yuncms\oauth2\grant\types\ClientCredentials;
+use yuncms\oauth2\grant\types\WeChatCredentials;
 /**
  * 获取 OAth2 令牌 action
  * ```php
@@ -37,12 +42,12 @@ class Token extends Action
      * @var array Grant Types
      */
     public $grantTypes = [
-        'authorization_code' => 'yuncms\oauth2\grant\types\Authorization',
-        'refresh_token' => 'yuncms\oauth2\grant\types\RefreshToken',
-        'client_credentials' => 'yuncms\oauth2\grant\types\ClientCredentials',//个人账户密码
-        'password' => 'yuncms\oauth2\grant\types\UserCredentials',//账户密码
-        'wechat' => 'yuncms\oauth2\grant\types\WechatCredentials',//微信
-        'qrcode' => 'yuncms\oauth2\grant\types\QRCode',//客户端扫码
+        'authorization_code' => Authorization::class,
+        'refresh_token' => RefreshToken::class,
+        'client_credentials' => ClientCredentials::class,//个人账户密码
+        'password' => UserCredentials::class,//账户密码
+        'wechat' => WeChatCredentials::class,//微信
+        'qrcode' => QRCode::class,//客户端扫码
 //        'urn:ietf:params:oauth:grant-type:jwt-bearer' => 'yuncms\oauth2\grant\types\JwtBearer',//JWT 客户端签名
     ];
 
