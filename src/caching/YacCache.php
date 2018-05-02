@@ -22,6 +22,9 @@ use yii\caching\Cache;
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
+ *
+ * @property array $values
+ * @property string $value
  */
 class YacCache extends Cache
 {

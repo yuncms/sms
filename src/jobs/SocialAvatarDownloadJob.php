@@ -34,6 +34,8 @@ class SocialAvatarDownloadJob extends BaseObject implements RetryableJobInterfac
     /**
      * 下载头像并保存
      * @param \yii\queue\Queue $queue
+     * @throws \yii\base\ErrorException
+     * @throws \yii\base\Exception
      */
     public function execute($queue)
     {

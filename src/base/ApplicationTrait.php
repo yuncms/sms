@@ -10,7 +10,6 @@ namespace yuncms\base;
 use yii\base\Application;
 use yii\web\UrlManager;
 use yuncms\notifications\ChannelManager;
-use yuncms\notifications\NotificationManager;
 use yuncms\services\Path;
 use yuncms\sms\Sms;
 

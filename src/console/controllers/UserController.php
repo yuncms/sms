@@ -66,7 +66,6 @@ class UserController extends Controller
      *
      * @param string $search Email or username
      * @param string $password New password
-     * @throws \yii\base\Exception
      */
     public function actionPassword($search, $password)
     {

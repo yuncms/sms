@@ -18,6 +18,7 @@ use yuncms\oauth2\grant\types\Authorization;
 use yuncms\oauth2\grant\types\UserCredentials;
 use yuncms\oauth2\grant\types\ClientCredentials;
 use yuncms\oauth2\grant\types\WeChatCredentials;
+
 /**
  * 获取 OAth2 令牌 action
  * ```php

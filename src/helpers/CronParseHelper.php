@@ -54,17 +54,16 @@ class CronParseHelper
     /**
      * 格式化crontab格式字符串
      * @param  string $cronstr
-     * @param  interge $maxSize 设置返回符合条件的时间数量, 默认为1
+     * @param int $maxSize 设置返回符合条件的时间数量, 默认为1
      * @return array 返回符合格式的时间
+     * @throws \Exception
      */
-    public static function formatToDate($cronstr, $maxSize = 1)
+    public static function formatToDate($cronStr, $maxSize = 1)
     {
-        if (!static::check($cronstr)) {
-            throw new \Exception("wrong format: $cronstr", 1);
+        if (!static::check($cronStr)) {
+            throw new \Exception("wrong format: $cronStr", 1);
         }
-        $dates = [];
-        self::$tags = preg_split('#\s+#', $cronstr);
-
+        self::$tags = preg_split('#\s+#', $cronStr);
         $crons = [
             'minutes' => static::parseTag(self::$tags[0], 0, 59), //分钟
             'hours' => static::parseTag(self::$tags[1], 0, 23), //小时
@@ -72,19 +71,17 @@ class CronParseHelper
             'month' => static::parseTag(self::$tags[3], 1, 12), //月份
             'week' => static::parseTag(self::$tags[4], 0, 6), // 星期
         ];
-
         $crons['week'] = array_map(function ($item) {
             return static::$weekMap[$item];
         }, $crons['week']);
-
         return self::getDateList($crons, $maxSize);
     }
 
     /**
      * 递归获取符合格式的日期,直到取到满足$maxSize的数为止
      * @param  array $crons 解析crontab字符串后的数组
-     * @param  interge $maxSize 最多返回多少数据的时间
-     * @param  interge $year 指定年
+     * @param  int $maxSize 最多返回多少数据的时间
+     * @param  int $year 指定年
      * @return array|null 符合条件的日期
      */
     private static function getDateList(array $crons, $maxSize, $year = null)
@@ -154,6 +151,7 @@ class CronParseHelper
      * @param  string $tag 元素标签
      * @param  integer $tmin 最小值
      * @param  integer $tmax 最大值
+     * @return array
      * @throws \Exception
      */
     private static function parseTag($tag, $tmin, $tmax)
@@ -216,7 +214,7 @@ class CronParseHelper
 
     /**
      * 判断tag是否可再次切割
-     * @return 需要切割的标识符|null
+     * @return string 需要切割的标识符|null
      */
     private static function checkExp($tag)
     {

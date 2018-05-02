@@ -70,6 +70,7 @@ class BackendAccessControl extends ActionFilter
 
     /**
      * @inheritdoc
+     * @param \yii\base\Action $action
      * @throws \yii\base\InvalidConfigException
      * @throws ForbiddenHttpException
      */

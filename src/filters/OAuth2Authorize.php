@@ -11,6 +11,8 @@ use Yii;
 use yii\base\ActionFilter;
 use yuncms\oauth2\GrantType;
 use yuncms\oauth2\Exception;
+use yuncms\oauth2\response\types\Implicit;
+use yuncms\oauth2\response\types\Authorization;
 
 /**
  * Class Authorize
@@ -29,8 +31,8 @@ class OAuth2Authorize extends ActionFilter
      * @var array
      */
     public $responseTypes = [
-        'token' => 'yuncms\oauth2\response\types\Implicit',
-        'code' => 'yuncms\oauth2\response\types\Authorization',
+        'token' => Implicit::class,
+        'code' => Authorization::class,
     ];
 
     /**
