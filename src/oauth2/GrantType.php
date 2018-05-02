@@ -12,6 +12,9 @@ use yuncms\oauth2\models\OAuth2Client;
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
+ *
+ * @property \yuncms\oauth2\models\OAuth2Client $client
+ * @property mixed $responseData
  */
 abstract class GrantType extends Model
 {

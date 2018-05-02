@@ -144,7 +144,7 @@ class OAuth2Client extends ActiveRecord
      */
     public function getAuthorizationCodes()
     {
-        return $this->hasMany(AuthorizationCode::className(), ['client_id' => 'client_id']);
+        return $this->hasMany(OAuth2AuthorizationCode::class, ['client_id' => 'client_id']);
     }
 
     /**
@@ -152,7 +152,7 @@ class OAuth2Client extends ActiveRecord
      */
     public function getRefreshTokens()
     {
-        return $this->hasMany(RefreshToken::className(), ['client_id' => 'client_id']);
+        return $this->hasMany(OAuth2RefreshToken::class, ['client_id' => 'client_id']);
     }
 
     /**
