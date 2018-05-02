@@ -35,6 +35,9 @@ use yuncms\jobs\SocialAvatarDownloadJob;
  *
  * @link https://tools.ietf.org/html/rfc6749#section-4.3
  * @author Dmitry Fedorenko
+ *
+ * @property array $responseData
+ * @property null|\yuncms\user\models\User|object $user
  */
 class WeChatCredentials extends GrantType
 {
@@ -158,7 +161,7 @@ class WeChatCredentials extends GrantType
 
             $account = UserSocialAccount::find()->byClient($client)->one();
             if ($account === null) {
-                $account = UserSocialAccount::create($client);
+                $account = UserSocialAccount::createClient($client);
             }
             if ($account->user instanceof User) {
                 $this->_user = $account->user;
