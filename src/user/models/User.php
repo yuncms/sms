@@ -127,6 +127,9 @@ class User extends BaseUser
             'passwordRequired' => ['password', 'required', 'on' => [self::SCENARIO_EMAIL_REGISTER, self::SCENARIO_MOBILE_REGISTER]],
             // tags rules
             'tags' => ['tagValues', 'safe'],
+
+            'transfer_balance' => ['transfer_balance', 'number'],
+            'balance' => ['balance', 'number'],
         ]);
     }
 
@@ -301,6 +304,48 @@ class User extends BaseUser
     public function setExtra($extra)
     {
         $this->_extra = $extra;
+    }
+
+    /**
+     * 增加或减少结算金额
+     * @param float $amount
+     * @return bool
+     * @throws \yii\db\Exception
+     */
+    public function increaseTransferBalance($amount)
+    {
+        $this->transfer_balance = bcadd($this->transfer_balance, $amount);
+        if ($this->transfer_balance < 0) {//计算后如果余额小于0，那么结果不合法。
+            return false;
+        }
+        $transaction = static::getDb()->beginTransaction();//开始事务
+        try {
+            if ($this->save()) {
+                $transaction->commit();
+                return true;
+            } else {
+                $transaction->rollBack();
+                return false;
+            }
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            Yii::error($e->getMessage(), __METHOD__);
+        } catch (\yii\db\Exception $e) {
+            $transaction->rollBack();
+            Yii::error($e->getMessage(), __METHOD__);
+        }
+        return false;
+    }
+
+    /**
+     * 减少带结算金额
+     * @param float $amount
+     * @return bool
+     * @throws \yii\db\Exception
+     */
+    public function decreaseTransferBalance($amount)
+    {
+        return $this->increaseTransferBalance(-$amount);
     }
 
     /**
