@@ -9,8 +9,8 @@ $config = [
     'layout' => '@yuncms/admin/views/layouts/main',
     //'defaultRoute' => 'dashboard',
     'controllerMap' => [
-        'health' => 'yuncms\web\controllers\HealthController',
-        'upload' => 'yuncms\web\controllers\UploadController'
+        'health' => yuncms\web\controllers\HealthController::class,
+        'upload' => yuncms\web\controllers\UploadController::class
     ],
     'components' => [
         'request' => [

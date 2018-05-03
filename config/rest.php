@@ -7,12 +7,12 @@
 
 $config = [
     'controllerMap' => [
-        'auth' => 'yuncms\rest\controllers\AuthController',
-        'person' => 'yuncms\rest\controllers\PersonController',
-        'sms' => 'yuncms\rest\controllers\SmsController',
-        'uploader' => 'yuncms\rest\controllers\UploaderController',
-        'health' => 'yuncms\web\controllers\HealthController',
-        'notification' => 'yuncms\rest\controllers\NotificationController',
+        'auth' => yuncms\rest\controllers\AuthController::class,
+        'person' => yuncms\rest\controllers\PersonController::class,
+        'sms' => yuncms\rest\controllers\SmsController::class,
+        'uploader' => yuncms\rest\controllers\UploaderController::class,
+        'health' => yuncms\web\controllers\HealthController::class,
+        'notification' => yuncms\rest\controllers\NotificationController::class,
     ],
     'components' => [
         'cache' => [

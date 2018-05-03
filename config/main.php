@@ -39,11 +39,6 @@ return [
             'class' => yuncms\components\Settings::class,
             'frontCache' => 'cache'
         ],
-        'snowflake' => [
-            'class' => yuncms\base\Snowflake::class,
-            'workerId' => 0,
-            'dataCenterId' => 0,
-        ],
         'authManager' => [//前端RBAC
             'class' => yuncms\rbac\DbManager::class,
             'cache' => 'cache',
@@ -52,6 +47,10 @@ return [
             'itemChildTable' => '{{%user_auth_item_child}}',
             'assignmentTable' => '{{%user_auth_assignment}}',
             'ruleTable' => '{{%user_auth_rule}}'
+        ],
+        'sms' => [
+            'class' => yuncms\sms\Sms::class,
+            'defaultStrategy' => yuncms\sms\strategies\OrderStrategy::class
         ],
         'path' => [
             'class' => yuncms\services\Path::class,
@@ -82,10 +81,6 @@ return [
 //                    'class' => yuncms\notifications\channels\MailChannel::class
 //                ],
             ],
-        ],
-        'sms' => [
-            'class' => yuncms\sms\Sms::class,
-            'defaultStrategy' => yuncms\sms\strategies\OrderStrategy::class
         ],
     ]
 ];
