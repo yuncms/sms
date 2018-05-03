@@ -22,7 +22,7 @@ use yuncms\notifications\rest\models\DatabaseNotification as RESTDatabaseNotific
 /**
  * This is the model class for table "{{%user}}".
  *
- * @property float $available_balance 未结算余额。
+ * @property float $transfer_balance 未结算余额。
  * @property float $balance 可提现余额，可用于消费、提现、转账等。
  * @property integer $avatar
  * @property boolean $identified 是否经过实名认证
