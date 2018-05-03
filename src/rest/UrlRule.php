@@ -27,6 +27,7 @@ class UrlRule extends \yii\rest\UrlRule
 
     /**
      * {@inheritdoc}
+     * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {

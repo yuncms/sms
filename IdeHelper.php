@@ -7,13 +7,8 @@
 
 /**
  * Yii bootstrap file.
- * Used for enhanced IDE code autocompletion.
+ * Used for enhanced IDE code auto completion.
  *
- * @property-read xutl\aliyun\Aliyun $aliyun The aliyun component. This property is read-only. Extended component.
- * @property-read xutl\wechat\Wechat $wechat The redis component. This property is read-only. Extended component.
- * @property-read xutl\tim\Tim $im The im component. This property is read-only. Extended component.
- * @property-read xutl\qcloud\QCloud $qcloud The qcloud component. This property is read-only. Extended component.
- * @property-read xutl\dingtalk\DingTalk $dingTalk The green component. This property is read-only. Extended component.
  */
 class Yii extends \yii\BaseYii
 {

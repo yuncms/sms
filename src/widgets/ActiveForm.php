@@ -8,6 +8,7 @@
 namespace yuncms\widgets;
 
 use yii\base\Model;
+use yuncms\widgets\ActiveField;
 
 /**
  * Class ActiveForm
@@ -21,7 +22,7 @@ class ActiveForm extends \yii\bootstrap\ActiveForm
      * @var string the default field class name when calling [[field()]] to create a new field.
      * @see fieldConfig
      */
-    public $fieldClass = 'yuncms\widgets\ActiveField';
+    public $fieldClass = ActiveField::class;
 
     /**
      * @param Model $model the data model.

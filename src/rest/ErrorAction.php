@@ -41,6 +41,10 @@ use yii\web\NotFoundHttpException;
  * ```
  *
  * @author Tongle Xu <xutongle@gmail.com>
+ *
+ * @property mixed $exceptionCode
+ * @property string $exceptionMessage
+ * @property string $exceptionName
  */
 class ErrorAction extends Action
 {
