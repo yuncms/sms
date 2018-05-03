@@ -307,6 +307,48 @@ class User extends BaseUser
     }
 
     /**
+     * 增加或减少金额
+     * @param float $amount
+     * @return bool
+     * @throws \yii\db\Exception
+     */
+    public function increaseBalance($amount)
+    {
+        $this->balance = bcadd($this->balance, $amount);
+        if ($this->balance < 0) {//计算后如果余额小于0，那么结果不合法。
+            return false;
+        }
+        $transaction = static::getDb()->beginTransaction();//开始事务
+        try {
+            if ($this->save()) {
+                $transaction->commit();
+                return true;
+            } else {
+                $transaction->rollBack();
+                return false;
+            }
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            Yii::error($e->getMessage(), __METHOD__);
+        } catch (\yii\db\Exception $e) {
+            $transaction->rollBack();
+            Yii::error($e->getMessage(), __METHOD__);
+        }
+        return false;
+    }
+
+    /**
+     * 减少金额
+     * @param float $amount
+     * @return bool
+     * @throws \yii\db\Exception
+     */
+    public function decreaseBalance($amount)
+    {
+        return $this->increaseBalance(-$amount);
+    }
+
+    /**
      * 增加或减少结算金额
      * @param float $amount
      * @return bool
