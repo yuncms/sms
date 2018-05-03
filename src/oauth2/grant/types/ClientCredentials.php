@@ -21,6 +21,8 @@ use yuncms\oauth2\models\OAuth2RefreshToken;
  * response_type=client_credentials&client_id=100000&client_secret=A3dA3ddj3wdA3ddj3wAA3ddj3w3ddj3wj3w
  * ```
  * @author Xutl
+ *
+ * @property null|\yuncms\user\models\User $user
  */
 class ClientCredentials extends GrantType
 {

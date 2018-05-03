@@ -125,7 +125,7 @@ class SecurityController extends Controller
     {
         $account = UserSocialAccount::find()->byClient($client)->one();
         if ($account === null) {
-            $account = UserSocialAccount::create($client);
+            $account = UserSocialAccount::createClient($client);
         }
         if ($account->user instanceof User) {
             if ($account->user->isBlocked) {

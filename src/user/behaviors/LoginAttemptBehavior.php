@@ -15,6 +15,8 @@ use yuncms\user\models\UserLoginAttempt;
 /**
  * Class LoginAttemptBehavior
  *
+ * @property string $key
+ * @property \yuncms\user\models\UserLoginAttempt $userLoginAttempt
  * @property Model $owner
  *
  * @author Tongle Xu <xutongle@gmail.com>
@@ -84,6 +86,7 @@ class LoginAttemptBehavior extends Behavior
 
     /**
      * @inheritdoc
+     * @throws \Exception
      */
     public function init()
     {

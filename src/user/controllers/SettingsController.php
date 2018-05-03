@@ -100,7 +100,6 @@ class SettingsController extends Controller
     /**
      * Displays page where user can update account settings (username, email or password).
      * @return array|string|Response
-     * @throws \yii\base\InvalidConfigException
      */
     public function actionAccount()
     {
