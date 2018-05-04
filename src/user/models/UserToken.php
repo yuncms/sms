@@ -77,14 +77,14 @@ class UserToken extends ActiveRecord
             case self::TYPE_CONFIRMATION:
             case self::TYPE_CONFIRM_NEW_EMAIL:
             case self::TYPE_CONFIRM_OLD_EMAIL:
-                $expirationTime = $this->getSetting('confirmWithin');
+                $expirationTime =Yii::$app->settings->get('confirmWithin','user');
                 break;
             case self::TYPE_CONFIRM_NEW_MOBILE:
             case self::TYPE_CONFIRM_OLD_MOBILE:
-                $expirationTime = $this->getSetting('confirmWithin');
+                $expirationTime = Yii::$app->settings->get('confirmWithin','user');
                 break;
             case self::TYPE_RECOVERY:
-                $expirationTime = $this->getSetting('recoverWithin');
+                $expirationTime = Yii::$app->settings->get('recoverWithin','user');
                 break;
             default:
                 throw new \RuntimeException();
