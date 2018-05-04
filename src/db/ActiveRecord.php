@@ -97,10 +97,8 @@ class ActiveRecord extends \yii\db\ActiveRecord
         $model = new static();
         $model->loadDefaultValues();
         $model->load($attributes, '');
-        if ($model->save($runValidation)) {
-            return $model;
-        }
-        return null;
+        $model->save($runValidation);
+        return $model;
     }
 
     /**
