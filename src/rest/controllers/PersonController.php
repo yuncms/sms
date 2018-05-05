@@ -113,7 +113,8 @@ class PersonController extends Controller
             'mobile' => $user->mobile,
             'mobile_confirmed_at' => $user->mobile_confirmed_at,
             'faceUrl' => $user->faceUrl,
-            'available_balance' => $user->available_balance,
+            'identified' => $user->identified,
+            'transfer_balance' => $user->transfer_balance,
             'balance' => $user->balance
         ];
     }
