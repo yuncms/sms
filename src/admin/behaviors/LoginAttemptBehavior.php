@@ -85,6 +85,7 @@ class LoginAttemptBehavior extends Behavior
 
     /**
      * @inheritdoc
+     * @throws Exception
      */
     public function init()
     {

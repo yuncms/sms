@@ -30,7 +30,7 @@ class I18N extends \yii\i18n\I18N
 
     public function initFrameworkTranslation()
     {
-        if (!isset($this->translations['yuncms']) && !isset($this->translations['yuncms*'])) {
+        if (!isset($this->translations['yuncms']) && !isset($this->translations['yuncms'])) {
             $this->translations['yuncms'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
                 'sourceLanguage' => 'en-US',

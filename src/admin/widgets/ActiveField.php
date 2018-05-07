@@ -8,8 +8,6 @@
 namespace yuncms\admin\widgets;
 
 use Yii;
-use xutl\plupload\Plupload;
-use yuncms\helpers\Html;
 use yuncms\assets\BootstrapFileStyleAsset;
 
 /**
@@ -54,6 +52,20 @@ class ActiveField extends \yii\bootstrap\ActiveField
         ], $options);
     }
 
+    /**
+     * 显示布尔选项
+     * @param array $options
+     * @return \yii\bootstrap\ActiveField|ActiveField
+     */
+    public function status($options = [])
+    {
+        return parent::radioList([
+            [
+                '0' => Yii::t('yuncms', 'Active'),
+                '1' => Yii::t('yuncms', 'Disable')
+            ]
+        ], $options);
+    }
 
     /**
      * 显示下拉
