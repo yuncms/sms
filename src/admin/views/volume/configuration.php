@@ -7,8 +7,8 @@ use yuncms\admin\widgets\Alert;
 use yuncms\admin\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model yuncms\transaction\models\SettingsModel */
-/* @var $channel yuncms\transaction\models\TransactionChannel */
+/* @var $model yuncms\admin\models\VolumeSettingsModel */
+/* @var $volume yuncms\models\Volume */
 $this->title = Yii::t('yuncms', 'Configuration Volume');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('yuncms', 'Manage Volume'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $this->render('configuration/' . $channel->identity, [
                 'form' => $form,
                 'model' => $model,
-                'channel' => $channel
+                'volume' => $volume
             ]) ?>
 
             <?= $form->field($model, 'timeout')->textInput() ?>
