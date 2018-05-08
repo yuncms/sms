@@ -20,7 +20,7 @@ use yuncms\base\RequestTrait;
 class Request extends \yii\web\Request
 {
     use RequestTrait;
-
+    
     /**
      * Returns whether this is an wechat request.
      * @return bool whether this is an wechat request.

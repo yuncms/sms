@@ -26,6 +26,7 @@ class ColorValidator extends RegularExpressionValidator
 
     /**
      * @inheritdoc
+     * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {

@@ -11,6 +11,9 @@ namespace yuncms\web;
  * Class Response
  * @package yuncms\web
  * @author Tongle Xu <xutongle@gmail.com>
+ *
+ * @property string $lastModifiedHeader
+ * @property null|string $contentType
  */
 class Response extends \yii\web\Response
 {

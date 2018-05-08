@@ -20,6 +20,9 @@ use League\Flysystem\AdapterInterface;
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
+ *
+ * @property string $rename
+ * @property string $mimeType
  */
 class UploadedFile extends \yii\web\UploadedFile
 {
