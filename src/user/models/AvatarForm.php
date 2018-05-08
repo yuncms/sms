@@ -73,11 +73,8 @@ class AvatarForm extends Model
      * 保存头像
      *
      * @return boolean
-     * @throws \League\Flysystem\FileExistsException
-     * @throws \League\Flysystem\FileNotFoundException
      * @throws \yii\base\ErrorException
      * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
      */
     public function save()
     {

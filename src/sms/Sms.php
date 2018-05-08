@@ -21,6 +21,9 @@ use yuncms\sms\strategies\OrderStrategy;
  *
  * @see https://github.com/overtrue/easy-sms
  * @since 3.0
+ *
+ * @property string $
+ * @property array $gateways
  */
 class Sms extends Component
 {

@@ -19,8 +19,7 @@ class VolumeSearch extends Volume
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['pub'], 'boolean'],
+            [['id', 'pub', 'status'], 'integer'],
             [['identity', 'name', 'className', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -68,9 +67,9 @@ class VolumeSearch extends Volume
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'identity' => $this->identity,
             'pub' => $this->pub,
             'status' => $this->status,
-            'identity' => $this->identity,
         ]);
 
         if ($this->created_at !== null) {

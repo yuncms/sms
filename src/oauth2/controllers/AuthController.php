@@ -108,7 +108,7 @@ class AuthController extends Controller
     {
         $account = UserSocialAccount::find()->byClient($client)->one();
         if ($account === null) {
-            $account = UserSocialAccount::create($client);
+            $account = UserSocialAccount::createClient($client);
         }
         if ($account->user instanceof Yii::$app->user->id) {
             if ($account->user->isBlocked) {

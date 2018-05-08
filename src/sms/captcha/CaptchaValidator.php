@@ -44,6 +44,7 @@ class CaptchaValidator extends Validator
 
     /**
      * @inheritdoc
+     * @throws InvalidConfigException
      */
     protected function validateValue($value)
     {
@@ -55,6 +56,7 @@ class CaptchaValidator extends Validator
 
     /**
      * @inheritdoc
+     * @throws InvalidConfigException
      */
     public function validateMobile($value)
     {
@@ -83,6 +85,7 @@ class CaptchaValidator extends Validator
 
     /**
      * @inheritdoc
+     * @throws InvalidConfigException
      */
     public function clientValidateAttribute($object, $attribute, $view)
     {

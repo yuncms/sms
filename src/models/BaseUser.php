@@ -42,6 +42,7 @@ use yuncms\user\models\User;
  * @property string $password
  * @property-read boolean $isBlocked 账户是否锁定
  * @property-read bool $isMobileConfirmed 是否已经手机激活
+ * @property string $authKey
  * @property-read bool $isEmailConfirmed 是否已经邮箱激活
  *
  */

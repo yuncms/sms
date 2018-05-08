@@ -171,5 +171,6 @@ class Message implements MessageInterface
         if (property_exists($this, $property)) {
             return $this->$property;
         }
+        return null;
     }
 }

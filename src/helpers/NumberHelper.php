@@ -42,7 +42,7 @@ class NumberHelper
 
 
     /**
-     * Returns the uppercase alphabetic version of a number
+     * 返回数字的大写字母版本
      *
      * @param int $num The number
      *
@@ -64,7 +64,7 @@ class NumberHelper
     }
 
     /**
-     * Returns the lowercase alphabetic version of a number
+     * 返回数字的小写字母版本
      *
      * @param int $num The number
      *
@@ -78,7 +78,7 @@ class NumberHelper
     }
 
     /**
-     * Returns the uppercase roman numeral version of a number
+     * 返回数字的大写罗马数字版本
      *
      * @param int $num The number
      *
@@ -115,7 +115,7 @@ class NumberHelper
     }
 
     /**
-     * Returns the lowercase roman numeral version of a number
+     * 返回数字的小写罗马数字版本
      *
      * @param int $num The number
      *
@@ -129,10 +129,9 @@ class NumberHelper
     }
 
     /**
-     * Returns the numeric value of a variable.
+     * 返回变量的数值。
      *
-     * If the variable is an object with a __toString() method, the numeric value of its string representation will be
-     * returned.
+     * 如果变量是带有 __toString（）方法的对象，则将返回其字符串表示形式的数值。
      *
      * @param mixed $var
      *

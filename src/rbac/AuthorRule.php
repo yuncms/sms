@@ -7,7 +7,6 @@
 
 namespace yuncms\rbac;
 
-
 use yii\rbac\Item;
 use yii\rbac\Rule;
 

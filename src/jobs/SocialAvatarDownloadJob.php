@@ -17,6 +17,9 @@ use yuncms\user\models\User;
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 1.0
+ *
+ * @property int $ttr
+ * @property User $user
  */
 class SocialAvatarDownloadJob extends BaseObject implements RetryableJobInterface
 {

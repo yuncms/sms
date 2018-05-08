@@ -17,6 +17,8 @@ use yuncms\sms\exceptions\GatewayErrorException;
  * Class AlidayuGateway.
  *
  * @see https://yun.tim.qq.com/v5/tlssmssvr/sendsms?sdkappid=xxxxx&random=xxxx
+ *
+ * @property string $name
  */
 class QcloudGateway extends Gateway
 {

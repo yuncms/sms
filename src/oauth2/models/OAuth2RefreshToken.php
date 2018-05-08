@@ -22,7 +22,7 @@ use yuncms\user\models\User;
  * @property integer $expires
  * @property string $scope
  *
- * @property Client $client
+ * @property OAuth2Client $client
  * @property User $user
  */
 class OAuth2RefreshToken extends ActiveRecord

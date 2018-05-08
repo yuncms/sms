@@ -22,6 +22,7 @@ use yuncms\validators\JsonValidator;
  * @property string $url
  * @property bool $status
  * @property integer $created_at
+ * @property \yuncms\admin\models\VolumeSettingsModel $settingsModel
  * @property integer $updated_at
  */
 class Volume extends ActiveRecord

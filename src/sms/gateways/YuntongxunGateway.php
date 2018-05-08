@@ -17,6 +17,8 @@ use yuncms\sms\exceptions\GatewayErrorException;
  *
  * @see http://www.yuntongxun.com/doc/rest/sms/3_2_2_2.html
  * @since 3.0
+ *
+ * @property string $name
  */
 class YuntongxunGateway extends Gateway
 {

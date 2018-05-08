@@ -18,6 +18,9 @@ use yuncms\sms\exceptions\NoGatewayAvailableException;
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
+ *
+ * @property int $ttr
+ * @property array $templateParam
  */
 class CaptchaJob extends BaseObject implements RetryableJobInterface
 {

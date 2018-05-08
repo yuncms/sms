@@ -18,6 +18,7 @@ use yuncms\helpers\CronParseHelper;
  * @property string $last_rundate
  * @property string $next_rundate
  * @property string $exec_memory
+ * @property mixed $nextRunDate
  * @property string $exec_time
  */
 class Task extends ActiveRecord

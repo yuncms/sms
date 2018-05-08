@@ -7,7 +7,6 @@
 
 namespace yuncms\sms;
 
-
 use yii\base\InvalidArgumentException;
 use yuncms\sms\contracts\MessageInterface;
 use yuncms\sms\exceptions\GatewayErrorException;
