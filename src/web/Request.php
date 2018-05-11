@@ -12,6 +12,7 @@ use yuncms\base\RequestTrait;
 /**
  * Class Request
  * @property bool $isWeChat Whether this is an wechat request. This property is read-only.
+ * @property void $file
  * @property bool $isAliPay Whether this is an alipay request. This property is read-only.
  *
  * @package yuncms\web
@@ -20,6 +21,8 @@ use yuncms\base\RequestTrait;
 class Request extends \yii\web\Request
 {
     use RequestTrait;
+
+    public $files;
 
     /**
      * Returns whether this is an wechat request.
@@ -39,5 +42,10 @@ class Request extends \yii\web\Request
     {
         $userAgent = $this->headers->get('User-Agent', '');
         return stripos($userAgent, 'Alipay') !== false;
+    }
+
+    public function getFile()
+    {
+
     }
 }

@@ -57,16 +57,18 @@ return [
         ],
         'filesystem' => [
             'class' => yuncms\filesystem\FilesystemManager::class,
+            'default' => 'local',
+            'cloud' => '',
             'filesystems' => [
                 'local' => [//本地私密存储
-                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
+                    'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
                 ],
                 'avatar' => [//头像
-                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
+                    'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
                     'url' => '@web/avatar'
                 ],
                 'attachment' => [//附件上传
-                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
+                    'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
                     'url' => '@web/uploadfiles'
                 ],
             ],

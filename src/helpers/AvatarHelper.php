@@ -13,7 +13,7 @@ use yii\base\Exception;
 use yii\helpers\Url;
 use yii\imagine\Image;
 use yuncms\assets\UserAsset;
-use yuncms\filesystem\Adapter;
+use yuncms\filesystem\FilesystemAdapter;
 use yuncms\user\models\User;
 use League\Flysystem\AdapterInterface;
 
@@ -141,7 +141,7 @@ class AvatarHelper
 
     /**
      * 获取头像存储卷
-     * @return Adapter
+     * @return FilesystemAdapter
      * @throws \yii\base\InvalidConfigException
      */
     public static function getVolume()

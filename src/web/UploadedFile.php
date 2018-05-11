@@ -10,7 +10,7 @@ namespace yuncms\web;
 use Yii;
 use yii\httpclient\Client;
 use yii\validators\UrlValidator;
-use yuncms\filesystem\Adapter;
+use yuncms\filesystem\FilesystemAdapter;
 use yuncms\helpers\FileHelper;
 use yuncms\models\Attachment;
 use League\Flysystem\AdapterInterface;
@@ -154,7 +154,7 @@ class UploadedFile extends \yii\web\UploadedFile
 
     /**
      * 获取存储卷
-     * @return Adapter
+     * @return FilesystemAdapter
      * @throws \yii\base\InvalidConfigException
      */
     public static function getVolume()

@@ -11,7 +11,7 @@ use Yii;
 use yii\base\BaseObject;
 use yii\queue\RetryableJobInterface;
 use League\Flysystem\Filesystem;
-use yuncms\filesystem\Adapter;
+use yuncms\filesystem\FilesystemAdapter;
 
 /**
  * Class AttachmentDeleteJob.
@@ -36,7 +36,7 @@ class AttachmentDeleteJob extends BaseObject implements RetryableJobInterface
 
     /**
      * 获取头像存储卷
-     * @return Adapter|Filesystem
+     * @return FilesystemAdapter|Filesystem
      * @throws \yii\base\InvalidConfigException
      */
     public static function getVolume()

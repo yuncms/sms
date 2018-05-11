@@ -7,7 +7,7 @@ use yii\behaviors\TimestampBehavior;
 use yuncms\admin\models\VolumeSettingsModel;
 use yuncms\behaviors\JsonBehavior;
 use yuncms\db\ActiveRecord;
-use yuncms\filesystem\Adapter;
+use yuncms\filesystem\FilesystemAdapter;
 use yuncms\validators\JsonValidator;
 
 /**
@@ -108,7 +108,7 @@ class Volume extends ActiveRecord
      */
     public function getSettingsModel()
     {
-        /** @var Adapter $volumeClass */
+        /** @var FilesystemAdapter $volumeClass */
         $volumeClass = $this->className;
         /** @var VolumeSettingsModel $model */
         $model = $volumeClass::getSettingsModel();

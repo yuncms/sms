@@ -20,6 +20,9 @@ $config = [
         ],
         'request' => [
             'class' => yuncms\web\Request::class,
+            'enableCookieValidation' => false,
+            'enableCsrfCookie' => false,
+            'enableCsrfValidation' => false,
             'parsers' => [
                 'multipart/form-data' => yii\web\MultipartFormDataParser::class,
                 'application/json' => yii\web\JsonParser::class,
