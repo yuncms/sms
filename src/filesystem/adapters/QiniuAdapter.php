@@ -5,7 +5,6 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\filesystem\adapters;
 
 use Yii;
@@ -13,19 +12,17 @@ use yii\base\InvalidConfigException;
 use yuncms\filesystem\FilesystemAdapter;
 
 /**
- * Class OSSAdapter
+ * Class QiniuAdapter
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class OssFilesystemAdapter extends FilesystemAdapter
+class QiniuAdapter extends FilesystemAdapter
 {
     public $accessId;
     public $accessSecret;
     public $bucket;
-    public $endpoint;
-    public $timeout = 3600;
-    public $connectTimeout = 10;
+    public $domain;
 
     /**
      * @inheritdoc
@@ -43,34 +40,18 @@ class OssFilesystemAdapter extends FilesystemAdapter
         if ($this->bucket === null) {
             throw new InvalidConfigException('The "bucket" property must be set.');
         }
-        if ($this->endpoint === null) {
-            throw new InvalidConfigException('The "endpoint" property must be set.');
+        if ($this->domain === null) {
+            throw new InvalidConfigException('The "domain" property must be set.');
         }
         parent::init();
     }
 
     /**
-     * @inheritdoc
-     */
-    public static function displayName(): string
-    {
-        return Yii::t('yuncms', 'Aliyun OSS');
-    }
-
-    /**
-     * @return \Xxtime\Flysystem\Aliyun\OssAdapter
-     * @throws \Exception
+     * 准备适配器
+     * @return \Overtrue\Flysystem\Qiniu\QiniuAdapter
      */
     protected function createDriver()
     {
-        return new \Xxtime\Flysystem\Aliyun\OssAdapter([
-            'access_id' => $this->accessId,
-            'access_secret' => $this->accessSecret,
-            'bucket' => $this->bucket,
-            'endpoint' => $this->endpoint,
-            'timeout' => $this->timeout,
-            'connectTimeout' => $this->connectTimeout,
-        ]);
+        return new \Overtrue\Flysystem\Qiniu\QiniuAdapter($this->accessId, $this->accessSecret, $this->bucket, $this->domain);
     }
-
 }

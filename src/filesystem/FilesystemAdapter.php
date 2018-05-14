@@ -4,12 +4,8 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
-
 namespace yuncms\filesystem;
 
-use League\Flysystem\FileExistsException;
-use League\Flysystem\PluginInterface;
-use League\Flysystem\RootViolationException;
 use RuntimeException;
 use yii\base\InvalidArgumentException;
 use yii\di\Instance;
@@ -20,8 +16,8 @@ use League\Flysystem\AdapterInterface;
 use League\Flysystem\Cached\CachedAdapter;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem as Flysystem;
-use yuncms\filesystem\contracts\CloudFilesystemInterface;
-use yuncms\filesystem\contracts\FilesystemInterface;
+use yuncms\filesystem\contracts\CloudFilesystem;
+use yuncms\filesystem\contracts\Filesystem;
 use yuncms\filesystem\exceptions\FileNotFoundException as ContractFileNotFoundException;
 use yuncms\web\UploadedFile;
 
@@ -33,7 +29,7 @@ use yuncms\web\UploadedFile;
  * @property string $visibility
  * @property string|false $rootUrl
  */
-abstract class FilesystemAdapter extends Component implements FilesystemInterface, CloudFilesystemInterface
+abstract class FilesystemAdapter extends Component implements Filesystem, CloudFilesystem
 {
     /**
      * The Flysystem filesystem implementation.
@@ -190,9 +186,9 @@ abstract class FilesystemAdapter extends Component implements FilesystemInterfac
     public function getVisibility($path)
     {
         if ($this->driver->getVisibility($path) == AdapterInterface::VISIBILITY_PUBLIC) {
-            return FilesystemInterface::VISIBILITY_PUBLIC;
+            return Filesystem::VISIBILITY_PUBLIC;
         }
-        return FilesystemInterface::VISIBILITY_PRIVATE;
+        return Filesystem::VISIBILITY_PRIVATE;
     }
 
     /**
@@ -445,9 +441,9 @@ abstract class FilesystemAdapter extends Component implements FilesystemInterfac
             return;
         }
         switch ($visibility) {
-            case FilesystemInterface::VISIBILITY_PUBLIC:
+            case Filesystem::VISIBILITY_PUBLIC:
                 return AdapterInterface::VISIBILITY_PUBLIC;
-            case FilesystemInterface::VISIBILITY_PRIVATE:
+            case Filesystem::VISIBILITY_PRIVATE:
                 return AdapterInterface::VISIBILITY_PRIVATE;
         }
 

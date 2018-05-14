@@ -21,7 +21,7 @@ use yuncms\helpers\FileHelper;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class LocalFilesystemAdapter extends FilesystemAdapter
+class LocalAdapter extends FilesystemAdapter
 {
     /**
      * @var string

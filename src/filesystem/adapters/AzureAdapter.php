@@ -10,6 +10,7 @@ namespace yuncms\filesystem\adapters;
 use Yii;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\FilesystemAdapter;
+use League\Flysystem\AdapterInterface;
 use MicrosoftAzure\Storage\Common\ServicesBuilder;
 
 /**
@@ -18,7 +19,7 @@ use MicrosoftAzure\Storage\Common\ServicesBuilder;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class AzureFilesystemAdapter extends FilesystemAdapter
+class AzureAdapter extends FilesystemAdapter
 {
     /**
      * @var string
@@ -62,7 +63,7 @@ class AzureFilesystemAdapter extends FilesystemAdapter
     }
 
     /**
-     * @return \League\Flysystem\Azure\AzureAdapter
+     * @return AdapterInterface
      */
     protected function createDriver()
     {

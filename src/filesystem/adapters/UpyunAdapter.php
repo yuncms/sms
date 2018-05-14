@@ -12,13 +12,14 @@ use yii\base\InvalidConfigException;
 use yuncms\filesystem\FilesystemAdapter;
 
 /**
- * Class QiniuAdapter
+ * 又拍云接口
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class QiniuFilesystemAdapter extends FilesystemAdapter
+class UpyunAdapter extends FilesystemAdapter
 {
+
     public $accessId;
     public $accessSecret;
     public $bucket;
@@ -51,15 +52,15 @@ class QiniuFilesystemAdapter extends FilesystemAdapter
      */
     public static function displayName(): string
     {
-        return Yii::t('yuncms', 'Qiniu');
+        return Yii::t('yuncms', 'Upyun');
     }
 
     /**
      * 准备适配器
-     * @return \Overtrue\Flysystem\Qiniu\QiniuAdapter
+     * @return \JellyBool\Flysystem\Upyun\UpyunAdapter
      */
     protected function createDriver()
     {
-        return new \Overtrue\Flysystem\Qiniu\QiniuAdapter($this->accessId, $this->accessSecret, $this->bucket, $this->domain);
+        return new \JellyBool\Flysystem\Upyun\UpyunAdapter($this->accessId, $this->accessSecret, $this->bucket, $this->domain);
     }
 }

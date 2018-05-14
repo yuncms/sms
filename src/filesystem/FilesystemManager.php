@@ -8,13 +8,22 @@
 namespace yuncms\filesystem;
 
 use Closure;
-use League\Flysystem\AdapterInterface;
-use League\Flysystem\Cached\CachedAdapter;
 use Yii;
 use yii\base\Component;
+use yii\caching\Cache as YiiCache;
+use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\di\Instance;
-use yuncms\helpers\ArrayHelper;
+use yuncms\filesystem\contracts\Filesystem;
+use League\Flysystem\AdapterInterface;
+use League\Flysystem\FilesystemInterface;
+use League\Flysystem\Cached\CachedAdapter;
+use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\Adapter\Ftp as FtpAdapter;
+use League\Flysystem\Rackspace\RackspaceAdapter;
+use League\Flysystem\Adapter\Local as LocalAdapter;
+use League\Flysystem\AwsS3v3\AwsS3Adapter as S3Adapter;
+use League\Flysystem\Cached\Storage\Memory as MemoryStore;
 
 /**
  * Class Storage
@@ -41,63 +50,98 @@ class FilesystemManager extends Component
      */
     public $cloud = 'local';
 
-
     /**
-     * @var array filesystem parameters (name => value).
+     * @var string|YiiCache
      */
-    public $params = [];
+    public $cache = 'cache';
 
     /**
-     * @var array shared disk instances indexed by their IDs
+     * @var string
      */
-    private $_filesystems = [];
+    public $cacheKey = 'filesystem';
 
     /**
-     * @var array filesystem definitions indexed by their IDs
+     * @var integer
      */
-    private $_definitions = [];
+    public $cacheDuration = 0;
 
     /**
-     * 获取磁盘
-     * @param string|null $filesystem
-     * @return FilesystemAdapter
+     * The array of resolved filesystem drivers.
+     *
+     * @var array
+     */
+    protected $disks = [];
+
+    /**
+     * The registered custom driver creators.
+     *
+     * @var array
+     */
+    protected $customCreators = [];
+
+    /**
+     * Attempt to get the disk from the local cache.
+     *
+     * @param  string $name
+     * @return Filesystem
+     */
+    protected function get($name)
+    {
+        return $this->disks[$name] ?? $this->resolve($name);
+    }
+
+    /**
+     * Resolve the given disk.
+     *
+     * @param  string $name
+     * @return Filesystem
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function resolve($name)
+    {
+        $config = $this->disks[$name];
+        $driverMethod = 'create' . ucfirst($config['adapter']) . 'Adapter';
+        if (method_exists($this, $driverMethod)) {
+            return $this->{$driverMethod}($config);
+        } else {
+            throw new InvalidArgumentException("Adapter [{$config['adapter']}] is not supported.");
+        }
+    }
+
+    /**
+     * Adapt the filesystem implementation.
+     *
+     * @param  \League\Flysystem\FilesystemInterface  $filesystem
+     * @return Filesystem
+     */
+    protected function adapt(FilesystemInterface $filesystem)
+    {
+        return new FilesystemAdapter($filesystem);
+    }
+
+    /**
+     * Create a cache store instance.
+     *
+     * @param  mixed $config
+     * @return \League\Flysystem\Cached\CacheInterface
+     *
+     * @throws \InvalidArgumentException
      * @throws InvalidConfigException
      */
-    public function disk($filesystem = null)
+    protected function createCacheStore($config)
     {
-        $filesystem = !is_null($filesystem) ? $filesystem : $this->default;
-        return $this->get($filesystem);
-    }
-
-    /**
-     * Get a default cloud filesystem instance.
-     *
-     * @return \Illuminate\Contracts\Filesystem\Filesystem
-     */
-    public function cloud()
-    {
-        $name = $this->getDefaultCloudDriver();
-        return $this->disks[$name] = $this->get($name);
-    }
-
-    /**
-     * Get the default driver name.
-     *
-     * @return string
-     */
-    public function getDefaultDriver()
-    {
-        return $this->default;
-    }
-
-    /**
-     * Get the default cloud driver name.
-     *
-     * @return string
-     */
-    public function getDefaultCloudDriver()
-    {
-        return $this->cloud;
+        if ($config === true) {
+            return new MemoryStore;
+        }
+        if ($this->cache !== null) {
+            $this->cache = Instance::ensure($config, YiiCache::class);
+            if (!$this->cache instanceof YiiCache) {
+                throw new InvalidConfigException('The "cache" property must be an instance of \yii\caching\Cache subclasses.');
+            }
+            return new Cache($this->cache, $this->cacheKey, $this->cacheDuration);
+        }
+        return new MemoryStore;
     }
 
     /**
@@ -106,50 +150,49 @@ class FilesystemManager extends Component
      * @param  \League\Flysystem\AdapterInterface $adapter
      * @param  array $config
      * @return \League\Flysystem\FilesystemInterface
-     * @throws InvalidConfigException
      */
     protected function createFlysystem(AdapterInterface $adapter, array $config)
     {
-        if ($this->cache !== null) {
-            $this->cache = Instance::ensure($this->cache, YiiCache::class);
-            if (!$this->cache instanceof YiiCache) {
-                throw new InvalidConfigException('The "cache" property must be an instance of \yii\caching\Cache subclasses.');
-            }
-            $adapter = new CachedAdapter($adapter, new Cache($this->cache, $this->cacheKey, $this->cacheDuration));
-        }
 
-        $cache = ArrayHelper::pull($config, 'cache');
 
-        $config = ArrayHelper::only($config, ['visibility', 'disable_asserts', 'url']);
+        //$config = Arr::only($config, ['visibility', 'disable_asserts', 'url']);
 
-        if ($cache) {
-            $adapter = new CachedAdapter($adapter, $this->createCacheStore($cache));
+        if (isset($config['cache'])) {
+            $adapter = new CachedAdapter($adapter, $this->createCacheStore($config['cache']));
         }
 
         return new Flysystem($adapter, count($config) > 0 ? $config : null);
     }
 
     /**
-     * Create a cache store instance.
+     * Create an instance of the local driver.
      *
-     * @param  mixed  $config
-     * @return \League\Flysystem\Cached\CacheInterface
-     *
-     * @throws \InvalidArgumentException
+     * @param  array $config
+     * @return FilesystemInterface
      */
-    protected function createCacheStore($config)
+    public function createLocalDriver(array $config)
     {
-        if ($config === true) {
-            return new MemoryStore;
-        }
+        $permissions = $config['permissions'] ?? [];
 
-        return new Cache(
-            $this->app['cache']->store($config['store']),
-            $config['prefix'] ?? 'flysystem',
-            $config['expire'] ?? null
-        );
+        $links = ($config['links'] ?? null) === 'skip'
+            ? LocalAdapter::SKIP_LINKS
+            : LocalAdapter::DISALLOW_LINKS;
+
+        return $this->adapt($this->createFlysystem(new LocalAdapter(
+            $config['root'], LOCK_EX, $links, $permissions
+        ), $config));
     }
 
-    
-
+    /**
+     * Create an instance of the ftp driver.
+     *
+     * @param  array $config
+     * @return Filesystem
+     */
+    public function createFtpDriver(array $config)
+    {
+        return $this->adapt($this->createFlysystem(
+            new FtpAdapter($config), $config
+        ));
+    }
 }

@@ -18,7 +18,7 @@ use League\Flysystem\Adapter\Ftp;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class FtpFilesystemAdapter extends FilesystemAdapter
+class FtpAdapter extends FilesystemAdapter
 {
     /**
      * @var string

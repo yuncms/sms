@@ -61,21 +61,21 @@ return [
             'cloud' => 'oss',
             'filesystems' => [
                 'local' => [//本地存储
-                    'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
+                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
                 ],
                 'public' => [//公开存储
-                    'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
+                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
                 ],
                 'cloud' => [//云存储
-                    'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
+                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
                 ],
 
                 'avatar' => [//头像
-                    'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
+                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
                     'url' => '@web/avatar'
                 ],
                 'attachment' => [//附件上传
-                    'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
+                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
                     'url' => '@web/uploadfiles'
                 ],
             ],

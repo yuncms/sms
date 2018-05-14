@@ -10,6 +10,7 @@ namespace yuncms\filesystem\adapters;
 use Yii;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\FilesystemAdapter;
+use League\Flysystem\AdapterInterface;
 use Aws\S3\S3Client;
 
 /**
@@ -18,7 +19,7 @@ use Aws\S3\S3Client;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class AwsS3FilesystemAdapter extends FilesystemAdapter
+class AwsS3Adapter extends FilesystemAdapter
 {
     /**
      * @var string
@@ -74,15 +75,7 @@ class AwsS3FilesystemAdapter extends FilesystemAdapter
     }
 
     /**
-     * @inheritdoc
-     */
-    public static function displayName(): string
-    {
-        return Yii::t('yuncms', 'Aws S3');
-    }
-
-    /**
-     * @return \League\Flysystem\AwsS3v3\AwsS3Adapter
+     * @return AdapterInterface
      */
     protected function createDriver()
     {
@@ -92,19 +85,14 @@ class AwsS3FilesystemAdapter extends FilesystemAdapter
                 'secret' => $this->secret
             ]
         ];
-
         if ($this->region !== null) {
             $config['region'] = $this->region;
         }
-
         if ($this->baseUrl !== null) {
             $config['base_url'] = $this->baseUrl;
         }
-
         $config['version'] = (($this->version !== null) ? $this->version : 'latest');
-
         $client = new S3Client($config);
-
         return new \League\Flysystem\AwsS3v3\AwsS3Adapter($client, $this->bucket, $this->prefix, $this->options);
     }
 }

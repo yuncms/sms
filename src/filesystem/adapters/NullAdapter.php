@@ -17,7 +17,7 @@ use yuncms\filesystem\FilesystemAdapter;
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
  */
-class NullFilesystemAdapter extends FilesystemAdapter
+class NullAdapter extends FilesystemAdapter
 {
 
     /**

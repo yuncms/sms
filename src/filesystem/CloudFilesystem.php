@@ -11,7 +11,7 @@ namespace yuncms\filesystem\contracts;
  * Interface CloudFilesystemInterface
  * @package yuncms\filesystem\contracts
  */
-interface CloudFilesystemInterface
+interface CloudFilesystem
 {
     /**
      * Get the URL for the file at the given path.

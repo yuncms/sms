@@ -11,7 +11,7 @@ namespace yuncms\filesystem\contracts;
  * Interface FilesystemInterface
  * @package yuncms\filesystem\contracts
  */
-interface FilesystemInterface
+interface Filesystem
 {
     /**
      * The public visibility setting.

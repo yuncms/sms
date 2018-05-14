@@ -10,13 +10,14 @@ namespace yuncms\filesystem\adapters;
 use Yii;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\FilesystemAdapter;
+use League\Flysystem\AdapterInterface;
 use Qcloud\Cos\Client;
 
 /**
  * Class CosV5FilesystemAdapter
  * @package yuncms\filesystem\adapters
  */
-class CosFilesystemAdapter extends FilesystemAdapter
+class CosAdapter extends FilesystemAdapter
 {
     public $appId;
     public $accessId;
@@ -58,16 +59,8 @@ class CosFilesystemAdapter extends FilesystemAdapter
     }
 
     /**
-     * @inheritdoc
-     */
-    public static function displayName(): string
-    {
-        return Yii::t('yuncms', 'QCloud COS');
-    }
-
-    /**
      * 准备适配器
-     * @return \Freyo\Flysystem\QcloudCOSv5\Adapter
+     * @return AdapterInterface
      */
     protected function createDriver()
     {
