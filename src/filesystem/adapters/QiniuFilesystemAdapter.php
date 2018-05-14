@@ -58,7 +58,7 @@ class QiniuFilesystemAdapter extends FilesystemAdapter
      * 准备适配器
      * @return \Overtrue\Flysystem\Qiniu\QiniuAdapter
      */
-    protected function prepareAdapter()
+    protected function createDriver()
     {
         return new \Overtrue\Flysystem\Qiniu\QiniuAdapter($this->accessId, $this->accessSecret, $this->bucket, $this->domain);
     }

@@ -84,7 +84,7 @@ class AwsS3FilesystemAdapter extends FilesystemAdapter
     /**
      * @return \League\Flysystem\AwsS3v3\AwsS3Adapter
      */
-    protected function prepareAdapter()
+    protected function createDriver()
     {
         $config = [
             'credentials' => [

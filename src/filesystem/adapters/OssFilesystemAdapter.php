@@ -61,7 +61,7 @@ class OssFilesystemAdapter extends FilesystemAdapter
      * @return \Xxtime\Flysystem\Aliyun\OssAdapter
      * @throws \Exception
      */
-    protected function prepareAdapter()
+    protected function createDriver()
     {
         return new \Xxtime\Flysystem\Aliyun\OssAdapter([
             'access_id' => $this->accessId,

@@ -64,7 +64,7 @@ class AzureFilesystemAdapter extends FilesystemAdapter
     /**
      * @return \League\Flysystem\Azure\AzureAdapter
      */
-    protected function prepareAdapter()
+    protected function createDriver()
     {
         return new \League\Flysystem\Azure\AzureAdapter(
             ServicesBuilder::getInstance()->createBlobService(sprintf(

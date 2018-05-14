@@ -91,7 +91,7 @@ class SftpFilesystemAdapter extends FilesystemAdapter
     /**
      * @return \League\Flysystem\Sftp\SftpAdapter
      */
-    protected function prepareAdapter()
+    protected function createDriver()
     {
         $config = [];
 

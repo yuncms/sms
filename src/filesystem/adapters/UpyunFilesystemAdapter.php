@@ -59,7 +59,7 @@ class UpyunFilesystemAdapter extends FilesystemAdapter
      * 准备适配器
      * @return \JellyBool\Flysystem\Upyun\UpyunAdapter
      */
-    protected function prepareAdapter()
+    protected function createDriver()
     {
         return new \JellyBool\Flysystem\Upyun\UpyunAdapter($this->accessId, $this->accessSecret, $this->bucket, $this->domain);
     }

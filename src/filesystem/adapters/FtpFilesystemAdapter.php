@@ -92,7 +92,7 @@ class FtpFilesystemAdapter extends FilesystemAdapter
     /**
      * @return  Ftp
      */
-    protected function prepareAdapter()
+    protected function createDriver()
     {
         $config = [];
         foreach ([
