@@ -58,11 +58,18 @@ return [
         'filesystem' => [
             'class' => yuncms\filesystem\FilesystemManager::class,
             'default' => 'local',
-            'cloud' => '',
+            'cloud' => 'oss',
             'filesystems' => [
-                'local' => [//本地私密存储
+                'local' => [//本地存储
                     'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
                 ],
+                'public' => [//公开存储
+                    'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
+                ],
+                'cloud' => [//云存储
+                    'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
+                ],
+
                 'avatar' => [//头像
                     'class' => yuncms\filesystem\adapters\LocalFilesystemAdapter::class,
                     'url' => '@web/avatar'

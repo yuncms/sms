@@ -7,20 +7,17 @@
 
 namespace yuncms\filesystem\adapters;
 
-use QCloud\Cos\Api;
 use Yii;
 use yii\base\InvalidConfigException;
 use yuncms\filesystem\FilesystemAdapter;
+use Qcloud\Cos\Client;
 
 /**
- * Class CosV4Adapter
- *
- * @author Tongle Xu <xutongle@gmail.com>
- * @since 3.0
+ * Class CosV5FilesystemAdapter
+ * @package yuncms\filesystem\adapters
  */
-class CosV4FilesystemAdapter extends FilesystemAdapter
+class CosFilesystemAdapter extends FilesystemAdapter
 {
-    public $protocol = 'http';
     public $appId;
     public $accessId;
     public $accessSecret;
@@ -28,7 +25,11 @@ class CosV4FilesystemAdapter extends FilesystemAdapter
     public $domain;
     public $region;
     public $timeout = 60;
-    public $debug = false;
+    public $connectTimeout = 10;
+    /**
+     * @var string https://{your-bucket}-{your-app-id}.file.myqcloud.com
+     */
+    public $cdn = '';
 
     /**
      * @inheritdoc
@@ -66,24 +67,25 @@ class CosV4FilesystemAdapter extends FilesystemAdapter
 
     /**
      * 准备适配器
-     * @return \Freyo\Flysystem\QcloudCOSv4\Adapter
-     * @throws \Exception
+     * @return \Freyo\Flysystem\QcloudCOSv5\Adapter
      */
-    protected function prepareAdapter()
+    protected function createDriver()
     {
         $config = [
-            'protocol' => $this->protocol,
-            'domain' => $this->domain,
-            'app_id' => $this->appId,
-            'secret_id' => $this->accessId,
-            'secret_key' => $this->accessSecret,
-            'timeout' => $this->timeout,
-            'bucket' => $this->bucket,
             'region' => $this->region,
-            'debug' => $this->debug,
+            'credentials' => [
+                'appId' => $this->appId,
+                'secretId' => $this->accessId,
+                'secretKey' => $this->accessSecret,
+            ],
+            'timeout' => $this->timeout,
+            'connect_timeout' => $this->timeout,
+            'bucket' => $this->bucket,
+            'cdn' => $this->cdn,
         ];
-        $cosApi = new Api($config);
 
-        return new \Freyo\Flysystem\QcloudCOSv4\Adapter($cosApi,$config);
+        $client = new Client($config);
+
+        return new \Freyo\Flysystem\QcloudCOSv5\Adapter($client, $config);
     }
 }

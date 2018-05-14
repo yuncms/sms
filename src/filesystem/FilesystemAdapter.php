@@ -7,6 +7,9 @@
 
 namespace yuncms\filesystem;
 
+use League\Flysystem\FileExistsException;
+use League\Flysystem\PluginInterface;
+use League\Flysystem\RootViolationException;
 use RuntimeException;
 use yii\base\InvalidArgumentException;
 use yii\di\Instance;
@@ -23,7 +26,6 @@ use yuncms\filesystem\exceptions\FileNotFoundException as ContractFileNotFoundEx
 use yuncms\web\UploadedFile;
 
 /**
- * @mixin \League\Flysystem\FilesystemInterface
  *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
@@ -382,55 +384,6 @@ abstract class FilesystemAdapter extends Component implements FilesystemInterfac
     protected function concatPathToUrl($url, $path)
     {
         return rtrim($url, '/') . '/' . ltrim($path, '/');
-    }
-
-    /**
-     * Get an array of all files in a directory.
-     *
-     * @param  string|null $directory
-     * @param  bool $recursive
-     * @return array
-     */
-    public function files($directory = null, $recursive = false)
-    {
-        $contents = $this->driver->listContents($directory, $recursive);
-
-        return $this->filterContentsByType($contents, 'file');
-    }
-
-    /**
-     * Get all of the files from the given directory (recursive).
-     *
-     * @param  string|null $directory
-     * @return array
-     */
-    public function allFiles($directory = null)
-    {
-        return $this->files($directory, true);
-    }
-
-    /**
-     * Get all of the directories within a given directory.
-     *
-     * @param  string|null $directory
-     * @param  bool $recursive
-     * @return array
-     */
-    public function directories($directory = null, $recursive = false)
-    {
-        $contents = $this->driver->listContents($directory, $recursive);
-        return $this->filterContentsByType($contents, 'dir');
-    }
-
-    /**
-     * Get all (recursive) of the directories within a given directory.
-     *
-     * @param  string|null $directory
-     * @return array
-     */
-    public function allDirectories($directory = null)
-    {
-        return $this->directories($directory, true);
     }
 
     /**

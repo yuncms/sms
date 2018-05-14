@@ -5,10 +5,10 @@
  * @license http://www.tintsoft.com/license/
  */
 
-
 namespace yuncms\filesystem\adapters;
 
 use Yii;
+use League\Flysystem\AdapterInterface;
 use yuncms\filesystem\FilesystemAdapter;
 
 /**
@@ -19,18 +19,11 @@ use yuncms\filesystem\FilesystemAdapter;
  */
 class NullFilesystemAdapter extends FilesystemAdapter
 {
-    /**
-     * @inheritdoc
-     */
-    public static function displayName(): string
-    {
-        return Yii::t('yuncms', 'Null');
-    }
 
     /**
-     * @return \League\Flysystem\Adapter\NullAdapter
+     * @return AdapterInterface
      */
-    protected function prepareAdapter()
+    protected function createDriver()
     {
         return new \League\Flysystem\Adapter\NullAdapter();
     }

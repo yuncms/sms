@@ -7,10 +7,12 @@
 
 namespace yuncms\filesystem\adapters;
 
+
 use Yii;
 use yii\base\InvalidConfigException;
-use yuncms\filesystem\FilesystemAdapter;
 use League\Flysystem\Adapter\Local;
+use League\Flysystem\AdapterInterface;
+use yuncms\filesystem\FilesystemAdapter;
 use yuncms\helpers\FileHelper;
 
 /**
@@ -25,14 +27,6 @@ class LocalFilesystemAdapter extends FilesystemAdapter
      * @var string
      */
     public $path = '@root/storage';
-
-    /**
-     * @inheritdoc
-     */
-    public static function displayName(): string
-    {
-        return Yii::t('yuncms', 'Local Folder');
-    }
 
     /**
      * @inheritdoc
@@ -51,18 +45,11 @@ class LocalFilesystemAdapter extends FilesystemAdapter
     }
 
     /**
-     * @return Local
+     * 准备适配器
+     * @return AdapterInterface
      */
-    protected function prepareAdapter()
+    protected function createDriver()
     {
         return new Local($this->path);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getRootPath(): string
-    {
-        return FileHelper::normalizePath($this->path);
     }
 }
