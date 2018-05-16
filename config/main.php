@@ -58,17 +58,17 @@ return [
         'filesystem' => [
             'class' => yuncms\filesystem\FilesystemManager::class,
             'default' => 'local',
-            'cloud' => 'oss',
+            //'cloud' => 'oss',
             'filesystems' => [
                 'local' => [//本地存储
                     'class' => yuncms\filesystem\adapters\LocalAdapter::class,
                 ],
-                'public' => [//公开存储
-                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
-                ],
-                'cloud' => [//云存储
-                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
-                ],
+//                'public' => [//公开存储
+//                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
+//                ],
+//                'cloud' => [//云存储
+//                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
+//                ],
 
                 'avatar' => [//头像
                     'class' => yuncms\filesystem\adapters\LocalAdapter::class,
