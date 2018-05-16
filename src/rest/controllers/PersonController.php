@@ -15,6 +15,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 use yuncms\rest\Controller;
 use yuncms\rest\models\AvatarForm;
+use yuncms\rest\models\NicknameForm;
 use yuncms\rest\models\User;
 use yuncms\rest\models\UserSettingsForm;
 use yuncms\rest\models\UserRecoveryForm;
@@ -117,6 +118,24 @@ class PersonController extends Controller
             'transfer_balance' => $user->transfer_balance,
             'balance' => $user->balance
         ];
+    }
+
+    /**
+     * @return bool|NicknameForm
+     * @throws InvalidConfigException
+     * @throws ServerErrorHttpException
+     */
+    public function actionNickname()
+    {
+        $model = new NicknameForm();
+        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+        if (($user = $model->save()) != false) {
+            Yii::$app->getResponse()->setStatusCode(200);
+            return $user;
+        } elseif (!$model->hasErrors()) {
+            throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+        }
+        return $model;
     }
 
     /**
@@ -261,19 +280,19 @@ class PersonController extends Controller
 
     /**
      * 实名认证
-     * @return \yuncms\authentication\rest\models\Authentication
+     * @return \yuncms\identification\rest\models\Identification
      * @throws MethodNotAllowedHttpException
      * @throws ServerErrorHttpException
      * @throws \yii\base\InvalidConfigException
      */
-    public function actionAuthentication()
+    public function actionIdentification()
     {
-        if (!class_exists('yuncms\authentication\rest\models\Authentication')) {
-            throw new InvalidConfigException('No authentication module installed.');
+        if (!class_exists('yuncms\identification\rest\models\Authentication')) {
+            throw new InvalidConfigException('No identification module installed.');
         } else {
             if (Yii::$app->request->isPost) {
-                $model = \yuncms\authentication\rest\models\Authentication::findByUserId(Yii::$app->user->getId());
-                $model->scenario = \yuncms\authentication\rest\models\Authentication::SCENARIO_UPDATE;
+                $model = \yuncms\identification\rest\models\Identification::findByUserId(Yii::$app->user->getId());
+                $model->scenario = \yuncms\identification\rest\models\Identification::SCENARIO_UPDATE;
                 $model->load(Yii::$app->getRequest()->getBodyParams(), '');
                 if (($model->save()) != false) {
                     $response = Yii::$app->getResponse();
@@ -284,7 +303,7 @@ class PersonController extends Controller
                 }
                 return $model;
             } else if (Yii::$app->request->isGet) {
-                return \yuncms\authentication\rest\models\Authentication::findByUserId(Yii::$app->user->getId());
+                return \yuncms\identification\rest\models\Identification::findByUserId(Yii::$app->user->getId());
             }
             throw new MethodNotAllowedHttpException();
         }
