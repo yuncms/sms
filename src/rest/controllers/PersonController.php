@@ -43,13 +43,14 @@ class PersonController extends Controller
             'profile' => ['GET', 'PUT', 'PATCH'],
             'social' => ['GET'],
             'me' => ['GET'],
+            'nickname' => ['POST', 'PUT', 'PATCH'],
             'register' => ['POST'],
             'mobile-register' => ['POST'],
             'email-register' => ['POST'],
             'password' => ['POST'],
             'recovery' => ['POST'],
             'avatar' => ['POST'],
-            'authentication' => ['POST', 'GET'],
+            'identification' => ['POST', 'GET'],
             'notifications' => ['GET'],
         ];
     }
