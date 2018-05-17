@@ -132,7 +132,7 @@ class UploadedFile extends \yii\web\UploadedFile
     public function save()
     {
         $filePath = $this->getRename();
-        if (!self::getVolume()->has($filePath)) {
+        if (!self::getVolume()->exists($filePath)) {
             $type = $this->getMimeType();
             $fileContent = FileHelper::readAndDelete($this->tempName);
             self::getVolume()->write($filePath, $fileContent, [

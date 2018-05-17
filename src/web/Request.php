@@ -44,8 +44,12 @@ class Request extends \yii\web\Request
         return stripos($userAgent, 'Alipay') !== false;
     }
 
-    public function getFile()
+    /**
+     * @param string $field
+     * @return \yuncms\web\UploadedFile
+     */
+    public function file($field)
     {
-
+        return UploadedFile::getInstanceByName($field);
     }
 }

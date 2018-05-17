@@ -8,6 +8,8 @@
 namespace yuncms\db;
 
 use Yii;
+use yii\base\NotSupportedException;
+use yii\db\Query;
 use yuncms\db\jobs\CreateActiveRecordJob;
 use yuncms\db\jobs\DeleteActiveRecordJob;
 use yuncms\db\jobs\DeleteAllActiveRecordJob;
@@ -16,6 +18,7 @@ use yuncms\db\jobs\UpdateActiveRecordAllJob;
 use yuncms\db\jobs\UpdateActiveRecordAttributesJob;
 use yuncms\db\jobs\UpdateActiveRecordCountersJob;
 use yuncms\helpers\Json;
+use yuncms\helpers\StringHelper;
 
 /**
  * Class ActiveRecord
@@ -46,6 +49,39 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public function toJson(array $fields = [], array $expand = [], $recursive = true)
     {
         return Json::encode($this->toArray($fields, $expand, $recursive));
+    }
+
+    /**
+     * 生成流水号
+     * @return int
+     * @throws NotSupportedException
+     */
+    public function generateId()
+    {
+        $keys = $this->primaryKey();
+        if (count($keys) === 1) {
+            $i = rand(0, 9999);
+            do {
+                if (9999 == $i) {
+                    $i = 0;
+                }
+                $i++;
+                $id = time() . str_pad($i, 4, '0', STR_PAD_LEFT);
+                $row = (new Query())->from(static::tableName())->where([$keys[0] => $id])->exists();
+            } while ($row);
+            return $id;
+        } else {
+            throw new NotSupportedException('"generateId" is not implemented.');
+        }
+    }
+
+    /**
+     * 生成一个对象ID
+     * @return string
+     */
+    public function generateObjectId()
+    {
+        return StringHelper::ObjectId();
     }
 
     /**
