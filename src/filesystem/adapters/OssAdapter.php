@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\flysystem\adapters;
+namespace yuncms\filesystem\adapters;
 
 use Exception;
 use OSS\OssClient;

@@ -145,6 +145,7 @@ class FilesystemManager extends Component
      * @param  array $config
      * @return \yuncms\filesystem\Filesystem
      * @throws \OSS\Core\OssException
+     * @throws \Exception
      */
     public function createOssAdapter(array $config)
     {
@@ -159,7 +160,7 @@ class FilesystemManager extends Component
         $oss->setConnectTimeout($config['connectTimeout']);
 
         return $this->adapt($this->createFlysystem(
-            new OssAdapter($oss, $config['endpoint'], $root), $config
+            new OssAdapter($oss, $config['bucket'], $root), $config
         ));
     }
 
