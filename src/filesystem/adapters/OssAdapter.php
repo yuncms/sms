@@ -5,27 +5,26 @@
  * @license http://www.tintsoft.com/license/
  */
 
+namespace yuncms\flysystem\adapters;
 
-namespace yuncms\filesystem\adapters;
-
-use League\Flysystem\Adapter\AbstractAdapter;
+use Exception;
 use OSS\OssClient;
+use League\Flysystem\Config;
+use League\Flysystem\Adapter\AbstractAdapter;
 
 /**
- * Class OSSAdapter
- *
- * @author Tongle Xu <xutongle@gmail.com>
- * @since 3.0
+ * Class OssAdapter
  */
 class OssAdapter extends AbstractAdapter
 {
+
     /**
      * @var OssClient
      */
     private $ossClient;
 
     /**
-     * @var AliYun bucket
+     * @var string AliYun bucket
      */
     private $bucket;
 
@@ -35,44 +34,18 @@ class OssAdapter extends AbstractAdapter
     private $endpoint = 'oss-cn-shanghai.aliyuncs.com';
 
     /**
-     * Constructor.
-     *
+     * OssAdapter constructor.
      * @param OssClient $client
-     * @param string $bucket
+     * @param $bucket
      * @param string $prefix
-     * @param array $config
+     * @throws Exception
      */
-    public function __construct(OssClient $client, $bucket, $prefix = '', array $config = [])
+    public function __construct(OssClient $client, $bucket, $prefix = '')
     {
         $this->ossClient = $client;
         $this->bucket = $bucket;
         $this->setPathPrefix($prefix);
-
-        $this->ossClient->setTimeout($config['timeout'] ?? 3600);
-        $this->ossClient->setConnectTimeout($config['connectTimeout'] ?? 10);
-
-        try {
-
-            empty($config['endpoint']) ? null : $this->endpoint = $config['endpoint'];
-
-
-            if (!empty($config['isCName'])) {
-                $isCName = true;
-            }
-            if (!empty($config['securityToken'])) {
-                $securityToken = $config['securityToken'];
-            }
-            $this->oss = new OssClient(
-                $config['access_id'], $config['access_secret'], $this->endpoint, $isCName, $securityToken
-            );
-
-        } catch (Exception $e) {
-            throw $e;
-        }
-
-        $this->options = $config;
     }
-
 
     /**
      * Write a new file.
@@ -145,6 +118,7 @@ class OssAdapter extends AbstractAdapter
      * @param string $newpath
      *
      * @return bool
+     * @throws \OSS\Core\OssException
      */
     public function rename($path, $newpath)
     {
@@ -160,6 +134,7 @@ class OssAdapter extends AbstractAdapter
      * @param string $newpath
      *
      * @return bool
+     * @throws \OSS\Core\OssException
      */
     public function copy($path, $newpath)
     {
@@ -183,13 +158,14 @@ class OssAdapter extends AbstractAdapter
     /**
      * Delete a directory.
      *
-     * @param string $dirname
+     * @param string $dirName
      *
      * @return bool
+     * @throws \OSS\Core\OssException
      */
-    public function deleteDir($dirname)
+    public function deleteDir($dirName)
     {
-        $lists = $this->listContents($dirname, true);
+        $lists = $this->listContents($dirName, true);
         if (!$lists) {
             return false;
         }
@@ -224,6 +200,7 @@ class OssAdapter extends AbstractAdapter
      * @return array|false file meta data
      *
      * Aliyun OSS ACL value: 'default', 'private', 'public-read', 'public-read-write'
+     * @throws \OSS\Core\OssException
      */
     public function setVisibility($path, $visibility)
     {
@@ -284,6 +261,7 @@ class OssAdapter extends AbstractAdapter
      * @param bool $recursive
      *
      * @return array
+     * @throws \OSS\Core\OssException
      */
     public function listContents($directory = '', $recursive = false)
     {
@@ -403,6 +381,7 @@ class OssAdapter extends AbstractAdapter
      * @param string $path
      *
      * @return array|false
+     * @throws \OSS\Core\OssException
      */
     public function getVisibility($path)
     {
@@ -411,6 +390,5 @@ class OssAdapter extends AbstractAdapter
             'visibility' => $response,
         ];
     }
-
 
 }

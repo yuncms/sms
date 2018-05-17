@@ -150,12 +150,10 @@ class FilesystemManager extends Component
     {
         $root = $config['root'] ?? null;
 
-        $oss = new OssClient(
-            $config['access_id'],
-            $config['access_secret'],
-            $this->endpoint,
-            $isCName,
-            $securityToken
+        $oss = new OssClient($config['access_id'], $config['access_secret'], $config['endpoint'],
+            $config['isCName'] ?? false,
+            $config['securityToken'] ?? null,
+            $config['proxy'] ?? null
         );
         $oss->setTimeout($config['timeout']);
         $oss->setConnectTimeout($config['connectTimeout']);
