@@ -70,28 +70,12 @@ return [
                     'url' => '@webroot/storage/public',
                     'visibility' => 'public',
                 ],
-                's3' => [
-                    'driver' => 's3',
-                    'key' => getenv('AWS_ACCESS_KEY_ID'),
-                    'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
-                    'region' => getenv('AWS_DEFAULT_REGION'),
-                    'bucket' => getenv('AWS_BUCKET'),
-                ],
-
-//                'public' => [//公开存储
-//                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
-//                ],
-//                'cloud' => [//云存储
-//                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
-//                ],
-
-                'avatar' => [//头像
-                    'class' => yuncms\filesystem\adapters\Local::class,
-                    'url' => '@web/avatar'
-                ],
-                'attachment' => [//附件上传
-                    'class' => yuncms\filesystem\adapters\Local::class,
-                    'url' => '@web/uploadfiles'
+                'oss' => [
+                    'adapter' => 'oss',
+                    'bucket' => 'oss',
+                    'access_id' => 'oss',
+                    'access_secret' => 'oss',
+                    'endpoint'=>'oss-cn-hangzhou.aliyuncs.com',
                 ],
             ],
         ],
