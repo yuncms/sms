@@ -1,0 +1,20 @@
+{
+  "name": "yuncms/admin",
+  "description": "The admin module for yuncms.",
+  "keywords": [
+    "yii",
+    "yii2-admin",
+    "admin"
+  ],
+  "type": "yii2-extension",
+  "license": "MIT",
+  "require": {
+    "league/flysystem": "~1.0",
+    "league/flysystem-cached-adapter": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "yuncms\\admin\\": ""
+    }
+  }
+}
