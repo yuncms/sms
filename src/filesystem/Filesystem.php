@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\filesystem\contracts;
+namespace yuncms\filesystem;
 
 /**
  * Interface FilesystemInterface
@@ -41,7 +41,7 @@ interface Filesystem
      * @param  string  $path
      * @return string
      *
-     * @throws \yuncms\filesystem\exceptions\FileNotFoundException
+     * @throws \yuncms\base\FileNotFoundException
      */
     public function get($path);
 

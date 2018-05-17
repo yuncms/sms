@@ -5,13 +5,13 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\filesystem\contracts;
+namespace yuncms\filesystem;
 
 /**
  * Interface CloudFilesystemInterface
- * @package yuncms\filesystem\contracts
+ * @package yuncms\filesystem
  */
-interface CloudFilesystem
+interface Cloud
 {
     /**
      * Get the URL for the file at the given path.

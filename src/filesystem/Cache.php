@@ -7,7 +7,7 @@
 
 namespace yuncms\filesystem;
 
-use yii\caching\Cache as YiiCache;
+use yii\caching\CacheInterface;
 use League\Flysystem\Cached\Storage\AbstractCache;
 
 /**
@@ -19,7 +19,7 @@ use League\Flysystem\Cached\Storage\AbstractCache;
 class Cache extends AbstractCache
 {
     /**
-     * @var YiiCache
+     * @var CacheInterface
      */
     protected $cache;
 
@@ -40,11 +40,11 @@ class Cache extends AbstractCache
     /**
      * Create a new cache instance.
      *
-     * @param YiiCache $yiiCache
+     * @param CacheInterface $yiiCache
      * @param string $key
      * @param integer $expire
      */
-    public function __construct(YiiCache $yiiCache, $key = 'flysystem', $expire = null)
+    public function __construct(CacheInterface $yiiCache, $key = 'flysystem', $expire = null)
     {
         $this->cache = $yiiCache;
         $this->key = $key;
@@ -70,7 +70,7 @@ class Cache extends AbstractCache
     {
         $contents = $this->getForStorage();
 
-        if (! is_null($this->expire)) {
+        if (!is_null($this->expire)) {
             $this->cache->set($this->key, $contents, $this->expire);
         } else {
             $this->cache->set($this->key, $contents);

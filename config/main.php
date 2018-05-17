@@ -58,11 +58,26 @@ return [
         'filesystem' => [
             'class' => yuncms\filesystem\FilesystemManager::class,
             'default' => 'local',
-            //'cloud' => 'oss',
-            'filesystems' => [
+            'cloud' => 'oss',
+            'disks' => [
                 'local' => [//本地存储
-                    'class' => yuncms\filesystem\adapters\Local::class,
+                    'adapter' => 'local',
+                    'root' => '@root/storage/app'
                 ],
+                'public' => [
+                    'adapter' => 'local',
+                    'root' => '@root/storage/public',
+                    'url' => '@webroot/storage/public',
+                    'visibility' => 'public',
+                ],
+                's3' => [
+                    'driver' => 's3',
+                    'key' => getenv('AWS_ACCESS_KEY_ID'),
+                    'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
+                    'region' => getenv('AWS_DEFAULT_REGION'),
+                    'bucket' => getenv('AWS_BUCKET'),
+                ],
+
 //                'public' => [//公开存储
 //                    'class' => yuncms\filesystem\adapters\LocalAdapter::class,
 //                ],

@@ -4,21 +4,16 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\filesystem;
 
 use RuntimeException;
 use yii\base\InvalidArgumentException;
-use yii\di\Instance;
-use yii\base\Component;
-use yii\base\InvalidConfigException;
-use yii\caching\Cache as YiiCache;
 use League\Flysystem\AdapterInterface;
+use League\Flysystem\FilesystemInterface;
 use League\Flysystem\Cached\CachedAdapter;
 use League\Flysystem\FileNotFoundException;
-use League\Flysystem\Filesystem as Flysystem;
-use yuncms\filesystem\contracts\CloudFilesystem;
-use yuncms\filesystem\contracts\Filesystem;
-use yuncms\filesystem\exceptions\FileNotFoundException as ContractFileNotFoundException;
+use yuncms\base\FileNotFoundException as ContractFileNotFoundException;
 use yuncms\web\UploadedFile;
 
 /**
@@ -29,7 +24,7 @@ use yuncms\web\UploadedFile;
  * @property string $visibility
  * @property string|false $rootUrl
  */
-abstract class FilesystemAdapter extends Component implements Filesystem, CloudFilesystem
+class FilesystemAdapter implements Filesystem, Cloud
 {
     /**
      * The Flysystem filesystem implementation.
@@ -39,44 +34,13 @@ abstract class FilesystemAdapter extends Component implements Filesystem, CloudF
     protected $driver;
 
     /**
-     * @var string|YiiCache
+     * FilesystemAdapter constructor.
+     * @param FilesystemInterface $driver
      */
-    public $cache = 'cache';
-
-    /**
-     * @var string
-     */
-    public $cacheKey = 'filesystem';
-
-    /**
-     * @var integer
-     */
-    public $cacheDuration = 0;
-
-    /**
-     * 初始化适配器
-     * @throws InvalidConfigException
-     */
-    public function init()
+    public function __construct(FilesystemInterface $driver)
     {
-        parent::init();
-        $driver = $this->createDriver();
-        if ($this->cache !== null) {
-            $this->cache = Instance::ensure($this->cache, YiiCache::class);
-            if (!$this->cache instanceof YiiCache) {
-                throw new InvalidConfigException('The "cache" property must be an instance of \yii\caching\Cache subclasses.');
-            }
-            $driver = new CachedAdapter($driver, new Cache($this->cache, $this->cacheKey, $this->cacheDuration));
-        }
-        // And use that to create the file system
-        $this->driver = new Flysystem($driver);
+        $this->driver = $driver;
     }
-
-    /**
-     * 准备适配器
-     * @return AdapterInterface
-     */
-    abstract protected function createDriver();
 
     /**
      * 判断文件是否存在
