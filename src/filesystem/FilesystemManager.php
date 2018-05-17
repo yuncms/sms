@@ -150,14 +150,13 @@ class FilesystemManager extends Component
     public function createOssAdapter(array $config)
     {
         $root = $config['root'] ?? null;
-
         $oss = new OssClient($config['access_id'], $config['access_secret'], $config['endpoint'],
             $config['isCName'] ?? false,
             $config['securityToken'] ?? null,
             $config['proxy'] ?? null
         );
-        $oss->setTimeout($config['timeout']);
-        $oss->setConnectTimeout($config['connectTimeout']);
+        $oss->setTimeout($config['timeout'] ?? 3600);
+        $oss->setConnectTimeout($config['connectTimeout'] ?? 10);
 
         return $this->adapt($this->createFlysystem(
             new OssAdapter($oss, $config['bucket'], $root), $config

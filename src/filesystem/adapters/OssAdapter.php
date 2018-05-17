@@ -58,7 +58,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function write($path, $contents, Config $config)
     {
-        return $this->ossClient->putObject($this->bucket, $path, $contents);
+        $location = $this->applyPathPrefix($path);
+        return $this->ossClient->putObject($this->bucket, $location, $contents);
     }
 
     /**
@@ -72,7 +73,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function writeStream($path, $resource, Config $config)
     {
-        $result = $this->write($path, stream_get_contents($resource), $config);
+        $location = $this->applyPathPrefix($path);
+        $result = $this->write($location, stream_get_contents($resource), $config);
         if (is_resource($resource)) {
             fclose($resource);
         }
@@ -90,7 +92,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function update($path, $contents, Config $config)
     {
-        return $this->ossClient->putObject($this->bucket, $path, $contents);
+        $location = $this->applyPathPrefix($path);
+        return $this->ossClient->putObject($this->bucket, $location, $contents);
     }
 
     /**
@@ -104,7 +107,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function updateStream($path, $resource, Config $config)
     {
-        $result = $this->write($path, stream_get_contents($resource), $config);
+        $location = $this->applyPathPrefix($path);
+        $result = $this->write($location, stream_get_contents($resource), $config);
         if (is_resource($resource)) {
             fclose($resource);
         }
@@ -122,8 +126,10 @@ class OssAdapter extends AbstractAdapter
      */
     public function rename($path, $newpath)
     {
-        $this->ossClient->copyObject($this->bucket, $path, $this->bucket, $newpath);
-        $this->ossClient->deleteObject($this->bucket, $path);
+        $location = $this->applyPathPrefix($path);
+        $destination = $this->applyPathPrefix($newpath);
+        $this->ossClient->copyObject($this->bucket, $location, $this->bucket, $destination);
+        $this->ossClient->deleteObject($this->bucket, $location);
         return true;
     }
 
@@ -138,7 +144,9 @@ class OssAdapter extends AbstractAdapter
      */
     public function copy($path, $newpath)
     {
-        $this->ossClient->copyObject($this->bucket, $path, $this->bucket, $newpath);
+        $location = $this->applyPathPrefix($path);
+        $destination = $this->applyPathPrefix($newpath);
+        $this->ossClient->copyObject($this->bucket, $location, $this->bucket, $destination);
         return true;
     }
 
@@ -151,7 +159,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function delete($path)
     {
-        $this->ossClient->deleteObject($this->bucket, $path);
+        $location = $this->applyPathPrefix($path);
+        $this->ossClient->deleteObject($this->bucket, $location);
         return true;
     }
 
@@ -165,7 +174,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function deleteDir($dirName)
     {
-        $lists = $this->listContents($dirName, true);
+        $location = $this->applyPathPrefix($dirName);
+        $lists = $this->listContents($location, true);
         if (!$lists) {
             return false;
         }
@@ -222,7 +232,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function has($path)
     {
-        return $this->ossClient->doesObjectExist($this->bucket, $path);
+        $location = $this->applyPathPrefix($path);
+        return $this->ossClient->doesObjectExist($this->bucket, $location);
     }
 
     /**
@@ -234,8 +245,9 @@ class OssAdapter extends AbstractAdapter
      */
     public function read($path)
     {
+        $location = $this->applyPathPrefix($path);
         return [
-            'contents' => $this->ossClient->getObject($this->bucket, $path)
+            'contents' => $this->ossClient->getObject($this->bucket, $location)
         ];
     }
 
@@ -248,7 +260,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function readStream($path)
     {
-        $resource = 'http://' . $this->bucket . '.' . $this->endpoint . '/' . $path;
+        $location = $this->applyPathPrefix($path);
+        $resource = 'http://' . $this->bucket . '.' . $this->endpoint . '/' . $location;
         return [
             'stream' => $resource = fopen($resource, 'r')
         ];
@@ -327,7 +340,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function getMetadata($path)
     {
-        return $this->ossClient->getObjectMeta($this->bucket, $path);
+        $location = $this->applyPathPrefix($path);
+        return $this->ossClient->getObjectMeta($this->bucket, $location);
     }
 
     /**
@@ -339,7 +353,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function getSize($path)
     {
-        $response = $this->ossClient->getObjectMeta($this->bucket, $path);
+        $location = $this->applyPathPrefix($path);
+        $response = $this->ossClient->getObjectMeta($this->bucket, $location);
         return [
             'size' => $response['content-length']
         ];
@@ -354,7 +369,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function getMimetype($path)
     {
-        $response = $this->ossClient->getObjectMeta($this->bucket, $path);
+        $location = $this->applyPathPrefix($path);
+        $response = $this->ossClient->getObjectMeta($this->bucket, $location);
         return [
             'mimetype' => $response['content-type']
         ];
@@ -369,7 +385,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function getTimestamp($path)
     {
-        $response = $this->ossClient->getObjectMeta($this->bucket, $path);
+        $location = $this->applyPathPrefix($path);
+        $response = $this->ossClient->getObjectMeta($this->bucket, $location);
         return [
             'timestamp' => $response['last-modified']
         ];
@@ -385,7 +402,8 @@ class OssAdapter extends AbstractAdapter
      */
     public function getVisibility($path)
     {
-        $response = $this->ossClient->getObjectAcl($this->bucket, $path);
+        $location = $this->applyPathPrefix($path);
+        $response = $this->ossClient->getObjectAcl($this->bucket, $location);
         return [
             'visibility' => $response,
         ];
