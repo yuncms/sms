@@ -31,7 +31,7 @@ class OssAdapter extends AbstractAdapter
     /**
      * @var string
      */
-    private $endpoint = 'oss-cn-shanghai.aliyuncs.com';
+    private $endpoint = 'oss-cn-hangzhou.aliyuncs.com';
 
     /**
      * OssAdapter constructor.
