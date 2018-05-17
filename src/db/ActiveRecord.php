@@ -78,6 +78,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
     /**
      * 生成一个对象ID
      * @return string
+     * @see StringHelper
      */
     public function generateObjectId()
     {

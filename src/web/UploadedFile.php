@@ -12,6 +12,7 @@ use yii\httpclient\Client;
 use yii\validators\UrlValidator;
 use yuncms\filesystem\FilesystemAdapter;
 use yuncms\helpers\FileHelper;
+use yuncms\helpers\StringHelper;
 use yuncms\models\Attachment;
 use League\Flysystem\AdapterInterface;
 
@@ -27,6 +28,29 @@ use League\Flysystem\AdapterInterface;
 class UploadedFile extends \yii\web\UploadedFile
 {
     public $isUploadedFile;
+
+    /**
+     * The cache copy of the file's hash name.
+     *
+     * @var string
+     */
+    protected $hashName = null;
+
+    /**
+     * Get a filename for the file.
+     *
+     * @param  string $path
+     * @return string
+     * @throws \Exception
+     */
+    public function hashName($path = null)
+    {
+        if ($path) {
+            $path = rtrim($path, '/') . '/';
+        }
+        $hash = $this->hashName ?: $this->hashName = StringHelper::randomString(40);
+        return $path . $hash . '.' . $this->getExtension();
+    }
 
     /**
      * 返回一个Base64加载的文件实例
@@ -182,4 +206,6 @@ class UploadedFile extends \yii\web\UploadedFile
         }
         return $tempPath;
     }
+
+
 }
