@@ -131,12 +131,38 @@ class FilesystemManager extends Component
     }
 
     /**
+     * Create an instance of the oss driver.
+     *
+     * @param  array  $config
+     * @return \yuncms\filesystem\Filesystem
+     */
+    public function createOssAdapter(array $config)
+    {
+        return $this->adapt($this->createFlysystem(
+            new \Xxtime\Flysystem\Aliyun\OssAdapter($config), $config
+        ));
+    }
+
+    /**
+     * Create an instance of the oss driver.
+     *
+     * @param  array  $config
+     * @return \yuncms\filesystem\Filesystem
+     */
+    public function createUpyunAdapter(array $config)
+    {
+        return $this->adapt($this->createFlysystem(
+            new \JellyBool\Flysystem\Upyun\UpyunAdapter($this->accessId, $this->accessSecret, $this->bucket, $this->domain), $config
+        ));
+    }
+
+    /**
      * Create an instance of the ftp driver.
      *
      * @param  array  $config
      * @return \yuncms\filesystem\Filesystem
      */
-    public function createFtpDriver(array $config)
+    public function createFtpAdapter(array $config)
     {
         return $this->adapt($this->createFlysystem(
             new FtpAdapter($config), $config
@@ -149,7 +175,7 @@ class FilesystemManager extends Component
      * @param  array $config
      * @return Filesystem
      */
-    public function createS3Driver(array $config)
+    public function createS3Adapter(array $config)
     {
         $s3Config = $this->formatS3Config($config);
         $root = $s3Config['root'] ?? null;
