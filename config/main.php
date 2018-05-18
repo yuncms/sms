@@ -67,16 +67,10 @@ return [
                 'public' => [
                     'adapter' => 'local',
                     'root' => '@root/storage/public',
-                    'url' => '@webroot/storage/public',
+                    'url' => '@web/storage/public',
                     'visibility' => 'public',
                 ],
-                'oss' => [
-                    'adapter' => 'oss',
-                    'bucket' => 'oss',
-                    'access_id' => 'oss',
-                    'access_secret' => 'oss',
-                    'endpoint'=>'oss-cn-hangzhou.aliyuncs.com',
-                ],
+                
             ],
         ],
         'notification' => [
