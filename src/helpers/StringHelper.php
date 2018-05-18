@@ -60,6 +60,29 @@ class StringHelper extends \yii\helpers\StringHelper
     }
 
     /**
+     * 替换字符串中给定值的第一个匹配项。
+     *
+     * @param  string  $search
+     * @param  string  $replace
+     * @param  string  $subject
+     * @return string
+     */
+    public static function replaceFirst($search, $replace, $subject)
+    {
+        if ($search == '') {
+            return $subject;
+        }
+
+        $position = strpos($subject, $search);
+
+        if ($position !== false) {
+            return substr_replace($subject, $replace, $position, strlen($search));
+        }
+
+        return $subject;
+    }
+
+    /**
      * Returns a camelCase version of the given string. Trims surrounding spaces, capitalizes letters following digits,
      * spaces, dashes and underscores, and removes spaces, dashes, as well as underscores.
      *

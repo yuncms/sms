@@ -97,6 +97,18 @@ class FilesystemManager extends Component
     }
 
     /**
+     * Set the given disk instance.
+     *
+     * @param  string $name
+     * @param  mixed $disk
+     * @return void
+     */
+    public function set($name, $disk)
+    {
+        $this->disks[$name] = $disk;
+    }
+
+    /**
      * Resolve the given disk.
      *
      * @param  string $name
@@ -157,7 +169,7 @@ class FilesystemManager extends Component
         );
         $oss->setTimeout($config['timeout'] ?? 3600);
         $oss->setConnectTimeout($config['connectTimeout'] ?? 10);
-
+        $oss->setUseSSL($config['useSSL'] ?? false);
         return $this->adapt($this->createFlysystem(
             new OssAdapter($oss, $config['bucket'], $root), $config
         ));

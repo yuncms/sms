@@ -7,10 +7,11 @@
 
 namespace yuncms\filesystem\adapters;
 
-use Exception;
 use OSS\OssClient;
 use League\Flysystem\Config;
 use League\Flysystem\Adapter\AbstractAdapter;
+use RuntimeException;
+use yuncms\filesystem\Filesystem;
 
 /**
  * Class OssAdapter
@@ -34,17 +35,39 @@ class OssAdapter extends AbstractAdapter
     private $endpoint = 'oss-cn-hangzhou.aliyuncs.com';
 
     /**
+     * @var array
+     */
+    protected $options = [];
+
+    /**
+     * @var array
+     */
+    protected static $metaOptions = [
+        'Content-Length',
+        'Content-Md5',
+        'Content-Type',
+        'Content-Disposition',
+        'Cache-Control',
+        'Content-Encoding',
+        'Last-Modified',
+        'Expires',
+        'x-oss-callback',
+        'headers'
+    ];
+
+    /**
      * OssAdapter constructor.
      * @param OssClient $client
      * @param $bucket
      * @param string $prefix
-     * @throws Exception
+     * @param array $options
      */
-    public function __construct(OssClient $client, $bucket, $prefix = '')
+    public function __construct(OssClient $client, $bucket, $prefix = '', array $options = [])
     {
         $this->ossClient = $client;
         $this->bucket = $bucket;
         $this->setPathPrefix($prefix);
+        $this->options = $options;
     }
 
     /**
@@ -59,7 +82,8 @@ class OssAdapter extends AbstractAdapter
     public function write($path, $contents, Config $config)
     {
         $location = $this->applyPathPrefix($path);
-        return $this->ossClient->putObject($this->bucket, $location, $contents);
+        $options = $this->getOptionsFromConfig($config);
+        return $this->ossClient->putObject($this->bucket, $location, $contents, $options);
     }
 
     /**
@@ -93,7 +117,8 @@ class OssAdapter extends AbstractAdapter
     public function update($path, $contents, Config $config)
     {
         $location = $this->applyPathPrefix($path);
-        return $this->ossClient->putObject($this->bucket, $location, $contents);
+        $options = $this->getOptionsFromConfig($config);
+        return $this->ossClient->putObject($this->bucket, $location, $contents, $options);
     }
 
     /**
@@ -214,14 +239,14 @@ class OssAdapter extends AbstractAdapter
      */
     public function setVisibility($path, $visibility)
     {
+        $location = $this->applyPathPrefix($path);
         $this->ossClient->putObjectAcl(
             $this->bucket,
-            $path,
+            $location,
             ($visibility == 'public') ? 'public-read' : 'private'
         );
         return true;
     }
-
 
     /**
      * Check whether a file exists.
@@ -261,10 +286,40 @@ class OssAdapter extends AbstractAdapter
     public function readStream($path)
     {
         $location = $this->applyPathPrefix($path);
-        $resource = 'http://' . $this->bucket . '.' . $this->endpoint . '/' . $location;
+        $resource = ($this->ossClient->isUseSSL() ? 'https://' : 'http://') . $this->bucket . '.' . $this->endpoint . '/' . $location;
         return [
             'stream' => $resource = fopen($resource, 'r')
         ];
+    }
+
+    /**
+     * 获取文件访问Url
+     * @param string $path
+     * @return string
+     * @throws \OSS\Core\OssException
+     */
+    public function getUrl($path)
+    {
+        $location = $this->applyPathPrefix($path);
+        if (($this->ossClient->getObjectAcl($this->bucket, $location)) == 'private') {
+            throw new RuntimeException('This object does not support retrieving URLs.');
+        }
+        return ($this->ossClient->isUseSSL() ? 'https://' : 'http://') . $this->bucket . '.' . $this->endpoint . '/' . $location;
+    }
+
+    /**
+     * 获取文件临时访问路径
+     * @param $path
+     * @param $expiration
+     * @param $options
+     * @return string
+     * @throws \OSS\Core\OssException
+     */
+    public function getTemporaryUrl($path, $expiration, $options)
+    {
+        $location = $this->applyPathPrefix($path);
+        $temporaryUrl = $this->ossClient->signUrl($this->bucket, $location, $expiration, OssClient::OSS_HTTP_GET, $options);
+        return $temporaryUrl;
     }
 
     /**
@@ -409,4 +464,38 @@ class OssAdapter extends AbstractAdapter
         ];
     }
 
+    /**
+     * Get options from the config.
+     *
+     * @param Config $config
+     *
+     * @return array
+     */
+    protected function getOptionsFromConfig(Config $config)
+    {
+        $options = $this->options;
+
+        if ($visibility = $config->get('visibility')) {
+            // For local reference
+            $options['visibility'] = $visibility;
+            // For external reference
+            $options['headers']['x-oss-object-acl'] = $visibility === Filesystem::VISIBILITY_PUBLIC ? 'public-read' : 'private';
+        }
+
+        if ($mimetype = $config->get('mimetype')) {
+            // For local reference
+            $options['mimetype'] = $mimetype;
+            // For external reference
+            $options['ContentType'] = $mimetype;
+        }
+
+        foreach (static::$metaOptions as $option) {
+            if (!$config->has($option)) {
+                continue;
+            }
+            $options[$option] = $config->get($option);
+        }
+
+        return $options;
+    }
 }

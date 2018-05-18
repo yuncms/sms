@@ -13,16 +13,14 @@ use League\Flysystem\AdapterInterface;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\Cached\CachedAdapter;
 use League\Flysystem\FileNotFoundException;
+use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use yuncms\base\FileNotFoundException as ContractFileNotFoundException;
+use yuncms\helpers\StringHelper;
 use yuncms\web\UploadedFile;
 
 /**
- *
  * @author Tongle Xu <xutongle@gmail.com>
  * @since 3.0
- *
- * @property string $visibility
- * @property string|false $rootUrl
  */
 class FilesystemAdapter implements Filesystem, Cloud
 {
@@ -306,9 +304,61 @@ class FilesystemAdapter implements Filesystem, Cloud
 
         if (method_exists($adapter, 'getUrl')) {
             return $adapter->getUrl($path);
+        } elseif ($adapter instanceof AwsS3Adapter) {
+            return $this->getAwsUrl($adapter, $path);
         } else {
             throw new RuntimeException('This driver does not support retrieving URLs.');
         }
+    }
+
+    /**
+     * Get the URL for the file at the given path.
+     *
+     * @param  string $path
+     * @return string
+     */
+    protected function getLocalUrl($path)
+    {
+        $config = $this->driver->getConfig();
+
+        // If an explicit base URL has been set on the disk configuration then we will use
+        // it as the base URL instead of the default path. This allows the developer to
+        // have full control over the base path for this filesystem's generated URLs.
+        if ($config->has('url')) {
+            return $this->concatPathToUrl($config->get('url'), $path);
+        }
+
+        $path = '/storage/' . $path;
+
+        // If the path contains "storage/public", it probably means the developer is using
+        // the default disk to generate the path instead of the "public" disk like they
+        // are really supposed to use. We will remove the public from this path here.
+        if (StringHelper::contains($path, '/storage/public/')) {
+            return StringHelper::replaceFirst('/public/', '/', $path);
+        }
+
+        return $path;
+    }
+
+    /**
+     * Get the URL for the file at the given path.
+     *
+     * @param  \League\Flysystem\AwsS3v3\AwsS3Adapter $adapter
+     * @param  string $path
+     * @return string
+     */
+    protected function getAwsUrl($adapter, $path)
+    {
+        // If an explicit base URL has been set on the disk configuration then we will use
+        // it as the base URL instead of the default path. This allows the developer to
+        // have full control over the base path for this filesystem's generated URLs.
+        if (!is_null($url = $this->driver->getConfig()->get('url'))) {
+            return $this->concatPathToUrl($url, $adapter->getPathPrefix() . $path);
+        }
+
+        return $adapter->getClient()->getObjectUrl(
+            $adapter->getBucket(), $adapter->getPathPrefix() . $path
+        );
     }
 
     /**
@@ -329,9 +379,34 @@ class FilesystemAdapter implements Filesystem, Cloud
 
         if (method_exists($adapter, 'getTemporaryUrl')) {
             return $adapter->getTemporaryUrl($path, $expiration, $options);
+        } elseif ($adapter instanceof AwsS3Adapter) {
+            return $this->getAwsTemporaryUrl($adapter, $path, $expiration, $options);
         } else {
             throw new RuntimeException('This driver does not support creating temporary URLs.');
         }
+    }
+
+    /**
+     * Get a temporary URL for the file at the given path.
+     *
+     * @param  \League\Flysystem\AwsS3v3\AwsS3Adapter $adapter
+     * @param  string $path
+     * @param  \DateTimeInterface $expiration
+     * @param  array $options
+     * @return string
+     */
+    public function getAwsTemporaryUrl($adapter, $path, $expiration, $options)
+    {
+        $client = $adapter->getClient();
+
+        $command = $client->getCommand('GetObject', array_merge([
+            'Bucket' => $adapter->getBucket(),
+            'Key' => $adapter->getPathPrefix() . $path,
+        ], $options));
+
+        return (string)$client->createPresignedRequest(
+            $command, $expiration
+        )->getUri();
     }
 
     /**
@@ -423,7 +498,7 @@ class FilesystemAdapter implements Filesystem, Cloud
      *
      * @throws \BadMethodCallException
      */
-    public function __call($method, $params)
+    public function __call($method, array $params)
     {
         return call_user_func_array([$this->driver, $method], $params);
     }

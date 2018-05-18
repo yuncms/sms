@@ -9,7 +9,7 @@ namespace yuncms\filesystem;
 
 /**
  * Interface FilesystemInterface
- * @package yuncms\filesystem\contracts
+ * @package yuncms\filesystem
  */
 interface Filesystem
 {
