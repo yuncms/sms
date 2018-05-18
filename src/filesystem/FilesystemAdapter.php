@@ -15,6 +15,7 @@ use League\Flysystem\Cached\CachedAdapter;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use yuncms\base\FileNotFoundException as ContractFileNotFoundException;
+use yuncms\filesystem\adapters\OssAdapter;
 use yuncms\helpers\StringHelper;
 use yuncms\web\UploadedFile;
 
@@ -304,6 +305,8 @@ class FilesystemAdapter implements Filesystem, Cloud
 
         if (method_exists($adapter, 'getUrl')) {
             return $adapter->getUrl($path);
+        } elseif ($adapter instanceof OssAdapter) {
+            return $this->getOssUrl($adapter, $path);
         } elseif ($adapter instanceof AwsS3Adapter) {
             return $this->getAwsUrl($adapter, $path);
         } else {
@@ -338,6 +341,23 @@ class FilesystemAdapter implements Filesystem, Cloud
         }
 
         return $path;
+    }
+
+    /**
+     * @param OssAdapter $adapter
+     * @param string $path
+     * @return string
+     * @throws \OSS\Core\OssException
+     */
+    protected function getOssUrl($adapter, $path)
+    {
+        // If an explicit base URL has been set on the disk configuration then we will use
+        // it as the base URL instead of the default path. This allows the developer to
+        // have full control over the base path for this filesystem's generated URLs.
+        if (!is_null($url = $this->driver->getConfig()->get('url'))) {
+            return $this->concatPathToUrl($url, $adapter->getPathPrefix() . $path);
+        }
+        return $adapter->getObjectUrl($path);
     }
 
     /**

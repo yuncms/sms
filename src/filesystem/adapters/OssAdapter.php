@@ -293,18 +293,21 @@ class OssAdapter extends AbstractAdapter
     }
 
     /**
-     * 获取文件访问Url
+     * 获取对象访问Url
      * @param string $path
      * @return string
      * @throws \OSS\Core\OssException
      */
-    public function getUrl($path)
+    public function getObjectUrl($path)
     {
         $location = $this->applyPathPrefix($path);
         if (($this->ossClient->getObjectAcl($this->bucket, $location)) == 'private') {
             throw new RuntimeException('This object does not support retrieving URLs.');
         }
-        return ($this->ossClient->isUseSSL() ? 'https://' : 'http://') . $this->bucket . '.' . $this->endpoint . '/' . $location;
+        //SDK未提供获取 hostname的公开方法，这里变相获取
+        $temporaryUrl = $this->getTemporaryUrl($path,60,[]);
+        $urls = parse_url($temporaryUrl);
+        return $urls['scheme'] .'://'. $urls['host'] . $urls['path'];
     }
 
     /**
