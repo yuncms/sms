@@ -9,7 +9,7 @@ namespace yuncms\admin\models;
 
 
 use Yii;
-use yuncms\base\Model;
+use yii\base\Model;
 
 class UserSettings extends Model
 {

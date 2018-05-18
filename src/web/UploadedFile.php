@@ -132,10 +132,11 @@ class UploadedFile extends \yii\web\UploadedFile
     /**
      * 重命名文件
      * @return string
+     * @throws \Exception
      */
     public function getRename()
     {
-        return date('Y') . DIRECTORY_SEPARATOR . date('md') . DIRECTORY_SEPARATOR . date('Ymdhis') . rand(100, 999) . '.' . $this->getExtension();
+        return $this->hashName('uploads' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('md'));
     }
 
     /**
@@ -152,6 +153,7 @@ class UploadedFile extends \yii\web\UploadedFile
      * @return bool|Attachment
      * @throws \yii\base\ErrorException
      * @throws \yii\base\InvalidConfigException
+     * @throws \Exception
      */
     public function save()
     {
@@ -159,8 +161,8 @@ class UploadedFile extends \yii\web\UploadedFile
         if (!self::getDisk()->exists($filePath)) {
             $type = $this->getMimeType();
             $fileContent = FileHelper::readAndDelete($this->tempName);
-            self::getDisk()->write($filePath, $fileContent, [
-                'visibility' => AdapterInterface::VISIBILITY_PRIVATE
+            self::getDisk()->put($filePath, $fileContent, [
+                'visibility' => AdapterInterface::VISIBILITY_PUBLIC
             ]);
             $model = new Attachment([
                 'filename' => basename($filePath),
@@ -182,7 +184,7 @@ class UploadedFile extends \yii\web\UploadedFile
      */
     public static function getDisk()
     {
-        return Yii::$app->filesystem->disk(Yii::$app->settings->get('volume', 'attachment', 'uploads'));
+        return Yii::$app->filesystem->disk(Yii::$app->settings->get('volume', 'attachment', 'public'));
     }
 
     /**

@@ -8,7 +8,7 @@
 namespace yuncms\user\models;
 
 use Yii;
-use yuncms\base\Model;
+use yii\base\Model;
 use yuncms\admin\models\UserSettings;
 use yuncms\helpers\PasswordHelper;
 

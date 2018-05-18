@@ -119,11 +119,11 @@ class Attachment extends ActiveRecord
 
     /**
      * 获取访问Url
-     * @throws \yii\base\InvalidConfigException
+     * @return string
      */
     public function getUrl()
     {
-        return UploadedFile::getVolume()->getUrl($this->path);
+        return UploadedFile::getDisk()->url($this->path);
     }
 
     /**

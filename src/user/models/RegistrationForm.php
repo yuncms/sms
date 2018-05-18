@@ -8,7 +8,7 @@
 namespace yuncms\user\models;
 
 use Yii;
-use yuncms\base\Model;
+use yii\base\Model;
 
 /**
  * Registration form collects user input on registration process, validates it and creates new User model.

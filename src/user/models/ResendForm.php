@@ -8,7 +8,7 @@
 namespace yuncms\user\models;
 
 use Yii;
-use yuncms\base\Model;
+use yii\base\Model;
 
 /**
  * ResendForm gets user email address and validates if user has already confirmed his account. If so, it shows error

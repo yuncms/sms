@@ -10,7 +10,7 @@ namespace yuncms\admin\models;
 use Yii;
 use yii\rbac\Item;
 use yii\helpers\Json;
-use yuncms\base\Model;
+use yii\base\Model;
 use yuncms\helpers\RBACHelper;
 
 /**

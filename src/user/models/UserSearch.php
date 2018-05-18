@@ -8,7 +8,7 @@
 namespace yuncms\user\models;
 
 use yii\data\ActiveDataProvider;
-use yuncms\base\Model;
+use yii\base\Model;
 
 /**
  * 用户搜索模型
