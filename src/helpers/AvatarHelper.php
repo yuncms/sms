@@ -72,17 +72,18 @@ class AvatarHelper
                 $tempFile = Yii::$app->getPath()->getTempPath() . DIRECTORY_SEPARATOR . $user->id . '_avatar_' . $size . '.jpg';
                 Image::thumbnail($originalImage, $value, $value)->save($tempFile, ['quality' => 100]);
                 $currentAvatarPath = $avatarPath . "_avatar_{$size}.jpg";
-                if (self::getVolume()->has($currentAvatarPath)) {
-                    self::getVolume()->delete($currentAvatarPath);
+                if (self::getDisk()->exists($currentAvatarPath)) {
+                    self::getDisk()->delete($currentAvatarPath);
                 }
-                self::getVolume()->write($currentAvatarPath, FileHelper::readAndDelete($tempFile), [
-                    'visibility' => AdapterInterface::VISIBILITY_PRIVATE
+                self::getDisk()->put($currentAvatarPath, FileHelper::readAndDelete($tempFile), [
+                    'visibility' => AdapterInterface::VISIBILITY_PUBLIC
                 ]);
             } catch (Exception $e) {
                 throw $e;
             }
         }
-        return (bool)$user->updateAttributes(['avatar' => true]);
+        $user->updateAttributes(['avatar' => true]);
+        return true;
     }
 
     /**
@@ -106,14 +107,13 @@ class AvatarHelper
      * @param User $user
      * @param string $size
      * @return string
-     * @throws \yii\base\InvalidConfigException
      */
     public static function getAvatar(User $user, $size = self::AVATAR_MIDDLE)
     {
         $size = in_array($size, [self::AVATAR_BIG, self::AVATAR_MIDDLE, self::AVATAR_SMALL]) ? $size : self::AVATAR_BIG;
         if ($user->getIsAvatar()) {
             $avatarPath = AvatarHelper::getAvatarPath($user->id) . "_avatar_{$size}.jpg";
-            return static::getVolume()->getUrl($avatarPath) . '?_t=' . $user->updated_at;
+            return static::getDisk()->url($avatarPath) . '?_t=' . $user->updated_at;
         } else {
             $avatarUrl = "/img/no_avatar_{$size}.gif";
             if (Yii::getAlias('@webroot', false)) {
@@ -136,16 +136,15 @@ class AvatarHelper
         $dir1 = substr($id, 0, 3);
         $dir2 = substr($id, 3, 2);
         $dir3 = substr($id, 5, 2);
-        return $dir1 . '/' . $dir2 . '/' . $dir3 . '/' . substr($userId, -2);
+        return 'avatar' . '/' . $dir1 . '/' . $dir2 . '/' . $dir3 . '/' . substr($userId, -2);
     }
 
     /**
      * 获取头像存储卷
-     * @return FilesystemAdapter
-     * @throws \yii\base\InvalidConfigException
+     * @return \yuncms\filesystem\Cloud|\yuncms\filesystem\Filesystem|FilesystemAdapter
      */
-    public static function getVolume()
+    public static function getDisk()
     {
-        return Yii::$app->getFilesystem()->get(Yii::$app->settings->get('avatarVolume', 'user', 'avatar'));
+        return Yii::$app->filesystem->disk(Yii::$app->settings->get('avatarVolume', 'user', 'public'));
     }
 }

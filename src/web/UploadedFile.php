@@ -156,10 +156,10 @@ class UploadedFile extends \yii\web\UploadedFile
     public function save()
     {
         $filePath = $this->getRename();
-        if (!self::getVolume()->exists($filePath)) {
+        if (!self::getDisk()->exists($filePath)) {
             $type = $this->getMimeType();
             $fileContent = FileHelper::readAndDelete($this->tempName);
-            self::getVolume()->write($filePath, $fileContent, [
+            self::getDisk()->write($filePath, $fileContent, [
                 'visibility' => AdapterInterface::VISIBILITY_PRIVATE
             ]);
             $model = new Attachment([
@@ -178,12 +178,11 @@ class UploadedFile extends \yii\web\UploadedFile
 
     /**
      * 获取存储卷
-     * @return FilesystemAdapter
-     * @throws \yii\base\InvalidConfigException
+     * @return \yuncms\filesystem\Cloud|\yuncms\filesystem\Filesystem|FilesystemAdapter
      */
-    public static function getVolume()
+    public static function getDisk()
     {
-        return Yii::$app->getFilesystem()->get(Yii::$app->settings->get('volume', 'attachment', 'attachment'));
+        return Yii::$app->filesystem->disk(Yii::$app->settings->get('volume', 'attachment', 'uploads'));
     }
 
     /**

@@ -66,7 +66,7 @@ class FilesystemManager extends Component
     /**
      * 获取磁盘
      * @param string|null $disk
-     * @return Filesystem
+     * @return \yuncms\filesystem\Filesystem|\yuncms\filesystem\Cloud
      */
     public function cloud($disk = null)
     {
@@ -77,7 +77,7 @@ class FilesystemManager extends Component
     /**
      * 获取磁盘
      * @param string|null $disk
-     * @return Filesystem
+     * @return \yuncms\filesystem\Filesystem|\yuncms\filesystem\Cloud
      */
     public function disk($disk = null)
     {
@@ -89,7 +89,7 @@ class FilesystemManager extends Component
      * Attempt to get the disk from the local cache.
      *
      * @param  string $name
-     * @return \yuncms\filesystem\Filesystem
+     * @return \yuncms\filesystem\Filesystem|\yuncms\filesystem\Cloud
      */
     protected function get($name)
     {

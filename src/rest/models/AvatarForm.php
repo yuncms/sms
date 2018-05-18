@@ -9,7 +9,6 @@ namespace yuncms\rest\models;
 
 use Yii;
 use yii\base\ErrorException;
-use yii\base\Exception;
 use yii\base\Model;
 use yuncms\helpers\AvatarHelper;
 use yuncms\web\UploadedFile;
@@ -17,6 +16,8 @@ use yuncms\web\UploadedFile;
 /**
  * Class AvatarForm
  * @package api\modules\v1\models
+ *
+ * @property \yuncms\user\models\User $user
  */
 class AvatarForm extends Model
 {
@@ -24,6 +25,11 @@ class AvatarForm extends Model
      * @var UploadedFile 头像上传字段
      */
     public $file;
+
+    /**
+     * @var string
+     */
+    public $faceUrl;
 
     /**
      * @var \yuncms\user\models\User
@@ -56,13 +62,15 @@ class AvatarForm extends Model
         if ($this->validate()) {
             try {
                 if (AvatarHelper::save($this->getUser(), $this->_originalImage)) {
+                    $this->file = null;
+                    $this->faceUrl = AvatarHelper::getAvatar($this->getUser());
                     return true;
                 } else {
                     return false;
                 }
             } catch (ErrorException $e) {
                 $this->addError('file', $e->getMessage());
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->addError('file', $e->getMessage());
             }
         }

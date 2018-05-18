@@ -251,9 +251,9 @@ class PersonController extends Controller
     {
         $model = new AvatarForm();
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
-        if (($user = $model->save()) != false) {
+        if (($model->save()) !== false) {
             Yii::$app->getResponse()->setStatusCode(200);
-            return $user;
+            return $model;
         } elseif (!$model->hasErrors()) {
             throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
         }

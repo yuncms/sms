@@ -8,12 +8,14 @@
 namespace yuncms\filesystem;
 
 use RuntimeException;
+use Yii;
 use yii\base\InvalidArgumentException;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\Cached\CachedAdapter;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
+use League\Flysystem\Adapter\Local as LocalAdapter;
 use yuncms\base\FileNotFoundException as ContractFileNotFoundException;
 use yuncms\filesystem\adapters\OssAdapter;
 use yuncms\helpers\StringHelper;
@@ -294,6 +296,7 @@ class FilesystemAdapter implements Filesystem, Cloud
      *
      * @param  string $path
      * @return string
+     * @throws \OSS\Core\OssException
      */
     public function url($path)
     {
@@ -309,6 +312,8 @@ class FilesystemAdapter implements Filesystem, Cloud
             return $this->getOssUrl($adapter, $path);
         } elseif ($adapter instanceof AwsS3Adapter) {
             return $this->getAwsUrl($adapter, $path);
+        } elseif ($adapter instanceof LocalAdapter) {
+            return $this->getLocalUrl($path);
         } else {
             throw new RuntimeException('This driver does not support retrieving URLs.');
         }
@@ -328,7 +333,7 @@ class FilesystemAdapter implements Filesystem, Cloud
         // it as the base URL instead of the default path. This allows the developer to
         // have full control over the base path for this filesystem's generated URLs.
         if ($config->has('url')) {
-            return $this->concatPathToUrl($config->get('url'), $path);
+            return $this->concatPathToUrl(Yii::getAlias($config->get('url')), $path);
         }
 
         $path = '/storage/' . $path;
