@@ -46,6 +46,7 @@ class UploaderFileForm extends Model
     /**
      * 保存图片
      * @return bool
+     * @throws \Exception
      */
     public function save()
     {

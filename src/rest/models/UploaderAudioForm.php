@@ -48,6 +48,7 @@ class UploaderAudioForm extends Model
     /**
      * 保存图片
      * @return boolean
+     * @throws \Exception
      */
     public function save()
     {
